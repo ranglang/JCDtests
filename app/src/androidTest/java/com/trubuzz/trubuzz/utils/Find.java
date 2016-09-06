@@ -40,7 +40,7 @@ public class Find {
                 e.printStackTrace();
             }
         }
-
+        Log.i("jcd_resourcesId",resourcesId + " : "+id);
         return id;
     }
 
