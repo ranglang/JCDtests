@@ -44,4 +44,18 @@ public class God {
     public static String getTopActivityNameInfo(List<ActivityManager.RunningTaskInfo> RunningTaskInfoList){
         return RunningTaskInfoList.get(0).toString();
     }
+
+    /**
+     * 返回给定全类名的Class对象 (已处理异常)
+     * @param className
+     * @return
+     */
+    public static Class<?> getFixedClass(String className){
+        try {
+            return Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

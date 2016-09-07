@@ -1,16 +1,19 @@
 package com.trubuzz.trubuzz.test;
 
 import android.support.annotation.NonNull;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
+import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.data.AName;
 import com.trubuzz.trubuzz.elements.ELogin;
-import com.trubuzz.trubuzz.feature.BaseTest;
+import com.trubuzz.trubuzz.elements.ESettings;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
 import com.trubuzz.trubuzz.utils.Find;
+import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -21,19 +24,17 @@ import java.util.Collection;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.check;
 import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
 
 /**
  * Created by king on 2016/8/24.
  */
 @RunWith(Parameterized.class)
-public class LoginTest extends BaseTest{
+public class LoginTest {
 
     private ELogin eLogin = new ELogin();
+    private ESettings eSettings = new ESettings();
     private String user;
     private String pwd;
     private String expect;
@@ -43,11 +44,8 @@ public class LoginTest extends BaseTest{
         this.pwd = pwd;
         this.expect = expect;
     }
-
-    @Before
-    public void setup(){
-        lunchActivity();
-    }
+    @Rule
+    public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
     @NonNull
     @Parameterized.Parameters
@@ -58,20 +56,30 @@ public class LoginTest extends BaseTest{
         });
     }
     @Test
-    public void testLogin() throws InterruptedException {
+    public void testLogin() throws Exception {
 
         perform(eLogin.user() , replaceText(user));
         perform(eLogin.password() , replaceText(pwd));
         perform(eLogin.submit() , click());
-        
+
         if ("成功登录".equals(expect)){
-            SomeActivityIdlingResource ltr = new SomeActivityIdlingResource(AName.SplashActivity,this.getContext());
+            SomeActivityIdlingResource ltr = new SomeActivityIdlingResource(AName.SplashActivity,
+                    InstrumentationRegistry.getInstrumentation().getContext());
+
             Espresso.registerIdlingResources(ltr);
-            check(eLogin.leftButton() , matches(isDisplayed()));
             Espresso.unregisterIdlingResources(ltr);
+
+            logout();  //退出登录
         }else{
-            boolean res = Find.isToast(onView(withText(expect)),getMActivityTestRule());
+            boolean res = Find.isToast(onView(withText(expect)),mActivityTestRule);
             Assert.assertTrue(res);
         }
     }
+
+    public void logout(){
+        perform(eSettings.leftButton() , click());
+        perform(eSettings.settingsButton() , click());
+        perform(eSettings.logoutButton() , click());
+    }
+
 }
