@@ -1,9 +1,15 @@
 package com.trubuzz.trubuzz.utils;
 
+import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Instrumentation;
 import android.content.Context;
+import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 
+import java.util.Collection;
 import java.util.List;
+
+import static android.support.test.runner.lifecycle.Stage.RESUMED;
 
 /**
  * Created by king on 2016/9/5.
@@ -57,5 +63,19 @@ public class God {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static Activity getCurrentActivity(Instrumentation instrumentation) {
+        final Activity[] currentActivity = new Activity[1];
+        instrumentation.runOnMainSync(new Runnable() {
+            public void run() {
+                Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
+                if (resumedActivities.iterator().hasNext()){
+                    currentActivity[0] = (Activity) resumedActivities.iterator().next();
+                }
+            }
+        });
+
+        return currentActivity[0];
     }
 }

@@ -9,7 +9,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 /**
  * Created by king on 2016/9/6.
  */
-public class ESettings {
+public class ASettings {
     private ViewInteraction v_left = null;
     private ViewInteraction v_setting = null ;
     private ViewInteraction v_privateSet = null ;

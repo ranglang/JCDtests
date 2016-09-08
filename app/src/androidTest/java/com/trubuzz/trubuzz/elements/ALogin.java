@@ -8,7 +8,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withResourceNam
 /**
  * Created by king on 2016/8/23.
  */
-public class ELogin {
+public class ALogin {
     private ViewInteraction v_user = null ;
     private ViewInteraction v_pwd = null;
     private ViewInteraction v_submit = null;

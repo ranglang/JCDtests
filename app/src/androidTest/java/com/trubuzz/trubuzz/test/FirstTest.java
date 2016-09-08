@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.trubuzz.trubuzz.elements.ELogin;
+import com.trubuzz.trubuzz.elements.ALogin;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,11 +36,11 @@ public class FirstTest {
 
     @Test
     public void testLogin1() throws InterruptedException {
-        ELogin eLogin = new ELogin();
+        ALogin aLogin = new ALogin();
         Thread.sleep(2000);
-        eLogin.user().perform(replaceText("abc@abc.com"));
-        eLogin.password().perform(replaceText("aA123321"));
-        eLogin.submit().perform(click());
+        aLogin.user().perform(replaceText("abc@abc.com"));
+        aLogin.password().perform(replaceText("aA123321"));
+        aLogin.submit().perform(click());
     }
 
     public  Class<?> getLauncherActivityClass(){

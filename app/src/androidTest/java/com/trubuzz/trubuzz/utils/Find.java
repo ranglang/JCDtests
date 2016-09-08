@@ -21,29 +21,40 @@ public class Find {
 
     private static Context context = getTargetContext();
     private static Resources resources = context.getResources();
+    private static final String defaultPackageName = "com.trubuzz.trubuzz";
 
 
-    public static int id(String resourcesId){
+    /**
+     * 通过完整的resourcesId 返回id值
+     * @param resourcesId  uiAutomator 查询得到的resourcesId
+     * @return
+     */
+    public static int byId(String resourcesId){
         String packageName = resourcesId.split(":")[0];
         String sid = resourcesId.split("/")[1];
-        int id = resources.getIdentifier(sid ,"id",packageName);
-
-        if (id != 0){
-            return id;
-        }
-        //若暂时没获取到id,则每隔1秒再获取一次,5次未获取到则直接return 0.
-        for(int i = 0 ;i<5 ; i++){
-            id = resources.getIdentifier(sid ,"id",packageName);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        Log.i("jcd_resourcesId",resourcesId + " : "+id);
-        return id;
+        return findId(packageName,sid);
     }
 
+    /**
+     * 使用默认的包名 和 id名 查找id值
+     * @param idName
+     * @return
+     */
+    public static int byShortId(String idName){
+        return findId(defaultPackageName,idName);
+    }
+
+    /**
+     * 通过包名和id名 返回id值
+     * @param packageName
+     * @param idName
+     * @return
+     */
+    private static int findId(String packageName , String idName){
+        int id = resources.getIdentifier(idName ,"id",packageName);
+        Log.d(idName , idName + " = "+id);
+        return  id;
+    }
 
     //判断指定的toast是否存在
     public static boolean isToast(ViewInteraction v , ActivityTestRule<?> a){
