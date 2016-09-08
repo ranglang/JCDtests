@@ -15,6 +15,7 @@
 
 package com.trubuzz.trubuzz.idlingResource;
 
+import android.app.Activity;
 import android.support.test.espresso.IdlingResource;
 import android.util.Log;
 import android.webkit.WebChromeClient;
@@ -28,10 +29,19 @@ public class WebViewIdlingResource1 extends WebChromeClient implements IdlingRes
     private static final int FINISHED = 100;
     private final WebView webView;
     private ResourceCallback resourceCallback;
+    WebViewIdlingResource1 wid;
 
-    public WebViewIdlingResource1(WebView webView) {
-        this.webView = webView;
-        webView.setWebChromeClient(this);
+    public WebViewIdlingResource1(Activity activity ,WebView wv) {
+        this.webView = wv;
+        this.wid = this;
+
+//        webView.setWebChromeClient(this);
+        activity.runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                webView.setWebChromeClient(wid);
+            }
+        });
     }
 
     @Override

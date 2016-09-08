@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.myInterface;
 
+import android.app.Activity;
 import android.support.test.espresso.IdlingResource;
 
 /**
@@ -7,7 +8,7 @@ import android.support.test.espresso.IdlingResource;
  */
 public interface ActivityLifecycleIdlingResource<T> extends IdlingResource {
 
-    void inject(T activityComponent);
+    void inject(Activity activity ,T activityComponent);
 
     void clear();
 }

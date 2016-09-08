@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.idlingResource;
 
+import android.app.Activity;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
@@ -16,13 +17,21 @@ public class WebViewIdlingResource extends WebChromeClient implements ActivityLi
 
     private WebView webView;
     private ResourceCallback callback;
+    WebViewIdlingResource wid ;
 
 
     @Override
-    public void inject(WebView webView) {
-        this.webView = checkNotNull(webView,String.format("Trying to instantiate a \'%s\' with a null WebView", getName()));
+    public void inject(Activity activity, final WebView wv) {
+        this.webView = checkNotNull(wv,String.format("Trying to instantiate a \'%s\' with a null WebView", getName()));
         // Save the original client if needed.
-        this.webView.setWebChromeClient(this);
+        wid = this;
+        activity.runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                webView.setWebChromeClient(wid);
+            }
+        });
+        //this.webView.setWebChromeClient(this);
     }
 
     @Override public void clear() {

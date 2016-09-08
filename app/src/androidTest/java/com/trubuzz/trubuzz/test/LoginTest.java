@@ -5,16 +5,16 @@ import android.support.annotation.NonNull;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.lifecycle.Stage;
 import android.util.Log;
+import android.view.View;
+import android.webkit.WebView;
 
 import com.trubuzz.trubuzz.data.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.EBrokerChoose;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
-import com.trubuzz.trubuzz.idlingResource.WebViewIdlingResource;
-import com.trubuzz.trubuzz.idlingResource.WebViewInjector;
+import com.trubuzz.trubuzz.idlingResource.WebViewIdlingResource1;
 import com.trubuzz.trubuzz.utils.Find;
 import com.trubuzz.trubuzz.utils.God;
 import com.trubuzz.trubuzz.utils.Judge;
@@ -110,15 +110,15 @@ public class LoginTest {
         Thread.sleep(2000);
       //  Activity ca = mActivityTestRule.getActivity();
         Activity ca = God.getCurrentActivity(getInstrumentation());
-//        int id = Find.byShortId("webview");
-//        View wv = ca.findViewById(id);
-//        View cv = ca.getWindow().getDecorView().findViewById(id);
+        int id = Find.byShortId("webview");
+        View wv = ca.findViewById(id);
+        View cv = ca.getWindow().getDecorView().findViewById(id);
 
 
-//        WebViewIdlingResource1 wir = new WebViewIdlingResource1((WebView)cv);
-        WebViewIdlingResource wir = new WebViewIdlingResource();
-        WebViewInjector wvij = new WebViewInjector(wir);
-        wvij.onActivityLifecycleChanged(ca , Stage.CREATED);
+        WebViewIdlingResource1 wir = new WebViewIdlingResource1(ca ,(WebView)cv);
+//        WebViewIdlingResource wir = new WebViewIdlingResource();
+//        WebViewInjector wvij = new WebViewInjector(wir);
+//        wvij.onActivityLifecycleChanged(ca , Stage.CREATED);
         Espresso.registerIdlingResources(wir);
         Espresso.unregisterIdlingResources(wir);
     }

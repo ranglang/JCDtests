@@ -49,7 +49,7 @@ public class WebViewInjector implements ActivityLifecycleCallback {
 
 
                 WebView v = (WebView) activity.findViewById(Find.byShortId("webview"));
-                webViewIdlingResource.inject(v);
+                webViewIdlingResource.inject(activity,v);
                 break;
             case STOPPED:
                 // Clean up reference
