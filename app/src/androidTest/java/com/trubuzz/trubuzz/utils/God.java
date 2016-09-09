@@ -5,9 +5,11 @@ import android.app.ActivityManager;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.util.Log;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 
@@ -65,17 +67,47 @@ public class God {
         return null;
     }
 
+    /**
+     * 获得当前Activity对象
+     * @param instrumentation
+     * @return
+     */
     public static Activity getCurrentActivity(Instrumentation instrumentation) {
         final Activity[] currentActivity = new Activity[1];
         instrumentation.runOnMainSync(new Runnable() {
             public void run() {
                 Collection resumedActivities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED);
                 if (resumedActivities.iterator().hasNext()){
-                    currentActivity[0] = (Activity) resumedActivities.iterator().next();
+                    Activity a = (Activity) resumedActivities.iterator().next();
+                    Log.i("jcd_resumedActivities",a.toString());
+                    currentActivity[0] = a;
                 }
             }
         });
-
         return currentActivity[0];
+    }
+
+    /**
+     * 获得top activity的全类名
+     * @param context
+     * @return top activity class name
+     */
+    public static String getTopActivityName(Context context){
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> runningTaskInfos = manager.getRunningTasks(Integer.MAX_VALUE);
+        String cmpNameTemp = null;
+        if (null != runningTaskInfos)
+        {
+            cmpNameTemp = (runningTaskInfos.get(0).topActivity).toString();
+            Log.w("jcd_topActivity",cmpNameTemp);
+            Log.w("jcd_2Activity",(runningTaskInfos.get(1).topActivity).toString());
+        }
+
+        if (null == cmpNameTemp)
+        {
+            return "";
+        }
+
+        return cmpNameTemp.split(Pattern.quote("/"))[1].split(Pattern.quote("}"))[0];
     }
 }

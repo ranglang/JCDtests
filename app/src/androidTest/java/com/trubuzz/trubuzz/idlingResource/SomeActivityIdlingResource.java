@@ -15,16 +15,24 @@ public class SomeActivityIdlingResource implements IdlingResource {
     private boolean isIdle;
     private String currentActivityName ;
     private Context context;
+    private boolean waitingAway;
 
 
-    public SomeActivityIdlingResource(String currentActivityName , Context context){
+    /**
+     *
+     * @param currentActivityName
+     * @param context
+     * @param waitingAway 如果为true,则目的为等待指定的activity消失, 如果为false, 则为等待指定activity出现
+     */
+    public SomeActivityIdlingResource(String currentActivityName , Context context , boolean waitingAway){
         this.currentActivityName = currentActivityName;
         this.context = context;
+        this.waitingAway = waitingAway;
     }
 
     @Override
     public String getName() {
-        return this.getClass().getName();
+        return this.getClass().getName()+currentActivityName;
     }
 
     @Override
@@ -32,7 +40,10 @@ public class SomeActivityIdlingResource implements IdlingResource {
         if (isIdle) return true;
 
         isIdle = Judge.isTopActivity(currentActivityName,context);
-        Log.d("jcd_isIdle", Boolean.toString(isIdle));
+        Log.i("jcd_isIdle", (Boolean.toString(isIdle)));
+        if(!waitingAway){
+            isIdle = ! isIdle;
+        }   //如果为等待出现,则对当前isIdle的值取反即可
 
         if (isIdle) {
             resourceCallback.onTransitionToIdle();

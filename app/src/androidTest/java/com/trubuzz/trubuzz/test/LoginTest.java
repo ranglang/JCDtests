@@ -1,24 +1,19 @@
 package com.trubuzz.trubuzz.test;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
-import android.view.View;
-import android.webkit.WebView;
 
 import com.trubuzz.trubuzz.data.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.EBrokerChoose;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
-import com.trubuzz.trubuzz.idlingResource.WebViewIdlingResource1;
+import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.Find;
 import com.trubuzz.trubuzz.utils.God;
-import com.trubuzz.trubuzz.utils.Judge;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,6 +46,7 @@ public class LoginTest {
     private String user;
     private String pwd;
     private String expect;
+    SomeActivityIdlingResource ltr1;
 
     public LoginTest(String user, String pwd , String expect) {
         this.user = user;
@@ -64,10 +60,14 @@ public class LoginTest {
     @Parameterized.Parameters
     public static Collection dLogin(){
         return Arrays.asList(new Object[][]{
-            //    {"abc@abc.com","aA123321","无效的账号或密码"},
+                //    {"abc@abc.com","aA123321","无效的账号或密码"},
                 {"abc@abc.com","123321","未开户"},
-             //   {"zhao.deng@jucaidao.com","aA123456","成功登录"}
+                {"zhao.deng@jucaidao.com","aA123456","成功登录"}
         });
+    }
+    @After
+    public void unReg(){
+        DoIt.unAllRegIdlingResource();
     }
     @Test
     public void testLogin() throws Exception {
@@ -75,17 +75,12 @@ public class LoginTest {
         perform(aLogin.user() , replaceText(user));
         perform(aLogin.password() , replaceText(pwd));
         perform(aLogin.submit() , click());
+        DoIt.regIdlingResource(new SomeActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
 
         if ("成功登录".equals(expect)){
-            waitingSplash();;
-
-
-
             logout();  //退出登录
+
         }else if("未开户".equals(expect)){
-            waitingSplash();
-           // Thread.sleep(10000);
-            waitingWebView();
             onWebView()
                     .withElement(eBrokerChoose.ibBrokerTitle())
                     .check(webMatches(getText(),containsString("Interactive Brokers")));
@@ -97,36 +92,7 @@ public class LoginTest {
         }
     }
 
-    public void waitingSplash(){
-        SomeActivityIdlingResource ltr = new SomeActivityIdlingResource(AName.SplashActivity,
-                getInstrumentation().getContext());
-        Log.i("jcd","jcd");
-        Espresso.registerIdlingResources(ltr);
-        Log.e("jcd_login ac",God.getCurrentActivity(getInstrumentation()).toString());
-        Judge.isTopActivity("",getInstrumentation().getContext());
-        Espresso.unregisterIdlingResources(ltr);
-    }
-    public void waitingWebView() throws InterruptedException {
-        Thread.sleep(2000);
-      //  Activity ca = mActivityTestRule.getActivity();
-        Activity ca = God.getCurrentActivity(getInstrumentation());
-        int id = Find.byShortId("webview");
-        View wv = ca.findViewById(id);
-        View cv = ca.getWindow().getDecorView().findViewById(id);
-
-
-        WebViewIdlingResource1 wir = new WebViewIdlingResource1(ca ,(WebView)cv);
-//        WebViewIdlingResource wir = new WebViewIdlingResource();
-//        WebViewInjector wvij = new WebViewInjector(wir);
-//        wvij.onActivityLifecycleChanged(ca , Stage.CREATED);
-        Espresso.registerIdlingResources(wir);
-        Espresso.unregisterIdlingResources(wir);
-    }
-    public void logout() throws InterruptedException {
-        Thread.sleep(2000);
-        Log.e("jcd_logout ac",God.getCurrentActivity(getInstrumentation()).toString());
-        Judge.isTopActivity("",getInstrumentation().getContext());
-
+    private void logout() throws InterruptedException {
         perform(aSettings.leftButton() , click(ViewActions.pressBack()));
         perform(aSettings.settingsButton() , click());
         perform(aSettings.logoutButton() , click());

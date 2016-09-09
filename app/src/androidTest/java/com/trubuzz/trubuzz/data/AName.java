@@ -10,7 +10,7 @@ public class AName {
     public static final String LOGIN = "com.trubuzz.roy.auth.AuthenticatorActivity" ;
     public static final String SETTINGS = "com.trubuzz.roy.PreferenceActivity";
 
-    public static final String SplashActivity = "ComponentInfo{com.trubuzz.trubuzz/com.trubuzz.roy.SplashActivity}" ;
+    public static final String SplashActivity = "com.trubuzz.roy.SplashActivity" ;
 
 
 
