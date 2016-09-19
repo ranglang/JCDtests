@@ -1,14 +1,23 @@
 package com.trubuzz.trubuzz.utils;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
+import android.view.View;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Stack;
 
 /**
  * Created by king on 2016/9/9.
+ * 功能: 做一些事情
  */
 public class DoIt {
+
     private static java.util.Stack o_idlingResource = null; //某些方法私有的属性
 
     /**
@@ -52,5 +61,40 @@ public class DoIt {
         }
     }
 
+    /***********************/
 
+    /**
+     *
+     * @param activity 必须使用捕获到的当前activity , rule中预设的activity在跨activity时会无效
+     * @param imgName
+     */
+    public static void takeScreenshot(Activity activity, String imgName){
+        View scrView = activity.getWindow().getDecorView().getRootView();
+        scrView.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(scrView.getDrawingCache());
+        scrView.setDrawingCacheEnabled(false);
+
+        FileOutputStream out = null;
+        try {
+            out = activity.openFileOutput(makeFileName(imgName) + ".png", Activity.MODE_PRIVATE);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            }
+        }
+    }
+
+    public static String makeFileName(String pratName){
+        String time = God.getDateFormat(new Date(),"yyyy-MM-dd_HH:mm:ss:SSS", Locale.CHINA);
+        pratName = pratName == null ? "" : pratName;
+        return time + "_" + pratName ;
+    }
 }

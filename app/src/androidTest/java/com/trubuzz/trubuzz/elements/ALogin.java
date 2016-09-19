@@ -12,11 +12,14 @@ public class ALogin {
     private ViewInteraction v_user = null ;
     private ViewInteraction v_pwd = null;
     private ViewInteraction v_submit = null;
+    private ViewInteraction v_signUp = null;
+
 
 
     private final String ID_USER = "account";
     private final String ID_PWD = "password";
     private final String ID_SUBMIT = "submit";
+    private final String ID_SIGNUP = "signup";
 
 
     public ViewInteraction user() {
@@ -40,6 +43,11 @@ public class ALogin {
         return v_submit;
     }
 
-
+    public ViewInteraction signUp() {
+        if (v_signUp == null){
+            this.v_submit =  onView(withResourceName(ID_SIGNUP));
+        }
+        return v_signUp;
+    }
 
 }

@@ -10,5 +10,7 @@
         android:theme="@style/AppTheme">
 
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
    <!-- <instrumentation android:name="android.test.InstrumentationTestRunner" android:targetPackage="com.trubuzz.trubuzz"/> -->
 </manifest>

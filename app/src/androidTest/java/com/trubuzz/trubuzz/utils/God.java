@@ -7,8 +7,10 @@ import android.content.Context;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
@@ -109,5 +111,26 @@ public class God {
         }
 
         return cmpNameTemp.split(Pattern.quote("/"))[1].split(Pattern.quote("}"))[0];
+    }
+
+    /**
+     * 格式化时间
+     * @param d Date or long
+     * @param format like : "yyyy-MM-dd HH:mm:ss"
+     * @param locale 时区
+     * @return
+     */
+    public static String getDateFormat(Object d , String format, Locale locale){
+        return new SimpleDateFormat(format, locale).format(d);
+    }
+
+    /**
+     * 格式化时间
+     * @param d Date or long
+     * @param format
+     * @return
+     */
+    public static String getDateFormat(Object d , String format){
+        return new SimpleDateFormat(format).format(d);
     }
 }
