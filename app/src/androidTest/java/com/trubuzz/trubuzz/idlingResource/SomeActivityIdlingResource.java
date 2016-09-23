@@ -11,6 +11,8 @@ import com.trubuzz.trubuzz.utils.Judge;
  * 用于等待给定info的activity处于栈顶
  */
 public class SomeActivityIdlingResource implements IdlingResource {
+    private final String TAG = "jcd_SomeIR";
+
     private ResourceCallback resourceCallback;
     private boolean isIdle;
     private String currentActivityName ;
@@ -40,7 +42,7 @@ public class SomeActivityIdlingResource implements IdlingResource {
         if (isIdle) return true;
 
         isIdle = Judge.isTopActivity(currentActivityName,context);
-        Log.i("jcd_isIdle", (Boolean.toString(isIdle)));
+        Log.i(TAG, (Boolean.toString(isIdle)));
         if(!waitingAway){
             isIdle = ! isIdle;
         }   //如果为等待出现,则对当前isIdle的值取反即可

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
+import android.util.Log;
 import android.view.View;
 
 import java.io.FileOutputStream;
@@ -67,8 +68,10 @@ public class DoIt {
      *
      * @param activity 必须使用捕获到的当前activity , rule中预设的activity在跨activity时会无效
      * @param imgName
+     * @return String file name
      */
-    public static void takeScreenshot(Activity activity, String imgName){
+    public static String takeScreenshot(Activity activity, String imgName){
+        String fileName = "";
         View scrView = activity.getWindow().getDecorView().getRootView();
         scrView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(scrView.getDrawingCache());
@@ -76,8 +79,10 @@ public class DoIt {
 
         FileOutputStream out = null;
         try {
-            out = activity.openFileOutput(makeFileName(imgName) + ".png", Activity.MODE_PRIVATE);
+            fileName = makeFileName(imgName) + ".png";
+            out = activity.openFileOutput(fileName, Activity.MODE_PRIVATE);
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            Log.i("jcd",out.getFD().toString());
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -90,11 +95,17 @@ public class DoIt {
                 exc.printStackTrace();
             }
         }
+        return fileName;
     }
 
+    /**
+     * 为文件名加上时间戳
+     * @param pratName
+     * @return
+     */
     public static String makeFileName(String pratName){
-        String time = God.getDateFormat(new Date(),"yyyy-MM-dd_HH:mm:ss:SSS", Locale.CHINA);
+        String time = God.getDateFormat(new Date(),"yyMMdd_HHmmssSSS", Locale.CHINA);
         pratName = pratName == null ? "" : pratName;
-        return time + "_" + pratName ;
+        return "screenshot" + time + "_" + pratName ;
     }
 }

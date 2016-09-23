@@ -10,13 +10,14 @@ import android.util.Log;
  * Created by king on 2016/9/5.
  */
 public class AdvancedViewInteraction {
+    private final static String TAG = "jcd_AdViewInteraction";
 
     public static ViewInteraction perform(final ViewInteraction v , final ViewAction... viewActions) {
         for(int i=1 ;i<=5;i++){
             try {
                 return v.perform(viewActions);
             } catch (NoMatchingViewException exception){
-                Log.w("jcd_NoMatchingView","第"+i+"次未匹配到元素:"+viewActions.toString());
+                Log.w(TAG,"第"+i+"次未匹配到元素:"+v.toString());
             }
             try {
                 Thread.sleep(1000);
@@ -32,7 +33,7 @@ public class AdvancedViewInteraction {
             try {
                 return v.check(viewAssert);
             } catch (NoMatchingViewException exception){
-                Log.w("jcd_NoMatchingView","第"+i+"次未匹配到元素:"+viewAssert.toString());
+                Log.w(TAG,"第"+i+"次未匹配到元素:"+v.toString());
             }
             try {
                 Thread.sleep(1000);

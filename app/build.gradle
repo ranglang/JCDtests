@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "com.trubuzz.trubuzz.feature.Runner"
     }
     buildTypes {
         release {
@@ -39,6 +40,8 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
+
+    androidTestCompile 'com.alibaba:fastjson:1.2.17'
 }
 
 task assembleDebug(overwrite: true) {}

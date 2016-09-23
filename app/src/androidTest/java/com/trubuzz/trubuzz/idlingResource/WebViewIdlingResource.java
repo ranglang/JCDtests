@@ -12,7 +12,7 @@ import static android.support.test.espresso.intent.Checks.checkNotNull;
  * Created by king on 2016/9/8.
  */
 public class WebViewIdlingResource extends WebChromeClient implements ActivityLifecycleIdlingResource<WebView> {
-
+    private final String TAG = "jcd_WebIR";
     private static final int FINISHED = 100;
 
     private WebView webView;
