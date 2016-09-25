@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
+import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
 import android.view.View;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
@@ -18,6 +20,7 @@ import java.util.Stack;
  * 功能: 做一些事情
  */
 public class DoIt {
+    private static final String TAG = "jcd_DoIt";
 
     private static java.util.Stack o_idlingResource = null; //某些方法私有的属性
 
@@ -62,21 +65,45 @@ public class DoIt {
         }
     }
 
-    /***********************/
+    /***********-----------------------------屏幕截图-----------------------------************/
 
     /**
      *
      * @param activity 必须使用捕获到的当前activity , rule中预设的activity在跨activity时会无效
      * @param imgName
      * @return String file name
+     * @deprecated espresso 不能截到toast 。use{@link #takeScreenshot(UiDevice, File)}
      */
     public static String takeScreenshot(Activity activity, String imgName){
-        String fileName = "";
+        return outPutScreenshot(activity, takeBitmap(activity),imgName);
+    }
+
+    /**
+     * 截取bitmap
+     * @param activity
+     * @return
+     * @deprecated espresso 不能截到toast 。use{@link #takeScreenshot(UiDevice, File)}
+     */
+    public static Bitmap takeBitmap(Activity activity){
         View scrView = activity.getWindow().getDecorView().getRootView();
         scrView.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(scrView.getDrawingCache());
         scrView.setDrawingCacheEnabled(false);
 
+        Log.i(TAG, "takeBitmap: 截取屏幕");
+        return bitmap;
+    }
+
+    /**
+     * 将bitmap写入磁盘 , 并返回文件名
+     * @param activity
+     * @param bitmap
+     * @param imgName
+     * @return
+     * @deprecated espresso 不能截到toast 。use{@link #takeScreenshot(UiDevice, File)}
+     */
+    public static String outPutScreenshot(Activity activity , Bitmap bitmap , String imgName){
+        String fileName  = "";
         FileOutputStream out = null;
         try {
             fileName = makeFileName(imgName) + ".png";
@@ -97,7 +124,6 @@ public class DoIt {
         }
         return fileName;
     }
-
     /**
      * 为文件名加上时间戳
      * @param pratName
@@ -108,4 +134,9 @@ public class DoIt {
         pratName = pratName == null ? "" : pratName;
         return "screenshot" + time + "_" + pratName ;
     }
+
+    public static boolean takeScreenshot(UiDevice uiDevice,File file){
+        return uiDevice.takeScreenshot(file);
+    }
+
 }

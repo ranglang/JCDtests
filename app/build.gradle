@@ -41,13 +41,15 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
 
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.+'
+
     androidTestCompile 'com.alibaba:fastjson:1.2.17'
 }
 
 task assembleDebug(overwrite: true) {}
 
 task copyTask(type: Copy) {
-    from 'libs/jucaidao_1.245_debug.apk'
+    from 'libs/jucaidao_debug.apk'
     into 'build/outputs/apk/'
     rename {
         'app-debug.apk'

@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.test;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -10,11 +11,15 @@ import android.util.Log;
 
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
+import com.trubuzz.trubuzz.utils.DoIt;
+import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+
+import java.io.File;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -52,7 +57,7 @@ public class FirstTest extends BaseTest{
     @Rule
     public ExpectedException thrown= ExpectedException.none();
 
-    @Test
+   // @Test
     public void testLogin1() throws InterruptedException {
         ALogin aLogin = new ALogin();
         Thread.sleep(2000);
@@ -71,7 +76,14 @@ public class FirstTest extends BaseTest{
 
     @Test
     public void fir(){
-        assertEquals(true,true);
+//        assertEquals(true,true);
+        Context ctx = InstrumentationRegistry.getContext();
+        Activity activity = God.getCurrentActivity(InstrumentationRegistry.getInstrumentation());
+
+        DoIt.ts(uiDevice,new File(activity.getFilesDir().getAbsolutePath()+"/aa.png"));
+
+        System.out.println("jj : "+activity.getFilesDir().getAbsolutePath());
+        System.out.println("jj : "+ctx.getFilesDir());
         isSucceeded = true;
     }
     public  Class<?> getLauncherActivityClass(){

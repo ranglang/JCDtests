@@ -68,7 +68,7 @@ public class LoginTest extends BaseTest{
 //                {"zhao.deng@jucaidao.com","aA123456","成功登录"}
         });
     }
-    @After
+//    @After
     public void unReg(){
 
         DoIt.unAllRegIdlingResource();
@@ -100,7 +100,7 @@ public class LoginTest extends BaseTest{
         isSucceeded = true;
     }
 
-    @Test
+    //@Test
     public void logts(){
         int a = 5/0;
         isSucceeded = true;
