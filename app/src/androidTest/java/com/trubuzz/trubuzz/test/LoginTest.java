@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.trubuzz.trubuzz.data.AName;
-import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.EBrokerChoose;
 import com.trubuzz.trubuzz.feature.CustomMatcher;
@@ -15,7 +14,6 @@ import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 
-import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +32,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
+import static com.trubuzz.trubuzz.elements.ALogin.*;
 import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -43,7 +42,6 @@ import static org.hamcrest.CoreMatchers.containsString;
 @RunWith(Parameterized.class)
 public class LoginTest extends BaseTest{
 
-    private ALogin aLogin = new ALogin();
     private ASettings aSettings = new ASettings();
     private EBrokerChoose eBrokerChoose = new EBrokerChoose();
     private String user;
@@ -76,15 +74,15 @@ public class LoginTest extends BaseTest{
     @Test
     public void testLogin() throws Exception {
         Log.e("jcd", "testLogin: "+ JSON.toJSONString(this.user));
-        perform(aLogin.user() , replaceText(user));
-        perform(aLogin.password() , replaceText(pwd));
-        perform(aLogin.submit() , click());
+        perform(account() , replaceText(user));
+        perform(password() , replaceText(pwd));
+        perform(submit() , click());
 
         if ("失败".equals(expect)){
-            onView(withText(getString(R.string.login))).inRoot(CustomMatcher.isToast()).check(matches(isDisplayed()));
+            onView(withText(loginToast())).inRoot(CustomMatcher.isToast()).check(matches(isDisplayed()));
 
         }else {
-        DoIt.regIdlingResource(new SomeActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
+            DoIt.regIdlingResource(new SomeActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
 
             if ("成功登录".equals(expect)){
                 logout();  //退出登录

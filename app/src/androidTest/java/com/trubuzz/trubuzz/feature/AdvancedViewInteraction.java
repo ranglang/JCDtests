@@ -20,8 +20,8 @@ public class AdvancedViewInteraction {
 
     public static ViewInteraction perform(final ViewInteraction v , final ViewAction... viewActions ) {
         ViewInteraction viewInteraction ;
-
-        for(int i=1 ;i<=5;i++){
+        int i;
+        for(i=1 ;i<=5;i++){
             try {
                 viewInteraction =  v.perform(viewActions);
                 String filePath = (String)Registor.unReg(key);
@@ -42,6 +42,7 @@ public class AdvancedViewInteraction {
                 e1.printStackTrace();
             }
         }
+        Log.i(TAG, "perform: 开始第"+(i+1)+"次匹配.....");
         viewInteraction =  v.perform(viewActions);
         String filePath = (String)Registor.unReg(key);
         if ( filePath != null){
@@ -53,8 +54,8 @@ public class AdvancedViewInteraction {
 
     public static ViewInteraction check(final ViewInteraction v,final ViewAssertion viewAssert){
         ViewInteraction viewInteraction ;
-
-        for(int i=1 ;i<=5;i++){
+        int i;
+        for(i=1 ;i<=5;i++){
             try {
                 viewInteraction =  v.check(viewAssert);
                 String filePath = (String)Registor.unReg(key);
@@ -75,6 +76,7 @@ public class AdvancedViewInteraction {
                 e1.printStackTrace();
             }
         }
+        Log.i(TAG, "perform: 开始第"+(i+1)+"次匹配.....");
         viewInteraction =  v.check(viewAssert);
         String filePath = (String)Registor.unReg(key);
         if ( filePath != null){

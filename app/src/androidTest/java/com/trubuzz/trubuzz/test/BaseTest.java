@@ -1,8 +1,6 @@
 package com.trubuzz.trubuzz.test;
 
 import android.app.Instrumentation;
-import android.content.Context;
-import android.content.res.Resources;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
@@ -23,8 +21,7 @@ import org.junit.Rule;
 public class BaseTest {
     private final String TAG = "jcd_BaseTest";
     public boolean isSucceeded = false;
-    public static Context ctx = InstrumentationRegistry.getContext();
-    public static Resources res = ctx.getResources();
+
     protected Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     private String fileName ;
 
@@ -53,9 +50,7 @@ public class BaseTest {
         }
     }
 
-    public static String getString (int str){
-        return res.getString(str);
-    }
+
     public String getFileName(){
         return this.fileName;
     }

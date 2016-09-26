@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.util.Log;
 
@@ -20,14 +22,47 @@ import static android.support.test.runner.lifecycle.Stage.RESUMED;
  */
 public class God {
 
+    public static Context ctx = InstrumentationRegistry.getContext();
+    public static Resources res = ctx.getResources();
+
     /**
      * get context
      * @return
      */
-//    public static Context getContext(){
-//        return InstrumentationRegistry.getInstrumentation().getContext();
-//    }
+    public static Context getContext(){
+        return ctx;
+    }
 
+    /**
+     * return resources
+     * @return
+     */
+    public static Resources getResources(){
+        return res;
+    }
+
+    /**
+     * 通过R文件中的string的id 返回该string 在string.xml中当前语言环境中的值
+     * @param str
+     * @return
+     */
+    public static String getString (int str){
+        return res.getString(str);
+    }
+
+    /**
+     * 如果R文件匹配失败则返回默认字符串
+     * @param defaultStr
+     * @param str
+     * @return
+     */
+    public static String getString (String defaultStr ,int str){
+        try {
+            return res.getString(str);
+        } catch (Resources.NotFoundException e) {
+            return defaultStr;
+        }
+    }
     /**
      * get ActivityManager
      * @param context
