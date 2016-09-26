@@ -3,7 +3,6 @@ package com.trubuzz.trubuzz.test;
 import android.app.Instrumentation;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
@@ -11,13 +10,11 @@ import android.util.Log;
 import com.trubuzz.trubuzz.feature.AdvancedViewInteraction;
 import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
 import com.trubuzz.trubuzz.utils.DoIt;
-import com.trubuzz.trubuzz.utils.God;
 import com.trubuzz.trubuzz.utils.Registor;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
-
-import java.io.File;
 
 /**
  * Created by king on 2016/9/23.
@@ -36,28 +33,22 @@ public class BaseTest {
 
     public UiDevice uiDevice = UiDevice.getInstance(instrumentation);
 
+    @Before
+    public void setUp(){
+        Registor.reg(BaseTest.class.toString(),this);
+    }
+
     @After
     public void tearDown(){
-
+        Registor.unRegAll(BaseTest.class.toString());
         String mN = testWatcherAdvance.getTestName();
         Log.i("jcd", "tearDown: ....."+ mN);
         if (! isSucceeded){
             Object obj = Registor.unReg(AdvancedViewInteraction.class.toString());
-            try {
-                if (obj instanceof Bitmap){
-                    this.fileName = DoIt.outPutScreenshot(God.getCurrentActivity(instrumentation)
-                            , (Bitmap) obj ,mN);
-                }else {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-//                    this.fileName = DoIt.takeScreenshot(God.getCurrentActivity(InstrumentationRegistry.getInstrumentation()), mN);
-                    DoIt.ts(uiDevice,new File(God.getCurrentActivity(instrumentation).getFilesDir().getAbsolutePath()+"/bb1.png"));
-                }
-            }catch (NullPointerException e){
-                Log.w(TAG, "tearDown: 可能没有activity启动 ",e );
+            if (obj instanceof String){
+                this.fileName = (String)obj;
+            }else {
+                this.fileName = takeScreenshot();
             }
         }
     }
@@ -67,5 +58,20 @@ public class BaseTest {
     }
     public String getFileName(){
         return this.fileName;
+    }
+
+    /**
+     * 等待 1 秒后截屏 , 确保元素完全展示
+     * @return 截屏图片的绝对路径
+     */
+    public String takeScreenshot(){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String fPath = DoIt.takeScreenshot(uiDevice, testWatcherAdvance.getTestName());
+        Log.i(TAG, "takeScreenshot: 截图成功 ; 保存路径 : "+fPath);
+        return fPath;
     }
 }

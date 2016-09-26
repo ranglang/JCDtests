@@ -8,6 +8,8 @@ import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
 import android.view.View;
 
+import com.trubuzz.trubuzz.data.Env;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -106,7 +108,7 @@ public class DoIt {
         String fileName  = "";
         FileOutputStream out = null;
         try {
-            fileName = makeFileName(imgName) + ".png";
+            fileName = makeImageName(imgName) ;
             out = activity.openFileOutput(fileName, Activity.MODE_PRIVATE);
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
             Log.i("jcd",out.getFD().toString());
@@ -129,14 +131,23 @@ public class DoIt {
      * @param pratName
      * @return
      */
-    public static String makeFileName(String pratName){
+    public static String makeImageName(String pratName){
         String time = God.getDateFormat(new Date(),"yyMMdd_HHmmssSSS", Locale.CHINA);
         pratName = pratName == null ? "" : pratName;
-        return "screenshot" + time + "_" + pratName ;
+        return "screenshot" + time + "_" + pratName +".png";
     }
 
-    public static boolean takeScreenshot(UiDevice uiDevice,File file){
-        return uiDevice.takeScreenshot(file);
+    public static String takeScreenshot(UiDevice uiDevice,File file){
+        uiDevice.takeScreenshot(file);
+        return file.getAbsolutePath();
     }
-
+    public static String takeScreenshot(UiDevice uiDevice,File file ,float scale, int quality){
+        uiDevice.takeScreenshot(file, scale,  quality);
+        return file.getAbsolutePath();
+    }
+    public static String takeScreenshot(UiDevice uiDevice,String imageName){
+        String fileAbsolutePath = Env.filesDir+makeImageName(imageName);
+        uiDevice.takeScreenshot(new File(fileAbsolutePath));
+        return fileAbsolutePath;
+    }
 }

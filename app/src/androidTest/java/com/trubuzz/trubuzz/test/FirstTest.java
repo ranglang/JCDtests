@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -11,7 +12,6 @@ import android.util.Log;
 
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
-import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Rule;
@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
-import java.io.File;
+import java.io.IOException;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -28,7 +28,6 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 
@@ -75,15 +74,14 @@ public class FirstTest extends BaseTest{
     }
 
     @Test
-    public void fir(){
+    public void fir() throws IOException {
 //        assertEquals(true,true);
         Context ctx = InstrumentationRegistry.getContext();
         Activity activity = God.getCurrentActivity(InstrumentationRegistry.getInstrumentation());
+       // DoIt.takeScreenshot(uiDevice,new File("libs/aa.png"));
 
-        DoIt.ts(uiDevice,new File(activity.getFilesDir().getAbsolutePath()+"/aa.png"));
-
-        System.out.println("jj : "+activity.getFilesDir().getAbsolutePath());
-        System.out.println("jj : "+ctx.getFilesDir());
+        System.out.println("jj : "+activity.getFilesDir().getCanonicalPath());
+        System.out.println("jj : "+ Environment.getDataDirectory().getAbsolutePath());
         isSucceeded = true;
     }
     public  Class<?> getLauncherActivityClass(){
