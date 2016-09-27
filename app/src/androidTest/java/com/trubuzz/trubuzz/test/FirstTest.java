@@ -11,12 +11,11 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.elements.ALogin;
-import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
+import com.trubuzz.trubuzz.feature.ClassWatcherAdvance;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
@@ -51,16 +50,16 @@ public class FirstTest extends BaseTest{
     @Rule
 //    public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(launcherActivityClass,true,true);
     public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(getLauncherActivityClass(),true,true);
+//    @Rule
+  //  public TestWatcherAdvance testWatcher = new TestWatcherAdvance();
     @Rule
-    public TestWatcherAdvance testWatcher = new TestWatcherAdvance();
-    @Rule
-    public ExpectedException thrown= ExpectedException.none();
+    public ClassWatcherAdvance classWatcherAdvance = new ClassWatcherAdvance();
 
    // @Test
     public void testLogin1() throws InterruptedException {
         ALogin aLogin = new ALogin();
         Thread.sleep(2000);
-        aLogin.user().perform(replaceText("abc@abc.com"));
+        aLogin.account().perform(replaceText("abc@abc.com"));
         aLogin.password().perform(replaceText("aA123321111"));
         aLogin.submit().perform(click());
         onView(withText("无效的账号或密码"))

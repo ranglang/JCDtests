@@ -12,14 +12,14 @@ import static android.support.test.espresso.web.webdriver.DriverAtoms.findElemen
  *
  */
 public class EBrokerChoose {
-    private Atom<ElementReference> v_IBBroker;
+    private static Atom<ElementReference> v_IBBroker;
 
 
-    private final String CSS_IB = "span.broker_logo>span.ng-binding";
+    private static final String CSS_IB = "span.broker_logo>span.ng-binding";
 
 
-    public Atom<ElementReference> ibBrokerTitle(){
-        return this.v_IBBroker = v_IBBroker == null
+    public static Atom<ElementReference> ibBrokerTitle(){
+        return v_IBBroker = v_IBBroker == null
                 ? findElement(Locator.CSS_SELECTOR,CSS_IB) : v_IBBroker;
     }
 }

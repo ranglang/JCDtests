@@ -7,8 +7,6 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.trubuzz.trubuzz.data.AName;
-import com.trubuzz.trubuzz.elements.ASettings;
-import com.trubuzz.trubuzz.elements.EBrokerChoose;
 import com.trubuzz.trubuzz.feature.CustomMatcher;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
 import com.trubuzz.trubuzz.utils.DoIt;
@@ -32,7 +30,14 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
-import static com.trubuzz.trubuzz.elements.ALogin.*;
+import static com.trubuzz.trubuzz.elements.ALogin.account;
+import static com.trubuzz.trubuzz.elements.ALogin.loginToast;
+import static com.trubuzz.trubuzz.elements.ALogin.password;
+import static com.trubuzz.trubuzz.elements.ALogin.submit;
+import static com.trubuzz.trubuzz.elements.ASettings.leftButton;
+import static com.trubuzz.trubuzz.elements.ASettings.logoutButton;
+import static com.trubuzz.trubuzz.elements.ASettings.settingsButton;
+import static com.trubuzz.trubuzz.elements.EBrokerChoose.ibBrokerTitle;
 import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -42,12 +47,9 @@ import static org.hamcrest.CoreMatchers.containsString;
 @RunWith(Parameterized.class)
 public class LoginTest extends BaseTest{
 
-    private ASettings aSettings = new ASettings();
-    private EBrokerChoose eBrokerChoose = new EBrokerChoose();
     private String user;
     private String pwd;
     private String expect;
-    SomeActivityIdlingResource ltr1;
 
     public LoginTest(String user, String pwd , String expect) {
         this.user = user;
@@ -66,11 +68,7 @@ public class LoginTest extends BaseTest{
 //                {"zhao.deng@jucaidao.com","aA123456","成功登录"}
         });
     }
-//    @After
-    public void unReg(){
 
-        DoIt.unAllRegIdlingResource();
-    }
     @Test
     public void testLogin() throws Exception {
         Log.e("jcd", "testLogin: "+ JSON.toJSONString(this.user));
@@ -89,11 +87,12 @@ public class LoginTest extends BaseTest{
 
             }else if ("未开户".equals(expect)) {
                 onWebView()
-                        .withElement(eBrokerChoose.ibBrokerTitle())
+                        .withElement(ibBrokerTitle())
                         .check(webMatches(getText(), containsString("Interactive Brokers")));
 
                 logout();
             }
+            DoIt.unAllRegIdlingResource();
         }
         isSucceeded = true;
     }
@@ -104,9 +103,9 @@ public class LoginTest extends BaseTest{
         isSucceeded = true;
     }
     private void logout() throws InterruptedException {
-        perform(aSettings.leftButton() , click(ViewActions.pressBack()));
-        perform(aSettings.settingsButton() , click());
-        perform(aSettings.logoutButton() , click());
+        perform(leftButton() , click(ViewActions.pressBack()));
+        perform(settingsButton() , click());
+        perform(logoutButton() , click());
     }
 
 

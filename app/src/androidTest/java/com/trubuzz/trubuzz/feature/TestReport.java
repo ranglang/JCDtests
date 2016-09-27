@@ -4,6 +4,7 @@ import com.trubuzz.trubuzz.utils.TestResult;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by king on 2016/9/21.
@@ -75,7 +76,7 @@ public class TestReport {
             private TestResult testResult;
             private String errorMsg;
             private String imageName;
-            private String useData;
+            private Map useData;
 
             public String getCaseName() {
                 return caseName;
@@ -113,11 +114,11 @@ public class TestReport {
                 return  this;
             }
 
-            public String getUseData() {
+            public Map getUseData() {
                 return useData;
             }
 
-            public TestCase setUseData(String useData) {
+            public TestCase setUseData(Map useData) {
                 this.useData = useData;
                 return this;
             }

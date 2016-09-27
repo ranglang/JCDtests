@@ -10,8 +10,10 @@ import android.view.View;
 
 import com.trubuzz.trubuzz.data.Env;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
@@ -134,7 +136,31 @@ public class DoIt {
     public static String makeImageName(String pratName){
         String time = God.getDateFormat(new Date(),"yyMMdd_HHmmssSSS", Locale.CHINA);
         pratName = pratName == null ? "" : pratName;
-        return "screenshot" + time + "_" + pratName +".png";
+        return "jcd_" + time + "_" + pratName;
+    }
+
+    public static String writeFileData( String data , String fileName){
+        BufferedWriter writer = null;
+        File file = null;
+        try {
+            file = new File(Env.filesDir + makeImageName("json_"+ fileName) + ".json");
+            if (file.exists()){
+                file.createNewFile();
+            }
+            writer = new BufferedWriter(new FileWriter(file ,true));
+            writer.write(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(writer != null){
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file.getAbsolutePath();
     }
 
     public static String takeScreenshot(UiDevice uiDevice,File file){
@@ -146,7 +172,7 @@ public class DoIt {
         return file.getAbsolutePath();
     }
     public static String takeScreenshot(UiDevice uiDevice,String imageName){
-        String fileAbsolutePath = Env.filesDir+makeImageName(imageName);
+        String fileAbsolutePath = Env.filesDir+ makeImageName( "ps_"+ imageName) + ".png";
         uiDevice.takeScreenshot(new File(fileAbsolutePath));
         return fileAbsolutePath;
     }
