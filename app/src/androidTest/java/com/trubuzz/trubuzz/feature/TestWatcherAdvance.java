@@ -2,12 +2,14 @@ package com.trubuzz.trubuzz.feature;
 
 import android.util.Log;
 
+import com.trubuzz.trubuzz.utils.God;
 import com.trubuzz.trubuzz.utils.TestResult;
 
 import org.junit.AssumptionViolatedException;
 import org.junit.rules.TestName;
 import org.junit.runner.Description;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -23,6 +25,10 @@ public class TestWatcherAdvance extends TestName {
     private String errorImagePath;
     private TestReport.TestClass testClass;
     private Map useData;
+    private String localizedMessage;
+    private String[] stackTraces;
+    private long startTime;
+    private long stopTime;
 
    // public TestWatcherAdvance(){}
     public TestWatcherAdvance(TestReport.TestClass testClass){
@@ -33,8 +39,9 @@ public class TestWatcherAdvance extends TestName {
      * Invoked when a test is about to start
      */
     protected void starting(Description description) {
+        this.startTime = new Date().getTime();
         this.testName = description.getMethodName();
-        Log.i(TAG, "starting: ...."+ testName);
+        Log.i(TAG, "starting: ...."+ testName +" at "+ God.getDateFormat(this.startTime));
     }
 
     /**
@@ -52,8 +59,13 @@ public class TestWatcherAdvance extends TestName {
 //
         Log.e(TAG,"test failed : "+e.getMessage());
         this.result = TestResult.FAILED;
-        this.message = e.getMessage();
-        // take screenshot when test failed
+        this.message = e.getMessage();                       //完整的错误信息
+        this.localizedMessage = e.getLocalizedMessage();    //简短的错误信息
+        StackTraceElement[] stackTraceElements = e.getStackTrace();        //错误堆栈信息
+        stackTraces = new String[stackTraceElements.length];
+        for(int i=0; i< stackTraceElements.length ; i++){
+            stackTraces[i] = stackTraceElements[i].toString();
+        }
     }
 
     /**
@@ -70,18 +82,22 @@ public class TestWatcherAdvance extends TestName {
 
     /**
      * Invoked when a test method finishes (whether passing or failing)
+     * 测试完成后, 将该test case的直接结果写入报表中
      */
     protected void finished(Description description) {
-        Log.i(TAG, "finished: ....");
+        this.stopTime = new Date().getTime();
+        Log.i(TAG, "finished: ...."+ testName + " at "+God.getDateFormat(stopTime));
+
         TestReport.TestClass.TestCase testCase = testClass.createTestCase()
                 .setCaseName(this.testName)
                 .setErrorMsg(this.message)
                 .setImageName(this.errorImagePath)
                 .setTestResult(this.result)
-                .setUseData(this.useData);
-
+                .setUseData(this.useData)
+                .setLocalizedMessage(this.localizedMessage)
+                .setStackTraces(this.stackTraces)
+                .setSpendTime(stopTime - startTime);
         testClass.getTestCases().add(testCase);
-
     }
 
 

@@ -85,4 +85,21 @@ public class Registor {
             return null;
         }
     }
+
+    /**
+     * 窥探指定key栈顶的对象
+     * @param key
+     * @return
+     */
+    public static Object peekReg(String key){
+        Stack stack ;
+        Object obj ;
+        try {
+            stack = register.get(key);
+            obj = stack.peek();         //窥探一下 , 不注销
+        } catch (Exception e) {
+            return null;
+        }
+        return obj;
+    }
 }

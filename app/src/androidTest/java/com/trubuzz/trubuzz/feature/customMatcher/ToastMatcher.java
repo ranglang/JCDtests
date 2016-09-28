@@ -9,6 +9,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 /**
  * Created by king on 2016/9/23.
+ * 自定义 toast 匹配器
  */
 
 public class ToastMatcher extends TypeSafeMatcher<Root> {

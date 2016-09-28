@@ -168,4 +168,14 @@ public class God {
     public static String getDateFormat(Object d , String format){
         return new SimpleDateFormat(format).format(d);
     }
+
+    /**
+     * 默认使用中国传统格式
+     * @param d
+     * @return
+     */
+    public static String getDateFormat(Object d){
+        return getDateFormat(d , "yy/MM/dd HH:mm:ss:SSS" ,Locale.CHINA);
+    }
+
 }

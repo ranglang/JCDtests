@@ -2,6 +2,9 @@ package com.trubuzz.trubuzz.test;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.ViewAssertion;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
 
@@ -67,7 +70,8 @@ public class BaseTest {
 
     /**
      * 等待 1 秒后截屏 , 确保元素完全展示
-     *
+     * 该功能也用在 {@link AdvancedViewInteraction#check(ViewInteraction, ViewAssertion) ;}
+     * and {@link AdvancedViewInteraction#perform(ViewInteraction, ViewAction...)}
      * @return 截屏图片的绝对路径
      */
     public String takeScreenshot() {
@@ -81,6 +85,11 @@ public class BaseTest {
         return fPath;
     }
 
+    /**
+     *  Return sub class's use data
+     *  由于由子类触发调用 , 所以将获取到的为子类定义的属性
+     * @return
+     */
     public Map getUseData(){
         Map<String , String> userData= new HashMap<String ,String>();
         try {
@@ -88,9 +97,9 @@ public class BaseTest {
             Field[] fields = clz.getDeclaredFields();
             Field.setAccessible(fields,true);
             for(Field f : fields) {
+                // 输入数据一般为 String , so , 这里判断输出String类型的data . 可能会有多余的数据输出
                 if (f.getGenericType() == String.class) {
                     userData.put(f.getName(),(String)f.get(this));
-                    System.out.println("jj : " + f.getName() + " : " + f.get(this));
                 }
             }
         } catch (Exception e) {

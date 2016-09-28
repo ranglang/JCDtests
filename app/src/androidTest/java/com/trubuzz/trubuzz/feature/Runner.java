@@ -18,7 +18,7 @@ import java.lang.reflect.Type;
  * 该类主要重写了父类的onStart()方法,照搬了祖父类的onStart()方法 ( 通过反射方式获取到私有属性及方法 ).
  * 欲实现 添加监听器{@link ExListener}的功能 , 然而适用价值并不大,不如{@link TestWatcherAdvance} 监控
  * 测试生命周期实用.
- * @deprecated use {@link #}
+ * @deprecated use {@link AdRunner}
  */
 
 @Deprecated

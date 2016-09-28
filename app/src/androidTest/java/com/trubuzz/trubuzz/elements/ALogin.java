@@ -20,7 +20,7 @@ public class ALogin {
 
 
     private final static String ID_USER = "account";
-    private final static String ID_PWD = "password";
+    private final static String ID_PWD = "password1";
     private final static String ID_SUBMIT = "submit";
     private final static String ID_SIGNUP = "signup";
 

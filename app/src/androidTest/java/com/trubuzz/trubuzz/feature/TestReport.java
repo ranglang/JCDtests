@@ -2,21 +2,22 @@ package com.trubuzz.trubuzz.feature;
 
 import com.trubuzz.trubuzz.utils.TestResult;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by king on 2016/9/21.
+ * 这是一个测试报告的javaBean
  */
 
 public class TestReport {
 
     private String TestName;
-    private long testStartTime = new Date().getTime();
-
     private List<TestClass> testClasses;
+    private long spendTime;
 
+
+    /*** getter setter ***/
     public String getTestName() {
         return TestName;
     }
@@ -33,6 +34,14 @@ public class TestReport {
         this.testClasses = testClasses;
     }
 
+    public long getSpendTime() {
+        return spendTime;
+    }
+
+    public void setSpendTime(long spendTime) {
+        this.spendTime = spendTime;
+    }
+
     /**
      * 创建TestClass实例
      * @return
@@ -43,9 +52,10 @@ public class TestReport {
     /****内部实现****/
     class TestClass{
         private String testClassName;
-
         private List<TestCase> testCases;
+        private long spendTime;
 
+        /*** getter setter ***/
         public String getTestClassName() {
             return testClassName;
         }
@@ -64,6 +74,14 @@ public class TestReport {
             return this;
         }
 
+        public long getSpendTime() {
+            return spendTime;
+        }
+
+        public void setSpendTime(long spendTime) {
+            this.spendTime = spendTime;
+        }
+
         /**
          * 创建TestCase 实例
          * @return
@@ -77,7 +95,11 @@ public class TestReport {
             private String errorMsg;
             private String imageName;
             private Map useData;
+            private String[] stackTraces;
+            private String localizedMessage;
+            private long spendTime;
 
+            /*** getter setter ***/
             public String getCaseName() {
                 return caseName;
             }
@@ -120,6 +142,33 @@ public class TestReport {
 
             public TestCase setUseData(Map useData) {
                 this.useData = useData;
+                return this;
+            }
+
+            public String[] getStackTraces() {
+                return stackTraces;
+            }
+
+            public TestCase setStackTraces(String[] stackTraces) {
+                this.stackTraces = stackTraces;
+                return this;
+            }
+
+            public String getLocalizedMessage() {
+                return localizedMessage;
+            }
+
+            public TestCase setLocalizedMessage(String localizedMessage) {
+                this.localizedMessage = localizedMessage;
+                return this;
+            }
+
+            public long getSpendTime() {
+                return spendTime;
+            }
+
+            public TestCase setSpendTime(long spendTime) {
+                this.spendTime = spendTime;
                 return this;
             }
         }
