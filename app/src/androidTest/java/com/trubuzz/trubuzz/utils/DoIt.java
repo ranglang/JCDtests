@@ -176,4 +176,19 @@ public class DoIt {
         uiDevice.takeScreenshot(new File(fileAbsolutePath));
         return fileAbsolutePath;
     }
+
+
+    /*************************/
+
+    /**
+     * 初始化对象
+     * 为了避免多次使用变量名而导致书写出错
+     * @param t 原变量
+     * @param obj 新的赋值
+     * @param <T>
+     * @return 若原值为空则执行初始化 , 否则则返回原值
+     */
+    public static <T> T init(T t ,T obj){
+        return t == null ? obj : t ;
+    }
 }

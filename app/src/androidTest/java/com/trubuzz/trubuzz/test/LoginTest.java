@@ -3,9 +3,7 @@ package com.trubuzz.trubuzz.test;
 import android.support.annotation.NonNull;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
 import com.trubuzz.trubuzz.data.AName;
 import com.trubuzz.trubuzz.feature.CustomMatcher;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
@@ -71,7 +69,6 @@ public class LoginTest extends BaseTest{
 
     @Test
     public void testLogin() throws Exception {
-        Log.e("jcd", "testLogin: "+ JSON.toJSONString(this.user));
         perform(account() , replaceText(user));
         perform(password() , replaceText(pwd));
         perform(submit() , click());
@@ -97,11 +94,6 @@ public class LoginTest extends BaseTest{
         isSucceeded = true;
     }
 
-    //@Test
-    public void logts(){
-        int a = 5/0;
-        isSucceeded = true;
-    }
     private void logout() throws InterruptedException {
         perform(leftButton() , click(ViewActions.pressBack()));
         perform(settingsButton() , click());

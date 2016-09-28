@@ -6,11 +6,13 @@ import com.trubuzz.trubuzz.utils.God;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.hasLinks;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.utils.DoIt.init;
 import static org.hamcrest.Matchers.allOf;
 
 /**
@@ -26,9 +28,9 @@ public class ASignUp {
         private static ViewInteraction v_acceptCheck = null;
         private static ViewInteraction v_terms = null;
         private static ViewInteraction v_register = null;
-        private static ViewInteraction s_acceptTerms = null;
+        private static String s_acceptTerms = null;
 
-        private static final String ID_EMAIL_TEXT = "text1";
+        private static final String[] ID_TEXT_SignUpEmail = {"text1" , "邮箱注册"};
         private static final String[] ID_HINT_EMAIL = {"email", "请输入您的邮箱地址"};
         private static final String[] ID_HINT_PWD = {"password", "请输入密码"};
         private static final String[] ID_HINT_PWDC = {"confirm", "请再次输入密码"};
@@ -37,12 +39,19 @@ public class ASignUp {
         private static final String[] ID_TEXT_REG = {"submit", "注册"};
         private static final String TEXT_ACCEPT = "请阅读并勾选同意服务条款以注册账号";
 
-
+        /**
+         * 邮箱注册图标及文字
+         * @return
+         */
         public static ViewInteraction emailReg() {
-            if (v_emailReg == null) {
-                v_emailReg = onView(withChild(withResourceName(ID_EMAIL_TEXT)));
-            }
-            return v_emailReg;
+            return v_emailReg = v_emailReg == null
+                    ? onView(allOf(
+                        withChild(
+                                allOf(withText(God.getString(ID_TEXT_SignUpEmail[1], com.trubuzz.trubuzz.test.R.string.sign_up_email)),
+                                    withResourceName(ID_TEXT_SignUpEmail[0]))),
+                        isDisplayed()
+                    ))
+                    : v_emailReg;
         }
 
         public static ViewInteraction email() {
@@ -119,12 +128,55 @@ public class ASignUp {
         }
 
         public static String acceptTerms() {
-            return God.getString(TEXT_ACCEPT, com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint);
+            if (s_acceptTerms == null){
+                s_acceptTerms = God.getString(TEXT_ACCEPT, com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint);
+            }
+            return s_acceptTerms;
         }
     }
 
     public static class RegPhone{
+        private static ViewInteraction v_phoneReg ;
+        private static ViewInteraction v_pickupCountryCode ;
+        private static ViewInteraction v_country_code ;
 
+        private static final String[] ID_TEXT_PhoneReg = {"text1" , "手机注册"};
+        private static final String[] ID_TEXT_pickup_country_code ={ "pickup_country_code" , "挑选"};
+        private static final String[] ID_TEXT_country_code ={ "country_code" , "86"};
 
+        /**
+         * "手机注册"图标
+         * @return
+         */
+        public static ViewInteraction phoneReg(){
+            return init(v_phoneReg , onView(withChild(allOf(
+                    withText(God.getString(ID_TEXT_PhoneReg[1] , com.trubuzz.trubuzz.test.R.string.sign_up_phone)),
+                    withResourceName(ID_TEXT_PhoneReg[0]))
+            )));
+        }
+
+        /**
+         * 挑选国别码
+         * @return
+         */
+        public static ViewInteraction pickupCode(){
+            return init(v_pickupCountryCode ,
+                    onView(allOf(
+                            withResourceName(ID_TEXT_pickup_country_code[0]),
+                            withText(God.getString(ID_TEXT_pickup_country_code[1],com.trubuzz.trubuzz.test.R.string.pickup))
+                    )));
+        }
+
+        /**
+         * 国别码编辑框
+         * @return
+         */
+        public static ViewInteraction editCountryCode(){
+            return init(v_country_code ,
+                    onView(allOf(
+                            withResourceName(ID_TEXT_country_code[0]),
+                            withText(ID_TEXT_country_code[1])
+                    )));
+        }
     }
 }

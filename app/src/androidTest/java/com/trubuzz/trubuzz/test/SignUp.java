@@ -1,30 +1,39 @@
 package com.trubuzz.trubuzz.test;
 
-import android.util.Log;
+import android.support.test.rule.ActivityTestRule;
 
+import com.trubuzz.trubuzz.data.AName;
+import com.trubuzz.trubuzz.utils.God;
+
+import org.junit.Rule;
 import org.junit.Test;
+
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
+import static com.trubuzz.trubuzz.elements.ALogin.signUp;
+import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.emailReg;
+import static com.trubuzz.trubuzz.elements.ASignUp.RegPhone.phoneReg;
+import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.check;
+import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
+import static org.hamcrest.core.IsNot.not;
 
 /**
  * Created by king on 2016/9/18.
  */
 public class SignUp extends BaseTest{
-    public String a= "a";
 
-//    @ClassRule
-//    public static ClassWatcherAdvance c = new ClassWatcherAdvance();
-//    @Rule
-//    public TestWatcherAdvance t = new TestWatcherAdvance(CreateReport.getTestReport().createTestClass());
+    @Rule
+    public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
     @Test
-    public void test(){
-        Log.i("jcd", "test: sign up test");
-        int i = 5/0;
-        isSucceeded = true;
+    public void signUpDefaultCheck(){
+        perform(signUp() , click());                    //点击立即注册进入注册页面
+        check(emailReg(), matches(isSelected()));       //检查"邮箱注册"默认被选中
+        check(phoneReg() , matches(not(isSelected())))  //检查"手机注册"未选中
+                .perform(click())                       //点击"手机注册"
+                .check(matches(isSelected()));          //检查已被选中
+        check(emailReg() , matches(not(isSelected()))); //检查"邮箱注册"处于未选中
     }
 
-    @Test
-    public void twoT(){
-        Log.i("jcd", "twoT");
-        isSucceeded = true;
-    }
 }
