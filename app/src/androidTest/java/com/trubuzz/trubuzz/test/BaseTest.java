@@ -25,11 +25,13 @@ import java.util.Map;
 
 /**
  * Created by king on 2016/9/23.
+ * 主要功能用于测试生命周期的监控 ; 测试错误截图 ; 测试报告数据收集等
+ * 所有的Test子类必须继承该类
  */
 
 public class BaseTest {
     private final String TAG = "jcd_BaseTest";
-    public boolean isSucceeded = false;
+    protected boolean isSucceeded = false;
 
     protected Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     private String fileName;

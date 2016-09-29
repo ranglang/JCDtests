@@ -12,45 +12,25 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  * Created by king on 2016/9/6.
  */
 public class ASettings {
-    private static ViewInteraction v_left = null;
-    private static ViewInteraction v_setting = null ;
-    private static ViewInteraction v_privateSet = null ;
-    private static ViewInteraction v_logout = null ;
-
-
 
     private final static String ID_LEFT = "action_drawer";
     private final static String TEXT_SETTING = "设置";
     private final static String ID_PRIVATE = "private_mode";
     private final static String TEXT_LOGOUT = "退出";
 
-
-
     public static ViewInteraction leftButton() {
-        if (v_left == null){
-            v_left =  onView(withResourceName(ID_LEFT));
-        }
-        return v_left;
+        return onView(withResourceName(ID_LEFT));
     }
 
     public static ViewInteraction settingsButton() {
-        if (v_setting == null){
-            v_setting =  onView(withText(God.getString(TEXT_SETTING ,com.trubuzz.trubuzz.test.R.string.preference)));
-        }
-        return v_setting;
+       return onView(withText(God.getString(TEXT_SETTING ,com.trubuzz.trubuzz.test.R.string.preference)));
     }
 
     public static ViewInteraction privateButton() {
-        if (v_privateSet == null){
-            v_privateSet =  onView(withResourceName(ID_PRIVATE));
-        }
-        return v_privateSet;
+        return onView(withResourceName(ID_PRIVATE));
     }
 
     public static ViewInteraction logoutButton() {
-        if (v_logout == null){
-            v_logout =  onView(withText( God.getString(TEXT_LOGOUT ,com.trubuzz.trubuzz.test.R.string.logout)));
-        }
-        return v_logout;
+        return onView(withText( God.getString(TEXT_LOGOUT ,com.trubuzz.trubuzz.test.R.string.logout)));
     }
 }
