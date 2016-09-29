@@ -12,6 +12,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.elements.WithAny.getToast;
+import static com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_confirm;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_format;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_phone_format;
@@ -28,7 +29,7 @@ public class ASignUp {
     private static final String[] ID_HINT_PWDC = {"confirm", "请再次输入密码"};
     private static final String ID_ACCEPT = "accept";
     private static final String[] ID_TEXT_TERMS = {"service", "服务条款"};
-    private static final String TEXT_ACCEPT = "请阅读并勾选同意服务条款以注册账号";
+    private static final String TEXT_ACCEPT = getString("请阅读并勾选同意服务条款以注册账号", accept_terms_of_service_hint);
     private static final String TEXT_incorrect_pwd_format = getString("请输入6–16字符的大小写字母和数字组合", incorrect_password_format);
     private static final String TEXT_incorrect_pwd_confirm = getString("确认密码输入不一致", incorrect_password_confirm);
     private static final String[] ID_TEXT_captcha_frame_title = {"title", getString("请输入验证码",input_captcha)};
@@ -40,10 +41,10 @@ public class ASignUp {
         )));
     }
     @NonNull
-    public static ViewInteraction incorrect_pwd_confirm(){
+    public static ViewInteraction incorrect_pwd_confirm_toast(){
         return getToast(TEXT_incorrect_pwd_confirm);
     }
-    public static ViewInteraction incorrect_pwd_format(){
+    public static ViewInteraction incorrect_pwd_format_toast(){
         return getToast(TEXT_incorrect_pwd_format);
     }
     public static ViewInteraction password() {
@@ -81,8 +82,8 @@ public class ASignUp {
         );
     }
 
-    public static String acceptTerms() {
-        return getString(TEXT_ACCEPT, com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint);
+    public static ViewInteraction acceptTerms() {
+        return getToast(TEXT_ACCEPT);
     }
 
 

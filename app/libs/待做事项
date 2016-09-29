@@ -12,3 +12,9 @@
     改善方式:
         1. 删除多余的static变量 , 直接使用方法返回element
         2. 将element查找方式文件化 ,不过这种方式比较死板
+    采用:
+        方式 1
+
+二次开发Junit4 的parameterized 以实现同class中调用不同的参数
+    参考:
+        http://stackoverflow.com/questions/1206257/parameters-in-junit-4
