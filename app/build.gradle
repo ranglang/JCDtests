@@ -32,6 +32,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'io.selendroid:selendroid:0.17.0'
     testCompile 'io.selendroid:selendroid-client:0.17.0'
+    testCompile 'pl.pragmatists:JUnitParams:1.0.5'
 
 
     androidTestCompile 'com.android.support:support-annotations:23.+'
@@ -49,7 +50,7 @@ dependencies {
 task assembleDebug(overwrite: true) {}
 
 task copyTask(type: Copy) {
-    from 'libs/jucaidao_1.322_debug.apk'
+    from 'libs/jucaidao_debug.apk'
     into 'build/outputs/apk/'
     rename {
         'app-debug.apk'

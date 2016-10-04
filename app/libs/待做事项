@@ -18,3 +18,6 @@
 二次开发Junit4 的parameterized 以实现同class中调用不同的参数
     参考:
         http://stackoverflow.com/questions/1206257/parameters-in-junit-4
+    解决方式:
+        采用第三方库解决 : https://github.com/Pragmatists/junitparams/wiki/Quickstart
+        可为每个方法添加不同的参数来参数化
