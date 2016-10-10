@@ -43,15 +43,18 @@ import static org.hamcrest.CoreMatchers.containsString;
 @RunWith(Parameterized.class)
 public class LoginTest extends BaseTest{
 
-    private String user;
-    private String pwd;
-    private String expect;
+    @Parameterized.Parameter(0)
+    public String user;
+    @Parameterized.Parameter(1)
+    public String pwd;
+    @Parameterized.Parameter(2)
+    public String expect;
 
-    public LoginTest(String user, String pwd , String expect) {
-        this.user = user;
-        this.pwd = pwd;
-        this.expect = expect;
-    }
+//    public LoginTest(String user, String pwd , String expect) {
+//        this.user = user;
+//        this.pwd = pwd;
+//        this.expect = expect;
+//    }
     @Rule
     public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 

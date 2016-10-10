@@ -18,6 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
+import org.junit.runners.Parameterized;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -62,7 +63,8 @@ public class BaseTest {
             }
         }
         testWatcherAdvance.setErrorImagePath(this.fileName);
-        testWatcherAdvance.setUseData(this.getUseData());
+        if (testWatcherAdvance.getUseData() == null || testWatcherAdvance.getUseData().isEmpty())
+            testWatcherAdvance.setUseData(this.getUseData());
     }
 
 
@@ -93,21 +95,23 @@ public class BaseTest {
      * @return
      */
     public Map getUseData(){
-        Map<String , String> userData= new HashMap<String ,String>();
         try {
+            Map userData= new HashMap();
             Class clz = this.getClass();
-            Field[] fields = clz.getDeclaredFields();
-            Field.setAccessible(fields,true);
+            Field[] fields = clz.getFields();   // 由于注解是要求属性必须为public
+//            Field.setAccessible(fields,true);
             for(Field f : fields) {
-                // 输入数据一般为 String , so , 这里判断输出String类型的data . 可能会有多余的数据输出
-                if (f.getGenericType() == String.class) {
-                    userData.put(f.getName(),(String)f.get(this));
+                // 这里只能获取使用了@Parameter(index)注解过的的属性.
+                if (f.isAnnotationPresent(Parameterized.Parameter.class)) {
+                    userData.put(f.getName(),f.get(this));
                 }
             }
+            return userData;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return userData;
+        return null;
     }
+
 
 }

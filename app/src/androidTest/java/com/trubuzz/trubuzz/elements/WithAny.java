@@ -4,6 +4,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.view.View;
 
 import com.trubuzz.trubuzz.feature.CustomMatcher;
+import com.trubuzz.trubuzz.feature.customMatcher.ChildAtPositionMatcher;
 
 import org.hamcrest.Matcher;
 
@@ -50,6 +51,9 @@ public class WithAny {
     static ViewInteraction getToast(String toastStr){
         return onView(withText(toastStr))
                 .inRoot(CustomMatcher.isToast());
+    }
+    public static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int position) {
+        return new ChildAtPositionMatcher(parentMatcher,position);
     }
 
     private static Matcher<View> id(String resourceName){

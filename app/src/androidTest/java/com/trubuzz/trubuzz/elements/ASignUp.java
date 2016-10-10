@@ -2,15 +2,18 @@ package com.trubuzz.trubuzz.elements;
 
 import android.support.annotation.NonNull;
 import android.support.test.espresso.ViewInteraction;
+import android.view.View;
+
+import org.hamcrest.core.IsInstanceOf;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.hasLinks;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.elements.WithAny.childAtPosition;
 import static com.trubuzz.trubuzz.elements.WithAny.getToast;
 import static com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_confirm;
@@ -50,15 +53,25 @@ public class ASignUp {
     public static ViewInteraction password() {
        return onView(allOf(
                         withResourceName(ID_HINT_PWD[0]),
-                        withHint(getString(ID_HINT_PWD[1], com.trubuzz.trubuzz.test.R.string.sign_up_password_hint))
-                ));
+                        withHint(getString(ID_HINT_PWD[1], com.trubuzz.trubuzz.test.R.string.sign_up_password_hint)),
+                        childAtPosition(
+                               childAtPosition(
+                                       IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+                                       2),
+                               1)
+                        ));
     }
 
     public static ViewInteraction pwdConfirm() {
         return onView(
                 allOf(
-                        withResourceName(ID_HINT_PWDC[0]),
-                        withHint(getString(ID_HINT_PWDC[1], com.trubuzz.trubuzz.test.R.string.sign_up_confirm_hint))
+                    withResourceName(ID_HINT_PWDC[0]),
+                    withHint(getString(ID_HINT_PWDC[1], com.trubuzz.trubuzz.test.R.string.sign_up_confirm_hint)),
+                        childAtPosition(
+                                childAtPosition(
+                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+                                        4),
+                                1)
                 )
         );
     }
@@ -67,7 +80,7 @@ public class ASignUp {
        return onView(
                 allOf(
                         withResourceName(ID_ACCEPT),
-                        isNotChecked()
+                        isDisplayed()
                 )
         );
     }
@@ -77,7 +90,13 @@ public class ASignUp {
                 allOf(
                         withResourceName(ID_TEXT_TERMS[0]),
                         withText(getString(ID_TEXT_TERMS[1], com.trubuzz.trubuzz.test.R.string.terms_of_service)),
-                        hasLinks()
+                        hasLinks(),
+                        childAtPosition(
+                                childAtPosition(
+                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+                                        6),
+                                1),
+                        isDisplayed()
                 )
         );
     }
@@ -121,7 +140,8 @@ public class ASignUp {
             return onView(
                     allOf(
                             withResourceName(ID_TEXT_REG[0]),
-                            withText(getString(ID_TEXT_REG[1], com.trubuzz.trubuzz.test.R.string.sign_up))
+                            withText(getString(ID_TEXT_REG[1], com.trubuzz.trubuzz.test.R.string.sign_up)),
+                            isDisplayed()
                     )
             );
         }

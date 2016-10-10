@@ -2,6 +2,7 @@ package com.trubuzz.trubuzz.test;
 
 import com.trubuzz.trubuzz.bean.Person;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -24,9 +25,11 @@ public class PT1 {
         assertThat(new Person(age).isAdult(), is(valid));
     }
 
+
     @Test
     @Parameters({"19, false",
             "2, true" })
+    @Ignore
     public void personIsNotAdult(int age, boolean valid) throws Exception {
         assertThat(new Person(age).isAdult(), is(valid));
     }

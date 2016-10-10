@@ -1,6 +1,10 @@
 package com.trubuzz.trubuzz.parameterName;
 
 import org.junit.Test;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.MethodParameter;
+import org.springframework.core.ParameterNameDiscoverer;
+import org.springframework.web.method.support.InvocableHandlerMethod;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -25,6 +29,18 @@ public class PN1 {
         long stop1 = new Date().getTime();
 
         System.out.println(stop1-start1);
+
+        long start2 = new Date().getTime();
+        ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
+
+        InvocableHandlerMethod handlerMethod = new InvocableHandlerMethod(this ,this.getMethod() );
+
+        MethodParameter[] parameters = handlerMethod.getMethodParameters();
+        for(MethodParameter parameter : parameters){
+            parameter.initParameterNameDiscovery(parameterNameDiscoverer);
+            String name = parameter.getParameterName();
+        }
+        System.out.println(new Date().getTime()-start2);
 
     }
 
