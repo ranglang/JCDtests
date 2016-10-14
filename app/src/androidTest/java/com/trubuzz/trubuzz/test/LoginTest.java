@@ -18,24 +18,27 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.elements.ALogin.account;
-import static com.trubuzz.trubuzz.elements.ALogin.loginToast;
 import static com.trubuzz.trubuzz.elements.ALogin.password;
 import static com.trubuzz.trubuzz.elements.ALogin.submit;
 import static com.trubuzz.trubuzz.elements.ASettings.leftButton;
 import static com.trubuzz.trubuzz.elements.ASettings.logoutButton;
 import static com.trubuzz.trubuzz.elements.ASettings.settingsButton;
 import static com.trubuzz.trubuzz.elements.EBrokerChoose.ibBrokerTitle;
-import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.check;
 import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 
 /**
  * Created by king on 2016/8/24.
@@ -75,8 +78,9 @@ public class LoginTest extends BaseTest{
         perform(submit() , click());
 
         if ("失败".equals(expect)){
-            check(loginToast(),matches(isDisplayed()));
-
+//            check(loginToast(),matches(isDisplayed()));
+            onView(withText("123")).inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView()))))
+                    .check(matches(isDisplayed()));
         }else {
             DoIt.regIdlingResource(new SomeActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
 
@@ -92,7 +96,7 @@ public class LoginTest extends BaseTest{
             }
             DoIt.unAllRegIdlingResource();
         }
-        isSucceeded = true;
+        succeeded();
     }
 
     private void logout() throws InterruptedException {

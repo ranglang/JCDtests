@@ -5,7 +5,6 @@ import android.support.test.espresso.ViewInteraction;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static com.trubuzz.trubuzz.elements.WithAny.getToast;
-import static com.trubuzz.trubuzz.test.R.string.login_failed;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_description;
 import static com.trubuzz.trubuzz.utils.God.getString;
 
@@ -19,7 +18,8 @@ public class ALogin {
     private final static String ID_SUBMIT = "submit";
     private final static String[] ID_TEXT_SIGNUP = {"signup",
             getString("请邮箱或手机快速注册登录", sign_up_description)};
-    private final static String TEXT_loginToast = getString(login_failed);
+//    private final static String TEXT_loginToast = getString("无效的账号或密码",login_failed);
+    private final static String TEXT_loginToast = getString("无效的账号或密码1");
 
 
     public static ViewInteraction account() {

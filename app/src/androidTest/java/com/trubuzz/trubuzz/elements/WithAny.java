@@ -4,13 +4,16 @@ import android.support.test.espresso.ViewInteraction;
 import android.view.View;
 
 import com.trubuzz.trubuzz.feature.CustomMatcher;
-import com.trubuzz.trubuzz.feature.customMatcher.ChildAtPositionMatcher;
+import com.trubuzz.trubuzz.utils.God;
 
 import org.hamcrest.Matcher;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -31,7 +34,8 @@ public class WithAny {
      * @return ViewInteraction
      */
     static ViewInteraction getViewInteraction(String[] matcherStr){
-        Matcher<View>[] matchers = (Matcher<View>[]) Array.newInstance(Matcher.class,matcherStr.length);
+        String[] strings = new String[3];
+        Matcher<View>[] matchers = (Matcher<View>[]) Array.newInstance(Matcher.class,matcherStr.length +1);
         for(int i=0 ;i<matcherStr.length ;i++){
             if(i==0 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
                 matchers[i] = id(matcherStr[i]);
@@ -45,16 +49,40 @@ public class WithAny {
                 matchers[i] = hint(matcherStr[i]);
             }
         }
+        matchers[matcherStr.length] = isDisplayed();
         return onView(all(matchers));
     }
+    static ViewInteraction getViewInteraction(String[] matcherStr,Matcher<View>... ms){
+        return onView(all(createMatchers(matcherStr , ms)));
+    }
+    static Matcher<View>[] createMatchers(String[] matcherStr ,Matcher<View>... ms){
+        List<Matcher<View>> matcherList = new ArrayList<Matcher<View>>();
+        for(int i=0 ;i<matcherStr.length ;i++){
 
-    static ViewInteraction getToast(String toastStr){
+            if(i==0 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
+               matcherList.add(id(matcherStr[i]));
+                continue;
+            }
+            if(i==1 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
+                matcherList.add(text(matcherStr[i]));
+                continue;
+            }
+            if(i==2 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
+                matcherList.add(hint(matcherStr[i]));
+            }
+        }
+        for(Matcher<View> matcher : ms){
+            matcherList.add(matcher);
+        }
+        matcherList.add(isDisplayed());
+        return God.list2array(Matcher.class ,matcherList);
+    }
+
+    public static ViewInteraction getToast(String toastStr){
         return onView(withText(toastStr))
                 .inRoot(CustomMatcher.isToast());
     }
-    public static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int position) {
-        return new ChildAtPositionMatcher(parentMatcher,position);
-    }
+
 
     private static Matcher<View> id(String resourceName){
         return withResourceName(resourceName);

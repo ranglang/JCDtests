@@ -2,6 +2,7 @@ package com.trubuzz.trubuzz.data;
 
 /**
  * Created by king on 2016/9/26.
+ * 定义一些环境常量
  */
 
 public final class Env {

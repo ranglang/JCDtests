@@ -18,11 +18,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
+import org.junit.runner.RunWith;
+import org.junit.runner.Runner;
 import org.junit.runners.Parameterized;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+
+import junitparams.JUnitParamsRunner;
 
 /**
  * Created by king on 2016/9/23.
@@ -32,7 +36,8 @@ import java.util.Map;
 
 public class BaseTest {
     private final String TAG = "jcd_BaseTest";
-    protected boolean isSucceeded = false;
+    private boolean isSucceeded = false;
+    private Map useData;
 
     protected Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     private String fileName;
@@ -63,8 +68,7 @@ public class BaseTest {
             }
         }
         testWatcherAdvance.setErrorImagePath(this.fileName);
-        if (testWatcherAdvance.getUseData() == null || testWatcherAdvance.getUseData().isEmpty())
-            testWatcherAdvance.setUseData(this.getUseData());
+        testWatcherAdvance.setUseData(setUseData());
     }
 
 
@@ -90,28 +94,49 @@ public class BaseTest {
     }
 
     /**
-     *  Return sub class's use data
-     *  由于由子类触发调用 , 所以将获取到的为子类定义的属性
+     * 设置使用数据
      * @return
      */
-    public Map getUseData(){
-        try {
-            Map userData= new HashMap();
-            Class clz = this.getClass();
-            Field[] fields = clz.getFields();   // 由于注解是要求属性必须为public
-//            Field.setAccessible(fields,true);
-            for(Field f : fields) {
-                // 这里只能获取使用了@Parameter(index)注解过的的属性.
-                if (f.isAnnotationPresent(Parameterized.Parameter.class)) {
-                    userData.put(f.getName(),f.get(this));
+    private Map setUseData(){
+        Class clz = this.getClass();
+        Class<? extends Runner> runWithClass = ((RunWith)clz.getAnnotation(RunWith.class)).value();
+        if(useData != null && !useData.isEmpty()){
+            return useData;
+        }
+        if(runWithClass.equals(Parameterized.class)){
+            useData = new HashMap();
+            Field [] fields = clz.getFields();          // 由于注解是要求属性必须为public
+            for(Field field : fields){
+                try {
+                    // 这里只能获取使用了@Parameter(index)注解过的的属性.
+                    if (field.isAnnotationPresent(Parameterized.Parameter.class)) {
+                        useData.put(field.getName(), field.get(this));
+                    }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
             }
-            return userData;
-        } catch (Exception e) {
-            e.printStackTrace();
+        }else if(runWithClass.equals(JUnitParamsRunner.class)){
+            Log.i(TAG, "setUseData: 使用了JUnitParamsRunner 的注解 , 将由具体Test方法回调putData(Object ... keys_values) set useData.");
         }
-        return null;
+        return this.useData;
     }
 
-
+    /**
+     * 在子类获取useData的值 , 要求必须以键值对的形式输入
+     * @param keys_values 如: this.putData("key1",123,"key2","param2", "key3",object ,"key4" , null);
+     * @return map
+     */
+    protected void putData(Object ... keys_values){
+        useData = new HashMap();
+        for(int i=0 ; i<keys_values.length; i=i+2){
+            useData.put(keys_values[i] , keys_values[i+1]);
+        }
+    }
+    protected void putData(Map data){
+        this.useData = data;
+    }
+    protected void succeeded(){
+        isSucceeded = true;
+    }
 }

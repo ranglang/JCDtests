@@ -9,6 +9,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
@@ -49,7 +50,9 @@ public class God {
     public static String getString (int str){
         return res.getString(str);
     }
-
+    public static String getString (String str){
+        return str;
+    }
     /**
      * 如果R文件匹配失败则返回默认字符串
      * @param defaultStr
@@ -178,4 +181,12 @@ public class God {
         return getDateFormat(d , "yy/MM/dd HH:mm:ss:SSS" ,Locale.CHINA);
     }
 
+    public static <T> T[] list2array(Class clz ,List<T> list){
+        int length = list.size();
+        T [] ts = (T[]) Array.newInstance(clz , length);
+        for (int i = 0; i<length; i++) {
+            ts[i] = list.get(i);
+        }
+        return ts;
+    }
 }

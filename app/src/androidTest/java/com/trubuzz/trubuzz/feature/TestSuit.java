@@ -2,6 +2,7 @@ package com.trubuzz.trubuzz.feature;
 
 import android.util.Log;
 
+import com.trubuzz.trubuzz.test.LoginTest;
 import com.trubuzz.trubuzz.test.SignUp;
 
 import org.junit.runner.RunWith;
@@ -13,7 +14,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         SignUp.class,
-//        LoginTest.class
+        LoginTest.class
 })
 public class TestSuit {
     public void test(){
