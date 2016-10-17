@@ -1,6 +1,7 @@
 package com.trubuzz.trubuzz.elements;
 
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
 import com.trubuzz.trubuzz.feature.CustomMatcher;
@@ -13,11 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 
 /**
  * Created by king on 2016/9/29.
@@ -78,11 +82,27 @@ public class WithAny {
         return God.list2array(Matcher.class ,matcherList);
     }
 
+    /**
+     * 使用自定义的匹配器获取toast
+     * @param toastStr
+     * @return
+     */
     public static ViewInteraction getToast(String toastStr){
         return onView(withText(toastStr))
                 .inRoot(CustomMatcher.isToast());
     }
 
+    /**
+     * 使用activity来获取 Context 的方式匹配toast ( 官方使用方法 )
+     * 优点 : 清晰的错误日志, 方便调试 ( 推荐使用 )
+     * @param toastStr
+     * @param activity
+     * @return
+     */
+    public static ViewInteraction getToast(String toastStr , ActivityTestRule activity){
+        return onView(withText(toastStr))
+                .inRoot(withDecorView(not(is(activity.getActivity().getWindow().getDecorView()))));
+    }
 
     private static Matcher<View> id(String resourceName){
         return withResourceName(resourceName);

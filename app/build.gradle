@@ -1,14 +1,14 @@
-apply plugin: 'me.tatarka.retrolambda'
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-    }
-}
+//apply plugin: 'me.tatarka.retrolambda'
+//
+//buildscript {
+//    repositories {
+//        mavenCentral()
+//    }
+//
+//    dependencies {
+//        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+//    }
+//}
 apply plugin: 'com.android.application'
 
 android {
@@ -24,8 +24,11 @@ android {
 //        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner "com.trubuzz.trubuzz.feature.AdRunner"
 //        multiDexEnabled true
-
+        jackOptions {
+            enabled true
+        }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
