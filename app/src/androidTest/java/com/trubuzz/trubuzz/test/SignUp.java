@@ -5,7 +5,6 @@ import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.data.AName;
 import com.trubuzz.trubuzz.elements.ASignUp;
-import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Rule;
@@ -17,18 +16,16 @@ import java.util.HashMap;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
-import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.elements.ALogin.signUp;
 import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.email;
-import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.emailPwd;
+import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.emailPwd1;
 import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.emailPwdConfirm;
 import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.emailReg;
 import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.register;
@@ -43,7 +40,6 @@ import static com.trubuzz.trubuzz.elements.ASignUp.captcha_ok;
 import static com.trubuzz.trubuzz.elements.WithAny.getToast;
 import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.check;
 import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
-import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 
 /**
@@ -56,8 +52,8 @@ public class SignUp extends BaseTest{
 
     private Object[] emailSignUp(){
         return new Object[]{
-//            new Object[]{"espressoTest001@abc.com","aA123456","aA12345",true ,null ,"确认密码输入不一致"},
-            new Object[]{"espressoTest001@abc.com","aA123456","aA123456",true ,""  ,"验证码为六个数字"},
+            new Object[]{"espressoTest001@abc.com","aA123456","aA12345",true ,null ,"确认密码输入不一致"},
+//            new Object[]{"espressoTest001@abc.com","aA123456","aA123456",true ,""  ,"验证码为六个数字"},
         };
     }
     private Object[] phoneSignUp(){
@@ -67,7 +63,7 @@ public class SignUp extends BaseTest{
     }
 
     @Rule
-    public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
+    public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
   //  @Test
     public void signUpDefaultCheck(){
@@ -89,7 +85,7 @@ public class SignUp extends BaseTest{
         perform(signUp() , click());                    //点击立即注册进入注册页面
         check(emailReg(), matches(isSelected()));       //检查"邮箱注册"默认被选中
         perform(email() , replaceText(emailAddress)).check(matches(withText(emailAddress)));       //输入邮箱地址并检查
-        perform(emailPwd() , replaceText(pwd));                                                    //输入密码
+        perform(emailPwd1() , replaceText(pwd));                                                    //输入密码
         perform(emailPwdConfirm() , replaceText(pwdConfirm));                                   //确认密码
 
         Espresso.closeSoftKeyboard();                   //关闭软键盘
@@ -104,18 +100,12 @@ public class SignUp extends BaseTest{
             perform( captcha_edit() , replaceText(captcha));
             perform( captcha_ok() , click());
         }
-        check( getToast(except) , matches(isDisplayed()));              //检查预期结果
-
-        DoIt.sleep(1000);
-        perform( captcha_ok() , click());
-        onView(withText(except))
-                .inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView()))))
-                .check(matches(isDisplayed()));
+        check( getToast(except , matr) , matches(isDisplayed()));              //检查预期结果
 
         succeeded();
     }
 
-    //@Test
+//    @Test
 //    @Parameters(method = "phoneSignUp")
     public void invalid_sign_up_with_phone(String phoneNumber ,String pwd , String pwdConfirm ,
                                            boolean acceptTerms ,String captcha , String except){
@@ -139,7 +129,7 @@ public class SignUp extends BaseTest{
             perform(ASignUp.acceptCheck(), click()).check(matches(isChecked()));        //选中同意服务条款
         }
         perform( getSms() , click());                   //点击检查"获取验证码"
-        check( getToast(except) , matches(isDisplayed()));
+        check( getToast(except , matr) , matches(isDisplayed()));
 
 
 

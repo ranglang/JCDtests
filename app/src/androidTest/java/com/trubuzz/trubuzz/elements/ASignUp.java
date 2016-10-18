@@ -3,20 +3,24 @@ package com.trubuzz.trubuzz.elements;
 import android.support.annotation.NonNull;
 import android.support.test.espresso.ViewInteraction;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import org.hamcrest.core.IsInstanceOf;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.hasLinks;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.elements.WithAny.getToast;
 import static com.trubuzz.trubuzz.elements.WithAny.getViewInteraction;
 import static com.trubuzz.trubuzz.feature.CustomMatcher.childAtPosition;
+import static com.trubuzz.trubuzz.feature.CustomMatcher.withUncleRelativePosition;
 import static com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_confirm;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_format;
@@ -128,9 +132,16 @@ public class ASignUp {
                     withHint(getString(ID_HINT_PWD[1], com.trubuzz.trubuzz.test.R.string.sign_up_password_hint)),
                     childAtPosition(
                             childAtPosition(
-                                    IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+                                    IsInstanceOf.instanceOf(android.widget.LinearLayout.class),
                                     2),
                             1)
+            ));
+        }
+        public static ViewInteraction emailPwd1() {
+            return onView(allOf(
+                    withResourceName(ID_HINT_PWD[0]),
+                    withUncleRelativePosition(withChild(withResourceName("email")),-2),
+                    withParent(isAssignableFrom(LinearLayout.class))
             ));
         }
 

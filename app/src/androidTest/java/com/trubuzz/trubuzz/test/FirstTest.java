@@ -44,7 +44,7 @@ public class FirstTest {
     public static Intent intent;
 
     @Rule
-//    public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(launcherActivityClass,true,true);
+//    public ActivityTestRule<?> matr = new ActivityTestRule(launcherActivityClass,true,true);
     public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(getLauncherActivityClass(),true,true);
 
     @Test

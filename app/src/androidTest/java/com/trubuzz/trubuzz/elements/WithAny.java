@@ -89,7 +89,7 @@ public class WithAny {
      */
     public static ViewInteraction getToast(String toastStr){
         return onView(withText(toastStr))
-                .inRoot(CustomMatcher.isToast());
+                .inRoot(CustomMatcher.withToast());
     }
 
     /**
