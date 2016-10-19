@@ -187,6 +187,19 @@ public class DoIt {
         }
     }
 
+    /*****************************/
+    public static boolean delFile(String filePath){
+        try {
+            if ( filePath != null && ! filePath.isEmpty()){
+                new File(filePath).delete();
+                Log.i(TAG, "delFile:  删除临时文件 :"+filePath);
+            }else Log.i(TAG, "delFile: 文件路径为空");
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 }

@@ -7,6 +7,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.test.BaseTest;
+import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.Registor;
 
 import java.io.File;
@@ -25,8 +26,9 @@ public class AdvancedViewInteraction {
      * @param v
      * @param viewActions
      * @return
+     * @deprecated
      */
-    public static ViewInteraction perform(final int times ,final ViewInteraction v , final ViewAction... viewActions ) {
+    public static ViewInteraction perform_old(final int times ,final ViewInteraction v , final ViewAction... viewActions ) {
         ViewInteraction viewInteraction = null;
         int i;
         for(i=1 ;i<times;i++){
@@ -62,6 +64,22 @@ public class AdvancedViewInteraction {
         }
         return viewInteraction;
     }
+    public static ViewInteraction perform(final int times ,final ViewInteraction v , final ViewAction... viewActions ) {
+        for(int i=1; i<times ; i++){
+            Log.i(TAG, "perform: 开始第"+i+"次匹配.....");
+            if(canPerform(v, viewActions)){
+                DoIt.delFile((String)Registor.unReg(key));
+                return v;
+            }else if(i==2 ){
+                //执行截图并保存文件名
+                Registor.reg( key , ((BaseTest)Registor.peekReg(BaseTest.class.toString())).takeScreenshot());
+            }
+            Log.w(TAG,"perform: 第"+i+"次未匹配到元素:"+v.toString());
+        }
+        v.perform(viewActions);
+        DoIt.delFile((String)Registor.unReg(key));
+        return v;
+    }
 
     /**
      * 默认匹配 5 次
@@ -74,13 +92,30 @@ public class AdvancedViewInteraction {
     }
 
     /**
+     * 判断操作是否成功
+     * @param v
+     * @param viewActions
+     * @return
+     */
+    private static boolean canPerform(final ViewInteraction v , final ViewAction... viewActions ) {
+        try {
+            v.perform(viewActions);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * 匹配指定的次数
      * @param times
      * @param v
      * @param viewAssert
      * @return
+     * @deprecated
      */
-    public static ViewInteraction check(final int times ,final ViewInteraction v,final ViewAssertion viewAssert){
+    public static ViewInteraction check_old(final int times ,final ViewInteraction v,final ViewAssertion viewAssert){
         ViewInteraction viewInteraction = null;
         int i;
         for(i=1 ;i<times ;i++){
@@ -118,6 +153,22 @@ public class AdvancedViewInteraction {
         return viewInteraction;
     }
 
+    public static ViewInteraction check(final int times ,final ViewInteraction v,final ViewAssertion viewAssert){
+        for(int i=1; i<times ; i++){
+            Log.i(TAG, "check: 开始第"+i+"次匹配.....");
+            if(checkRight(v, viewAssert)){
+                DoIt.delFile((String)Registor.unReg(key));
+                return v;
+            }else if(i==2 ){
+                //执行截图并保存文件名
+                Registor.reg( key , ((BaseTest)Registor.peekReg(BaseTest.class.toString())).takeScreenshot());
+            }
+            Log.w(TAG,"check: 第"+i+"次未匹配到元素:"+v.toString());
+        }
+        v.check(viewAssert);
+        DoIt.delFile((String)Registor.unReg(key));
+        return v;
+    }
     /**
      * 默认匹配 5 次
      * @param v
@@ -126,5 +177,21 @@ public class AdvancedViewInteraction {
      */
     public static ViewInteraction check(final ViewInteraction v,final ViewAssertion viewAssert){
         return check(5 , v, viewAssert);
+    }
+
+    /**
+     * 判断断言是否成功
+     * @param v
+     * @param viewAssert
+     * @return
+     */
+    private static boolean checkRight(final ViewInteraction v,final ViewAssertion viewAssert){
+        try {
+            v.check(viewAssert);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

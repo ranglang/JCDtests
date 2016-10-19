@@ -154,4 +154,42 @@ public class CustomMatcher {
             }
         };
     }
+
+    /**
+     * 匹配指定文本
+     * @param str
+     * @return
+     */
+    public static Matcher<String> thisString(String str){
+        return new TypeSafeMatcher<String>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("text must be this : "+str);
+            }
+
+            @Override
+            protected boolean matchesSafely(String item) {
+                return item.equals(str);
+            }
+        };
+    }
+
+    /**
+     * 匹配指定对象
+     * @param obj
+     * @return
+     */
+    public static Matcher<Object> thisObject(Object obj) {
+        return new TypeSafeMatcher<Object>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Object must be this : "+obj);
+            }
+
+            @Override
+            protected boolean matchesSafely(Object item) {
+                return item.equals(obj);
+            }
+        };
+    }
 }

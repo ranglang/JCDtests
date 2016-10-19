@@ -25,7 +25,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.elements.ALogin.signUp;
 import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.email;
-import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.emailPwd1;
+import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.emailPwd;
 import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.emailPwdConfirm;
 import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.emailReg;
 import static com.trubuzz.trubuzz.elements.ASignUp.RegEmail.register;
@@ -46,7 +46,7 @@ import static org.hamcrest.core.IsNot.not;
  * Created by king on 2016/9/18.
  */
 @RunWith(JUnitParamsRunner.class)
-public class SignUp extends BaseTest{
+public class SignUpTest extends BaseTest{
 
 
 
@@ -85,7 +85,7 @@ public class SignUp extends BaseTest{
         perform(signUp() , click());                    //点击立即注册进入注册页面
         check(emailReg(), matches(isSelected()));       //检查"邮箱注册"默认被选中
         perform(email() , replaceText(emailAddress)).check(matches(withText(emailAddress)));       //输入邮箱地址并检查
-        perform(emailPwd1() , replaceText(pwd));                                                    //输入密码
+        perform(emailPwd() , replaceText(pwd));                                                    //输入密码
         perform(emailPwdConfirm() , replaceText(pwdConfirm));                                   //确认密码
 
         Espresso.closeSoftKeyboard();                   //关闭软键盘

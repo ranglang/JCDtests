@@ -1,7 +1,6 @@
 package com.trubuzz.trubuzz.test;
 
 import android.support.annotation.NonNull;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.data.AName;
@@ -23,6 +22,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
@@ -31,11 +31,10 @@ import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.elements.ALogin.account;
 import static com.trubuzz.trubuzz.elements.ALogin.password;
 import static com.trubuzz.trubuzz.elements.ALogin.submit;
-import static com.trubuzz.trubuzz.elements.ASettings.leftButton;
-import static com.trubuzz.trubuzz.elements.ASettings.logoutButton;
-import static com.trubuzz.trubuzz.elements.ASettings.settingsButton;
 import static com.trubuzz.trubuzz.elements.EBrokerChoose.ibBrokerTitle;
 import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
+import static com.trubuzz.trubuzz.feature.CustomMatcher.thisObject;
+import static com.trubuzz.trubuzz.test.Wish.logout;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
@@ -73,6 +72,8 @@ public class LoginTest extends BaseTest{
 
     @Test
     public void testLogin() throws Exception {
+        assertThat(Wish.isLogin(mActivityTestRule) , thisObject(true));
+
         perform(account() , replaceText(user));
         perform(password() , replaceText(pwd));
         perform(submit() , click());
@@ -99,11 +100,7 @@ public class LoginTest extends BaseTest{
         succeeded();
     }
 
-    private void logout() throws InterruptedException {
-        perform(leftButton() , click(ViewActions.pressBack()));
-        perform(settingsButton() , click());
-        perform(logoutButton() , click());
-    }
+
 
 
 }
