@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.feature;
+package com.trubuzz.trubuzz.feature.custom;
 
 import android.os.IBinder;
 import android.support.test.espresso.Root;
@@ -174,6 +174,19 @@ public class CustomMatcher {
         };
     }
 
+    public static Matcher<String> singleSpaceContains(String str){
+        return new TypeSafeMatcher<String>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("text must be this : "+str);
+            }
+
+            @Override
+            protected boolean matchesSafely(String item) {
+                return item.replaceAll("\\x20+", " ").contains(str);
+            }
+        };
+    }
     /**
      * 匹配指定对象
      * @param obj

@@ -12,6 +12,8 @@ import com.trubuzz.trubuzz.utils.Registor;
 
 import java.io.File;
 
+import static com.trubuzz.trubuzz.elements.WithAny.getViewInteraction;
+
 /**
  * Created by king on 2016/9/5.
  * 自定义操作和检查等事件 , 实现间隔等待和截图
@@ -89,6 +91,10 @@ public class AdvancedViewInteraction {
      */
     public static ViewInteraction perform(final ViewInteraction v , final ViewAction... viewActions ) {
         return perform(5 ,v , viewActions);
+    }
+
+    public static <T> ViewInteraction perform(final T desc , final ViewAction... viewActions ) {
+        return perform(5 , getViewInteraction(desc),viewActions);
     }
 
     /**
@@ -177,6 +183,10 @@ public class AdvancedViewInteraction {
      */
     public static ViewInteraction check(final ViewInteraction v,final ViewAssertion viewAssert){
         return check(5 , v, viewAssert);
+    }
+
+    public static <T> ViewInteraction check(final T desc,final ViewAssertion viewAssert){
+        return check(5 , getViewInteraction(desc), viewAssert);
     }
 
     /**

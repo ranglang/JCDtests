@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.data;
+package com.trubuzz.trubuzz.constant;
 
 /**
  * Created by king on 2016/8/26.
@@ -9,6 +9,9 @@ public class AName {
     public static final String MAIN = "com.trubuzz.roy.MainActivity" ;
     public static final String LOGIN = "com.trubuzz.roy.auth.AuthenticatorActivity" ;
     public static final String SETTINGS = "com.trubuzz.roy.PreferenceActivity";
+    public static final String NOUNS = "com.trubuzz.roy.trade.ItemDescriptorActivity";
+
+
 
     public static final String SplashActivity = "com.trubuzz.roy.SplashActivity" ;
 

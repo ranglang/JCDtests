@@ -197,7 +197,6 @@
     <string name="amount_sell">卖出数量</string>
     <string name="annualized_rate_of_return">年化收益率</string>
     <string name="assets">资产</string>
-    <string name="available_fund">可用资金</string>
     <string name="available_funds">可用资金</string>
     <string name="available_time">有效时间</string>
     <string name="avatar">头像</string>
@@ -821,4 +820,17 @@
     <string name="url_privacy_policy">http://tb2devweb2.trubuzz.com/mobile/privacy?mobile_lang=</string>
     <string name="url_term_of_service">http://tb2devweb2.trubuzz.com/mobile/terms?mobile_lang=</string>
     <string name="www_server_url">https://tb2devweb2.trubuzz.com</string>
+    <!-- add start ... -->
+    <string name="buying_power_explain">IB默认为交易者提供日内最高4倍、隔日最高2倍的杠杆，所以购买力是您的可用资金量的4倍。</string>
+    <string name="net_liquidation_explain">以市价平掉所有仓位，将所有外汇资产和负债以当前的汇率转成您账户的基础货币，这所有的资产之和为您当前的净清算值。</string>
+    <string name="accrued_cash_explain">指自上一利息支付日至买卖结算日产生的利息收入。</string>
+    <string name="equity_with_loan_value_explain">保证金账户为：总现金+股票+期货期权+债券。</string>
+    <string name="gross_position_value_explain">多头持仓市值+空头持仓市值+看多期权市值+看空期权市值。</string>
+    <string name="init_margin_req_explain">指期货交易者在开始建立交易头寸时，要交纳的保证金。</string>
+    <string name="maint_margin_req_explain">指当期货合约价格发生变动造成保证金成数不足时所需补缴之金额。</string>
+    <string name="excess_liquidity_explain">当前剩余是流动性的平仓指标，要务必确保这个数是正数，买入股票或者股票价格下跌这个数值就会下跌，如果这个数值为负数IB系统就会自动予以平仓部分股票，算法是：总现金+股票+期货期权+债券-维持准备金。</string>
+    <string name="total_amount_explain">您全部仓位按照市价计算出来的当前价值</string>
+    <string name="available_funds_explain">权益含贷款减掉初始保证金即为您的当前可用资金</string>
+    <string name="total_pnl_explain">您当前持仓的收益之和，即：每支商品的持仓量*（市价-成本价）之和。</string>
+    <string name="today_portfolio_explain">单个商品的当日收益分成三个部分：昨日持仓在今天的损益，今天的已实现损益，今天产生的持仓的浮动损益，这三部分之和为当日收益。\n昨日持仓在今天的损益：如果当日没有交易这支股票，那么今日损益就是：（市价-昨收）*持仓量，如果在当日有交易，那么昨日持仓在今天的收益就是：昨日持仓在今天的剩余量*（市价-昨收）。\n今天已实现的损益：当天交易产生的已实现的损益，即：（卖价-成本）*交易量之和。\n今天产生的持仓的浮动损益：仅包括今天产生的持仓，如果昨天有持仓100股，今天交易了1000次，但是这些交易都没有平仓到昨日的100股，那今天产生的持仓为0，如果一开盘就先卖掉了50股，再买回50股，那今天日产生的持仓量是50，而非0。\n举例说明：昨日持仓AA股票100股 ,平均成本12$; 昨日收盘价为 15$ ; 当前市价为17$ ; 今日以17$价格卖出50股,卖时平均成本12$ ; 今日再以 15$买入80股;当前持仓 130股。那么，\n昨日持仓损益为：50*（17-15）= 100；\n今天这个商品已实现损益：50*（17-12) = 250；\n今天这个商品产生的持仓浮动损益：80*（17-15）= 160；\n今天这个商品的损益为：100+160+250 = 510；\n而当日损益即为您所有商品的当天损益之和。</string>
 </resources>

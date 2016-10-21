@@ -19,8 +19,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withResourceNam
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.elements.WithAny.getToast;
 import static com.trubuzz.trubuzz.elements.WithAny.getViewInteraction;
-import static com.trubuzz.trubuzz.feature.CustomMatcher.childAtPosition;
-import static com.trubuzz.trubuzz.feature.CustomMatcher.withUncleRelativePosition;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.childAtPosition;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withUncleRelativePosition;
 import static com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_confirm;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_format;

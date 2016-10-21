@@ -8,7 +8,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
 import android.view.View;
 
-import com.trubuzz.trubuzz.data.Env;
+import com.trubuzz.trubuzz.constant.Env;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,6 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -201,5 +202,19 @@ public class DoIt {
         }
     }
 
+    /***********************************/
+    public static Map enum2map(Enum a){
+        return null;
+    }
 
+    /********************************/
+
+    public static String string2ASCII(String string){
+        String newString = "";
+        char[] chars = string.toCharArray();
+        for(char c: chars){
+            newString = newString + Integer.valueOf(c) + ",";
+        }
+        return newString;
+    }
 }

@@ -1,6 +1,6 @@
 package com.trubuzz.trubuzz.feature;
 
-import com.trubuzz.trubuzz.utils.TestResult;
+import com.trubuzz.trubuzz.constant.TestResult;
 
 import java.util.List;
 import java.util.Map;

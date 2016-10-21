@@ -3,7 +3,7 @@ package com.trubuzz.trubuzz.test;
 import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 
-import com.trubuzz.trubuzz.data.AName;
+import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ASignUp;
 import com.trubuzz.trubuzz.utils.God;
 

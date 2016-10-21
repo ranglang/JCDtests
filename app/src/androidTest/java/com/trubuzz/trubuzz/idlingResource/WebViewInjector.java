@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
-import com.trubuzz.trubuzz.data.AName;
+import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.utils.Find;
 
 /**

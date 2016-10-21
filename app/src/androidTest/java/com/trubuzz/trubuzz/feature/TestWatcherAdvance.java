@@ -3,7 +3,7 @@ package com.trubuzz.trubuzz.feature;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.utils.God;
-import com.trubuzz.trubuzz.utils.TestResult;
+import com.trubuzz.trubuzz.constant.TestResult;
 
 import org.junit.AssumptionViolatedException;
 import org.junit.rules.TestName;

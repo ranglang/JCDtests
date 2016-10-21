@@ -1,0 +1,1 @@
+10/19   expect 直接写文本/toast消息/...   不单独判断 ; expect 不再使用元素(View)

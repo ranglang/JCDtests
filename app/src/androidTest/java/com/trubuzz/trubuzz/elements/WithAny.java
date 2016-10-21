@@ -4,7 +4,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
-import com.trubuzz.trubuzz.feature.CustomMatcher;
+import com.trubuzz.trubuzz.feature.custom.CustomMatcher;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.hamcrest.Matcher;
@@ -31,13 +31,7 @@ import static org.hamcrest.core.IsNot.not;
 
 public class WithAny {
 
-    /**
-     * 按要求传入数组 , 并返回元素的匹配
-     * @param matcherStr array .输入顺序: { id , text ,hint } 若不具备则使用null or "" 占位 , 必须这么做
-     *                   因为这只是一个简易的实现
-     * @return ViewInteraction
-     */
-    static ViewInteraction getViewInteraction(String[] matcherStr){
+    public static Matcher<View>[] getMatchers(final String[] matcherStr){
         String[] strings = new String[3];
         Matcher<View>[] matchers = (Matcher<View>[]) Array.newInstance(Matcher.class,matcherStr.length +1);
         for(int i=0 ;i<matcherStr.length ;i++){
@@ -54,11 +48,51 @@ public class WithAny {
             }
         }
         matchers[matcherStr.length] = isDisplayed();
-        return onView(all(matchers));
+        return matchers;
     }
+
+    /**
+     * 将 {@link #getMatchers(String[])} 方法 用{@link #all(Matcher[])} 组合
+     * @param matcherStr
+     * @return
+     */
+    public static Matcher<View> getAllMatcher(final String[] matcherStr){
+        return all(getMatchers(matcherStr));
+    }
+    /**
+     * 按要求传入数组 , 并返回元素的匹配
+     * @param matcherStr array .输入顺序: { id , text ,hint } 若不具备则使用null or "" 占位 , 必须这么做
+     *                   因为这只是一个简易的实现 {@link #getMatchers(String[])}
+     * @return ViewInteraction
+     */
+    static ViewInteraction getViewInteraction(String[] matcherStr){
+        return onView(getAllMatcher(matcherStr));
+    }
+
+    /**
+     * 多方式获取 , 待完善
+     * @param desc
+     * @param <T>
+     * @return
+     */
+    public static <T> ViewInteraction getViewInteraction(T desc){
+        if (desc instanceof String[]){
+            return getViewInteraction((String[]) desc);
+        }
+        return (ViewInteraction)desc;
+    }
+
+    /**
+     * 多方式匹配 , 定格的 id text hint 和 自定义的 Matcher<View>... ms
+     * 这是独立的查找方式 跟该类中的其他 getViewInteraction 方法无关
+     * @param matcherStr
+     * @param ms
+     * @return
+     */
     static ViewInteraction getViewInteraction(String[] matcherStr,Matcher<View>... ms){
         return onView(all(createMatchers(matcherStr , ms)));
     }
+
     static Matcher<View>[] createMatchers(String[] matcherStr ,Matcher<View>... ms){
         List<Matcher<View>> matcherList = new ArrayList<Matcher<View>>();
         for(int i=0 ;i<matcherStr.length ;i++){

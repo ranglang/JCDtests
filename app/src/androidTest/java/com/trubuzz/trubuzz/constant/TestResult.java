@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.utils;
+package com.trubuzz.trubuzz.constant;
 
 /**
  * Created by king on 2016/9/20.

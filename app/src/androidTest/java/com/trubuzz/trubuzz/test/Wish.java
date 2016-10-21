@@ -5,7 +5,8 @@ import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 
-import com.trubuzz.trubuzz.data.AName;
+import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.constant.Config;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.utils.God;
@@ -55,7 +56,7 @@ public class Wish {
 
         }
         try {
-            check(AAsset.net_worth() , matches((isDisplayed())));
+            check(AAsset.ID_TEXT_net_worth , matches((isDisplayed())));
             return true;
         } catch (Exception e){
             e.printStackTrace();
@@ -74,17 +75,32 @@ public class Wish {
     }
 
 
+    /**
+     * 单纯的登出操作
+     */
     public static void logout() {
         perform(leftButton() , click(ViewActions.pressBack()));
         perform(settingsButton() , click());
         perform(logoutButton() , click());
     }
+
+    /**
+     * 单纯的登录操作
+     * @param user
+     * @param pwd
+     */
     public static void login(String user , String pwd){
         perform(account() , replaceText(user));
         perform(password() , replaceText(pwd));
         perform(submit() , click());
     }
 
+    /**
+     * 期望使用已开户用户登录
+     * @param atr
+     * @param user
+     * @param pwd
+     */
     public static void wantBrokerLogin(ActivityTestRule<?> atr ,String user , String pwd){
         if(! isLogin(atr)){
             login(user,pwd);
@@ -94,6 +110,16 @@ public class Wish {
         }else
             Log.i(TAG, "wantBrokerLogin: 已经是已开户用户登录");
     }
+    public static void wantBrokerLogin(ActivityTestRule<?> atr ){
+        wantBrokerLogin(atr , Config.hasBrokerUser , Config.hasBrokerPwd);
+    }
+
+    /**
+     * 期望使用未开户用户登录
+     * @param atr
+     * @param user
+     * @param pwd
+     */
     public static void wantNotBrokerLogin(ActivityTestRule<?> atr ,String user , String pwd){
         if(! isLogin(atr)){
             login(user,pwd);
@@ -102,5 +128,8 @@ public class Wish {
             login(user,pwd);
         }else
             Log.i(TAG, "wantNotBrokerLogin: 已经是未开户用户登录");
+    }
+    public static void wantNotBrokerLogin(ActivityTestRule<?> atr ){
+        wantNotBrokerLogin(atr ,Config.notBrokerUser , Config.notBrokerPwd);
     }
 }
