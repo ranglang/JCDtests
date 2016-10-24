@@ -38,8 +38,7 @@ import static com.trubuzz.trubuzz.elements.ASignUp.captcha_edit;
 import static com.trubuzz.trubuzz.elements.ASignUp.captcha_frame;
 import static com.trubuzz.trubuzz.elements.ASignUp.captcha_ok;
 import static com.trubuzz.trubuzz.elements.WithAny.getToast;
-import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.check;
-import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
+import static com.trubuzz.trubuzz.shell.Park.given;
 import static org.hamcrest.core.IsNot.not;
 
 /**
@@ -65,14 +64,15 @@ public class SignUpTest extends BaseTest{
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
-  //  @Test
+    @Test
     public void signUpDefaultCheck(){
-        perform(signUp() , click());                    //点击立即注册进入注册页面
-        check(emailReg(), matches(isSelected()));       //检查"邮箱注册"默认被选中
-        check(phoneReg() , matches(not(isSelected())))  //检查"手机注册"未选中
+        given(signUp()).perform(click());                    //点击立即注册进入注册页面
+        given(emailReg()).check(matches(isSelected()));       //检查"邮箱注册"默认被选中
+        given(phoneReg())
+                .check(matches(not(isSelected())))      //检查"手机注册"未选中
                 .perform(click())                       //点击"手机注册"
                 .check(matches(isSelected()));          //检查已被选中
-        check(emailReg() , matches(not(isSelected()))); //检查"邮箱注册"处于未选中
+        given(emailReg()).check(matches(not(isSelected()))); //检查"邮箱注册"处于未选中
         succeeded();
     }
     @Test
@@ -82,31 +82,35 @@ public class SignUpTest extends BaseTest{
         this.putData("email",emailAddress,"pwd",pwd,"pwdConfirm",pwdConfirm ,
                 "acceptTerms",acceptTerms,"register_captcha",captcha,"except" ,except);
 
-        perform(signUp() , click());                    //点击立即注册进入注册页面
-        check(emailReg(), matches(isSelected()));       //检查"邮箱注册"默认被选中
-        perform(email() , replaceText(emailAddress)).check(matches(withText(emailAddress)));       //输入邮箱地址并检查
-        perform(emailPwd() , replaceText(pwd));                                                    //输入密码
-        perform(emailPwdConfirm() , replaceText(pwdConfirm));                                   //确认密码
+        given(signUp()).perform(click());                    //点击立即注册进入注册页面
+        given(emailReg()).check(matches(isSelected()));       //检查"邮箱注册"默认被选中
+        given(email())
+                .perform(replaceText(emailAddress))
+                .check(matches(withText(emailAddress)));       //输入邮箱地址并检查
+        given(emailPwd()).perform(replaceText(pwd));                                                    //输入密码
+        given(emailPwdConfirm()).perform(replaceText(pwdConfirm));                                   //确认密码
 
         Espresso.closeSoftKeyboard();                   //关闭软键盘
 
         if(acceptTerms) {                               //是否同意条款
-            perform(ASignUp.acceptCheck(), click()).check(matches(isChecked()));
+            given(ASignUp.acceptCheck())
+                    .perform(click())
+                    .check(matches(isChecked()));
         }
-        perform(register() , click());                  //点击"注册"
+        given(register()).perform(click());                  //点击"注册"
 
         if(captcha != null){                            //如果预计需输入验证码,则输入
-            check( captcha_frame() , matches(isDisplayed()));
-            perform( captcha_edit() , replaceText(captcha));
-            perform( captcha_ok() , click());
+            given( captcha_frame() ).check(matches(isDisplayed()));
+            given( captcha_edit()).perform(replaceText(captcha));
+            given( captcha_ok()).perform(click());
         }
-        check( getToast(except , matr) , matches(isDisplayed()));              //检查预期结果
+        given( getToast(except , matr)).check(matches(isDisplayed()));              //检查预期结果
 
         succeeded();
     }
 
-//    @Test
-//    @Parameters(method = "phoneSignUp")
+    @Test
+    @Parameters(method = "phoneSignUp")
     public void invalid_sign_up_with_phone(String phoneNumber ,String pwd , String pwdConfirm ,
                                            boolean acceptTerms ,String captcha , String except){
         putData(new HashMap<String,Object>(){{
@@ -117,21 +121,26 @@ public class SignUpTest extends BaseTest{
             put("except",except);
         }});
 
-        perform(signUp() , click());                    //点击立即注册进入注册页面
-        perform( phoneReg() , click())
-            .check(matches(isSelected()));              //点击并检查选中
-        perform( phoneNumber() , replaceText(phoneNumber)).check(matches(withText(phoneNumber)));
-        perform( phonePwd() , replaceText(pwd));
-        perform( phonePwdConfirm() , replaceText(pwdConfirm));
+        given(signUp()).perform(click());                    //点击立即注册进入注册页面
+        given( phoneReg())
+                .perform(click())
+                .check(matches(isSelected()));              //点击并检查选中
+        given( phoneNumber())
+                .perform(replaceText(phoneNumber))
+                .check(matches(withText(phoneNumber)));
+        given( phonePwd()).perform(replaceText(pwd));
+        given( phonePwdConfirm()).perform(replaceText(pwdConfirm));
         Espresso.closeSoftKeyboard();                   //关闭软键盘
 
         if(acceptTerms) {                               //是否同意条款
-            perform(ASignUp.acceptCheck(), click()).check(matches(isChecked()));        //选中同意服务条款
+            given(ASignUp.acceptCheck())
+                    .perform(click())
+                    .check(matches(isChecked()));        //选中同意服务条款
         }
-        perform( getSms() , click());                   //点击检查"获取验证码"
-        check( getToast(except , matr) , matches(isDisplayed()));
+        given( getSms()).perform(click());                   //点击检查"获取验证码"
+        given( getToast(except , matr)).check(matches(isDisplayed()));
 
-
+        this.succeeded();
 
     }
 }

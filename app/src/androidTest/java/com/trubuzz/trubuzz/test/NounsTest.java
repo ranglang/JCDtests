@@ -27,11 +27,36 @@ import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.AName.NOUNS;
-import static com.trubuzz.trubuzz.constant.Nouns.*;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.*;
-import static com.trubuzz.trubuzz.elements.AAsset.*;
+import static com.trubuzz.trubuzz.constant.Nouns.accrued_cash_n;
+import static com.trubuzz.trubuzz.constant.Nouns.available_funds_n;
+import static com.trubuzz.trubuzz.constant.Nouns.buying_power_n;
+import static com.trubuzz.trubuzz.constant.Nouns.equity_with_loan_value_n;
+import static com.trubuzz.trubuzz.constant.Nouns.excess_liquidity_n;
+import static com.trubuzz.trubuzz.constant.Nouns.gross_position_value_n;
+import static com.trubuzz.trubuzz.constant.Nouns.init_margin_req_n;
+import static com.trubuzz.trubuzz.constant.Nouns.maint_margin_req_n;
+import static com.trubuzz.trubuzz.constant.Nouns.net_liquidation_n;
+import static com.trubuzz.trubuzz.constant.Nouns.today_portfolio_n;
+import static com.trubuzz.trubuzz.constant.Nouns.total_amount_n;
+import static com.trubuzz.trubuzz.constant.Nouns.total_pnl_n;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_account_type;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_accrued_cash;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_available_funds_d;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_buying_power_d;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_equity_with_loan_value;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_excess_liquidity;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_gross_position_value;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_individual;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_init_margin_req;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_maint_margin_req;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_net_liquidation;
+import static com.trubuzz.trubuzz.elements.AAsset.Details.check_account_type;
+import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_Available_Funds;
+import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_buying_power;
+import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_today_portfolio;
+import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_total_amount;
+import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_total_portfolio;
 import static com.trubuzz.trubuzz.elements.WithAny.getAllMatcher;
-import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.pause;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
@@ -78,9 +103,9 @@ public class NounsTest extends BaseTest {
         }});
 
         if(isInDetails){                                    //如果在詳情裏, 則先点击"净资产"进入详情
-            perform(AAsset.ID_TEXT_net_worth , click());
+            given(AAsset.ID_TEXT_net_worth).perform(click());
         }
-        perform(viewInteractionDesc , click());                              //点击名词 , 进入解释
+        given(viewInteractionDesc).perform(click());                              //点击名词 , 进入解释
 
         DoIt.regIdlingResource(new SomeActivityIdlingResource(NOUNS ,matr.getActivity() , true));
 
@@ -91,6 +116,7 @@ public class NounsTest extends BaseTest {
 
         DoIt.unRegIdlingResource();
 
+        this.succeeded();
     }
 
     @Test
@@ -102,5 +128,6 @@ public class NounsTest extends BaseTest {
                 .check(matches(withText(check_account_type)))               //检查账户类型字段
                 .check(matches(hasSibling(getAllMatcher(ID_TEXT_individual))));     //检查含有指定子元素
 
+        this.succeeded();
     }
 }

@@ -1,5 +1,5 @@
 apply plugin: 'me.tatarka.retrolambda'
-
+/*使用java8新特性, 解决静态初始化map时要求final变量*/
 buildscript {
     repositories {
         mavenCentral()

@@ -39,8 +39,8 @@ import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.AName.NOUNS;
-import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
+import static com.trubuzz.trubuzz.shell.Park.given;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
@@ -138,7 +138,7 @@ public class FirstTest extends BaseTest{
     public void webTableTest(){
         Object s;
 
-        perform(AAsset.ID_TEXT_today_portfolio , click());
+        given(AAsset.ID_TEXT_today_portfolio ).perform(click());
         DoIt.regIdlingResource(new SomeActivityIdlingResource(NOUNS ,mActivityTestRule.getActivity() , true));
         s = onWebView()
                 .withElement(findElement(Locator.CSS_SELECTOR, "#main>.footer.base.container-fluid"))

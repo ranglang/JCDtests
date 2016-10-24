@@ -24,7 +24,7 @@ import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.elements.ALogin.loginToast;
 import static com.trubuzz.trubuzz.elements.EBrokerChoose.ibBrokerTitle;
-import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.check;
+import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.test.Wish.logout;
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -59,7 +59,7 @@ public class LoginTest extends BaseTest{
         Wish.login(user,pwd);
 
         if ("失败".equals(expect)){
-            check(loginToast(),matches(isDisplayed()));
+            given(loginToast()).check(matches(isDisplayed()));
         }else {
             DoIt.regIdlingResource(new SomeActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
 
