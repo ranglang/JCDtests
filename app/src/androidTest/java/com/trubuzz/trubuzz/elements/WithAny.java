@@ -59,27 +59,31 @@ public class WithAny {
     public static Matcher<View> getAllMatcher(final String[] matcherStr){
         return all(getMatchers(matcherStr));
     }
-    /**
-     * 按要求传入数组 , 并返回元素的匹配
-     * @param matcherStr array .输入顺序: { id , text ,hint } 若不具备则使用null or "" 占位 , 必须这么做
-     *                   因为这只是一个简易的实现 {@link #getMatchers(String[])}
-     * @return ViewInteraction
-     */
-    static ViewInteraction getViewInteraction(String[] matcherStr){
-        return onView(getAllMatcher(matcherStr));
-    }
 
     /**
+     * 若 T 为 String[] 则必须按顺序输入
+     * array .输入顺序: { id , text ,hint } 若不具备则使用null or "" 占位 , 必须这么做
+     *                   因为这只是一个简易的实现 {@link #getMatchers(String[])}
      * 多方式获取 , 待完善
      * @param desc
      * @param <T>
      * @return
      */
     public static <T> ViewInteraction getViewInteraction(T desc){
-        if (desc instanceof String[]){
-            return getViewInteraction((String[]) desc);
+        if (desc instanceof ViewInteraction){
+            return (ViewInteraction)desc;
         }
-        return (ViewInteraction)desc;
+        if (desc instanceof String[]){
+            return onView(getAllMatcher((String[]) desc));
+        }
+        if (desc instanceof Matcher){
+            return onView((Matcher<View>) desc);
+        }
+        if (desc instanceof Matcher[]){
+            return onView(allOf((Matcher[]) desc));
+        }
+
+       return null;
     }
 
     /**
