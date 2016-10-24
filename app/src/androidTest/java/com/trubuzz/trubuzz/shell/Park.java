@@ -8,7 +8,7 @@ import com.trubuzz.trubuzz.elements.WithAny;
 
 public class Park {
 
-    public static <T> AdViewInteraction give(T viewInteractionDesc){
+    public static <T> AdViewInteraction given(T viewInteractionDesc){
         return new AdViewInteraction(WithAny.getViewInteraction(viewInteractionDesc));
     }
 

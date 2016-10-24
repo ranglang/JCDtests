@@ -17,6 +17,7 @@ import static com.trubuzz.trubuzz.elements.WithAny.getViewInteraction;
 /**
  * Created by king on 2016/9/5.
  * 自定义操作和检查等事件 , 实现间隔等待和截图
+ * @deprecated use {@link com.trubuzz.trubuzz.shell.AdViewInteraction} instead
  */
 public class AdvancedViewInteraction {
     private final static String TAG = "jcd_AdViewInteraction";
@@ -199,8 +200,8 @@ public class AdvancedViewInteraction {
         try {
             v.check(viewAssert);
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Error e) {
+            Log.e(TAG, "checkRight: ",e );
             return false;
         }
     }
