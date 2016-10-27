@@ -1,11 +1,14 @@
 package com.trubuzz.trubuzz.test;
 
 import com.trubuzz.trubuzz.bean.Person;
+import com.trubuzz.trubuzz.utils.ClassWatcherAdvance;
 
 import org.junit.After;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
+import org.junit.rules.TestWatcher;
 import org.junit.runner.RunWith;
 
 import junitparams.JUnitParamsRunner;
@@ -21,6 +24,8 @@ import static org.junit.Assert.assertThat;
 public class PT2 {
     @Rule
     public TestName testWatcher = new TestName();
+    @ClassRule
+    public static TestWatcher watcher = new ClassWatcherAdvance();
 
     @Test
     @Parameters(source = PersonProvider.class)

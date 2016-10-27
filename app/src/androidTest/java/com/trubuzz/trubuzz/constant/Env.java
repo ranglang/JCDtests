@@ -8,4 +8,5 @@ package com.trubuzz.trubuzz.constant;
 public final class Env {
     public final static String packageName = "com.trubuzz.trubuzz";
     public final static String filesDir = "/data/data/"+packageName + "/files/";
+    public final static String suiteRegisterKey = "SUITE_REGISTER_KEY";
 }

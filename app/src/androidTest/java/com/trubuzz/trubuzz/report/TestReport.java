@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.feature;
+package com.trubuzz.trubuzz.report;
 
 import com.trubuzz.trubuzz.constant.TestResult;
 
@@ -8,6 +8,7 @@ import java.util.Map;
 /**
  * Created by king on 2016/9/21.
  * 这是一个测试报告的javaBean
+ * @deprecated
  */
 
 public class TestReport {
@@ -50,7 +51,7 @@ public class TestReport {
         return new TestClass();
     }
     /****内部实现****/
-    class TestClass{
+    public class TestClass{
         private String testClassName;
         private List<TestCase> testCases;
         private long spendTime;
@@ -89,7 +90,7 @@ public class TestReport {
         public TestCase createTestCase(){
             return new TestCase();
         }
-        class TestCase{
+        public class TestCase{
             private String caseName;
             private TestResult testResult;
             private String errorMsg;

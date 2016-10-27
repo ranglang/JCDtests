@@ -2,8 +2,10 @@ package com.trubuzz.trubuzz.feature;
 
 import android.util.Log;
 
-import com.trubuzz.trubuzz.utils.God;
 import com.trubuzz.trubuzz.constant.TestResult;
+import com.trubuzz.trubuzz.report.CaseBean;
+import com.trubuzz.trubuzz.report.ClassBean;
+import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.AssumptionViolatedException;
 import org.junit.rules.TestName;
@@ -23,7 +25,7 @@ public class TestWatcherAdvance extends TestName {
     private TestResult result;
     private String message;
     private String errorImagePath;
-    private TestReport.TestClass testClass;
+    private ClassBean testClass;
     private Map useData;
     private String localizedMessage;
     private String[] stackTraces;
@@ -31,7 +33,7 @@ public class TestWatcherAdvance extends TestName {
     private long stopTime;
 
    // public TestWatcherAdvance(){}
-    public TestWatcherAdvance(TestReport.TestClass testClass){
+    public TestWatcherAdvance(ClassBean testClass){
         this.testClass = testClass;
     }
 
@@ -88,15 +90,27 @@ public class TestWatcherAdvance extends TestName {
         this.stopTime = new Date().getTime();
         Log.i(TAG, "finished: ...."+ testName + " at "+God.getDateFormat(stopTime));
 
-        TestReport.TestClass.TestCase testCase = testClass.createTestCase()
-                .setCaseName(this.testName)
-                .setErrorMsg(this.message)
-                .setImageName(this.errorImagePath)
-                .setTestResult(this.result)
-                .setUseData(this.useData)
-                .setLocalizedMessage(this.localizedMessage)
-                .setStackTraces(this.stackTraces)
-                .setSpendTime(stopTime - startTime);
+        CaseBean testCase = new CaseBean();
+        testCase.setCaseName(this.testName);
+        testCase.setErrorMsg(this.message);
+        testCase.setImageName(this.errorImagePath);
+        testCase.setTestResult(this.result);
+        testCase.setUseData(this.useData);
+        testCase.setLocalizedMessage(this.localizedMessage);
+        testCase.setStackTraces(this.stackTraces);
+        testCase.setSpendTime(stopTime - startTime);
+
+
+//        TestReport.TestClass.TestCase testCase1 = testClass.createTestCase()
+//                .setCaseName(this.testName)
+//                .setErrorMsg(this.message)
+//                .setImageName(this.errorImagePath)
+//                .setTestResult(this.result)
+//                .setUseData(this.useData)
+//                .setLocalizedMessage(this.localizedMessage)
+//                .setStackTraces(this.stackTraces)
+//                .setSpendTime(stopTime - startTime);
+
         testClass.getTestCases().add(testCase);
     }
 

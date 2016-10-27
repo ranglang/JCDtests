@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.support.test.runner.AndroidJUnitRunner;
 import android.util.Log;
 
+import com.trubuzz.trubuzz.report.Report;
+import com.trubuzz.trubuzz.report.SuiteBean;
 import com.trubuzz.trubuzz.utils.God;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Date;
 
 public class AdRunner extends AndroidJUnitRunner {
     private final String TAG = "jcd_AdRunner";
-
+    private Report report ;
     private long startTime;
     private long stopTime;
 
@@ -24,8 +25,14 @@ public class AdRunner extends AndroidJUnitRunner {
         super.onCreate(arguments);      //这里得先调用, 否则不能初始化startTime , 其他好像不受影响
 
         this.startTime = new Date().getTime();
-        CreateReport.createTestReport();
-        CreateReport.getTestReport().setTestClasses(new ArrayList<TestReport.TestClass>());
+        /** new **/
+        report = Report.getReport();
+        report.setTestDate(this.startTime);
+        report.setSuiteBean(new SuiteBean());   //创建空的测试套件
+
+//        CreateReport.createTestReport();
+//        CreateReport.getTestReport().setTestClasses(new ArrayList<TestReport.TestClass>());
+
         Log.i(TAG,"onCreate : 创建测试报告对象 at " + God.getDateFormat(startTime));
     }
 
@@ -34,8 +41,12 @@ public class AdRunner extends AndroidJUnitRunner {
         this.stopTime = new Date().getTime();
         Log.i(TAG, "finish: 测试完成 ,输出测试报告 at "+ God.getDateFormat(stopTime));
 
-        CreateReport.getTestReport().setSpendTime(stopTime - startTime);
-        CreateReport.testOutputReport();
+        /*** new **/
+        report.setSpendTime(stopTime - startTime);
+        Report.testOutputReport();
+
+//        CreateReport.getTestReport().setSpendTime(stopTime - startTime);
+//        CreateReport.testOutputReport();
         super.finish(resultCode , results);         //这里得最后调用 , 因为将忽略其后的语句.
     }
 }

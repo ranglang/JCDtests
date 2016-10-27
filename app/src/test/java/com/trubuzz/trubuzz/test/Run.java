@@ -2,6 +2,8 @@ package com.trubuzz.trubuzz.test;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 /**
  * Created by king on 2016/10/20.
  */
@@ -10,14 +12,11 @@ public class Run {
 
     @Test
     public void run(){
-        String s = "h   5\na\tb";
+        ArrayList list = new ArrayList();
+        String s = new String("hehe");
+        list.add(s);
+        s = new String("hello");
 
-        System.out.println(s);
-        System.out.println("----------------------------------------");
-        System.out.println(s.replaceAll("\\s+", "-"));
-        System.out.println("----------------------------------------");
-        System.out.println(s.replaceAll("  ", "-"));
-        System.out.println("----------------------------------------");
-        System.out.println(s.replaceAll("\\x20+" , "-"));
+        System.out.println(list.get(0));
     }
 }

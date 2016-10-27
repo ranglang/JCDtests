@@ -2,7 +2,12 @@ package com.trubuzz.trubuzz.feature;
 
 import android.util.Log;
 
+import com.trubuzz.trubuzz.constant.Env;
+import com.trubuzz.trubuzz.report.CaseBean;
+import com.trubuzz.trubuzz.report.ClassBean;
+import com.trubuzz.trubuzz.report.SuiteBean;
 import com.trubuzz.trubuzz.utils.God;
+import com.trubuzz.trubuzz.utils.Registor;
 
 import org.junit.rules.TestName;
 import org.junit.runner.Description;
@@ -18,7 +23,8 @@ import java.util.Date;
 public class ClassWatcherAdvance extends TestName {
     private final String TAG = "jcd_ClassWatcher";
 
-    private TestReport.TestClass testClass ;
+//    private TestReport.TestClass testClass ;
+    private ClassBean testClass ;
     private String testClassName;
     private long startTime;
     private long stopTime;
@@ -32,9 +38,13 @@ public class ClassWatcherAdvance extends TestName {
         this.testClassName = description.getClassName();
         Log.i(TAG, "starting: ...."+ testClassName + " at "+ God.getDateFormat(startTime));
 
-        testClass = CreateReport.getTestReport().createTestClass();
+        testClass = new ClassBean();
         testClass.setTestClassName(this.testClassName);
-        testClass.setTestCases(new ArrayList<TestReport.TestClass.TestCase>());
+        testClass.setTestCases(new ArrayList<CaseBean>());
+
+//        testClass = CreateReport.getTestReport().createTestClass();
+//        testClass.setTestClassName(this.testClassName);
+//        testClass.setTestCases(new ArrayList<TestReport.TestClass.TestCase>());
     }
 
     /**
@@ -45,11 +55,15 @@ public class ClassWatcherAdvance extends TestName {
         Log.i(TAG, "finished: ...."+ testClassName + " at "+God.getDateFormat(stopTime));
 
         testClass.setSpendTime(stopTime - startTime);
-        CreateReport.getTestReport().getTestClasses().add(testClass);
+        SuiteBean testSuite = (SuiteBean) Registor.peekReg(Env.suiteRegisterKey);
+        assert testSuite != null;
+        testSuite.addTestClasses(testClass);
+
+//        CreateReport.getTestReport().getTestClasses().add(testClass);
     }
 
 
-    public TestReport.TestClass getTestClass() {
+    public ClassBean getTestClass() {
         return testClass;
     }
 }

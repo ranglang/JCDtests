@@ -3,10 +3,12 @@ package com.trubuzz.trubuzz.feature;
 import android.os.Bundle;
 
 import com.alibaba.fastjson.JSON;
+import com.trubuzz.trubuzz.report.TestReport;
 import com.trubuzz.trubuzz.utils.DoIt;
 
 /**
  * Created by king on 2016/9/21.
+ * @deprecated
  */
 
 public class CreateReport {
