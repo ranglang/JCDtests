@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        SuiteA.class
+        SuiteA.class,
+        SuiteB.class
 })
 public class EngineSuite {
 }

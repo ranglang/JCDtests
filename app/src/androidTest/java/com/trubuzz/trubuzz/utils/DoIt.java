@@ -173,9 +173,11 @@ public class DoIt {
         return file.getAbsolutePath();
     }
     public static String takeScreenshot(UiDevice uiDevice,String imageName){
-        String fileAbsolutePath = Env.filesDir+ makeImageName( "ps_"+ imageName) + ".png";
+        String localName = makeImageName( "ps_"+ imageName) + ".png";
+        String fileAbsolutePath = Env.filesDir+ localName;
+
         uiDevice.takeScreenshot(new File(fileAbsolutePath));
-        return fileAbsolutePath;
+        return localName;           //修改为局部名称(文件名) , 因为跟json文件在同一目录
     }
 
 
@@ -189,12 +191,12 @@ public class DoIt {
     }
 
     /*****************************/
-    public static boolean delFile(String filePath){
+    public static boolean delFile(String fileName){
         try {
-            if(filePath == null || filePath.isEmpty()) return true;
+            if(fileName == null || fileName.isEmpty()) return true;
 
-            new File(filePath).delete();
-            Log.i(TAG, "delFile:  删除临时文件 :"+filePath);
+            new File(Env.filesDir+fileName).delete();
+            Log.i(TAG, "delFile:  删除临时文件 :"+fileName);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

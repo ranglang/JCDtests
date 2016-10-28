@@ -3,6 +3,8 @@ package com.trubuzz.trubuzz.report;
 import android.os.Bundle;
 
 import com.alibaba.fastjson.JSON;
+import com.trubuzz.trubuzz.constant.Config;
+import com.trubuzz.trubuzz.constant.DeviceDesc;
 import com.trubuzz.trubuzz.utils.DoIt;
 
 /**
@@ -15,9 +17,8 @@ public class Report {
     private String reportName;
     private long spendTime;
     private long testDate;
-    private String devicesName;
-    private String description;
     private SuiteBean suiteBean;
+    private DeviceDesc deviceDesc;
 
     public static synchronized Report getReport(){
         if(report == null) report = new Report();
@@ -28,11 +29,21 @@ public class Report {
      * 将测试结果写文件
      * {@link com.trubuzz.trubuzz.feature.AdRunner#finish(int, Bundle)} ) 中进行调用}
      */
-    public static void testOutputReport(){
+    public void testOutputReport(){
+        initDesc();
         String str = JSON.toJSONString(report);
         DoIt.writeFileData(str,"report");
     }
 
+    /**
+     * 初始化一些描述数据
+     */
+    private void initDesc(){
+        this.reportName = Config.reportName;
+        this.deviceDesc = DeviceDesc.getDeviceDesc();
+        this.logcatPath = null;
+
+    }
 
     private Report(){}
     public String getLogcatPath() {
@@ -67,27 +78,19 @@ public class Report {
         this.testDate = testDate;
     }
 
-    public String getDevicesName() {
-        return devicesName;
-    }
-
-    public void setDevicesName(String devicesName) {
-        this.devicesName = devicesName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public SuiteBean getSuiteBean() {
         return suiteBean;
     }
 
     public void setSuiteBean(SuiteBean suiteBean) {
         this.suiteBean = suiteBean;
+    }
+
+    public DeviceDesc getDeviceDesc() {
+        return deviceDesc;
+    }
+
+    public void setDeviceDesc(DeviceDesc deviceDesc) {
+        this.deviceDesc = deviceDesc;
     }
 }

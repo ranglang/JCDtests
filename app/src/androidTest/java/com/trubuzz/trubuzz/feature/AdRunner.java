@@ -43,7 +43,7 @@ public class AdRunner extends AndroidJUnitRunner {
 
         /*** new **/
         report.setSpendTime(stopTime - startTime);
-        Report.testOutputReport();
+        report.testOutputReport();
 
 //        CreateReport.getTestReport().setSpendTime(stopTime - startTime);
 //        CreateReport.testOutputReport();

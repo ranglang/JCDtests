@@ -28,6 +28,8 @@ import java.util.Map;
 
 import junitparams.JUnitParamsRunner;
 
+import static com.trubuzz.trubuzz.utils.DoIt.sleep;
+
 /**
  * Created by king on 2016/9/23.
  * 主要功能用于测试生命周期的监控 ; 测试错误截图 ; 测试报告数据收集等
@@ -52,6 +54,7 @@ public class BaseTest {
     @Before
     public void setUp() {
         Registor.reg(BaseTest.class.toString(), this);
+        sleep(1000);    //在每个test之间预留1秒的缓冲
     }
 
     @After

@@ -19,7 +19,7 @@ public class ALogin {
     private final static String[] ID_TEXT_SIGNUP = {"signup",
             getString("请邮箱或手机快速注册登录", sign_up_description)};
 //    private final static String TEXT_loginToast = getString("无效的账号或密码",login_failed);
-    private final static String TEXT_loginToast = getString("无效的账号或密码1");
+    private final static String TEXT_loginToast = getString("无效的账号或密码");
 
 
     public static ViewInteraction account() {

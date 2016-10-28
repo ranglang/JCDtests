@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.web.webdriver.Locator;
@@ -23,6 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Enumeration;
 
 import dalvik.system.DexFile;
@@ -134,7 +136,7 @@ public class FirstTest extends BaseTest{
 
 
 
-    @Test
+//    @Test
     public void webTableTest(){
         Object s;
 
@@ -160,5 +162,28 @@ public class FirstTest extends BaseTest{
 
     }
 
+    @Test
+    public void devices() throws IllegalAccessException {
+//        Log.i(TAG, "devices: MODEL = " + Build.MODEL);
+//        Log.i(TAG, "devices: MANUFACTURER = " + Build.MANUFACTURER);
+//        Log.i(TAG, "devices: SDK_INT = " + Build.VERSION.SDK_INT);
+//        Log.i(TAG, "devices: RELEASE = " + Build.VERSION.RELEASE);
+//        Log.i(TAG, "devices: BRAND = " + Build.BRAND);
+//        Log.i(TAG, "devices: ID = " + Build.ID);
+//        Log.i(TAG, "devices: ID = " + Build.ID);
+//        Log.i(TAG, "devices: ID = " + Build.ID);
+//        Log.i(TAG, "devices: ID = " + Build.ID);
+//        Log.i(TAG, "devices: ID = " + Build.ID);
+
+        Field[] fields = Build.class.getFields();
+        for(Field f : fields){
+            Log.i(TAG, "devices: "+f.getName() + " = "+ f.get(Build.class));
+        }
+
+        Field[] fields_v = Build.VERSION.class.getFields();
+        for(Field f : fields_v){
+            Log.i(TAG, "devices: "+f.getName() + " = "+ f.get(Build.VERSION.class));
+        }
+    }
 
 }
