@@ -21,8 +21,7 @@ import static com.trubuzz.trubuzz.elements.ALogin.submit;
 import static com.trubuzz.trubuzz.elements.ASettings.leftButton;
 import static com.trubuzz.trubuzz.elements.ASettings.logoutButton;
 import static com.trubuzz.trubuzz.elements.ASettings.settingsButton;
-import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.check;
-import static com.trubuzz.trubuzz.feature.AdvancedViewInteraction.perform;
+import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 
 /**
@@ -56,7 +55,7 @@ public class Wish {
 
         }
         try {
-            check(AAsset.ID_TEXT_net_worth , matches((isDisplayed())));
+            given(AAsset.ID_TEXT_net_worth).check( matches((isDisplayed())));
             return true;
         } catch (Exception e){
             e.printStackTrace();
@@ -79,9 +78,9 @@ public class Wish {
      * 单纯的登出操作
      */
     public static void logout() {
-        perform(leftButton() , click(ViewActions.pressBack()));
-        perform(settingsButton() , click());
-        perform(logoutButton() , click());
+        given(leftButton()).perform(click(ViewActions.pressBack()));
+        given(settingsButton()).perform(click());
+        given(logoutButton()).perform(click());
     }
 
     /**
@@ -90,9 +89,9 @@ public class Wish {
      * @param pwd
      */
     public static void login(String user , String pwd){
-        perform(account() , replaceText(user));
-        perform(password() , replaceText(pwd));
-        perform(submit() , click());
+        given(account()).perform(replaceText(user));
+        given(password()).perform(replaceText(pwd));
+        given(submit()).perform( click());
     }
 
     /**

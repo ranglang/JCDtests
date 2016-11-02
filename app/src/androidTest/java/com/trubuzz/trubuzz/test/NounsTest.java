@@ -56,7 +56,7 @@ import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_buying_power;
 import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_today_portfolio;
 import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_total_amount;
 import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_total_portfolio;
-import static com.trubuzz.trubuzz.elements.WithAny.getAllMatcher;
+import static com.trubuzz.trubuzz.shell.WithAny.getAllMatcher;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.pause;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;

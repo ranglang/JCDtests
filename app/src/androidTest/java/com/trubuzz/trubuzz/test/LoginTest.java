@@ -17,15 +17,22 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
+import static com.trubuzz.trubuzz.elements.ALogin.clean_pwd;
 import static com.trubuzz.trubuzz.elements.ALogin.loginToast;
+import static com.trubuzz.trubuzz.elements.ALogin.password;
 import static com.trubuzz.trubuzz.elements.EBrokerChoose.ibBrokerTitle;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.test.R.string.input_password;
 import static com.trubuzz.trubuzz.test.Wish.logout;
+import static com.trubuzz.trubuzz.utils.God.getString;
 import static org.hamcrest.CoreMatchers.containsString;
 
 /**
@@ -78,5 +85,14 @@ public class LoginTest extends BaseTest{
         succeeded();
     }
 
+    @Test
+    public void cleanPwdTest(){
+        given(password())
+                .perform(replaceText("123456"));
+        given(clean_pwd())
+                .perform(click());
+        given(password())
+                .check(matches(withHint(getString("输入密码",input_password))));
+    }
 
 }

@@ -7,7 +7,6 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ASignUp;
 import com.trubuzz.trubuzz.utils.God;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +37,7 @@ import static com.trubuzz.trubuzz.elements.ASignUp.RegPhone.phoneReg;
 import static com.trubuzz.trubuzz.elements.ASignUp.captcha_edit;
 import static com.trubuzz.trubuzz.elements.ASignUp.captcha_frame;
 import static com.trubuzz.trubuzz.elements.ASignUp.captcha_ok;
-import static com.trubuzz.trubuzz.elements.WithAny.getToast;
+import static com.trubuzz.trubuzz.shell.WithAny.getToast;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static org.hamcrest.core.IsNot.not;
 
@@ -66,7 +65,6 @@ public class SignUpTest extends BaseTest{
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
     @Test
-    @Ignore
     public void signUpDefaultCheck(){
         given(signUp()).perform(click());                    //点击立即注册进入注册页面
         given(emailReg()).check(matches(isSelected()));       //检查"邮箱注册"默认被选中

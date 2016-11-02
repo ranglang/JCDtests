@@ -2,19 +2,15 @@ package com.trubuzz.trubuzz.test;
 
 import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.ViewAssertion;
-import android.support.test.espresso.ViewInteraction;
 import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
 
-import com.trubuzz.trubuzz.feature.AdvancedViewInteraction;
 import com.trubuzz.trubuzz.feature.ClassWatcherAdvance;
 import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
+import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.Registor;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -47,7 +43,7 @@ public class BaseTest {
     @ClassRule
     public static ClassWatcherAdvance classWatcherAdvance = new ClassWatcherAdvance();
     @Rule
-    public TestWatcherAdvance testWatcherAdvance = new TestWatcherAdvance(classWatcherAdvance.getTestClass());
+    public TestWatcherAdvance testWatcherAdvance = new TestWatcherAdvance(classWatcherAdvance.getTestClass() , this);
 
     public UiDevice uiDevice = UiDevice.getInstance(instrumentation);
 
@@ -57,13 +53,13 @@ public class BaseTest {
         sleep(1000);    //在每个test之间预留1秒的缓冲
     }
 
-    @After
+    //@After
     public void tearDown() {
         Registor.unRegAll(BaseTest.class.toString());
         String mN = testWatcherAdvance.getTestName();
         Log.i("jcd", "tearDown: ....." + mN);
         if (!isSucceeded) {
-            Object obj = Registor.unReg(AdvancedViewInteraction.class.toString());
+            Object obj = Registor.unReg(AdViewInteraction.class.toString());
             if (obj instanceof String) {
                 this.fileName = (String) obj;
             } else {
@@ -81,8 +77,8 @@ public class BaseTest {
 
     /**
      * 等待 1 秒后截屏 , 确保元素完全展示
-     * 该功能也用在 {@link AdvancedViewInteraction#check(ViewInteraction, ViewAssertion) ;}
-     * and {@link AdvancedViewInteraction#perform(ViewInteraction, ViewAction...)}
+     * 该功能也用在 {@link AdViewInteraction check(ViewInteraction, ViewAssertion) ;}
+     * and {@link AdViewInteraction perform(ViewInteraction, ViewAction...)}
      * @return 截屏图片的绝对路径
      */
     public String takeScreenshot() {
@@ -100,7 +96,7 @@ public class BaseTest {
      * 设置使用数据
      * @return
      */
-    private Map setUseData(){
+    public Map setUseData(){
         Class clz = this.getClass();
         Class<? extends Runner> runWithClass = ((RunWith)clz.getAnnotation(RunWith.class)).value();
         if(useData != null && !useData.isEmpty()){

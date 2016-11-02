@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.Nouns;
 import com.trubuzz.trubuzz.elements.AAsset;
+import com.trubuzz.trubuzz.elements.AForgetPwd;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
 import com.trubuzz.trubuzz.utils.DoIt;
@@ -36,13 +37,18 @@ import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.AName.NOUNS;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.utils.DoIt.sleep;
+import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
@@ -162,7 +168,7 @@ public class FirstTest extends BaseTest{
 
     }
 
-    @Test
+//    @Test
     public void devices() throws IllegalAccessException {
 //        Log.i(TAG, "devices: MODEL = " + Build.MODEL);
 //        Log.i(TAG, "devices: MANUFACTURER = " + Build.MANUFACTURER);
@@ -184,6 +190,29 @@ public class FirstTest extends BaseTest{
         for(Field f : fields_v){
             Log.i(TAG, "devices: "+f.getName() + " = "+ f.get(Build.VERSION.class));
         }
+    }
+
+
+//    @Test
+    public void hasSiblingTest(){
+        given(ALogin.password()).perform(replaceText("23432312"));
+        sleep(2000);
+        onView(
+                allOf(
+                        hasSiblingNoSelf(withResourceName("password")),
+                        hasSiblingNoSelf(withText("忘记密码")),
+                        withIndex(2)        //with index test
+
+                )
+        ).perform(click());
+        sleep(2000);
+    }
+
+    @Test
+    public void elementTest(){
+        given(ALogin.forget_pwd()).perform(click());
+        given(AForgetPwd.use_phone).perform(click());
+        sleep(2000);
     }
 
 }
