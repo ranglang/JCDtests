@@ -23,6 +23,4 @@ public abstract class Su {
         string = s;
     }
 
-    @BeforeClass
-    public static abstract void aa();
 }

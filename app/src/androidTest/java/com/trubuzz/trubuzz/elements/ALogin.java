@@ -2,11 +2,18 @@ package com.trubuzz.trubuzz.elements;
 
 import android.support.test.espresso.ViewInteraction;
 
+import com.trubuzz.trubuzz.shell.WithAny;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
-import static com.trubuzz.trubuzz.elements.WithAny.getToast;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.shell.WithAny.getToast;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
+import static com.trubuzz.trubuzz.test.R.string.forget_password;
+import static com.trubuzz.trubuzz.test.R.string.login_failed;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_description;
 import static com.trubuzz.trubuzz.utils.God.getString;
+import static org.hamcrest.Matchers.allOf;
 
 /**
  * Created by king on 2016/8/23.
@@ -18,10 +25,23 @@ public class ALogin {
     private final static String ID_SUBMIT = "submit";
     private final static String[] ID_TEXT_SIGNUP = {"signup",
             getString("请邮箱或手机快速注册登录", sign_up_description)};
-//    private final static String TEXT_loginToast = getString("无效的账号或密码",login_failed);
-    private final static String TEXT_loginToast = getString("无效的账号或密码");
+    private final static String TEXT_loginToast = getString("无效的账号或密码",login_failed);
+    private final static String TEXT_forgetPwd = getString("忘记密码",forget_password);
 
 
+    /**
+     * 清除密码图标
+     * @return
+     */
+    public static ViewInteraction clean_pwd(){
+        return onView(allOf(
+                hasSiblingNoSelf(withResourceName(ID_PWD)),
+                hasSiblingNoSelf(withText(TEXT_forgetPwd))
+        ));
+    }
+    public static ViewInteraction forget_pwd(){
+        return onView(withText(TEXT_forgetPwd));
+    }
     public static ViewInteraction account() {
         return onView(withResourceName(ID_USER));
     }
