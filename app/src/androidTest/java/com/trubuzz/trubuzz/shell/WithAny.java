@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.elements;
+package com.trubuzz.trubuzz.shell;
 
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
@@ -15,10 +15,16 @@ import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withUncle;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
@@ -30,6 +36,54 @@ import static org.hamcrest.core.IsNot.not;
  */
 
 public class WithAny {
+
+    /**
+     * 将封装的element 转换成 matcher list , 摒弃null和空值
+     * @param element
+     * @return
+     */
+    public static List<Matcher<View>> element2matcher(Element element){
+        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
+
+        String id = element.getId();
+        if(id != null && !id.isEmpty()) ms.add(withResourceName(id));
+
+        String text = element.getText();
+        if(text !=null && !text.isEmpty()) ms.add(withText(text));
+
+        String hint = element.getHint();
+        if(hint != null && !hint.isEmpty()) ms.add(withHint(hint));
+
+        Element[] children = element.getChildren();
+        if(children != null && children.length > 0)  ms.add(children(elements2matcher(children)));
+
+        Element[] sibling = element.getSibling();
+        if(sibling != null && sibling.length > 0) ms.add(sibling(elements2matcher(sibling)));
+
+        Element parent = element.getParent();
+        if(parent != null ) ms.add(withParent(all(element2matcher(parent))));
+
+        Element uncle = element.getUncle();
+        if(uncle != null) ms.add(withUncle(all(element2matcher(uncle))));
+
+        int index = element.getIndex();
+        if(index >= 0) ms.add(withIndex(index));
+
+        Class clz = element.getAssignableClass();
+        if(clz != null) ms.add(isAssignableFrom(clz));
+
+        Matcher<View>[] matchers = element.getMatchers();
+        if(matchers != null && matchers.length > 0) ms.addAll(God.array2list(matchers));
+
+        return ms;
+    }
+    private static List<List<Matcher<View>>> elements2matcher(Element... elements){
+        List<List<Matcher<View>>> ms = new ArrayList<>();
+        for(Element element : elements){
+            ms.add(element2matcher(element));
+        }
+        return ms;
+    }
 
     public static Matcher<View>[] getMatchers(final String[] matcherStr){
         String[] strings = new String[3];
@@ -82,10 +136,21 @@ public class WithAny {
         if (desc instanceof Matcher[]){
             return onView(allOf((Matcher[]) desc));
         }
+        if (desc instanceof Element){
+            return onView(all(element2matcher((Element) desc)));
+        }
 
        return null;
     }
 
+    /**
+     * 这是通过封装后的匹配方式
+     * @param element 封装的元素信息
+     * @return
+     */
+    public static ViewInteraction getViewInteraction(Element element){
+        return onView(all(element2matcher(element)));
+    }
     /**
      * 多方式匹配 , 定格的 id text hint 和 自定义的 Matcher<View>... ms
      * 这是独立的查找方式 跟该类中的其他 getViewInteraction 方法无关
@@ -93,7 +158,7 @@ public class WithAny {
      * @param ms
      * @return
      */
-    static ViewInteraction getViewInteraction(String[] matcherStr,Matcher<View>... ms){
+    public static ViewInteraction getViewInteraction(String[] matcherStr,Matcher<View>... ms){
         return onView(all(createMatchers(matcherStr , ms)));
     }
 
@@ -143,15 +208,73 @@ public class WithAny {
     }
 
     private static Matcher<View> id(String resourceName){
+        if(resourceName == null || resourceName.isEmpty()) return null;
         return withResourceName(resourceName);
     }
     private static Matcher<View> text(String text){
+        if(text == null || text.isEmpty()) return null;
         return withText(text);
     }
     private static Matcher<View> hint(String text){
+        if(text == null || text.isEmpty()) return null;
         return withHint(text);
     }
+
+    /**
+     * List<Matcher<View>>中包含了单个child的匹配方式,
+     * 使用all(List<Matcher<View>> list ) 提取出child的Matcher<View> .
+     * 如果有多个children 则使用allOf 多次匹配即可
+     * @param children
+     * @return
+     */
+    private static Matcher<View> children(List<List<Matcher<View>>> children){
+        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
+        for(List<Matcher<View>> matcher : children){
+            ms.add(withChild(all(matcher)));
+        }
+        return allOf(God.list2array(Matcher.class ,ms));
+    }
+    @SafeVarargs
+    private static Matcher<View> children(Matcher<View> ...children){
+        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
+        for(Matcher<View> matcher : children){
+            ms.add(withChild(matcher));
+        }
+        return allOf(God.list2array(Matcher.class ,ms));
+    }
+
+    /**
+     * <List<Matcher<View>> 中包含了单个的sibling的匹配方式
+     * @param sibling
+     * @return
+     */
+    private static Matcher<View> sibling(List<List<Matcher<View>>> sibling){
+        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
+        for(List<Matcher<View>> matcher : sibling){
+            ms.add(hasSiblingNoSelf(all(matcher)));
+        }
+        return allOf(God.list2array(Matcher.class ,ms));
+    }
+    @SafeVarargs
+    private static Matcher<View> sibling(Matcher<View> ...sibling){
+        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
+        for(Matcher<View> matcher : sibling){
+            ms.add(hasSiblingNoSelf(matcher));
+        }
+        return allOf(God.list2array(Matcher.class ,ms));
+    }
+
+    /**
+     * allOf 的封装实现
+     * @param matcher
+     * @return
+     */
+    @SafeVarargs
     private static Matcher<View> all(Matcher<View>... matcher){
         return allOf(matcher);
+    }
+
+    private static Matcher<View> all(List<Matcher<View>> list){
+        return allOf(God.list2array(Matcher.class ,list));
     }
 }
