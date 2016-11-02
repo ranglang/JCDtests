@@ -12,6 +12,8 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+import static android.support.test.internal.util.Checks.checkNotNull;
+
 /**
  * Created by king on 2016/9/23.
  */
@@ -122,6 +124,34 @@ public class CustomMatcher {
     }
 
     /**
+     * 通过叔父查找
+     * @param uncleMatcher
+     * @return
+     */
+    public static Matcher<View> withUncle(final Matcher<View> uncleMatcher){
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with uncle:");
+                uncleMatcher.describeTo(description);
+            }
+
+            @Override
+            protected boolean matchesSafely(View view) {
+                ViewParent grandParent = view.getParent().getParent();
+                if (!(grandParent instanceof ViewGroup)) {
+                    return false;
+                }
+                ViewGroup grandParentGroup = (ViewGroup) grandParent;
+                for(int i=0;i<grandParentGroup.getChildCount();i++){
+                    if(uncleMatcher.matches(grandParentGroup.getChildAt(i)))
+                        return true;
+                }
+                return false;
+            }
+        };
+    }
+    /**
      * 使用 uncle view 相对于 自身父级元素的位置来匹配
      * 在父元素上一位置 为 -1 , 下一行则为 1 ,一次类推
      * @param uncleMatcher
@@ -154,6 +184,29 @@ public class CustomMatcher {
             }
         };
     }
+    /**
+     * 通过index定位
+     * @param index
+     * @return
+     */
+    public static Matcher<View> withIndex(final int index){
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with index: "+index);
+            }
+
+            @Override
+            protected boolean matchesSafely(View view) {
+                ViewParent parent = view.getParent();
+                if (!(parent instanceof ViewGroup)) {
+                    return false;
+                }
+                ViewGroup parentGroup = (ViewGroup) parent;
+                return view.equals(parentGroup.getChildAt(index));
+            }
+        };
+    }
 
     /**
      * 匹配指定文本
@@ -178,7 +231,7 @@ public class CustomMatcher {
         return new TypeSafeMatcher<String>() {
             @Override
             public void describeTo(Description description) {
-                description.appendText("text must be this : "+str);
+                description.appendText("text must contains this : "+str);
             }
 
             @Override
@@ -202,6 +255,40 @@ public class CustomMatcher {
             @Override
             protected boolean matchesSafely(Object item) {
                 return item.equals(obj);
+            }
+        };
+    }
+
+
+    /**
+     * 基于指定的兄弟姐妹匹配, 不包含自身.
+     * {@link android.support.test.espresso.matcher.ViewMatchers#hasSibling } 则是包含自身的实现
+     * @param siblingMatcher
+     * @return
+     */
+    public static Matcher<View> hasSiblingNoSelf(final Matcher<View> siblingMatcher){
+        checkNotNull(siblingMatcher);
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has sibling: ");
+                siblingMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewParent parent = view.getParent();
+                if (!(parent instanceof ViewGroup)) {
+                    return false;
+                }
+                ViewGroup parentGroup = (ViewGroup) parent;
+                for (int i = 0; i < parentGroup.getChildCount(); i++) {
+                    View siblingView = parentGroup.getChildAt(i);
+                    if (siblingMatcher.matches(siblingView) && !siblingView.equals(view)) {
+                        return true;
+                    }
+                }
+                return false;
             }
         };
     }
