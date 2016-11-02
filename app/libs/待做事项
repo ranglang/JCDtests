@@ -40,6 +40,7 @@
         由于在Android环境无法获取到具体的class文件 , 只有apk文件
         故采用方式3
 
-6. （待解决）遗留问题:每个Test方法都需要最后通知BaseTest 成功 , 否则都会保留截图
+6.  (完成)（已解决）遗留问题:每个Test方法都需要最后通知BaseTest 成功 , 否则都会保留截图
     解决方式:
-        当前没有好的解决方式
+        当前没有好的解决方式.
+        将BaseTest 中After的内容分布到 TestWatcherAdvance中的failed 和 finish 中去完成 , 构造方法增加BaseTest的形参.
