@@ -11,7 +11,9 @@ import android.util.Log;
 
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -184,9 +186,15 @@ public class God {
     public static <T> T[] list2array(Class clz ,List<T> list){
         int length = list.size();
         T [] ts = (T[]) Array.newInstance(clz , length);
-        for (int i = 0; i<length; i++) {
-            ts[i] = list.get(i);
-        }
-        return ts;
+        return list.toArray(ts);
+//        for (int i = 0; i<length; i++) {
+//            ts[i] = list.get(i);
+//        }
+//        return ts;
+    }
+    public static <T> List<T> array2list(T [] arrays){
+        List<T> list = new ArrayList<T>();
+        Collections.addAll(list, arrays);
+        return list;
     }
 }
