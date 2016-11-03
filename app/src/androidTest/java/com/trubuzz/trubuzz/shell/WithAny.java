@@ -42,7 +42,7 @@ public class WithAny {
      * @param element
      * @return
      */
-    public static List<Matcher<View>> element2matcher(Element element){
+    private static List<Matcher<View>> element2matcher(Element element){
         List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
 
         String id = element.getId();
@@ -77,6 +77,12 @@ public class WithAny {
 
         return ms;
     }
+
+    /**
+     * 多element 的合并
+     * @param elements
+     * @return
+     */
     private static List<List<Matcher<View>>> elements2matcher(Element... elements){
         List<List<Matcher<View>>> ms = new ArrayList<>();
         for(Element element : elements){
@@ -84,105 +90,17 @@ public class WithAny {
         }
         return ms;
     }
-
-    public static Matcher<View>[] getMatchers(final String[] matcherStr){
-        String[] strings = new String[3];
-        Matcher<View>[] matchers = (Matcher<View>[]) Array.newInstance(Matcher.class,matcherStr.length +1);
-        for(int i=0 ;i<matcherStr.length ;i++){
-            if(i==0 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
-                matchers[i] = id(matcherStr[i]);
-                continue;
-            }
-            if(i==1 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
-                matchers[i] = text(matcherStr[i]);
-                continue;
-            }
-            if(i==2 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
-                matchers[i] = hint(matcherStr[i]);
-            }
-        }
-        matchers[matcherStr.length] = isDisplayed();
-        return matchers;
-    }
-
-    /**
-     * 将 {@link #getMatchers(String[])} 方法 用{@link #all(Matcher[])} 组合
-     * @param matcherStr
-     * @return
-     */
-    public static Matcher<View> getAllMatcher(final String[] matcherStr){
-        return all(getMatchers(matcherStr));
-    }
-
-    /**
-     * 若 T 为 String[] 则必须按顺序输入
-     * array .输入顺序: { id , text ,hint } 若不具备则使用null or "" 占位 , 必须这么做
-     *                   因为这只是一个简易的实现 {@link #getMatchers(String[])}
-     * 多方式获取 , 待完善
-     * @param desc
-     * @param <T>
-     * @return
-     */
-    public static <T> ViewInteraction getViewInteraction(T desc){
-        if (desc instanceof ViewInteraction){
-            return (ViewInteraction)desc;
-        }
-        if (desc instanceof String[]){
-            return onView(getAllMatcher((String[]) desc));
-        }
-        if (desc instanceof Matcher){
-            return onView((Matcher<View>) desc);
-        }
-        if (desc instanceof Matcher[]){
-            return onView(allOf((Matcher[]) desc));
-        }
-        if (desc instanceof Element){
-            return onView(all(element2matcher((Element) desc)));
-        }
-
-       return null;
-    }
-
     /**
      * 这是通过封装后的匹配方式
      * @param element 封装的元素信息
      * @return
      */
     public static ViewInteraction getViewInteraction(Element element){
+        Element.ToastMsg toastMsg = element.getToastMsg();
+        if(toastMsg != null){
+            return getToast(toastMsg.getMsg() , toastMsg.getActivity());
+        }
         return onView(all(element2matcher(element)));
-    }
-    /**
-     * 多方式匹配 , 定格的 id text hint 和 自定义的 Matcher<View>... ms
-     * 这是独立的查找方式 跟该类中的其他 getViewInteraction 方法无关
-     * @param matcherStr
-     * @param ms
-     * @return
-     */
-    public static ViewInteraction getViewInteraction(String[] matcherStr,Matcher<View>... ms){
-        return onView(all(createMatchers(matcherStr , ms)));
-    }
-
-    static Matcher<View>[] createMatchers(String[] matcherStr ,Matcher<View>... ms){
-        List<Matcher<View>> matcherList = new ArrayList<Matcher<View>>();
-        for(int i=0 ;i<matcherStr.length ;i++){
-
-            if(i==0 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
-               matcherList.add(id(matcherStr[i]));
-                continue;
-            }
-            if(i==1 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
-                matcherList.add(text(matcherStr[i]));
-                continue;
-            }
-            if(i==2 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
-                matcherList.add(hint(matcherStr[i]));
-            }
-        }
-        for(Matcher<View> matcher : ms){
-            matcherList.add(matcher);
-        }
-        matcherList.add(isDisplayed());
-        return God.list2array(Matcher.class ,matcherList);
     }
 
     /**
@@ -205,19 +123,6 @@ public class WithAny {
     public static ViewInteraction getToast(String toastStr , ActivityTestRule activity){
         return onView(withText(toastStr))
                 .inRoot(withDecorView(not(is(activity.getActivity().getWindow().getDecorView()))));
-    }
-
-    private static Matcher<View> id(String resourceName){
-        if(resourceName == null || resourceName.isEmpty()) return null;
-        return withResourceName(resourceName);
-    }
-    private static Matcher<View> text(String text){
-        if(text == null || text.isEmpty()) return null;
-        return withText(text);
-    }
-    private static Matcher<View> hint(String text){
-        if(text == null || text.isEmpty()) return null;
-        return withHint(text);
     }
 
     /**
@@ -277,4 +182,118 @@ public class WithAny {
     private static Matcher<View> all(List<Matcher<View>> list){
         return allOf(God.list2array(Matcher.class ,list));
     }
+
+
+
+    /************************************** The End ***************************************/
+
+    /**
+     * @deprecated
+     * @param matcherStr
+     * @return
+     */
+    public static Matcher<View>[] getMatchers(final String[] matcherStr){
+        String[] strings = new String[3];
+        Matcher<View>[] matchers = (Matcher<View>[]) Array.newInstance(Matcher.class,matcherStr.length +1);
+        for(int i=0 ;i<matcherStr.length ;i++){
+            if(i==0 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
+                matchers[i] = withResourceName(matcherStr[i]);
+                continue;
+            }
+            if(i==1 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
+                matchers[i] = withText(matcherStr[i]);
+                continue;
+            }
+            if(i==2 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
+                matchers[i] = withHint(matcherStr[i]);
+            }
+        }
+        matchers[matcherStr.length] = isDisplayed();
+        return matchers;
+    }
+
+    /**
+     * 将 {@link #getMatchers(String[])} 方法 用{@link #all(Matcher[])} 组合
+     * @param matcherStr
+     * @return
+     * @deprecated
+     */
+    public static Matcher<View> getAllMatcher(final String[] matcherStr){
+        return all(getMatchers(matcherStr));
+    }
+
+    /**
+     * 若 T 为 String[] 则必须按顺序输入
+     * array .输入顺序: { id , text ,hint } 若不具备则使用null or "" 占位 , 必须这么做
+     *                   因为这只是一个简易的实现 {@link #getMatchers(String[])}
+     * 多方式获取 , 待完善
+     * @param desc
+     * @param <T>
+     * @return
+     * @deprecated
+     */
+    public static <T> ViewInteraction getViewInteraction(T desc){
+        if (desc instanceof ViewInteraction){
+            return (ViewInteraction)desc;
+        }
+        if (desc instanceof String[]){
+            return onView(getAllMatcher((String[]) desc));
+        }
+        if (desc instanceof Matcher){
+            return onView((Matcher<View>) desc);
+        }
+        if (desc instanceof Matcher[]){
+            return onView(allOf((Matcher[]) desc));
+        }
+        if (desc instanceof Element){
+            return onView(all(element2matcher((Element) desc)));
+        }
+
+       return null;
+    }
+
+
+
+    /**
+     * 多方式匹配 , 定格的 id text hint 和 自定义的 Matcher<View>... ms
+     * 这是独立的查找方式 跟该类中的其他 getViewInteraction 方法无关
+     * @param matcherStr
+     * @param ms
+     * @return
+     * @deprecated
+     */
+    public static ViewInteraction getViewInteraction(String[] matcherStr,Matcher<View>... ms){
+        return onView(all(createMatchers(matcherStr , ms)));
+    }
+
+    /**
+     * @deprecated
+     * @param matcherStr
+     * @param ms
+     * @return
+     */
+    static Matcher<View>[] createMatchers(String[] matcherStr ,Matcher<View>... ms){
+        List<Matcher<View>> matcherList = new ArrayList<Matcher<View>>();
+        for(int i=0 ;i<matcherStr.length ;i++){
+
+            if(i==0 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
+               matcherList.add(withResourceName(matcherStr[i]));
+                continue;
+            }
+            if(i==1 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
+                matcherList.add(withText(matcherStr[i]));
+                continue;
+            }
+            if(i==2 && !(matcherStr[i] == null || matcherStr[i].isEmpty())){
+                matcherList.add(withHint(matcherStr[i]));
+            }
+        }
+        for(Matcher<View> matcher : ms){
+            matcherList.add(matcher);
+        }
+        matcherList.add(isDisplayed());
+        return God.list2array(Matcher.class ,matcherList);
+    }
+
+
 }
