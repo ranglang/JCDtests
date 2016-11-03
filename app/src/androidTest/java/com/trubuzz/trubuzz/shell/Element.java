@@ -1,5 +1,7 @@
 package com.trubuzz.trubuzz.shell;
 
+import android.support.test.rule.ActivityTestRule;
+
 import org.hamcrest.Matcher;
 
 /**
@@ -16,6 +18,7 @@ public class Element <T>{
     private Element <T> uncle;
     private int index = -1;
     private Class assignableClass;
+    private ToastMsg toastMsg;
     private Matcher<? super T>[] matchers;
 
     String getId() {
@@ -107,5 +110,32 @@ public class Element <T>{
     final public Element <T> setMatchers(Matcher<? super T>... matchers) {
         this.matchers = matchers;
         return this;
+    }
+
+    ToastMsg getToastMsg() {
+        return toastMsg;
+    }
+
+    public Element<T> setToastMsg(String msg, ActivityTestRule activity) {
+        this.toastMsg = new ToastMsg(msg , activity);
+        return this;
+    }
+
+    class ToastMsg{
+        private String msg;
+        private ActivityTestRule activity;
+
+        ToastMsg(String msg, ActivityTestRule activity) {
+            this.msg = msg;
+            this.activity = activity;
+        }
+
+        String getMsg() {
+            return msg;
+        }
+
+        ActivityTestRule getActivity() {
+            return activity;
+        }
     }
 }
