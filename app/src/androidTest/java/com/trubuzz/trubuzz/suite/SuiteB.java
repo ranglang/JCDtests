@@ -1,6 +1,6 @@
 package com.trubuzz.trubuzz.suite;
 
-import com.trubuzz.trubuzz.test.SignUpTest;
+import com.trubuzz.trubuzz.test.ForgetPwdTest;
 
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -11,7 +11,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        SignUpTest.class
+//        SignUpTest.class,
+        ForgetPwdTest.class
 })
 public class SuiteB extends BaseSuite{
     private static final String suiteDesc = "sign up test";
@@ -21,6 +22,6 @@ public class SuiteB extends BaseSuite{
     @BeforeClass
     public static void setup(){
         BaseSuite.init(suiteDesc  , suiteClass);
-        BaseSuite.setup();
+        BaseSuite.baseSetup();
     }
 }

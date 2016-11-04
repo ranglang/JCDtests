@@ -33,6 +33,11 @@ public class AForgetPwd {
     private static final Element<View> email_text = new Element<View>().setText(getString("邮箱地址",email));
 
 
+
+    public static final Element<View> phone_submit_button = new Element<View>().setId("submit")
+            .setText(getString("提交",submit))
+            .setIndex(8);
+
     public static final Element<View> sms_input = new Element<View>().setId("sms")
             .setHint(getString("请输入短信验证码",sign_up_sms_hint));
 
@@ -52,14 +57,15 @@ public class AForgetPwd {
             .setHint(getString("请输入您的邮箱地址",sign_up_email_hint))
             .setSibling(email_text);
 
-    public static final Element<View> submit_button = new Element<View>().setId("submit")
-            .setText(getString("提交",submit));
+    public static final Element<View> email_submit_button = new Element<View>().setId("submit")
+            .setText(getString("提交",submit))
+            .setIndex(2);
 
-    public static final Element<View> use_email = new Element<View>()
+    public static final Element<View> use_email_found = new Element<View>()
             .setChildren(new Element<View>().setChildren(email_found , email_image))
             .setIndex(0);
 
-    public static final Element<View> use_phone = new Element<View>()
+    public static final Element<View> use_phone_found = new Element<View>()
             .setChildren(new Element<View>().setChildren(phone_found , phone_image))
             .setIndex(1);
 }

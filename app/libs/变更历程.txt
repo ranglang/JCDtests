@@ -1,1 +1,2 @@
 10/19   expect 直接写文本/toast消息/...   不单独判断 ; expect 不再使用元素(View)
+11/04   expect 使用Element ; toast消息集中放置于ToastInfo 中; 若本来就是检查元素则写在当前类中 ;

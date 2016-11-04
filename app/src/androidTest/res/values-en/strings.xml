@@ -311,7 +311,6 @@
     <string name="rename">Rename</string>
     <string name="reply_not_buzz_yet">Not buzzed yet</string>
     <string name="request_sent">Request has been sent</string>
-    <string name="reset_pass_code_error">Invalid verification code</string>
     <string name="reset_pass_code_expired">Verification code expired</string>
     <string name="reset_pass_code_phone">Invalid mobile phone</string>
     <string name="reset_pass_email_invalidated">Invalid email</string>

@@ -3,29 +3,32 @@ package com.trubuzz.trubuzz.elements;
 import android.support.annotation.NonNull;
 import android.support.test.espresso.ViewInteraction;
 import android.view.View;
-import android.widget.LinearLayout;
+
+import com.trubuzz.trubuzz.shell.Element;
 
 import org.hamcrest.core.IsInstanceOf;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.hasLinks;
-import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.childAtPosition;
 import static com.trubuzz.trubuzz.shell.WithAny.getToast;
 import static com.trubuzz.trubuzz.shell.WithAny.getViewInteraction;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.childAtPosition;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withUncleRelativePosition;
 import static com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_confirm;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_format;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_phone_format;
 import static com.trubuzz.trubuzz.test.R.string.input_captcha;
+import static com.trubuzz.trubuzz.test.R.string.sign_up;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_confirm_hint;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_email;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_email_hint;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_password_hint;
+import static com.trubuzz.trubuzz.test.R.string.terms_of_service;
 import static com.trubuzz.trubuzz.utils.God.getString;
 import static org.hamcrest.Matchers.allOf;
 
@@ -45,6 +48,8 @@ public class ASignUp {
     private static final String TEXT_captcha_change = "看不清? 换一张";
     private static final String[] ID_TEXT_captcha_cancel = {"cancel","取消"};
     private static final String[] ID_TEXT_captcha_ok = {"ok","确定"};
+
+
 
 
     public static ViewInteraction captcha_ok(){
@@ -99,14 +104,8 @@ public class ASignUp {
         return onView(
                 allOf(
                         withResourceName(ID_TEXT_TERMS[0]),
-                        withText(getString(ID_TEXT_TERMS[1], com.trubuzz.trubuzz.test.R.string.terms_of_service)),
-                        hasLinks(),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                        6),
-                                1),
-                        isDisplayed()
+                        withText(getString(ID_TEXT_TERMS[1], terms_of_service))
+//                        hasLinks()
                 )
         );
     }
@@ -118,79 +117,28 @@ public class ASignUp {
 
 
     public static class RegEmail {
+        public static final Element use_email_reg = new Element().setChildren(new Element().setChildren(
+           new Element().setId("text1")     .setText(getString("邮箱注册" ,sign_up_email))
+        ));
 
-        private static final String[] ID_TEXT_SignUpEmail = {"text1" , "邮箱注册"};
-        private static final String[] ID_HINT_PWD = {"password", "请输入密码"};
-        private static final String[] ID_HINT_PWDC = {"confirm", "请再次输入密码"};
-        private static final String[] ID_HINT_EMAIL = {"email", "请输入您的邮箱地址"};
-        private static final String[] ID_TEXT_REG = {"submit", "注册"};
+        public static final Element email_input = new Element().setId("email")
+                .setHint(getString("请输入您的邮箱地址" ,sign_up_email_hint));
 
+        public static final Element email_reg_pwd = new Element().setId("password")
+                .setHint(getString("请输入密码" ,sign_up_password_hint))
+                .setUncle(new Element().setChildren(email_input));
 
-        public static ViewInteraction emailPwd() {
-            return onView(allOf(
-                    withResourceName(ID_HINT_PWD[0]),
-                    withHint(getString(ID_HINT_PWD[1], com.trubuzz.trubuzz.test.R.string.sign_up_password_hint)),
-                    childAtPosition(
-                            childAtPosition(
-                                    IsInstanceOf.instanceOf(android.widget.LinearLayout.class),
-                                    2),
-                            1)
-            ));
-        }
-        public static ViewInteraction emailPwd1() {
-            return onView(allOf(
-                    withResourceName(ID_HINT_PWD[0]),
-                    withUncleRelativePosition(withChild(withResourceName("email")),-2),
-                    withParent(isAssignableFrom(LinearLayout.class))
-            ));
-        }
+        public static final Element email_reg_pwd_confirm = new Element().setId("confirm")
+                .setHint(getString("请再次输入密码" ,sign_up_confirm_hint))
+                .setUncle(new Element().setChildren(email_input));
 
-        public static ViewInteraction emailPwdConfirm() {
-            return onView(
-                    allOf(
-                            withResourceName(ID_HINT_PWDC[0]),
-                            withHint(getString(ID_HINT_PWDC[1], com.trubuzz.trubuzz.test.R.string.sign_up_confirm_hint)),
-                            childAtPosition(
-                                    childAtPosition(
-                                            IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                            4),
-                                    1)
-                    )
-            );
-        }
-        /**
-         * 邮箱注册图标及文字
-         * @return
-         */
-        public static ViewInteraction emailReg() {
-            return onView(allOf(
-                        withChild(
-                                allOf(withText(getString(ID_TEXT_SignUpEmail[1], com.trubuzz.trubuzz.test.R.string.sign_up_email)),
-                                    withResourceName(ID_TEXT_SignUpEmail[0]))),
-                        isDisplayed()
-                    ));
-        }
+        public static final Element email_reg_submit = new Element().setId("submit")
+                .setText(getString("注册" ,sign_up))
+                .setSibling(new Element().setChildren(email_input));
 
-        public static ViewInteraction email() {
-            return onView(
-                    allOf(
-                            withResourceName(ID_HINT_EMAIL[0]),
-                            withHint(getString(ID_HINT_EMAIL[1], com.trubuzz.trubuzz.test.R.string.sign_up_email_hint))
-                    )
-            );
-        }
-
-        public static ViewInteraction register() {
-            return onView(
-                    allOf(
-                            withResourceName(ID_TEXT_REG[0]),
-                            withText(getString(ID_TEXT_REG[1], com.trubuzz.trubuzz.test.R.string.sign_up)),
-                            isDisplayed()
-                    )
-            );
-        }
-
-
+        public static final Element email_terms = new Element().setId("service")
+                .setText(getString("服务条款",terms_of_service))
+                .setUncle(new Element().setChildren(email_input));
     }
 
     public static class RegPhone{

@@ -10,6 +10,7 @@ public class AName {
     public static final String LOGIN = "com.trubuzz.roy.auth.AuthenticatorActivity" ;
     public static final String SETTINGS = "com.trubuzz.roy.PreferenceActivity";
     public static final String NOUNS = "com.trubuzz.roy.trade.ItemDescriptorActivity";
+    public static final String WEB_VIEW = "com.trubuzz.roy.WebViewActivity";
 
 
 

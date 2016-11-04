@@ -12,10 +12,9 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
-import com.trubuzz.trubuzz.constant.Nouns;
-import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.AForgetPwd;
 import com.trubuzz.trubuzz.elements.ALogin;
+import com.trubuzz.trubuzz.elements.ASignUp;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
@@ -42,12 +41,15 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
-import static com.trubuzz.trubuzz.constant.AName.NOUNS;
+import static com.trubuzz.trubuzz.constant.AName.WEB_VIEW;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.test.R.string.terms_content;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
+import static com.trubuzz.trubuzz.utils.God.getString;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
@@ -142,29 +144,35 @@ public class FirstTest extends BaseTest{
 
 
 
-//    @Test
+    @Test
     public void webTableTest(){
-        Object s;
+//        Object s;
+//
+//        given(AAsset.ID_TEXT_today_portfolio ).perform(click());
+//        DoIt.regIdlingResource(new SomeActivityIdlingResource(NOUNS ,mActivityTestRule.getActivity() , true));
+//        s = onWebView()
+//                .withElement(findElement(Locator.CSS_SELECTOR, "#main>.footer.base.container-fluid"))
+//                .perform(getText())
+//                .check(customWebMatches(getText(), containsString(Nouns.today_portfolio_n.getValue())));
+//        String except = Nouns.today_portfolio_n.getValue();
+//        String got = s.toString();
+//        String ex = DoIt.string2ASCII(except);
+//        String g = DoIt.string2ASCII(got);
+//        Log.w(TAG, "webTableTest: except w = |"+ except + "|");
+//        Log.w(TAG, "webTableTest: got    w = |"+ got + "|");
+//        Log.e(TAG, "webTableTest: except = |" +  ex + "|");
+//        Log.e(TAG, "webTableTest: got    = |" + g + "|" );
+//        DoIt.unRegIdlingResource();
 
-        given(AAsset.ID_TEXT_today_portfolio ).perform(click());
-        DoIt.regIdlingResource(new SomeActivityIdlingResource(NOUNS ,mActivityTestRule.getActivity() , true));
-        s = onWebView()
-                .withElement(findElement(Locator.CSS_SELECTOR, "#main>.footer.base.container-fluid"))
-                .perform(getText())
-                .check(customWebMatches(getText(), containsString(Nouns.today_portfolio_n.getValue())));
-        String except = Nouns.today_portfolio_n.getValue();
-        String got = s.toString();
-        String ex = DoIt.string2ASCII(except);
-        String g = DoIt.string2ASCII(got);
-        Log.w(TAG, "webTableTest: except w = |"+ except + "|");
-        Log.w(TAG, "webTableTest: got    w = |"+ got + "|");
-        Log.e(TAG, "webTableTest: except = |" +  ex + "|");
-        Log.e(TAG, "webTableTest: got    = |" + g + "|" );
+        given(ALogin.signUp()).perform(click());
+        given(ASignUp.RegEmail.email_input).perform(replaceText("1232142"));
+        given(ASignUp.RegEmail.email_terms).perform(click());
+        DoIt.regIdlingResource(new SomeActivityIdlingResource(WEB_VIEW,mActivityTestRule.getActivity() ,true));
+        onWebView()
+                .withElement(findElement(Locator.CSS_SELECTOR , ".terms"))
+                .check(customWebMatches(getText() , containsString(getString(terms_content))));
         DoIt.unRegIdlingResource();
-
-//        assertThat(g , thisString(ex));
-//        assertThat(true , thisObject(except == got));
-//        assertThat(except , thisString(got));
+        sleep(2000);
 
     }
 
@@ -208,11 +216,20 @@ public class FirstTest extends BaseTest{
         sleep(2000);
     }
 
-    @Test
+    //@Test
     public void elementTest(){
         given(ALogin.forget_pwd()).perform(click());
-        given(AForgetPwd.use_phone).perform(click());
+        given(AForgetPwd.use_phone_found).perform(click());
         sleep(2000);
+    }
+
+//    @Test
+    public void isPasswordTest(){
+        given(ALogin.account()).perform(replaceText("123321")).check(matches(withText("123321")));
+        given(ALogin.password())
+                .perform(replaceText("12345678"))
+                .check(matches(isPassword()))
+                .check(matches(withText("12345678")));
     }
 
 }

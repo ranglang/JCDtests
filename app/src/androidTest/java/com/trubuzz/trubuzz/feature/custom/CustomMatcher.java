@@ -2,11 +2,13 @@ package com.trubuzz.trubuzz.feature.custom;
 
 import android.os.IBinder;
 import android.support.test.espresso.Root;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -32,11 +34,10 @@ public class CustomMatcher {
             public void describeTo(Description description) {
                 description.appendText("is toast");
             }
-
             @Override
             protected boolean matchesSafely(Root root) {
                 int type = root.getWindowLayoutParams().get().type;
-                if ((type == WindowManager.LayoutParams.TYPE_TOAST)) {
+                if (type == WindowManager.LayoutParams.TYPE_TOAST) {
                     IBinder windowToken = root.getDecorView().getWindowToken();
                     IBinder appToken = root.getDecorView().getApplicationWindowToken();
                     if (windowToken == appToken) {
@@ -289,6 +290,31 @@ public class CustomMatcher {
                     }
                 }
                 return false;
+            }
+        };
+    }
+
+    /**
+     * 判断输入框是否为password
+     * @return
+     */
+    public static Matcher<View> isPassword(){
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("is password .");
+            }
+            @Override
+            protected boolean matchesSafely(View view) {
+                if(!(view instanceof EditText))
+                    return false;
+
+                int inputType = ((EditText) view).getInputType();
+                return inputType == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD) ||     //可预览的密码输入结构 即(129)
+                        inputType == InputType.TYPE_NUMBER_VARIATION_PASSWORD ||
+                        inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD ||
+                        inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ||
+                        inputType == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD;
             }
         };
     }

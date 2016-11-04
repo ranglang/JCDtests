@@ -1,7 +1,5 @@
 package com.trubuzz.trubuzz.test;
 
-import android.app.Instrumentation;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
 
@@ -24,6 +22,7 @@ import java.util.Map;
 
 import junitparams.JUnitParamsRunner;
 
+import static com.trubuzz.trubuzz.constant.Env.instrumentation;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 
 /**
@@ -37,7 +36,7 @@ public class BaseTest {
     private boolean isSucceeded = false;
     private Map useData;
 
-    protected Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+//    protected Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     private String fileName;
 
     @ClassRule

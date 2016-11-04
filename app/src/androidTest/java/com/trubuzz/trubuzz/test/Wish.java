@@ -65,6 +65,7 @@ public class Wish {
 
     public static boolean isVisible(ViewInteraction v ){
         try {
+            sleep(1000);
             v.check(matches(isDisplayed()));
             return true;
         } catch (Exception e) {
@@ -130,5 +131,15 @@ public class Wish {
     }
     public static void wantNotBrokerLogin(ActivityTestRule<?> atr ){
         wantNotBrokerLogin(atr ,Config.notBrokerUser , Config.notBrokerPwd);
+    }
+
+    /**
+     * 期望是没有登录的
+     * @param atr
+     */
+    public static void wantNotLogin(ActivityTestRule<?> atr){
+        if(isLogin(atr)){
+            logout();
+        }
     }
 }

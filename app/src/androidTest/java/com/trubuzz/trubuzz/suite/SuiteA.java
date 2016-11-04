@@ -21,6 +21,6 @@ public class SuiteA extends BaseSuite{
     @BeforeClass
     public static void setup(){
         BaseSuite.init(suiteDesc  , suiteClass);
-        BaseSuite.setup();
+        BaseSuite.baseSetup();
     }
 }

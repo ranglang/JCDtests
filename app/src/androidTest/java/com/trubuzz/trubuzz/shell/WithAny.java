@@ -4,6 +4,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
+import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.feature.custom.CustomMatcher;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -108,7 +109,7 @@ public class WithAny {
      * @param toastStr
      * @return
      */
-    public static ViewInteraction getToast(String toastStr){
+    public static ViewInteraction getToast_d(String toastStr){
         return onView(withText(toastStr))
                 .inRoot(CustomMatcher.withToast());
     }
@@ -117,12 +118,16 @@ public class WithAny {
      * 使用activity来获取 Context 的方式匹配toast ( 官方使用方法 )
      * 优点 : 清晰的错误日志, 方便调试 ( 推荐使用 )
      * @param toastStr
-     * @param activity
+     * @param activities
      * @return
      */
-    public static ViewInteraction getToast(String toastStr , ActivityTestRule activity){
+    public static ViewInteraction getToast(String toastStr , ActivityTestRule... activities){
+        if(activities.length > 0 && activities[0] != null) {
+            return onView(withText(toastStr))
+                    .inRoot(withDecorView(not(is(activities[0].getActivity().getWindow().getDecorView()))));
+        }
         return onView(withText(toastStr))
-                .inRoot(withDecorView(not(is(activity.getActivity().getWindow().getDecorView()))));
+                .inRoot(withDecorView(not(is(God.getCurrentActivity(Env.instrumentation).getWindow().getDecorView()))));
     }
 
     /**

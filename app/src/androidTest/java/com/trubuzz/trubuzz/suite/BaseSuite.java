@@ -5,7 +5,6 @@ import com.trubuzz.trubuzz.report.SuiteBean;
 import com.trubuzz.trubuzz.utils.Registor;
 
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 
 import java.util.Date;
 
@@ -21,8 +20,10 @@ public class BaseSuite {
     private static SuiteBean testSuite;
     private static long startTime ;
 
-    @BeforeClass
-    public static void setup(){
+    /**
+     * 由子类在@BeforeClass 中调用
+     */
+    protected static void baseSetup(){
         startTime = new Date().getTime();
 
         testSuite =  new SuiteBean();
