@@ -24,6 +24,45 @@ public class CustomMatcher {
 
     private static final String TAG = "jcd_CustomMatcher";
 
+
+    /**
+     * 匹配指定对象
+     * @param obj
+     * @return
+     */
+    public static Matcher<Object> thisObject(Object obj) {
+        return new TypeSafeMatcher<Object>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Object must be this : "+obj);
+            }
+
+            @Override
+            protected boolean matchesSafely(Object item) {
+                return item.equals(obj);
+            }
+        };
+    }
+    /**
+     * 匹配指定文本
+     * @param str
+     * @return
+     */
+    public static Matcher<String> thisString(String str){
+        return new TypeSafeMatcher<String>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("text must be this : "+str);
+            }
+
+            @Override
+            protected boolean matchesSafely(String item) {
+                return item.equals(str);
+            }
+        };
+    }
+
+
     /**
      * 匹配 toast
      * @return
@@ -125,7 +164,7 @@ public class CustomMatcher {
     }
 
     /**
-     * 通过叔父查找
+     * 通过叔父(uncle)查找
      * @param uncleMatcher
      * @return
      */
@@ -210,24 +249,48 @@ public class CustomMatcher {
     }
 
     /**
-     * 匹配指定文本
-     * @param str
+     * 通过堂兄妹匹配
+     * @param cousinMatcher
      * @return
      */
-    public static Matcher<String> thisString(String str){
-        return new TypeSafeMatcher<String>() {
+    public static Matcher withCousin(final Matcher<View> cousinMatcher){
+        return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
-                description.appendText("text must be this : "+str);
+                description.appendText("with cousin:");
+                cousinMatcher.describeTo(description);
             }
 
             @Override
-            protected boolean matchesSafely(String item) {
-                return item.equals(str);
+            protected boolean matchesSafely(View view) {
+                ViewParent grandParent = view.getParent().getParent();
+                if (!(grandParent instanceof ViewGroup)) {
+                    return false;
+                }
+                ViewGroup grandParentGroup = (ViewGroup) grandParent;   //get 祖父
+                for(int i=0;i<grandParentGroup.getChildCount();i++){
+                    View uncle = grandParentGroup.getChildAt(i);
+                    if(!(uncle instanceof ViewGroup))
+                        continue;
+
+                    ViewGroup uncleGroup = (ViewGroup) uncle;       //get uncle
+                    for(int j=0; j<uncleGroup.getChildCount() ; j++){
+                        View currentView = uncleGroup.getChildAt(j);
+                        if(cousinMatcher.matches(currentView) && !view.equals(currentView))
+                            return true;
+                    }
+                }
+                return false;
             }
         };
     }
 
+    /**
+     * 检查包含指定字符串 ,
+     * 会将原字串中的多个空格替换成一个 , 再和指定字串比较
+     * @param str
+     * @return
+     */
     public static Matcher<String> singleSpaceContains(String str){
         return new TypeSafeMatcher<String>() {
             @Override
@@ -241,24 +304,7 @@ public class CustomMatcher {
             }
         };
     }
-    /**
-     * 匹配指定对象
-     * @param obj
-     * @return
-     */
-    public static Matcher<Object> thisObject(Object obj) {
-        return new TypeSafeMatcher<Object>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Object must be this : "+obj);
-            }
 
-            @Override
-            protected boolean matchesSafely(Object item) {
-                return item.equals(obj);
-            }
-        };
-    }
 
 
     /**

@@ -24,6 +24,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withCousin;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withUncle;
 import static org.hamcrest.Matchers.allOf;
@@ -53,13 +54,16 @@ public class WithAny {
         if(text !=null && !text.isEmpty()) ms.add(withText(text));
 
         String hint = element.getHint();
-        if(hint != null && !hint.isEmpty()) ms.add(withHint(hint));
+        if(hint != null && !hint.isEmpty()) ms.add(withHint (hint));
 
         Element[] children = element.getChildren();
         if(children != null && children.length > 0)  ms.add(children(elements2matcher(children)));
 
         Element[] sibling = element.getSibling();
         if(sibling != null && sibling.length > 0) ms.add(sibling(elements2matcher(sibling)));
+
+        Element cousin = element.getCousin();
+        if(cousin != null) ms.add(withCousin(all(element2matcher(cousin))));
 
         Element parent = element.getParent();
         if(parent != null ) ms.add(withParent(all(element2matcher(parent))));

@@ -16,6 +16,7 @@ public class Element <T>{
     private String hint;
     private Element <T>[] children;
     private Element <T>[] sibling;
+    private Element <T> cousin;
     private Element <T> parent;
     private Element <T> uncle;
     private int index = -1;
@@ -65,6 +66,15 @@ public class Element <T>{
 
     public Element <T> setSibling(Element... sibling) {
         this.sibling = sibling;
+        return this;
+    }
+
+    Element<T> getCousin() {
+        return cousin;
+    }
+
+    public Element<T> setCousin(Element<T> cousin) {
+        this.cousin = cousin;
         return this;
     }
 
@@ -135,6 +145,7 @@ public class Element <T>{
         if(hint != null) string += "hint='" + hint + "', ";
         if(children != null && children.length >0) string += "children=" + Arrays.toString(children) + ", ";
         if(sibling != null && sibling.length >0) string +=  "sibling=" + Arrays.toString(sibling) + ", ";
+        if(cousin != null) string += "cousin=" + cousin + ", ";
         if(parent != null) string += "parent=" + parent + ", ";
         if(uncle != null) string += "uncle=" + uncle + ", ";
         if(index != -1) string += "index=" + index + ", ";
