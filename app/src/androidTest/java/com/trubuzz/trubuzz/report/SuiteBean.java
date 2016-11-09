@@ -1,7 +1,10 @@
 package com.trubuzz.trubuzz.report;
 
+import com.trubuzz.trubuzz.constant.TestResult;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by king on 16/10/27.
@@ -13,6 +16,7 @@ public class SuiteBean {
     private List<SuiteBean> childSuites;
     private long spendTime;
     private String suiteClassName;
+    private Map<TestResult,Integer> status_count;
 
     public SuiteBean() {
     }
@@ -77,5 +81,13 @@ public class SuiteBean {
 
     public void setSuiteClassName(String suiteClassName) {
         this.suiteClassName = suiteClassName;
+    }
+
+    public Map<TestResult, Integer> getStatus_count() {
+        return status_count;
+    }
+
+    public void setStatus_count(Map<TestResult, Integer> status_count) {
+        this.status_count = status_count;
     }
 }

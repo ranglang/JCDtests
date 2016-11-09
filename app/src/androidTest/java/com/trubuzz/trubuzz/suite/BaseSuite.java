@@ -1,5 +1,7 @@
 package com.trubuzz.trubuzz.suite;
 
+import com.trubuzz.trubuzz.constant.TestResult;
+import com.trubuzz.trubuzz.report.ClassBean;
 import com.trubuzz.trubuzz.report.Report;
 import com.trubuzz.trubuzz.report.SuiteBean;
 import com.trubuzz.trubuzz.utils.Registor;
@@ -7,8 +9,13 @@ import com.trubuzz.trubuzz.utils.Registor;
 import org.junit.AfterClass;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.trubuzz.trubuzz.constant.Env.suiteRegisterKey;
+import static com.trubuzz.trubuzz.constant.TestResult.FAILED;
+import static com.trubuzz.trubuzz.constant.TestResult.SKIPPED;
+import static com.trubuzz.trubuzz.constant.TestResult.SUCCEEDED;
 
 /**
  * Created by king on 16/10/28.
@@ -46,5 +53,28 @@ public class BaseSuite {
     protected static void init(String childDescSuite, Class childSuiteClass) {
         descSuite = childDescSuite;
         suiteClass = childSuiteClass;
+    }
+
+    /**
+     * 用于统计该suite 中case的执行情况
+     * 相当于将class中的status_count 汇总
+     * use : 将结果set进{@link #testSuite} 即可
+     * @param suite
+     * @return
+     */
+    private static Map<TestResult, Integer> create_suite_status_count(SuiteBean suite){
+        Map<TestResult,Integer> count = new HashMap<TestResult,Integer>();
+        int p=0 , s=0 , f=0;
+        for(ClassBean classBean : suite.getTestClasses()){
+            Map<TestResult ,Integer> status = classBean.getStatus_count();
+            p += status.get(SUCCEEDED);
+            s += status.get(SKIPPED);
+            f += status.get(FAILED);
+        }
+
+        count.put(SUCCEEDED ,p);
+        count.put(SKIPPED ,s);
+        count.put(FAILED ,f);
+        return count;
     }
 }
