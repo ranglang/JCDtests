@@ -1,6 +1,9 @@
 package com.trubuzz.trubuzz.report;
 
+import com.trubuzz.trubuzz.constant.TestResult;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by king on 16/10/27.
@@ -9,13 +12,8 @@ import java.util.List;
 public class ClassBean {
     private String testClassName;
     private List<CaseBean> testCases;
+    private Map<TestResult,Integer> status_count;
     private long spendTime;
-
-    public ClassBean(String testClassName, List<CaseBean> testCases, long spendTime) {
-        this.testClassName = testClassName;
-        this.testCases = testCases;
-        this.spendTime = spendTime;
-    }
 
     public ClassBean() {
     }
@@ -42,5 +40,13 @@ public class ClassBean {
 
     public long getSpendTime() {
         return spendTime;
+    }
+
+    public Map<TestResult, Integer> getStatus_count() {
+        return status_count;
+    }
+
+    public void setStatus_count(Map<TestResult, Integer> status_count) {
+        this.status_count = status_count;
     }
 }

@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.feature;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.Env;
+import com.trubuzz.trubuzz.constant.TestResult;
 import com.trubuzz.trubuzz.report.CaseBean;
 import com.trubuzz.trubuzz.report.ClassBean;
 import com.trubuzz.trubuzz.report.SuiteBean;
@@ -14,6 +15,12 @@ import org.junit.runner.Description;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.trubuzz.trubuzz.constant.TestResult.FAILED;
+import static com.trubuzz.trubuzz.constant.TestResult.SKIPPED;
+import static com.trubuzz.trubuzz.constant.TestResult.SUCCEEDED;
 
 /**
  * Created by king on 2016/9/20.
@@ -57,6 +64,7 @@ public class ClassWatcherAdvance extends TestName {
         testClass.setSpendTime(stopTime - startTime);
         SuiteBean testSuite = (SuiteBean) Registor.peekReg(Env.suiteRegisterKey);
         assert testSuite != null;
+        testClass.setStatus_count(create_status_count(testClass));
         testSuite.addTestClasses(testClass);
 
 //        CreateReport.getTestReport().getTestClasses().add(testClass);
@@ -65,5 +73,26 @@ public class ClassWatcherAdvance extends TestName {
 
     public ClassBean getTestClass() {
         return testClass;
+    }
+    private Map<TestResult,Integer> create_status_count(ClassBean classBean){
+        Map<TestResult,Integer> count = new HashMap<TestResult,Integer>();
+        int p=0 , s=0 , f=0;
+        for(CaseBean caseBean : classBean.getTestCases()){
+            switch (caseBean.getTestResult()){
+                case SUCCEEDED:
+                    p++;
+                    break;
+                case SKIPPED:
+                    s++;
+                    break;
+                case FAILED:
+                    f++;
+                    break;
+            }
+        }
+        count.put(SUCCEEDED ,p);
+        count.put(SKIPPED ,s);
+        count.put(FAILED ,f);
+        return count;
     }
 }
