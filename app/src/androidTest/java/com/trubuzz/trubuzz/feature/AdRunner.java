@@ -39,14 +39,11 @@ public class AdRunner extends AndroidJUnitRunner {
     @Override
     public void finish(int resultCode, Bundle results) {
         this.stopTime = new Date().getTime();
-        Log.i(TAG, "finish: 测试完成 ,输出测试报告 at "+ God.getDateFormat(stopTime));
+        Log.i(TAG, "finish: 测试完成 at "+ God.getDateFormat(stopTime));
 
-        /*** new **/
         report.setSpendTime(stopTime - startTime);
-        report.testOutputReport();
-
-//        CreateReport.getTestReport().setSpendTime(stopTime - startTime);
-//        CreateReport.testOutputReport();
+        String jsonPath = report.testOutputReport();
+        Log.i(TAG, "finish: 测试报告输出 at "+ jsonPath);
         super.finish(resultCode , results);         //这里得最后调用 , 因为将忽略其后的语句.
     }
 }

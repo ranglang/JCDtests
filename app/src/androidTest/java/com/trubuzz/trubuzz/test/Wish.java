@@ -8,6 +8,7 @@ import android.util.Log;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Config;
 import com.trubuzz.trubuzz.elements.AAsset;
+import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -15,9 +16,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static com.trubuzz.trubuzz.elements.ALogin.account;
-import static com.trubuzz.trubuzz.elements.ALogin.password;
-import static com.trubuzz.trubuzz.elements.ALogin.submit;
 import static com.trubuzz.trubuzz.elements.ASettings.leftButton;
 import static com.trubuzz.trubuzz.elements.ASettings.logoutButton;
 import static com.trubuzz.trubuzz.elements.ASettings.settingsButton;
@@ -31,6 +29,7 @@ import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 public class Wish {
 
     private static final String TAG = "jcd_Wish";
+    private static ALogin aLogin = new ALogin();
 
     /**
      * 判断是否登录
@@ -90,9 +89,9 @@ public class Wish {
      * @param pwd
      */
     public static void login(String user , String pwd){
-        given(account()).perform(replaceText(user));
-        given(password()).perform(replaceText(pwd));
-        given(submit()).perform( click());
+        given(ALogin.account_input).perform(replaceText(user));
+        given(aLogin.pwd_input).perform(replaceText(pwd));
+        given(aLogin.login_button).perform( click());
     }
 
     /**

@@ -1,69 +1,30 @@
 package com.trubuzz.trubuzz.elements;
 
-import android.support.test.espresso.ViewInteraction;
+import com.trubuzz.trubuzz.shell.ActivityElement;
 
-import com.trubuzz.trubuzz.shell.WithAny;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.shell.WithAny.getToast;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
 import static com.trubuzz.trubuzz.test.R.string.forget_password;
-import static com.trubuzz.trubuzz.test.R.string.login_failed;
+import static com.trubuzz.trubuzz.test.R.string.input_password;
+import static com.trubuzz.trubuzz.test.R.string.login;
+import static com.trubuzz.trubuzz.test.R.string.login_account_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_description;
 import static com.trubuzz.trubuzz.utils.God.getString;
-import static org.hamcrest.Matchers.allOf;
 
 /**
  * Created by king on 2016/8/23.
  */
 public class ALogin {
 
-    private final static String ID_USER = "account";
-    private final static String ID_PWD = "password";
-    private final static String ID_SUBMIT = "submit";
-    private final static String[] ID_TEXT_SIGNUP = {"signup",
-            getString("请邮箱或手机快速注册登录", sign_up_description)};
-    private final static String TEXT_loginToast = getString("无效的账号或密码",login_failed);
-    private final static String TEXT_forgetPwd = getString("忘记密码",forget_password);
+    public static final ActivityElement account_input = new ActivityElement().setId("account").setHint(getString("请输入您的邮箱或手机号" ,login_account_hint));
 
+    public static final ActivityElement forget_pwd_button = new ActivityElement().setText(getString("忘记密码",forget_password));
 
-    /**
-     * 清除密码图标
-     * @return
-     */
-    public static ViewInteraction clean_pwd(){
-        return onView(allOf(
-                hasSiblingNoSelf(withResourceName(ID_PWD)),
-                hasSiblingNoSelf(withText(TEXT_forgetPwd))
-        ));
-    }
-    public static ViewInteraction forget_pwd(){
-        return onView(withText(TEXT_forgetPwd));
-    }
-    public static ViewInteraction account() {
-        return onView(withResourceName(ID_USER));
-    }
+    public static final ActivityElement sign_up_link = new ActivityElement().setId("signup")
+            .setText(getString("请邮箱或手机快速注册登录", sign_up_description));
 
-    public static ViewInteraction password() {
-        return  onView(withResourceName(ID_PWD));
-    }
+    public final ActivityElement pwd_input = new ActivityElement().setId("password").setHint(getString("输入密码",input_password));
 
-    public static ViewInteraction submit() {
-        return onView(withResourceName(ID_SUBMIT));
-    }
+    public final ActivityElement login_button = new ActivityElement().setId("submit").setText(getString("登入" ,login));
 
-    public static ViewInteraction signUp() {
-//        return onView(allOf(
-//                withResourceName(ID_TEXT_SIGNUP[0]),
-//                withText(God.getString(ID_TEXT_SIGNUP[1], com.trubuzz.trubuzz.test.R.string.sign_up_description))
-//        ));
-        // 这是上述实现的封装实现
-        return WithAny.getViewInteraction(ID_TEXT_SIGNUP);
-    }
+    public final ActivityElement clean_pwd_image = new ActivityElement().setSibling(pwd_input , forget_pwd_button);
 
-    public static ViewInteraction loginToast(){
-        return getToast(TEXT_loginToast);
-    }
 }

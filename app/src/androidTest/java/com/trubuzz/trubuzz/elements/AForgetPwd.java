@@ -1,8 +1,6 @@
 package com.trubuzz.trubuzz.elements;
 
-import android.view.View;
-
-import com.trubuzz.trubuzz.shell.Element;
+import com.trubuzz.trubuzz.shell.ActivityElement;
 
 import static com.trubuzz.trubuzz.test.R.string.email;
 import static com.trubuzz.trubuzz.test.R.string.forget_password_email;
@@ -21,51 +19,51 @@ import static com.trubuzz.trubuzz.utils.God.getString;
  */
 
 public class AForgetPwd {
-    private static final Element<View> email_found = new Element<View>().setId("text1")
+    private final ActivityElement email_found = new ActivityElement().setId("text1")
             .setText(getString("邮箱找回",forget_password_email));
 
-    private static final Element<View> phone_found = new Element<View>().setId("text1")
+    private final ActivityElement phone_found = new ActivityElement().setId("text1")
             .setText(getString("手机找回",forget_password_phone));
 
-    private static final Element<View> email_image = new Element<View>().setId("icon");
-    private static final Element<View> phone_image = new Element<View>().setId("icon");
+    private final ActivityElement email_image = new ActivityElement().setId("icon");
+    private final ActivityElement phone_image = new ActivityElement().setId("icon");
 
-    private static final Element<View> email_text = new Element<View>().setText(getString("邮箱地址",email));
+    private final ActivityElement email_text = new ActivityElement().setText(getString("邮箱地址",email));
 
 
 
-    public static final Element<View> phone_submit_button = new Element<View>().setId("submit")
+    public final ActivityElement phone_submit_button = new ActivityElement().setId("submit")
             .setText(getString("提交",submit))
             .setIndex(8);
 
-    public static final Element<View> sms_input = new Element<View>().setId("sms")
+    public final ActivityElement sms_input = new ActivityElement().setId("sms")
             .setHint(getString("请输入短信验证码",sign_up_sms_hint));
 
-    public static final Element<View> password_input = new Element<View>().setId("password")
+    public final ActivityElement password_input = new ActivityElement().setId("password")
             .setHint(getString("请输入密码" ,sign_up_password_hint));
 
-    public static final Element<View>password_confirm = new Element<View>().setId("confirm")
+    public final ActivityElement password_confirm = new ActivityElement().setId("confirm")
             .setHint(getString("请再次输入密码" ,sign_up_confirm_hint));
 
-    public static final Element<View> get_mss_button = new Element<View>().setId("btn_sms")
+    public final ActivityElement get_sms_button = new ActivityElement().setId("btn_sms")
             .setText(getString("获取验证码" ,get_sms));
 
-    public static final Element<View> phone_input = new Element<View>().setId("phone")
+    public final ActivityElement phone_input = new ActivityElement().setId("phone")
             .setHint(getString("请输入手机号",sign_up_phone_hint));
 
-    public static final Element<View> email_input = new Element<View>().setId("email")
+    public final ActivityElement email_input = new ActivityElement().setId("email")
             .setHint(getString("请输入您的邮箱地址",sign_up_email_hint))
             .setSibling(email_text);
 
-    public static final Element<View> email_submit_button = new Element<View>().setId("submit")
+    public final ActivityElement email_submit_button = new ActivityElement().setId("submit")
             .setText(getString("提交",submit))
             .setIndex(2);
 
-    public static final Element<View> use_email_found = new Element<View>()
-            .setChildren(new Element<View>().setChildren(email_found , email_image))
+    public final ActivityElement use_email_found = new ActivityElement()
+            .setChildren(new ActivityElement().setChildren(email_found , email_image))
             .setIndex(0);
 
-    public static final Element<View> use_phone_found = new Element<View>()
-            .setChildren(new Element<View>().setChildren(phone_found , phone_image))
+    public final ActivityElement use_phone_found = new ActivityElement()
+            .setChildren(new ActivityElement().setChildren(phone_found , phone_image))
             .setIndex(1);
 }

@@ -287,7 +287,7 @@ public class CustomMatcher {
 
     /**
      * 检查包含指定字符串 ,
-     * 会将原字串中的多个空格替换成一个 , 再和指定字串比较
+     * 会将原字串 和 比较字符串 中的多个空格替换成一个 , 再和指定字串比较
      * @param str
      * @return
      */
@@ -300,7 +300,7 @@ public class CustomMatcher {
 
             @Override
             protected boolean matchesSafely(String item) {
-                return item.replaceAll("\\x20+", " ").contains(str);
+                return item.replaceAll("\\x20+", " ").contains(str.replaceAll("\\x20+", " "));
             }
         };
     }

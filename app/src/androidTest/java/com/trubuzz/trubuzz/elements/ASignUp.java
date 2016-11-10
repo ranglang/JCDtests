@@ -1,240 +1,88 @@
 package com.trubuzz.trubuzz.elements;
 
-import android.support.annotation.NonNull;
-import android.support.test.espresso.ViewInteraction;
-import android.view.View;
+import com.trubuzz.trubuzz.shell.ActivityElement;
 
-import com.trubuzz.trubuzz.shell.Element;
-
-import org.hamcrest.core.IsInstanceOf;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withChild;
-import static android.support.test.espresso.matcher.ViewMatchers.withHint;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.childAtPosition;
-import static com.trubuzz.trubuzz.shell.WithAny.getToast;
-import static com.trubuzz.trubuzz.shell.WithAny.getViewInteraction;
-import static com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint;
-import static com.trubuzz.trubuzz.test.R.string.incorrect_password_confirm;
-import static com.trubuzz.trubuzz.test.R.string.incorrect_password_format;
-import static com.trubuzz.trubuzz.test.R.string.incorrect_phone_format;
+import static android.R.string.cancel;
+import static com.trubuzz.trubuzz.test.R.string.accept;
+import static com.trubuzz.trubuzz.test.R.string.country_code_default;
+import static com.trubuzz.trubuzz.test.R.string.get_sms;
 import static com.trubuzz.trubuzz.test.R.string.input_captcha;
+import static com.trubuzz.trubuzz.test.R.string.ok;
+import static com.trubuzz.trubuzz.test.R.string.pickup;
+import static com.trubuzz.trubuzz.test.R.string.reload_captcha;
 import static com.trubuzz.trubuzz.test.R.string.sign_up;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_confirm_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_email;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_email_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_password_hint;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_phone;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_phone_hint;
 import static com.trubuzz.trubuzz.test.R.string.terms_of_service;
 import static com.trubuzz.trubuzz.utils.God.getString;
-import static org.hamcrest.Matchers.allOf;
 
 /**
  * Created by king on 2016/9/18.
  */
 public class ASignUp {
 
+    public final ActivityElement captcha_frame = new ActivityElement().setChildren(
+            new ActivityElement().setId("title").setText(getString("请输入验证码",input_captcha)) ,
+            new ActivityElement().setId("content")
+    );
+    public final ActivityElement captcha_input = new ActivityElement().setId("captcha");
+    public final ActivityElement captcha_change = new ActivityElement().setText(getString("看不清? 换一张" ,reload_captcha));
+    public final ActivityElement captcha_ok_button = new ActivityElement().setId("ok").setText(getString("确定" ,ok));
+    public final ActivityElement captcha_cancel_button = new ActivityElement().setId("cancel").setText(getString("取消" ,cancel));
 
-    private static final String ID_ACCEPT = "accept";
-    private static final String[] ID_TEXT_TERMS = {"service", "服务条款"};
-    private static final String TEXT_ACCEPT = getString("请阅读并勾选同意服务条款以注册账号", accept_terms_of_service_hint);
-    private static final String TEXT_incorrect_pwd_format = getString("请输入6–16字符的大小写字母和数字组合", incorrect_password_format);
-    private static final String TEXT_incorrect_pwd_confirm = getString("确认密码输入不一致", incorrect_password_confirm);
-    private static final String[] ID_TEXT_captcha_frame_title = {"title", getString("请输入验证码",input_captcha)};
-    private static final String ID_captcha_input = "captcha";
-    private static final String TEXT_captcha_change = "看不清? 换一张";
-    private static final String[] ID_TEXT_captcha_cancel = {"cancel","取消"};
-    private static final String[] ID_TEXT_captcha_ok = {"ok","确定"};
-
-
-
-
-    public static ViewInteraction captcha_ok(){
-        return getViewInteraction(ID_TEXT_captcha_ok);
-    }
-    public static ViewInteraction captcha_cancel(){
-        return getViewInteraction(ID_TEXT_captcha_cancel);
-    }
-    public static ViewInteraction captcha_change(){
-        return onView(allOf(
-                withText(TEXT_captcha_change),
-                isDisplayed()
-        ));
-    }
-    public static ViewInteraction captcha_edit(){
-        return onView(allOf(
-                withResourceName(ID_captcha_input),
-                childAtPosition(
-                        childAtPosition(
-                                withId(android.R.id.content),
-                                0),
-                        1),
-                isDisplayed()
-        ));
-    }
-
-    public static ViewInteraction captcha_frame(){
-        return onView(withChild(allOf(
-                withResourceName(ID_TEXT_captcha_frame_title[0]),
-                withText(ID_TEXT_captcha_frame_title[1])
-        )));
-    }
-    @NonNull
-    public static ViewInteraction incorrect_pwd_confirm_toast(){
-        return getToast(TEXT_incorrect_pwd_confirm);
-    }
-    public static ViewInteraction incorrect_pwd_format_toast(){
-        return getToast(TEXT_incorrect_pwd_format);
-    }
-
-
-    public static ViewInteraction acceptCheck() {
-       return onView(
-                allOf(
-                        withResourceName(ID_ACCEPT),
-                        isDisplayed()
-                )
-        );
-    }
-
-    public static ViewInteraction terms() {
-        return onView(
-                allOf(
-                        withResourceName(ID_TEXT_TERMS[0]),
-                        withText(getString(ID_TEXT_TERMS[1], terms_of_service))
-//                        hasLinks()
-                )
-        );
-    }
-
-    public static ViewInteraction acceptTerms() {
-        return getToast(TEXT_ACCEPT);
-    }
+    protected final ActivityElement reg_pwd = new ActivityElement().setId("password").setHint(getString("请输入密码" ,sign_up_password_hint));
+    protected final ActivityElement reg_pwd_confirm = new ActivityElement().setId("confirm").setHint(getString("请再次输入密码" ,sign_up_confirm_hint));
+    protected final ActivityElement accept_service_check = new ActivityElement().setId("accept").setText(getString("同意" ,accept));
 
 
 
-    public static class RegEmail {
-        public static final Element use_email_reg = new Element().setChildren(new Element().setChildren(
-           new Element().setId("text1")     .setText(getString("邮箱注册" ,sign_up_email))
+    public static class RegEmail extends ASignUp{
+        public final ActivityElement use_email_reg = new ActivityElement().setChildren(new ActivityElement().setChildren(
+           new ActivityElement().setId("text1").setText(getString("邮箱注册" ,sign_up_email))
         ));
 
-        public static final Element email_input = new Element().setId("email")
+        public final ActivityElement email_input = new ActivityElement().setId("email")
                 .setHint(getString("请输入您的邮箱地址" ,sign_up_email_hint));
 
-        public static final Element email_reg_pwd = new Element().setId("password")
-                .setHint(getString("请输入密码" ,sign_up_password_hint))
-                .setUncle(new Element().setChildren(email_input));
+        public final ActivityElement email_reg_pwd = reg_pwd.setUncle(new ActivityElement().setChildren(email_input));
 
-        public static final Element email_reg_pwd_confirm = new Element().setId("confirm")
-                .setHint(getString("请再次输入密码" ,sign_up_confirm_hint))
-                .setUncle(new Element().setChildren(email_input));
+        public final ActivityElement email_reg_pwd_confirm = reg_pwd_confirm.setCousinry(email_input);
+//                new ActivityElement().setId("confirm").setHint(getString("请再次输入密码" ,sign_up_confirm_hint)).setUncle(new ActivityElement().setChildren(email_input));
 
-        public static final Element email_reg_submit = new Element().setId("submit")
+        public final ActivityElement email_reg_submit = new ActivityElement().setId("submit")
                 .setText(getString("注册" ,sign_up))
-                .setSibling(new Element().setChildren(email_input));
+                .setSibling(new ActivityElement().setChildren(email_input));
 
-        public static final Element email_terms = new Element().setId("service")
+        public final ActivityElement email_terms = new ActivityElement().setId("service")
                 .setText(getString("服务条款",terms_of_service))
-                .setUncle(new Element().setChildren(email_input));
+                .setUncle(new ActivityElement().setChildren(email_input));
+
+        public final ActivityElement email_accept_service_check = accept_service_check.setCousinry(email_input);
     }
 
-    public static class RegPhone{
+    public static class RegPhone extends ASignUp{
 
-        private static final String[] ID_TEXT_PhoneReg = {"text1" , "手机注册"};
-        private static final String[] ID_TEXT_pickup_country_code ={ "pickup_country_code" , "挑选"};
-        private static final String[] ID_TEXT_country_code ={ "country_code" , "86"};
-        private static final String[] ID_HINT_phone ={ "phone" , "请输入手机号"};
-        private static final String[] ID_HINT_PWD = {"password", null , "请输入密码"};
-        private static final String[] ID_HINT_PWDC = {"confirm", null , "请再次输入密码"};
-        private static final String[] ID_TEXT_get_sms ={ "btn_sms" , "获取验证码"};
-        private static final String TEXT_incorrect_phone_format = getString("手机号格式不正确", incorrect_phone_format);
+        public final ActivityElement use_phone_reg = new ActivityElement().setChildren(new ActivityElement().setChildren(
+                new ActivityElement().setId("text1").setText(getString("手机注册" ,sign_up_phone))
+        ));
+        public final ActivityElement pickup_country_code_button = new ActivityElement().setId("pickup_country_code")
+                .setText(getString("挑选" ,pickup));
 
+        public final ActivityElement country_code_input = new ActivityElement().setId("country_code").setText(getString("86" ,country_code_default));
 
-        public static ViewInteraction phonePwd(){
-            return getViewInteraction(ID_HINT_PWD,
-                    childAtPosition(
-                            childAtPosition(
-                                    IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                    4),
-                            1)
-                    );
-        }
-        public static ViewInteraction phonePwdConfirm(){
-            return getViewInteraction(ID_HINT_PWDC ,
-                    childAtPosition(
-                            childAtPosition(
-                                    IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                    6),
-                            1)
-                    );
-        }
-        /**
-         * "手机注册"图标
-         * @return
-         */
-        public static ViewInteraction phoneReg(){
-            return  onView(withChild(allOf(
-                    withText(getString(ID_TEXT_PhoneReg[1] , com.trubuzz.trubuzz.test.R.string.sign_up_phone)),
-                    withResourceName(ID_TEXT_PhoneReg[0]))
-            ));
-        }
+        public final ActivityElement phone_input = new ActivityElement().setId("phone").setHint(getString("请输入手机号" ,sign_up_phone_hint));
 
-        /**
-         * 挑选国别码
-         * @return
-         */
-        public static ViewInteraction pickupCode(){
-            return onView(allOf(
-                            withResourceName(ID_TEXT_pickup_country_code[0]),
-                            withText(getString(ID_TEXT_pickup_country_code[1],com.trubuzz.trubuzz.test.R.string.pickup))
-                    ));
-        }
+        public final ActivityElement phone_reg_pwd = reg_pwd.setCousinry(phone_input);
 
-        /**
-         * 国别码编辑框
-         * @return
-         */
-        public static ViewInteraction editCountryCode(){
-            return onView(allOf(
-                            withResourceName(ID_TEXT_country_code[0]),
-                            withText(ID_TEXT_country_code[1])
-                    ));
-        }
+        public final ActivityElement phone_reg_pwd_confirm = reg_pwd_confirm.setCousinry(phone_input);
 
-        /**
-         * 手机号输入框
-         * @return
-         */
-        public static ViewInteraction phoneNumber(){
-            return onView(allOf(
-                            withResourceName(ID_HINT_phone[0]),
-                            withHint(getString(ID_HINT_phone[1], com.trubuzz.trubuzz.test.R.string.sign_up_phone_hint))
-                    ));
-        }
+        public final ActivityElement get_sms_button = new ActivityElement().setId("btn_sms").setText(getString("获取验证码" ,get_sms));
 
-        /**
-         * 获取验证码
-         * @return
-         */
-        public static ViewInteraction getSms(){
-            return getViewInteraction(ID_TEXT_get_sms
-//                    childAtPosition(
-//                            childAtPosition(
-//                                    IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-//                                    8),
-//                            1)
-                    );
-        }
+        public final ActivityElement phone_accept_service_check = accept_service_check.setCousinry(phone_input);
 
-        /**
-         * 手机号格式不正确 提示
-         * @return
-         */
-        public static ViewInteraction incorrect_phone_format_toast(){
-            return getToast(TEXT_incorrect_phone_format);
-        }
     }
 }

@@ -29,10 +29,10 @@ public class Report {
      * 将测试结果写文件
      * {@link com.trubuzz.trubuzz.feature.AdRunner#finish(int, Bundle)} ) 中进行调用}
      */
-    public void testOutputReport(){
+    public String testOutputReport(){
         initDesc();
         String str = JSON.toJSONString(report);
-        DoIt.writeFileData(str,"report");
+        return DoIt.writeFileData(str,"report");
     }
 
     /**

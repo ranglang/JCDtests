@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
@@ -152,6 +153,7 @@ public class DoIt {
             writer.write(data);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e(TAG, "writeFileDataError: ",e );
         } finally {
             if(writer != null){
                 try {
@@ -219,4 +221,19 @@ public class DoIt {
         }
         return newString;
     }
+
+
+    public static boolean notEmpty(Object o){
+       return o !=null;
+    }
+    public static boolean notEmpty(Object[] o) {
+        return o != null && o.length > 0;
+    }
+    public static boolean notEmpty(List o) {
+        return o != null && !o.isEmpty();
+    }
+    public static boolean notEmpty(Map o) {
+        return o != null && !o.isEmpty();
+    }
+
 }

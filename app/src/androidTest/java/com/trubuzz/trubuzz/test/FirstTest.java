@@ -14,7 +14,6 @@ import android.util.Log;
 
 import com.trubuzz.trubuzz.elements.AForgetPwd;
 import com.trubuzz.trubuzz.elements.ALogin;
-import com.trubuzz.trubuzz.elements.ASignUp;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
@@ -32,7 +31,6 @@ import dalvik.system.DexFile;
 import static android.support.test.InstrumentationRegistry.getContext;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -43,7 +41,6 @@ import static android.support.test.espresso.web.webdriver.DriverAtoms.findElemen
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.AName.WEB_VIEW;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
@@ -111,9 +108,6 @@ public class FirstTest extends BaseTest{
     public void testLogin1() throws InterruptedException {
         ALogin aLogin = new ALogin();
         Thread.sleep(2000);
-        aLogin.account().perform(replaceText("abc@abc.com"));
-        aLogin.password().perform(replaceText("aA123321111"));
-        aLogin.submit().perform(click());
         onView(withText("无效的账号或密码"))
                 .inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
         Context ctx = getContext();
@@ -164,9 +158,6 @@ public class FirstTest extends BaseTest{
 //        Log.e(TAG, "webTableTest: got    = |" + g + "|" );
 //        DoIt.unRegIdlingResource();
 
-        given(ALogin.signUp()).perform(click());
-        given(ASignUp.RegEmail.email_input).perform(replaceText("1232142"));
-        given(ASignUp.RegEmail.email_terms).perform(click());
         DoIt.regIdlingResource(new SomeActivityIdlingResource(WEB_VIEW,mActivityTestRule.getActivity() ,true));
         onWebView()
                 .withElement(findElement(Locator.CSS_SELECTOR , ".terms"))
@@ -203,7 +194,6 @@ public class FirstTest extends BaseTest{
 
 //    @Test
     public void hasSiblingTest(){
-        given(ALogin.password()).perform(replaceText("23432312"));
         sleep(2000);
         onView(
                 allOf(
@@ -218,18 +208,9 @@ public class FirstTest extends BaseTest{
 
     //@Test
     public void elementTest(){
-        given(ALogin.forget_pwd()).perform(click());
-        given(AForgetPwd.use_phone_found).perform(click());
+        given(new AForgetPwd().use_phone_found).perform(click());
         sleep(2000);
     }
 
-//    @Test
-    public void isPasswordTest(){
-        given(ALogin.account()).perform(replaceText("123321")).check(matches(withText("123321")));
-        given(ALogin.password())
-                .perform(replaceText("12345678"))
-                .check(matches(isPassword()))
-                .check(matches(withText("12345678")));
-    }
 
 }
