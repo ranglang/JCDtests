@@ -26,8 +26,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.constant.ToastInfo.email_success_except;
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_email_format_toast;
-import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_password_format_toast;
-import static com.trubuzz.trubuzz.constant.ToastInfo.sms_sent_toast;
+import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_phone_format_toast;
 import static com.trubuzz.trubuzz.constant.ToastInfo.user_not_exist_toast;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.shell.Park.given;
@@ -54,11 +53,11 @@ public class ForgetPwdTest extends BaseTest{
 
     private Object[] phone_found_data(){
         return new Object[]{
-//                new Object[]{"123" ,incorrect_phone_format_toast ,false , null ,null ,null , null },
+                new Object[]{"123" ,incorrect_phone_format_toast ,false , null ,null ,null , null },
 //                new Object[]{"175000000000000000000000000000000000" ,incorrect_phone_format_toast ,false , null ,null ,null , null },
 //                new Object[]{"17511110000" , sms_sent_toast ,true , null ,null ,null ,incorrect_sms_format_toast },
-                new Object[]{"17511110000" , sms_sent_toast ,true , "9999999999999999999999999999" ,null ,null ,incorrect_password_format_toast },
-                new Object[]{"17511110000" , sms_sent_toast ,true , "666666" ,null ,null ,incorrect_password_format_toast },
+//                new Object[]{"17511110000" , sms_sent_toast ,true , "9999999999999999999999999999" ,null ,null ,incorrect_password_format_toast },
+//                new Object[]{"17511110000" , sms_sent_toast ,true , "666666" ,null ,null ,incorrect_password_format_toast },
 //                new Object[]{"17511110000" , sms_sent_toast ,true , "666666" ,"12345678" ,"12345678" ,incorrect_password_format_toast },
 //                new Object[]{"17511110000" , sms_sent_toast ,true , "666666" ,"aA123456789012345" ,"aA123456789012345" ,incorrect_password_format_toast },
 //                new Object[]{"17511110000" , sms_sent_toast ,true , "666666" ,"123321aA" ,"123321aA" ,error_captcha_code_toast },
@@ -95,8 +94,8 @@ public class ForgetPwdTest extends BaseTest{
             given(ALogin.account_input).check(matches(withText(email)));    //重置邮件发送成功后,会自动将Email填写只account输入框
         }
     }
-    @Test
-    @Parameters(method = "phone_found_data")
+//    @Test
+//    @Parameters(method = "phone_found_data")
     public void use_phone_found(String phone , ActivityElement get_sms_except , boolean has_sms , String sms_code , String pwd , String confirm_pwd , ActivityElement submit_except){
         this.putData(new HashMap(){{
             put("phone" ,phone);        put("get_sms_except" ,get_sms_except.toString());

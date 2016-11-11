@@ -1,6 +1,7 @@
 package com.trubuzz.trubuzz.report;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.trubuzz.trubuzz.constant.Config;
@@ -12,6 +13,7 @@ import com.trubuzz.trubuzz.utils.DoIt;
  */
 
 public class Report {
+    private static final String TAG = "Report";
     private static Report report;
     private String logcatPath;
     private String reportName;
@@ -31,6 +33,7 @@ public class Report {
      */
     public String testOutputReport(){
         initDesc();
+        Log.i(TAG, "testOutputReport: "+ report.toString());
         String str = JSON.toJSONString(report);
         return DoIt.writeFileData(str,"report");
     }

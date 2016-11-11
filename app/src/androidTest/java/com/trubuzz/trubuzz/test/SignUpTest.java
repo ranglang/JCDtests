@@ -8,7 +8,7 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASignUp;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
-import com.trubuzz.trubuzz.shell.Element;
+import com.trubuzz.trubuzz.shell.ActivityElement;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -83,7 +83,7 @@ public class SignUpTest extends BaseTest{
     @Test
     @Parameters( method = "emailSignUp")
     public void invalid_sign_up_with_email(String emailAddress , String pwd , String pwdConfirm ,
-                   boolean acceptTerms ,String captcha , Element except){
+                   boolean acceptTerms ,String captcha , ActivityElement except){
         this.putData("email",emailAddress,"pwd",pwd,"pwdConfirm",pwdConfirm ,
                 "acceptTerms",acceptTerms,"register_captcha",captcha,"except" ,except);
 
@@ -116,7 +116,7 @@ public class SignUpTest extends BaseTest{
     @Test
     @Parameters(method = "phoneSignUp")
     public void invalid_sign_up_with_phone(String phoneNumber ,String pwd , String pwdConfirm ,
-                                           boolean acceptTerms ,String captcha , Element except){
+                                           boolean acceptTerms ,String captcha , ActivityElement except){
         putData(new HashMap<String,Object>(){{
             put("phoneNumber",phoneNumber);
             put("pwd",pwd);

@@ -39,7 +39,7 @@ public class AdViewInteraction {
                 //执行截图并保存文件名
                 Registor.reg( key , ((BaseTest)Registor.peekReg(BaseTest.class.toString())).takeScreenshot());
             }
-            Log.w(TAG,"perform: 第"+i+"次未匹配到元素:"+this.viewInteraction.toString());
+            Log.w(TAG,"perform: 第"+i+"次未匹配到元素:"+this.viewInteraction);
         }
         this.viewInteraction.perform(viewActions);
         DoIt.delFile((String)Registor.unReg(key));

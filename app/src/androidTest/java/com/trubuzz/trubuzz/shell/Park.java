@@ -32,6 +32,10 @@ public class Park {
     }
 
     public static AdViewInteraction given(Element element){
-        return new AdViewInteraction(WithAny.getViewInteraction(element));
+        return new AdViewInteraction(element.getViewInteraction(element));
+    }
+
+    public static AdViewInteraction given(ActivityElement element){
+        return new AdViewInteraction(element.interactionWay());
     }
 }

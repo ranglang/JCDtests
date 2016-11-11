@@ -8,5 +8,4 @@ public interface EL <E>{
 
     E getWay();
 
-    String toString();
 }

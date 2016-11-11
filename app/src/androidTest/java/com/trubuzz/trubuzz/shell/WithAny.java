@@ -44,7 +44,7 @@ public class WithAny {
      * @param element
      * @return
      */
-    private static List<Matcher<View>> element2matcher(Element element){
+    private static List<Matcher<View>> element2matcher(ActivityElement element){
         List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
 
         String id = element.getId();
@@ -56,19 +56,19 @@ public class WithAny {
         String hint = element.getHint();
         if(hint != null && !hint.isEmpty()) ms.add(withHint (hint));
 
-        Element[] children = element.getChildren();
+        ActivityElement[] children = element.getChildren();
         if(children != null && children.length > 0)  ms.add(children(elements2matcher(children)));
 
-        Element[] sibling = element.getSibling();
+        ActivityElement[] sibling = element.getSibling();
         if(sibling != null && sibling.length > 0) ms.add(sibling(elements2matcher(sibling)));
 
-        Element cousin = element.getCousin();
-        if(cousin != null) ms.add(withCousin(all(element2matcher(cousin))));
+        ActivityElement[] cousinry = element.getCousinry();
+        if(cousinry != null && cousinry.length > 0) ms.add(cousinry(elements2matcher(cousinry)));
 
-        Element parent = element.getParent();
+        ActivityElement parent = element.getParent();
         if(parent != null ) ms.add(withParent(all(element2matcher(parent))));
 
-        Element uncle = element.getUncle();
+        ActivityElement uncle = element.getUncle();
         if(uncle != null) ms.add(withUncle(all(element2matcher(uncle))));
 
         int index = element.getIndex();
@@ -88,9 +88,9 @@ public class WithAny {
      * @param elements
      * @return
      */
-    private static List<List<Matcher<View>>> elements2matcher(Element... elements){
+    private static List<List<Matcher<View>>> elements2matcher(ActivityElement... elements){
         List<List<Matcher<View>>> ms = new ArrayList<>();
-        for(Element element : elements){
+        for(ActivityElement element : elements){
             ms.add(element2matcher(element));
         }
         return ms;
@@ -100,8 +100,8 @@ public class WithAny {
      * @param element 封装的元素信息
      * @return
      */
-    public static ViewInteraction getViewInteraction(Element element){
-        Element.ToastMsg toastMsg = element.getToastMsg();
+    public static ViewInteraction getViewInteraction(ActivityElement element){
+        ActivityElement.ToastMsg toastMsg = element.getToastMsg();
         if(toastMsg != null){
             return getToast(toastMsg.getMsg() , toastMsg.getActivity());
         }
@@ -159,25 +159,37 @@ public class WithAny {
 
     /**
      * <List<Matcher<View>> 中包含了单个的sibling的匹配方式
-     * @param sibling
+     * @param siblings
      * @return
      */
-    private static Matcher<View> sibling(List<List<Matcher<View>>> sibling){
+    private static Matcher<View> sibling(List<List<Matcher<View>>> siblings){
         List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(List<Matcher<View>> matcher : sibling){
+        for(List<Matcher<View>> matcher : siblings){
             ms.add(hasSiblingNoSelf(all(matcher)));
         }
         return allOf(God.list2array(Matcher.class ,ms));
     }
     @SafeVarargs
-    private static Matcher<View> sibling(Matcher<View> ...sibling){
+    private static Matcher<View> sibling(Matcher<View> ...siblings){
         List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(Matcher<View> matcher : sibling){
+        for(Matcher<View> matcher : siblings){
             ms.add(hasSiblingNoSelf(matcher));
         }
         return allOf(God.list2array(Matcher.class ,ms));
     }
 
+    /**
+     * <List<Matcher<View>> 中包含了单个的cousin的匹配方式
+     * @param cousinry
+     * @return
+     */
+    private static Matcher<View> cousinry(List<List<Matcher<View>>> cousinry ){
+        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
+        for(List<Matcher<View>> matcher : cousinry ){
+            ms.add(withCousin(all(matcher)));
+        }
+        return allOf(God.list2array(Matcher.class ,ms));
+    }
     /**
      * allOf 的封装实现
      * @param matcher
@@ -254,8 +266,8 @@ public class WithAny {
         if (desc instanceof Matcher[]){
             return onView(allOf((Matcher[]) desc));
         }
-        if (desc instanceof Element){
-            return onView(all(element2matcher((Element) desc)));
+        if (desc instanceof ActivityElement){
+            return onView(all(element2matcher((ActivityElement) desc)));
         }
 
        return null;
