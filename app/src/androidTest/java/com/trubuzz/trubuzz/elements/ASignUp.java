@@ -1,6 +1,6 @@
 package com.trubuzz.trubuzz.elements;
 
-import com.trubuzz.trubuzz.shell.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
 import static android.R.string.cancel;
 import static com.trubuzz.trubuzz.test.R.string.accept;

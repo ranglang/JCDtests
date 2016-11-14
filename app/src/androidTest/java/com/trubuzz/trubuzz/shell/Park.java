@@ -31,11 +31,11 @@ public class Park {
         return new AdViewInteraction(viewInteraction);
     }
 
-    public static AdViewInteraction given(Element element){
-        return new AdViewInteraction(element.getViewInteraction(element));
-    }
-
-    public static AdViewInteraction given(ActivityElement element){
+    public static AdViewInteraction given(Element<ViewInteraction> element){
         return new AdViewInteraction(element.interactionWay());
     }
+
+//    public static AdViewInteraction given(ActivityElement element){
+//        return new AdViewInteraction(element.interactionWay());
+//    }
 }

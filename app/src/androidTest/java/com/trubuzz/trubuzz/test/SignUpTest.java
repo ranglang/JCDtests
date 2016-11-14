@@ -8,7 +8,7 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASignUp;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
-import com.trubuzz.trubuzz.shell.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -78,7 +78,6 @@ public class SignUpTest extends BaseTest{
                 .perform(click())                       //点击"手机注册"
                 .check(matches(isSelected()));          //检查已被选中
         given(regEmail.use_email_reg).check(matches(not(isSelected()))); //检查"邮箱注册"处于未选中
-        succeeded();
     }
     @Test
     @Parameters( method = "emailSignUp")
@@ -110,7 +109,6 @@ public class SignUpTest extends BaseTest{
         }
         given( except).check(matches(isDisplayed()));              //检查预期结果
 
-        succeeded();
     }
 
     @Test
@@ -143,7 +141,6 @@ public class SignUpTest extends BaseTest{
         given(regPhone.get_sms_button).perform(click());                   //点击检查"获取验证码"
         given(except).check(matches(isDisplayed()));
 
-        this.succeeded();
 
     }
 

@@ -2,6 +2,8 @@ package com.trubuzz.trubuzz.feature.custom;
 
 import android.os.IBinder;
 import android.support.test.espresso.Root;
+import android.support.test.espresso.ViewInteraction;
+import android.support.test.rule.ActivityTestRule;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -10,11 +12,19 @@ import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import com.trubuzz.trubuzz.constant.Env;
+import com.trubuzz.trubuzz.utils.God;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.internal.util.Checks.checkNotNull;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 
 /**
  * Created by king on 2016/9/23.
@@ -89,6 +99,21 @@ public class CustomMatcher {
         };
     }
 
+    /**
+     * 使用activity来获取 Context 的方式匹配toast ( 官方使用方法 )
+     * 优点 : 清晰的错误日志, 方便调试 ( 推荐使用 )
+     * @param toastStr
+     * @param activities
+     * @return
+     */
+    public static ViewInteraction getToast(String toastStr , ActivityTestRule... activities){
+        if(activities.length > 0 && activities[0] != null) {
+            return onView(withText(toastStr))
+                    .inRoot(withDecorView(not(is(activities[0].getActivity().getWindow().getDecorView()))));
+        }
+        return onView(withText(toastStr))
+                .inRoot(withDecorView(not(is(God.getCurrentActivity(Env.instrumentation).getWindow().getDecorView()))));
+    }
     /**
      * 通过孩子元素的位置匹配
      * @param parentMatcher

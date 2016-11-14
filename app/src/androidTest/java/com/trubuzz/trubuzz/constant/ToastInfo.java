@@ -1,6 +1,7 @@
 package com.trubuzz.trubuzz.constant;
 
-import com.trubuzz.trubuzz.shell.ActivityElement;
+
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
 import static com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint;
 import static com.trubuzz.trubuzz.test.R.string.captcha_format_error;

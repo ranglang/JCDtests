@@ -16,17 +16,13 @@ import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
-import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withCousin;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withUncle;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
@@ -44,69 +40,69 @@ public class WithAny {
      * @param element
      * @return
      */
-    private static List<Matcher<View>> element2matcher(ActivityElement element){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-
-        String id = element.getId();
-        if(id != null && !id.isEmpty()) ms.add(withResourceName(id));
-
-        String text = element.getText();
-        if(text !=null && !text.isEmpty()) ms.add(withText(text));
-
-        String hint = element.getHint();
-        if(hint != null && !hint.isEmpty()) ms.add(withHint (hint));
-
-        ActivityElement[] children = element.getChildren();
-        if(children != null && children.length > 0)  ms.add(children(elements2matcher(children)));
-
-        ActivityElement[] sibling = element.getSibling();
-        if(sibling != null && sibling.length > 0) ms.add(sibling(elements2matcher(sibling)));
-
-        ActivityElement[] cousinry = element.getCousinry();
-        if(cousinry != null && cousinry.length > 0) ms.add(cousinry(elements2matcher(cousinry)));
-
-        ActivityElement parent = element.getParent();
-        if(parent != null ) ms.add(withParent(all(element2matcher(parent))));
-
-        ActivityElement uncle = element.getUncle();
-        if(uncle != null) ms.add(withUncle(all(element2matcher(uncle))));
-
-        int index = element.getIndex();
-        if(index >= 0) ms.add(withIndex(index));
-
-        Class clz = element.getAssignableClass();
-        if(clz != null) ms.add(isAssignableFrom(clz));
-
-        Matcher<View>[] matchers = element.getMatchers();
-        if(matchers != null && matchers.length > 0) ms.addAll(God.array2list(matchers));
-
-        return ms;
-    }
+//    private static List<Matcher<View>> element2matcher(ActivityElement element){
+//        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
+//
+//        String id = element.getId();
+//        if(id != null && !id.isEmpty()) ms.add(withResourceName(id));
+//
+//        String text = element.getText();
+//        if(text !=null && !text.isEmpty()) ms.add(withText(text));
+//
+//        String hint = element.getHint();
+//        if(hint != null && !hint.isEmpty()) ms.add(withHint (hint));
+//
+//        ActivityElement[] children = element.getChildren();
+//        if(children != null && children.length > 0)  ms.add(children(elements2matcher(children)));
+//
+//        ActivityElement[] sibling = element.getSibling();
+//        if(sibling != null && sibling.length > 0) ms.add(sibling(elements2matcher(sibling)));
+//
+//        ActivityElement[] cousinry = element.getCousinry();
+//        if(cousinry != null && cousinry.length > 0) ms.add(cousinry(elements2matcher(cousinry)));
+//
+//        ActivityElement parent = element.getParent();
+//        if(parent != null ) ms.add(withParent(all(element2matcher(parent))));
+//
+//        ActivityElement uncle = element.getUncle();
+//        if(uncle != null) ms.add(withUncle(all(element2matcher(uncle))));
+//
+//        int index = element.getIndex();
+//        if(index >= 0) ms.add(withIndex(index));
+//
+//        Class clz = element.getAssignableClass();
+//        if(clz != null) ms.add(isAssignableFrom(clz));
+//
+//        Matcher<View>[] matchers = element.getMatchers();
+//        if(matchers != null && matchers.length > 0) ms.addAll(God.array2list(matchers));
+//
+//        return ms;
+//    }
 
     /**
      * 多element 的合并
      * @param elements
      * @return
      */
-    private static List<List<Matcher<View>>> elements2matcher(ActivityElement... elements){
-        List<List<Matcher<View>>> ms = new ArrayList<>();
-        for(ActivityElement element : elements){
-            ms.add(element2matcher(element));
-        }
-        return ms;
-    }
+//    private static List<List<Matcher<View>>> elements2matcher(ActivityElement... elements){
+//        List<List<Matcher<View>>> ms = new ArrayList<>();
+//        for(ActivityElement element : elements){
+//            ms.add(element2matcher(element));
+//        }
+//        return ms;
+//    }
     /**
      * 这是通过封装后的匹配方式
      * @param element 封装的元素信息
      * @return
      */
-    public static ViewInteraction getViewInteraction(ActivityElement element){
-        ActivityElement.ToastMsg toastMsg = element.getToastMsg();
-        if(toastMsg != null){
-            return getToast(toastMsg.getMsg() , toastMsg.getActivity());
-        }
-        return onView(all(element2matcher(element)));
-    }
+//    public static ViewInteraction getViewInteraction(ActivityElement element){
+//        ActivityElement.ToastMsg toastMsg = element.getToastMsg();
+//        if(toastMsg != null){
+//            return getToast(toastMsg.getMsg() , toastMsg.getActivity());
+//        }
+//        return onView(all(element2matcher(element)));
+//    }
 
     /**
      * 使用自定义的匹配器获取toast
@@ -266,9 +262,9 @@ public class WithAny {
         if (desc instanceof Matcher[]){
             return onView(allOf((Matcher[]) desc));
         }
-        if (desc instanceof ActivityElement){
-            return onView(all(element2matcher((ActivityElement) desc)));
-        }
+//        if (desc instanceof ActivityElement){
+//            return onView(all(element2matcher((ActivityElement) desc)));
+//        }
 
        return null;
     }

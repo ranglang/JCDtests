@@ -33,7 +33,6 @@ import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 
 public class BaseTest {
     private final String TAG = "jcd_BaseTest";
-    private boolean isSucceeded = false;
     private Map useData;
 
 //    protected Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
@@ -53,21 +52,21 @@ public class BaseTest {
     }
 
     //@After
-    public void tearDown() {
-        Registor.unRegAll(BaseTest.class.toString());
-        String mN = testWatcherAdvance.getTestName();
-        Log.i("jcd", "tearDown: ....." + mN);
-        if (!isSucceeded) {
-            Object obj = Registor.unReg(AdViewInteraction.class.toString());
-            if (obj instanceof String) {
-                this.fileName = (String) obj;
-            } else {
-                this.fileName = takeScreenshot();
-            }
-        }
-        testWatcherAdvance.setErrorImagePath(this.fileName);
-        testWatcherAdvance.setUseData(setUseData());
-    }
+//    public void tearDown() {
+//        Registor.unRegAll(BaseTest.class.toString());
+//        String mN = testWatcherAdvance.getTestName();
+//        Log.i("jcd", "tearDown: ....." + mN);
+//        if (!isSucceeded) {
+//            Object obj = Registor.unReg(AdViewInteraction.class.toString());
+//            if (obj instanceof String) {
+//                this.fileName = (String) obj;
+//            } else {
+//                this.fileName = takeScreenshot();
+//            }
+//        }
+//        testWatcherAdvance.setErrorImagePath(this.fileName);
+//        testWatcherAdvance.setUseData(setUseData());
+//    }
 
 
     public String getFileName() {
@@ -133,8 +132,5 @@ public class BaseTest {
     }
     protected void putData(Map data){
         this.useData = data;
-    }
-    protected void succeeded(){
-        isSucceeded = true;
     }
 }

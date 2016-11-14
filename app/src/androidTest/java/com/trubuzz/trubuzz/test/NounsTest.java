@@ -20,9 +20,6 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
@@ -39,25 +36,20 @@ import static com.trubuzz.trubuzz.constant.Nouns.net_liquidation_n;
 import static com.trubuzz.trubuzz.constant.Nouns.today_portfolio_n;
 import static com.trubuzz.trubuzz.constant.Nouns.total_amount_n;
 import static com.trubuzz.trubuzz.constant.Nouns.total_pnl_n;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_account_type;
 import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_accrued_cash;
 import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_available_funds_d;
 import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_buying_power_d;
 import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_equity_with_loan_value;
 import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_excess_liquidity;
 import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_gross_position_value;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_individual;
 import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_init_margin_req;
 import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_maint_margin_req;
 import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_net_liquidation;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.check_account_type;
 import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_Available_Funds;
 import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_buying_power;
 import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_today_portfolio;
 import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_total_amount;
 import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_total_portfolio;
-import static com.trubuzz.trubuzz.shell.WithAny.getAllMatcher;
-import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.pause;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -116,18 +108,16 @@ public class NounsTest extends BaseTest {
 
         DoIt.unRegIdlingResource();
 
-        this.succeeded();
     }
 
     @Test
     public void otherNouns(){
         //检查账号类型为保证金账户
 
-        given(AAsset.ID_TEXT_net_worth).perform(pause(1000),click());        //等待一秒再点击
-        given(ID_TEXT_account_type)
-                .check(matches(withText(check_account_type)))               //检查账户类型字段
-                .check(matches(hasSibling(getAllMatcher(ID_TEXT_individual))));     //检查含有指定子元素
-
-        this.succeeded();
+//        given(AAsset.ID_TEXT_net_worth).perform(pause(1000),click());        //等待一秒再点击
+//        given(ID_TEXT_account_type)
+//                .check(matches(withText(check_account_type)))               //检查账户类型字段
+//                .check(matches(hasSibling(getAllMatcher(ID_TEXT_individual))));     //检查含有指定子元素
+//
     }
 }

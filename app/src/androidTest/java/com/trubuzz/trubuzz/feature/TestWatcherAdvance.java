@@ -13,6 +13,7 @@ import com.trubuzz.trubuzz.utils.Registor;
 import org.junit.AssumptionViolatedException;
 import org.junit.rules.TestName;
 import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 
 import java.util.Date;
 import java.util.Map;
@@ -40,6 +41,11 @@ public class TestWatcherAdvance extends TestName {
     public TestWatcherAdvance(ClassBean testClass , BaseTest baseTest){
         this.testClass = testClass;
         this.baseTest = baseTest;
+    }
+
+    public Statement apply(final Statement base, final Description description) {
+        System.out.println("hello");
+        return super.apply(base , description);
     }
 
     /**

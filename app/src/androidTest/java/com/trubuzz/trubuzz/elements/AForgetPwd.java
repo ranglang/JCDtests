@@ -1,6 +1,6 @@
 package com.trubuzz.trubuzz.elements;
 
-import com.trubuzz.trubuzz.shell.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
 import static com.trubuzz.trubuzz.test.R.string.email;
 import static com.trubuzz.trubuzz.test.R.string.forget_password_email;

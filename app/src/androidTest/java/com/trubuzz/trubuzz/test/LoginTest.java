@@ -6,7 +6,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
-import com.trubuzz.trubuzz.shell.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -82,7 +82,6 @@ public class LoginTest extends BaseTest{
             }
             DoIt.unAllRegIdlingResource();
         }
-        succeeded();
     }
 
     @Test
