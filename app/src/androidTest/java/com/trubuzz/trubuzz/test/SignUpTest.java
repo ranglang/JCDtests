@@ -55,7 +55,7 @@ public class SignUpTest extends BaseTest{
 
     private Object[] emailSignUp(){
         return new Object[]{
-            new Object[]{"espressoTest001@abc.com","aA123456","aA12345",true ,null ,incorrect_password_confirm_toast},
+            new Object[]{"espressoTest001abc.com","aA123456","aA12345",true ,null ,incorrect_password_confirm_toast},
 //            new Object[]{"espressoTest001@abc.com","aA123456","aA123456",true ,""  ,"验证码为六个数字"},
         };
     }

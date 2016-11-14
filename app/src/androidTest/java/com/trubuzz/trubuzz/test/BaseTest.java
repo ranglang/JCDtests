@@ -1,10 +1,10 @@
 package com.trubuzz.trubuzz.test;
 
-import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.feature.ClassWatcherAdvance;
 import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
+import com.trubuzz.trubuzz.feature.listen.EventSource;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.Registor;
@@ -22,7 +22,7 @@ import java.util.Map;
 
 import junitparams.JUnitParamsRunner;
 
-import static com.trubuzz.trubuzz.constant.Env.instrumentation;
+import static com.trubuzz.trubuzz.constant.Env.uiDevice;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 
 /**
@@ -34,8 +34,8 @@ import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 public class BaseTest {
     private final String TAG = "jcd_BaseTest";
     private Map useData;
+    public EventSource eventSource = new EventSource();  //预先实例化事件源
 
-//    protected Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     private String fileName;
 
     @ClassRule
@@ -43,7 +43,7 @@ public class BaseTest {
     @Rule
     public TestWatcherAdvance testWatcherAdvance = new TestWatcherAdvance(classWatcherAdvance.getTestClass() , this);
 
-    public UiDevice uiDevice = UiDevice.getInstance(instrumentation);
+//    public UiDevice uiDevice = UiDevice.getInstance(instrumentation);
 
     @Before
     public void setUp() {
