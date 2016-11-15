@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         SuiteA.class,
-//        SuiteB.class
+        SuiteB.class
 })
 public class EngineSuite {
 }

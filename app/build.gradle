@@ -52,7 +52,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'io.selendroid:selendroid:0.17.0'
     testCompile 'io.selendroid:selendroid-client:0.17.0'
-    testCompile files('libs/JUnitParams-1.1.0.jar')
+    testCompile files('libs/JUnitParams-1.1.1.jar')
     testCompile 'asm:asm-all:3.3.1'
 //     https://mvnrepository.com/artifact/org.springframework/spring-webmvc
     testCompile 'org.springframework:spring-webmvc:4.3.2.RELEASE'
@@ -69,7 +69,7 @@ dependencies {
 
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.+'
     androidTestCompile 'com.alibaba:fastjson:1.2.20'
-    androidTestCompile files('libs/JUnitParams-1.1.0.jar')
+    androidTestCompile files('libs/JUnitParams-1.1.1.jar')
 
 }
 

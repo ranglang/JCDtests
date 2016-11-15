@@ -64,7 +64,7 @@ public class BaseTest {
 //            }
 //        }
 //        testWatcherAdvance.setErrorImagePath(this.fileName);
-//        testWatcherAdvance.setUseData(setUseData());
+//        testWatcherAdvance.getUseData(getUseData());
 //    }
 
 
@@ -89,7 +89,7 @@ public class BaseTest {
      * 设置使用数据
      * @return
      */
-    public Map setUseData(){
+    public Map getUseData(){
         Class clz = this.getClass();
         Class<? extends Runner> runWithClass = ((RunWith)clz.getAnnotation(RunWith.class)).value();
         if(useData != null && !useData.isEmpty()){
@@ -109,7 +109,7 @@ public class BaseTest {
                 }
             }
         }else if(runWithClass.equals(JUnitParamsRunner.class)){
-            Log.i(TAG, "setUseData: 使用了JUnitParamsRunner 的注解 , 将由具体Test方法回调putData(Object ... keys_values) set useData.");
+            Log.i(TAG, "getUseData: 使用了JUnitParamsRunner 的注解 , 将由具体Test方法回调putData(Object ... keys_values) set useData.");
         }
         return this.useData;
     }

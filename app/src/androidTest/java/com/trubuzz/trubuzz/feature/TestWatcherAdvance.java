@@ -6,6 +6,7 @@ import com.trubuzz.trubuzz.constant.TestResult;
 import com.trubuzz.trubuzz.report.CaseBean;
 import com.trubuzz.trubuzz.report.ClassBean;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
+import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.utils.God;
 import com.trubuzz.trubuzz.utils.Registor;
@@ -15,8 +16,10 @@ import org.junit.rules.TestName;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-import java.util.Arrays;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import junitparams.JUnitParamsRunner;
@@ -47,7 +50,6 @@ public class TestWatcherAdvance extends TestName {
     }
 
     public Statement apply(final Statement base, final Description description) {
-
         return super.apply(base , description);
     }
 
@@ -111,10 +113,12 @@ public class TestWatcherAdvance extends TestName {
      */
     protected void finished(Description description) {
         Registor.unRegAll(BaseTest.class.toString());
-        System.out.println("hello");
+//        System.out.println("hello");
         Object[] objects = JUnitParamsRunner.getParams();
-        Log.i(TAG, "finished: params = "+ Arrays.toString(objects));
-        this.useData = baseTest.setUseData();
+
+//        Log.i(TAG, "finished: params = "+ Arrays.toString(objects));
+//        this.useData = baseTest.getUseData();
+        this.useData = putUseData(getParamsName(JUnitParamsRunner.getCurrentMethod()) ,objects);
 
 
         this.stopTime = new Date().getTime();
@@ -136,7 +140,7 @@ public class TestWatcherAdvance extends TestName {
 //                .setErrorMsg(this.message)
 //                .setImageName(this.errorImagePath)
 //                .setTestResult(this.result)
-//                .setUseData(this.useData)
+//                .getUseData(this.useData)
 //                .setLocalizedMessage(this.localizedMessage)
 //                .setStackTraces(this.stackTraces)
 //                .setSpendTime(stopTime - startTime);
@@ -144,7 +148,35 @@ public class TestWatcherAdvance extends TestName {
         testClass.getTestCases().add(testCase);
     }
 
-
+    private Map putUseData(String[] name , Object[] data){
+        Map<String , Object> useData = new HashMap<String , Object>();
+        int dataLen = data.length;
+        int nameLen = name.length;
+        if(nameLen != dataLen) Log.w(TAG, "putUseData: 参数名和参数的数量不匹配 > "+"name = "+nameLen + " , data = "+dataLen );
+        int len = dataLen > nameLen ? dataLen : nameLen;
+        for(int i=0; i<len ;i++){
+            useData.put(name[i] , data[i].toString());
+        }
+        return useData;
+    }
+    /**
+     * get current params name
+     * @param method
+     * @return
+     */
+    private String[] getParamsName(Method method){
+        Annotation[][] ass = method.getParameterAnnotations();
+        String[] parameterNames = new String[ass.length];
+        int i = 0;
+        for(Annotation[] as : ass){
+            for(Annotation a : as){
+                if (a instanceof Var){
+                    parameterNames[i++] = ((Var)a).value();
+                }
+            }
+        }
+        return parameterNames;
+    }
 
     public String getTestName() {
         return testName;

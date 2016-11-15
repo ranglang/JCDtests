@@ -8,6 +8,7 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASignUp;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
+import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
@@ -82,10 +83,11 @@ public class SignUpTest extends BaseTest{
     }
     @Test
     @Parameters( method = "emailSignUp")
-    public void invalid_sign_up_with_email(String emailAddress , String pwd , String pwdConfirm ,
-                   boolean acceptTerms ,String captcha , ActivityElement except){
-        this.putData("email",emailAddress,"pwd",pwd,"pwdConfirm",pwdConfirm ,
-                "acceptTerms",acceptTerms,"register_captcha",captcha,"except" ,except);
+    public void invalid_sign_up_with_email(@Var("emailAddress")String emailAddress , @Var("pwd") String pwd ,
+                                           @Var("pwdConfirm") String pwdConfirm , @Var("acceptTerms") boolean acceptTerms ,
+                                           @Var("captcha") String captcha , @Var("except") ActivityElement except){
+//        this.putData("email",emailAddress,"pwd",pwd,"pwdConfirm",pwdConfirm ,
+//                "acceptTerms",acceptTerms,"register_captcha",captcha,"except" ,except);
 
         given(regEmail.use_email_reg).check(matches(isSelected()));       //检查"邮箱注册"默认被选中
         given(regEmail.email_input)

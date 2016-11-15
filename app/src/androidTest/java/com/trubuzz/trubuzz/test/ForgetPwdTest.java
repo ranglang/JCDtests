@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.AForgetPwd;
 import com.trubuzz.trubuzz.elements.ALogin;
+import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -80,11 +81,11 @@ public class ForgetPwdTest extends BaseTest{
 
     @Test
     @Parameters(method = "email_found_data")
-    public void use_email_found(String email , ActivityElement except){
-        this.putData(new HashMap(){{
-            put("email" ,email);
-            put("except" , except.toString());
-        }});
+    public void use_email_found(@Var("email") String email , @Var("except") ActivityElement except){
+//        this.putData(new HashMap(){{
+//            put("email" ,email);
+//            put("except" , except.toString());
+//        }});
 
         given(forgetPwd.email_input).perform(replaceText(email));
         given(forgetPwd.email_submit_button).perform(click());

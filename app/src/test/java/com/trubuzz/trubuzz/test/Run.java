@@ -1,11 +1,12 @@
 package com.trubuzz.trubuzz.test;
 
-import com.trubuzz.trubuzz.lisnen.DemoEvent;
-import com.trubuzz.trubuzz.lisnen.DemoListener;
-import com.trubuzz.trubuzz.lisnen.DemoListener1;
-import com.trubuzz.trubuzz.lisnen.DemoSource;
+import com.trubuzz.trubuzz.utils.Param;
 
 import org.junit.Test;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * Created by king on 2016/10/20.
@@ -14,21 +15,24 @@ import org.junit.Test;
 public class Run {
 
     @Test
-    public void run(){
-        try{
-            DemoSource ds = new DemoSource();
-            //将监听器在事件源对象中登记：
-            DemoListener listener1 = new DemoListener1();
-            ds.addDemoListener(listener1);
-            ds.addDemoListener(new DemoListener() {
-                public void handleEvent(DemoEvent event) {
-                    System.out.println("Method come from 匿名类...");
+    public void run() throws NoSuchMethodException {
+        Other other = new Other();
+        Method method = other.getClass().getMethod("testParamA" , String.class , int.class);
+        System.out.println(Arrays.toString(getParamsName(method)));
+    }
+
+    private String[] getParamsName(Method method){
+        Annotation[][] ass = method.getParameterAnnotations();
+        String[] parameterNames = new String[ass.length];
+        int i = 0;
+        for(Annotation[] as : ass){
+            for(Annotation a : as){
+                if (a instanceof Param){
+                    parameterNames[i++] = ((Param)a).value();
                 }
-            });
-            ds.notifyDemoEvent();//触发事件、通知监听器
-        }catch(Exception ex){
-            ex.printStackTrace();
+            }
         }
+        return parameterNames;
     }
 }
 
