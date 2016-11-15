@@ -1,6 +1,5 @@
 package com.trubuzz.trubuzz.suite;
 
-import com.trubuzz.trubuzz.test.LoginTest_copy;
 import com.trubuzz.trubuzz.test.SignUpTest;
 
 import org.junit.BeforeClass;
@@ -12,7 +11,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        LoginTest_copy.class,
+//        LoginTest_copy.class,
         SignUpTest.class
 })
 public class SuiteA extends BaseSuite{

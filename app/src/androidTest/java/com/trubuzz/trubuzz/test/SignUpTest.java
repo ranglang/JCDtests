@@ -33,6 +33,7 @@ import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.AName.WEB_VIEW;
+import static com.trubuzz.trubuzz.constant.ToastInfo.captcha_format_error_toast;
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_password_confirm_toast;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
@@ -56,7 +57,7 @@ public class SignUpTest extends BaseTest{
     private Object[] emailSignUp(){
         return new Object[]{
             new Object[]{"espressoTest001abc.com","aA123456","aA12345",true ,null ,incorrect_password_confirm_toast},
-//            new Object[]{"espressoTest001@abc.com","aA123456","aA123456",true ,""  ,"验证码为六个数字"},
+            new Object[]{"espressoTest001@abc.com","aA123456","aA123456",true ,""  ,captcha_format_error_toast},
         };
     }
     private Object[] phoneSignUp(){
@@ -111,8 +112,8 @@ public class SignUpTest extends BaseTest{
 
     }
 
-    @Test
-    @Parameters(method = "phoneSignUp")
+//    @Test
+//    @Parameters(method = "phoneSignUp")
     public void invalid_sign_up_with_phone(String phoneNumber ,String pwd , String pwdConfirm ,
                                            boolean acceptTerms ,String captcha , ActivityElement except){
         putData(new HashMap<String,Object>(){{

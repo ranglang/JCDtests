@@ -9,12 +9,27 @@ import java.util.ArrayList;
 public class EventSource {
 
     private ArrayList<MidwayListener> rep = new ArrayList<MidwayListener>();
+    public String testName;
+    public String fileName;;
+    public Object[] params;
 
     public void addMidwayListener(MidwayListener midwayListener){
         rep.add(midwayListener);
     }
 
-    public void notifyDemoEvent() {
-
+    public void notifyTestName() {
+        for(MidwayListener ml : rep){
+            ml.atTestName(this);
+        }
+    }
+    public void notifyTakeScreenshot() {
+        for(MidwayListener ml : rep){
+            ml.atTakeScreenshot(this);
+        }
+    }
+    public void notifyParameters() {
+        for(MidwayListener ml : rep){
+            ml.atParameters(this);
+        }
     }
 }

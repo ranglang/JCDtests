@@ -5,4 +5,8 @@ package com.trubuzz.trubuzz.feature.listen;
  */
 
 public interface MidwayListener {
+
+    void atTestName(EventSource eventSource);
+    void atTakeScreenshot(EventSource eventSource);
+    void atParameters(EventSource eventSource);
 }

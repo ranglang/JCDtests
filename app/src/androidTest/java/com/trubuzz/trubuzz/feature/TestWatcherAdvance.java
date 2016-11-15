@@ -15,8 +15,11 @@ import org.junit.rules.TestName;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
+
+import junitparams.JUnitParamsRunner;
 
 /**
  * Created by king on 2016/9/20.
@@ -44,7 +47,7 @@ public class TestWatcherAdvance extends TestName {
     }
 
     public Statement apply(final Statement base, final Description description) {
-        System.out.println("hello");
+
         return super.apply(base , description);
     }
 
@@ -108,7 +111,11 @@ public class TestWatcherAdvance extends TestName {
      */
     protected void finished(Description description) {
         Registor.unRegAll(BaseTest.class.toString());
+        System.out.println("hello");
+        Object[] objects = JUnitParamsRunner.getParams();
+        Log.i(TAG, "finished: params = "+ Arrays.toString(objects));
         this.useData = baseTest.setUseData();
+
 
         this.stopTime = new Date().getTime();
         Log.i(TAG, "finished: ...."+ testName + " at "+God.getDateFormat(stopTime));

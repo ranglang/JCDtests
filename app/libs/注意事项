@@ -1,0 +1,4 @@
+1.  参数类型与 Test方法形参类型不一致 :
+    I/TestRunner: java.lang.NoClassDefFoundError: Failed resolution of: Ljava/beans/PropertyEditorManager;
+            at junitparams.internal.InvokeParameterisedMethod.castParameterDirectly(InvokeParameterisedMethod.java:211)
+2.

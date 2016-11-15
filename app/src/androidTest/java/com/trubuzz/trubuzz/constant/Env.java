@@ -4,6 +4,8 @@ import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
+import com.trubuzz.trubuzz.feature.listen.EventSource;
+
 /**
  * Created by king on 2016/9/26.
  * 定义一些环境常量
@@ -17,6 +19,10 @@ public final class Env {
     public final static Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     public final static UiDevice uiDevice = UiDevice.getInstance(instrumentation);
 
+
+
+    /* 非 final 环境变量 */
+    public static EventSource eventSource;
 
 
 }

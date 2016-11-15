@@ -43,7 +43,6 @@ public class BaseTest {
     @Rule
     public TestWatcherAdvance testWatcherAdvance = new TestWatcherAdvance(classWatcherAdvance.getTestClass() , this);
 
-//    public UiDevice uiDevice = UiDevice.getInstance(instrumentation);
 
     @Before
     public void setUp() {
@@ -80,11 +79,7 @@ public class BaseTest {
      * @return 截屏图片的绝对路径
      */
     public String takeScreenshot() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
         String fPath = DoIt.takeScreenshot(uiDevice, testWatcherAdvance.getTestName());
         Log.i(TAG, "takeScreenshot: 截图成功 ; 保存路径 : " + fPath);
         return fPath;
