@@ -1,11 +1,11 @@
 package com.trubuzz.trubuzz.test;
 
-import android.support.annotation.NonNull;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
+import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
@@ -13,15 +13,15 @@ import com.trubuzz.trubuzz.utils.God;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
-import java.util.Arrays;
-import java.util.Collection;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
@@ -32,41 +32,36 @@ import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.test.R.string.input_password;
 import static com.trubuzz.trubuzz.test.Wish.logout;
 import static com.trubuzz.trubuzz.utils.God.getString;
-import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.containsString;
 
 /**
  * Created by king on 2016/8/24.
  */
-@RunWith(Parameterized.class)
+@RunWith(JUnitParamsRunner.class)
 public class LoginTest extends BaseTest{
-
-    @Parameterized.Parameter(0)
-    public String user;
-    @Parameterized.Parameter(1)
-    public String pwd;
-    @Parameterized.Parameter(2)
-    public ActivityElement expect;
 
     @Rule
     public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
     private ALogin login = new ALogin();
 
-    @NonNull
-    @Parameterized.Parameters
-    public static Collection dLogin(){
-        return Arrays.asList(new Object[][]{
-                    {"abc@abc.com","aA123321",incorrect_account_or_pwd},
-//                {"abc@abc.com","123321","未开户"},
-//                {"zhao.deng@jucaidao.com","aA123456","成功登录"}
-        });
+
+    private Object[] dLogin(){
+        return new Object[]{
+                    new Object[]{"abc@abc.com","aA123321",incorrect_account_or_pwd},
+//                new Object[]{"abc@abc.com","123321","未开户"},
+//                new Object[]{"zhao.deng@jucaidao.com","aA123456","成功登录"}
+        };
     }
 
-//    @Test
-    public void invalid_login() throws Exception {
+    @Test
+    @Parameters(method = "dLogin")
+    public void invalid_login(@Var("user") String user , @Var("pwd") String pwd ,
+                              @Var("expect") ActivityElement expect){
+
         Wish.login(user,pwd);
 
         if ("失败".equals(expect)){
-//            given(loginToast()).check(matches(isDisplayed()));
+            given(expect).check(matches(isDisplayed()));
         }else {
             DoIt.regIdlingResource(new SomeActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
 

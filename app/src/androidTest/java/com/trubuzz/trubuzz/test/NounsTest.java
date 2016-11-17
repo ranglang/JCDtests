@@ -7,14 +7,14 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Nouns;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
+import com.trubuzz.trubuzz.shell.Element;
+import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.HashMap;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -36,20 +36,11 @@ import static com.trubuzz.trubuzz.constant.Nouns.net_liquidation_n;
 import static com.trubuzz.trubuzz.constant.Nouns.today_portfolio_n;
 import static com.trubuzz.trubuzz.constant.Nouns.total_amount_n;
 import static com.trubuzz.trubuzz.constant.Nouns.total_pnl_n;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_accrued_cash;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_available_funds_d;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_buying_power_d;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_equity_with_loan_value;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_excess_liquidity;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_gross_position_value;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_init_margin_req;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_maint_margin_req;
-import static com.trubuzz.trubuzz.elements.AAsset.Details.ID_TEXT_net_liquidation;
-import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_Available_Funds;
-import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_buying_power;
-import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_today_portfolio;
-import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_total_amount;
-import static com.trubuzz.trubuzz.elements.AAsset.ID_TEXT_total_portfolio;
+import static com.trubuzz.trubuzz.elements.AAsset.available_funds_view;
+import static com.trubuzz.trubuzz.elements.AAsset.buying_power_view;
+import static com.trubuzz.trubuzz.elements.AAsset.today_portfolio_view;
+import static com.trubuzz.trubuzz.elements.AAsset.total_amount_view;
+import static com.trubuzz.trubuzz.elements.AAsset.total_portfolio_view;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -60,6 +51,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 @RunWith(JUnitParamsRunner.class)
 public class NounsTest extends BaseTest {
 
+    private AAsset.Details details = new AAsset.Details();
     private final Locator locator = Locator.CSS_SELECTOR;
     private final String elementFinder = "#main>.footer.base.container-fluid";
     @Rule
@@ -67,37 +59,32 @@ public class NounsTest extends BaseTest {
 
     private Object[] nounsData(){
         return new Object[]{
-            new Object[]{ ID_TEXT_buying_power_d, buying_power_n ,true , "购买力"},
-            new Object[]{ ID_TEXT_net_liquidation, net_liquidation_n ,true , "净清算值"},
-            new Object[]{ ID_TEXT_accrued_cash , accrued_cash_n ,true , "净累计利息"},
-            new Object[]{ ID_TEXT_equity_with_loan_value , equity_with_loan_value_n ,true , "有贷款价值的资产"},
-            new Object[]{ ID_TEXT_gross_position_value, gross_position_value_n , true, "股票+期权"},
-            new Object[]{ ID_TEXT_init_margin_req, init_margin_req_n , true, "初始准备金"},
-            new Object[]{ ID_TEXT_maint_margin_req, maint_margin_req_n , true, "维持准备金"},
-            new Object[]{ ID_TEXT_available_funds_d, available_funds_n , true , "可用资金"},
-            new Object[]{ ID_TEXT_excess_liquidity, excess_liquidity_n , true, "剩余流动性"},
-            new Object[]{ ID_TEXT_total_amount, total_amount_n , false , "持仓总额"},
-            new Object[]{ ID_TEXT_Available_Funds, available_funds_n , false , "可用资金"},
-            new Object[]{ ID_TEXT_total_portfolio, total_pnl_n , false , "总收益"},
-            new Object[]{ ID_TEXT_today_portfolio, today_portfolio_n , false , "当日收益"},
-            new Object[]{ ID_TEXT_buying_power, buying_power_n , false , "购买力"},
+            new Object[]{details.buying_power_d_view, buying_power_n ,true },		                //购买力
+            new Object[]{details.net_liquidation_view, net_liquidation_n ,true },		            //净清算值
+            new Object[]{details.accrued_cash_view, accrued_cash_n ,true },		                //净累计利息
+            new Object[]{details.equity_with_loan_value_view, equity_with_loan_value_n ,true },	//有贷款价值的资产
+            new Object[]{details.gross_position_value_view, gross_position_value_n , true},		//股票+期权
+            new Object[]{details.init_margin_req_view, init_margin_req_n , true},		            //初始准备金
+            new Object[]{details.maint_margin_req_view, maint_margin_req_n , true},		        //维持准备金
+            new Object[]{details.available_funds_d_view, available_funds_n , true },		        //可用资金
+            new Object[]{details.excess_liquidity_view, excess_liquidity_n , true},		        //剩余流动性
+            new Object[]{total_amount_view, total_amount_n , false },		                        //持仓总额
+            new Object[]{available_funds_view, available_funds_n , false },		                //可用资金
+            new Object[]{total_portfolio_view, total_pnl_n , false },		                        //总收益
+            new Object[]{today_portfolio_view, today_portfolio_n , false },		                //当日收益
+            new Object[]{buying_power_view, buying_power_n , false },		                        //购买力
         };
     }
 
     @Test
     @Parameters( method = "nounsData")
-    public void nouns(String[] viewInteractionDesc , Nouns except , boolean isInDetails , String desc){
-
-        putData(new HashMap<String,Object>(){{
-            put("except" ,except);
-            put("isInDetails" , isInDetails);
-            put("noun_desc", desc);
-        }});
+    public void nouns(@Var("noun") Element noun , @Var("except") Nouns except ,
+                      @Var("isInDetails") boolean isInDetails ){
 
         if(isInDetails){                                    //如果在詳情裏, 則先点击"净资产"进入详情
-            given(AAsset.ID_TEXT_net_worth).perform(click());
+            given(AAsset.net_worth_view).perform(click());
         }
-        given(viewInteractionDesc).perform(click());                              //点击名词 , 进入解释
+        given(noun).perform(click());                              //点击名词 , 进入解释
 
         DoIt.regIdlingResource(new SomeActivityIdlingResource(NOUNS ,matr.getActivity() , true));
 
@@ -114,10 +101,10 @@ public class NounsTest extends BaseTest {
     public void otherNouns(){
         //检查账号类型为保证金账户
 
-//        given(AAsset.ID_TEXT_net_worth).perform(pause(1000),click());        //等待一秒再点击
-//        given(ID_TEXT_account_type)
-//                .check(matches(withText(check_account_type)))               //检查账户类型字段
-//                .check(matches(hasSibling(getAllMatcher(ID_TEXT_individual))));     //检查含有指定子元素
-//
+//        given(AAsset.net_worth_view).perform(pause(1000),click());        //等待一秒再点击
+//        given(details.account_type_view)
+//                .check(matches(withText(details.check_account_type)))               //检查账户类型字段
+//                .check(matches(hasSibling(getAllMatcher(details.individual_text))));     //检查含有指定子元素
+
     }
 }

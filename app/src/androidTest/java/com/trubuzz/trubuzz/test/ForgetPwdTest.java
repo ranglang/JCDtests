@@ -14,8 +14,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.HashMap;
-
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -82,10 +80,6 @@ public class ForgetPwdTest extends BaseTest{
     @Test
     @Parameters(method = "email_found_data")
     public void use_email_found(@Var("email") String email , @Var("except") ActivityElement except){
-//        this.putData(new HashMap(){{
-//            put("email" ,email);
-//            put("except" , except.toString());
-//        }});
 
         given(forgetPwd.email_input).perform(replaceText(email));
         given(forgetPwd.email_submit_button).perform(click());
@@ -97,13 +91,9 @@ public class ForgetPwdTest extends BaseTest{
     }
 //    @Test
 //    @Parameters(method = "phone_found_data")
-    public void use_phone_found(String phone , ActivityElement get_sms_except , boolean has_sms , String sms_code , String pwd , String confirm_pwd , ActivityElement submit_except){
-        this.putData(new HashMap(){{
-            put("phone" ,phone);        put("get_sms_except" ,get_sms_except.toString());
-            put("has_sms" ,has_sms);    put("sms_code" ,sms_code);
-            put("pwd" , pwd);           put("confirm_pwd" ,confirm_pwd);
-            put("submit_except" ,submit_except.toString() );
-        }});
+    public void use_phone_found(@Var("phone") String phone , @Var("get_sms_except") ActivityElement get_sms_except ,
+                                @Var("has_sms") boolean has_sms , @Var("sms_code") String sms_code , @Var("pwd") String pwd ,
+                                @Var("confirm_pwd") String confirm_pwd , @Var("submit_except") ActivityElement submit_except){
 
         given(forgetPwd.use_phone_found).perform(click()).check(matches(isSelected()));
         given(forgetPwd.use_email_found).check(matches(not(isSelected())));

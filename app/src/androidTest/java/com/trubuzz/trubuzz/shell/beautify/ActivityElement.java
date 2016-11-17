@@ -1,7 +1,5 @@
 package com.trubuzz.trubuzz.shell.beautify;
 
-import android.support.test.espresso.ViewInteraction;
-import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
 import com.trubuzz.trubuzz.shell.Element;
@@ -13,14 +11,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.getToast;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withCousin;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
@@ -32,7 +28,7 @@ import static org.hamcrest.Matchers.allOf;
  * Created by king on 16/11/1.
  */
 
-public class ActivityElement<T> implements Element<ViewInteraction>{
+public class ActivityElement<T> implements Element<Matcher<View>>{
     private String id;
     private String text;
     private String hint;
@@ -43,52 +39,52 @@ public class ActivityElement<T> implements Element<ViewInteraction>{
     private ActivityElement<T> uncle;
     private int index = -1;
     private Class assignableClass;
-    private ToastMsg toastMsg;
+//    private ToastMsg toastMsg;
     private Matcher[] matchers;
 
-    public String getId() {
-        return id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String getHint() {
-        return hint;
-    }
-
-    public ActivityElement<T>[] getChildren() {
-        return children;
-    }
-
-    public ActivityElement<T>[] getSibling() {
-        return sibling;
-    }
-
-    public ActivityElement<T>[] getCousinry() {
-        return cousinry;
-    }
-
-    public ActivityElement<T> getParent() {
-        return parent;
-    }
-
-    public ActivityElement<T> getUncle() {
-        return uncle;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public Class getAssignableClass() {
-        return assignableClass;
-    }
-
-    public Matcher[] getMatchers() {
-        return matchers;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public String getText() {
+//        return text;
+//    }
+//
+//    public String getHint() {
+//        return hint;
+//    }
+//
+//    public ActivityElement<T>[] getChildren() {
+//        return children;
+//    }
+//
+//    public ActivityElement<T>[] getSibling() {
+//        return sibling;
+//    }
+//
+//    public ActivityElement<T>[] getCousinry() {
+//        return cousinry;
+//    }
+//
+//    public ActivityElement<T> getParent() {
+//        return parent;
+//    }
+//
+//    public ActivityElement<T> getUncle() {
+//        return uncle;
+//    }
+//
+//    public int getIndex() {
+//        return index;
+//    }
+//
+//    public Class getAssignableClass() {
+//        return assignableClass;
+//    }
+//
+//    public Matcher[] getMatchers() {
+//        return matchers;
+//    }
 /************************************************************/
     public ActivityElement<T> setId(String id) {
         this.id = id;
@@ -146,26 +142,26 @@ public class ActivityElement<T> implements Element<ViewInteraction>{
         return this;
     }
 
-    private ToastMsg getToastMsg() {
-        return toastMsg;
-    }
-
-    public ActivityElement<T> setToastMsg(String msg, ActivityTestRule activity) {
-        this.toastMsg = new ToastMsg(msg , activity);
-        return this;
-    }
-    public ActivityElement<T> setToastMsg(String msg) {
-        this.toastMsg = new ToastMsg(msg );
-        return this;
-    }
+//    private ToastMsg getToastMsg() {
+//        return toastMsg;
+//    }
+//
+//    public ActivityElement<T> setToastMsg(String msg, ActivityTestRule activity) {
+//        this.toastMsg = new ToastMsg(msg , activity);
+//        return this;
+//    }
+//    public ActivityElement<T> setToastMsg(String msg) {
+//        this.toastMsg = new ToastMsg(msg );
+//        return this;
+//    }
 
     @Override
-    public ViewInteraction interactionWay() {
-        ActivityElement.ToastMsg toastMsg = this.getToastMsg();
-        if(toastMsg != null){
-            return getToast(toastMsg.getMsg() , toastMsg.getActivity());
-        }
-        return onView(all(this.element2matcher()));
+    public Matcher<View> interactionWay() {
+//        ActivityElement.ToastMsg toastMsg = this.getToastMsg();
+//        if(toastMsg != null){
+//            return getToast(toastMsg.getMsg() , toastMsg.getActivity());
+//        }
+        return all(this.element2matcher());
     }
 
     @Override
@@ -181,7 +177,7 @@ public class ActivityElement<T> implements Element<ViewInteraction>{
         if(uncle != null) string += "uncle=" + uncle + ", ";
         if(index != -1) string += "index=" + index + ", ";
         if(assignableClass != null) string += "assignableClass=" + assignableClass + ", ";
-        if(toastMsg != null) string += "toastMsg='" + toastMsg.getMsg() + "', ";
+//        if(toastMsg != null) string += "toastMsg='" + toastMsg.getMsg() + "', ";
         if(matchers != null) string += "matchers=" + Arrays.toString(matchers) + ", " ;
 
         if(string.endsWith(", ")) string = string.substring(0,string.length()-2);
@@ -316,25 +312,25 @@ public class ActivityElement<T> implements Element<ViewInteraction>{
 
 
 
-    /*******************/
-    class ToastMsg{
-        private String msg;
-        private ActivityTestRule activity;
-
-        ToastMsg(String msg, ActivityTestRule activity) {
-            this.msg = msg;
-            this.activity = activity;
-        }
-        ToastMsg(String msg) {
-            this.msg = msg;
-        }
-
-        String getMsg() {
-            return msg;
-        }
-
-        ActivityTestRule getActivity() {
-            return activity;
-        }
-    }
+//    /*******************/
+//    class ToastMsg{
+//        private String msg;
+//        private ActivityTestRule activity;
+//
+//        ToastMsg(String msg, ActivityTestRule activity) {
+//            this.msg = msg;
+//            this.activity = activity;
+//        }
+//        ToastMsg(String msg) {
+//            this.msg = msg;
+//        }
+//
+//        String getMsg() {
+//            return msg;
+//        }
+//
+//        ActivityTestRule getActivity() {
+//            return activity;
+//        }
+//    }
 }

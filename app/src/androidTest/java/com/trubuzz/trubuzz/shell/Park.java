@@ -1,6 +1,11 @@
 package com.trubuzz.trubuzz.shell;
 
 import android.support.test.espresso.ViewInteraction;
+import android.view.View;
+
+import org.hamcrest.Matcher;
+
+import static android.support.test.espresso.Espresso.onView;
 
 /**
  * Created by king on 16/10/24.
@@ -31,11 +36,12 @@ public class Park {
         return new AdViewInteraction(viewInteraction);
     }
 
-    public static AdViewInteraction given(Element<ViewInteraction> element){
-        return new AdViewInteraction(element.interactionWay());
+    public static <T> AdViewInteraction given(Element<T> element){
+        T ele = element.interactionWay();
+        if(ele instanceof ViewInteraction)  return new AdViewInteraction((ViewInteraction) ele);
+        if(ele instanceof Matcher)  return new AdViewInteraction(onView((Matcher<View>) ele));
+
+        return new AdViewInteraction();
     }
 
-//    public static AdViewInteraction given(ActivityElement element){
-//        return new AdViewInteraction(element.interactionWay());
-//    }
 }

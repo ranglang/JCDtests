@@ -142,7 +142,7 @@ public class FirstTest extends BaseTest{
     public void webTableTest(){
 //        Object s;
 //
-//        given(AAsset.ID_TEXT_today_portfolio ).perform(click());
+//        given(AAsset.today_portfolio_view ).perform(click());
 //        DoIt.regIdlingResource(new SomeActivityIdlingResource(NOUNS ,mActivityTestRule.getActivity() , true));
 //        s = onWebView()
 //                .withElement(findElement(Locator.CSS_SELECTOR, "#main>.footer.base.container-fluid"))

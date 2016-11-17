@@ -21,7 +21,7 @@ public class AdViewInteraction {
     public AdViewInteraction(ViewInteraction viewInteraction) {
         this.viewInteraction = viewInteraction;
     }
-
+    public AdViewInteraction(){}
     /**
      * 改良后的perform , 加入等待与错误截图
      * @param times

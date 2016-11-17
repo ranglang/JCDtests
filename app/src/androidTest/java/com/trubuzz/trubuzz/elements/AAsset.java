@@ -1,5 +1,8 @@
 package com.trubuzz.trubuzz.elements;
 
+import com.trubuzz.trubuzz.shell.Element;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+
 import static com.trubuzz.trubuzz.test.R.string.account_type;
 import static com.trubuzz.trubuzz.test.R.string.accrued_cash;
 import static com.trubuzz.trubuzz.test.R.string.available_funds;
@@ -22,29 +25,28 @@ import static com.trubuzz.trubuzz.utils.God.getString;
  */
 
 public class AAsset {
-    public static final String [] ID_TEXT_net_worth = {"title",getString("净资产", net_liqidation)};
-    public static final String [] ID_TEXT_buying_power = {"title",getString("购买力", buying_power)};
-    public static final String [] ID_TEXT_today_portfolio = {"title",getString("当日收益", today_portfolio)};
-    public static final String [] ID_TEXT_total_portfolio = {"title",getString("总收益", total_portfolio)};
-    public static final String [] ID_TEXT_Available_Funds = {"title",getString("可用资金", available_funds)};
-    public static final String [] ID_TEXT_total_amount = {"title",getString("持仓总额", total_amount)};
+
+    public static final Element net_worth_view = new ActivityElement().setText(getString("净资产", net_liqidation));
+    public static final Element buying_power_view = new ActivityElement().setText(getString("购买力", buying_power));
+    public static final Element today_portfolio_view = new ActivityElement().setText(getString("当日收益", today_portfolio));
+    public static final Element total_portfolio_view = new ActivityElement().setText(getString("总收益", total_portfolio));
+    public static final Element available_funds_view = new ActivityElement().setText(getString("可用资金", available_funds));
+    public static final Element total_amount_view = new ActivityElement().setText(getString("持仓总额", total_amount));
 
 
     public static class Details{
-        public static final String [] ID_TEXT_account_type = {"title",getString("交易账号类型", account_type)};
-        public static final String check_account_type = getString("交易账号类型", account_type);
-        public static final String [] ID_TEXT_individual = {"value",getString("INDIVIDUAL")};
-        public static final String check_individual = getString("INDIVIDUAL");
+        public final Element account_type_view = new ActivityElement().setText(getString("交易账号类型", account_type));
+        public final Element individual_text = new ActivityElement().setText(getString("INDIVIDUAL"));
 
-        public static final String [] ID_TEXT_net_liquidation = {"title",getString("净清算值", net_liquidation)};
-        public static final String [] ID_TEXT_total_cash_value = {"title",getString("总资金", total_cash_value)};
-        public static final String [] ID_TEXT_accrued_cash = {"title",getString("净累计利息", accrued_cash)};
-        public static final String [] ID_TEXT_buying_power_d = {"title",getString("购买力", buying_power)};
-        public static final String [] ID_TEXT_equity_with_loan_value = {"title",getString("有贷款价值的资产", equity_with_loan_value)};
-        public static final String [] ID_TEXT_gross_position_value = {"title",getString("股票+期权", gross_position_value)};
-        public static final String [] ID_TEXT_init_margin_req = {"title",getString("初始准备金", init_margin_req)};
-        public static final String [] ID_TEXT_maint_margin_req = {"title",getString("维持准备金", maint_margin_req)};
-        public static final String [] ID_TEXT_available_funds_d = {"title",getString("可用资金", available_funds)};
-        public static final String [] ID_TEXT_excess_liquidity = {"title",getString("剩余流动性", excess_liquidity)};
+        public final Element net_liquidation_view = new ActivityElement().setText(getString("净清算值", net_liquidation));
+        public final Element total_cash_value_view = new ActivityElement().setText(getString("总资金", total_cash_value));
+        public final Element accrued_cash_view = new ActivityElement().setText(getString("净累计利息", accrued_cash));
+        public final Element buying_power_d_view = new ActivityElement().setText(getString("购买力", buying_power));
+        public final Element equity_with_loan_value_view = new ActivityElement().setText(getString("有贷款价值的资产", equity_with_loan_value));
+        public final Element gross_position_value_view = new ActivityElement().setText(getString("股票+期权", gross_position_value));
+        public final Element init_margin_req_view = new ActivityElement().setText(getString("初始准备金", init_margin_req));
+        public final Element maint_margin_req_view = new ActivityElement().setText(getString("维持准备金", maint_margin_req));
+        public final Element available_funds_d_view = new ActivityElement().setText(getString("可用资金", available_funds));
+        public final Element excess_liquidity_view = new ActivityElement().setText(getString("剩余流动性", excess_liquidity));
     }
 }

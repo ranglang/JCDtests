@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-//        LoginTest_copy.class,
+//        LoginTest.class,
         SignUpTest.class
 })
 public class SuiteA extends BaseSuite{

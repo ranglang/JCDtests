@@ -6,6 +6,7 @@ import com.trubuzz.trubuzz.constant.TestResult;
 import com.trubuzz.trubuzz.report.CaseBean;
 import com.trubuzz.trubuzz.report.ClassBean;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
+import com.trubuzz.trubuzz.shell.FieldVar;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.utils.God;
@@ -17,6 +18,7 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
@@ -113,13 +115,11 @@ public class TestWatcherAdvance extends TestName {
      */
     protected void finished(Description description) {
         Registor.unRegAll(BaseTest.class.toString());
-//        System.out.println("hello");
         Object[] objects = JUnitParamsRunner.getParams();
 
-//        Log.i(TAG, "finished: params = "+ Arrays.toString(objects));
 //        this.useData = baseTest.getUseData();
         this.useData = putUseData(getParamsName(JUnitParamsRunner.getCurrentMethod()) ,objects);
-
+        this.useData.putAll(getFieldData(baseTest , FieldVar.class));
 
         this.stopTime = new Date().getTime();
         Log.i(TAG, "finished: ...."+ testName + " at "+God.getDateFormat(stopTime));
@@ -134,20 +134,33 @@ public class TestWatcherAdvance extends TestName {
         testCase.setStackTraces(this.stackTraces);
         testCase.setSpendTime(stopTime - startTime);
 
-
-//        TestReport.TestClass.TestCase testCase1 = testClass.createTestCase()
-//                .setCaseName(this.testName)
-//                .setErrorMsg(this.message)
-//                .setImageName(this.errorImagePath)
-//                .setTestResult(this.result)
-//                .getUseData(this.useData)
-//                .setLocalizedMessage(this.localizedMessage)
-//                .setStackTraces(this.stackTraces)
-//                .setSpendTime(stopTime - startTime);
-
         testClass.getTestCases().add(testCase);
     }
 
+    /**
+     * 获取使用属性定义的数据
+     * 在属性上定义数据需使用特定的注解
+     * @param baseTest 被获取的对象
+     * @param annotation 特定的注解
+     * @return key = field name ; value = value .
+     */
+    private Map getFieldData(BaseTest baseTest , Class annotation){
+        Map<String,Object> data = new HashMap<>();
+        Class clz = baseTest.getClass();
+        Field[] fields = clz.getDeclaredFields();
+        Field.setAccessible(fields , true);
+        for(Field field : fields){
+            try {
+                // 这里只获取使用了@FieldVar注解过的的属性.
+                if (field.isAnnotationPresent(annotation)) {
+                    data.put(field.getName(), field.get(baseTest));
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return data;
+    }
     private Map putUseData(String[] name , Object[] data){
         Map<String , Object> useData = new HashMap<String , Object>();
         int dataLen = data.length;

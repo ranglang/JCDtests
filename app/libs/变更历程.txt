@@ -1,3 +1,6 @@
 10/19   expect 直接写文本/toast消息/...   不单独判断 ; expect 不再使用元素(View)
 11/04   expect 使用Element ; toast消息集中放置于ToastInfo 中; 若本来就是检查元素则写在当前类中 ;
 11/14   UiDevice 写入环境常量 ; 经测试可正常截图 ;
+11/17   今天之前已将useData的写入方式 更改为,注解形参的方式获取形参名 , 修改插件源码实现data获取;
+        今天添加field 定义data的实现 , 需使用FieldVar 注解
+

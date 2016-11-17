@@ -8,6 +8,7 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASignUp;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
+import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.utils.DoIt;
@@ -17,8 +18,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.HashMap;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -85,7 +84,7 @@ public class SignUpTest extends BaseTest{
     @Parameters( method = "emailSignUp")
     public void invalid_sign_up_with_email(@Var("emailAddress")String emailAddress , @Var("pwd") String pwd ,
                                            @Var("pwdConfirm") String pwdConfirm , @Var("acceptTerms") boolean acceptTerms ,
-                                           @Var("captcha") String captcha , @Var("except") ActivityElement except){
+                                           @Var("captcha") String captcha , @Var("except") Element except){
 //        this.putData("email",emailAddress,"pwd",pwd,"pwdConfirm",pwdConfirm ,
 //                "acceptTerms",acceptTerms,"register_captcha",captcha,"except" ,except);
 
@@ -118,13 +117,6 @@ public class SignUpTest extends BaseTest{
 //    @Parameters(method = "phoneSignUp")
     public void invalid_sign_up_with_phone(String phoneNumber ,String pwd , String pwdConfirm ,
                                            boolean acceptTerms ,String captcha , ActivityElement except){
-        putData(new HashMap<String,Object>(){{
-            put("phoneNumber",phoneNumber);
-            put("pwd",pwd);
-            put("acceptTerms",acceptTerms);
-            put("captcha",captcha);
-            put("except",except);
-        }});
 
         given(regPhone.use_phone_reg)
                 .perform(click())

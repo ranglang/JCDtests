@@ -54,7 +54,7 @@ public class Wish {
 
         }
         try {
-            given(AAsset.ID_TEXT_net_worth).check( matches((isDisplayed())));
+            given(AAsset.net_worth_view).check( matches((isDisplayed())));
             return true;
         } catch (Exception e){
             e.printStackTrace();

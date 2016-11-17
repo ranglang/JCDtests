@@ -6,7 +6,8 @@ import org.junit.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by king on 2016/10/20.
@@ -16,11 +17,18 @@ public class Run {
 
     @Test
     public void run() throws NoSuchMethodException {
-        Other other = new Other();
-        Method method = other.getClass().getMethod("testParamA" , String.class , int.class);
-        System.out.println(Arrays.toString(getParamsName(method)));
+        System.out.println(tm());
     }
 
+    private Map tm(){
+        Map map1 = new HashMap();
+        map1.put("hello" , 1);
+        Map map2 = new HashMap();
+
+        map1.putAll(map2);
+        System.out.println(1);
+        return map1;
+    }
     private String[] getParamsName(Method method){
         Annotation[][] ass = method.getParameterAnnotations();
         String[] parameterNames = new String[ass.length];
