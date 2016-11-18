@@ -1,10 +1,7 @@
 package com.trubuzz.trubuzz.elements;
 
-import android.support.test.espresso.web.model.Atom;
-import android.support.test.espresso.web.model.ElementReference;
-import android.support.test.espresso.web.webdriver.Locator;
-
-import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
+import com.trubuzz.trubuzz.shell.Element;
+import com.trubuzz.trubuzz.shell.beautify.AtomElement;
 
 /**
  * Created by king on 2016/9/7.
@@ -13,10 +10,8 @@ import static android.support.test.espresso.web.webdriver.DriverAtoms.findElemen
  */
 public class EBrokerChoose {
 
-    private static final String CSS_IB = "span.broker_logo>span.ng-binding";
+    public static final String  ib_broker_title_text = "Interactive Brokers";
+    public static final Element ib_broker_title = new AtomElement().setCss("span.broker_logo>span.ng-binding");
 
 
-    public static Atom<ElementReference> ibBrokerTitle(){
-        return  findElement(Locator.CSS_SELECTOR,CSS_IB);
-    }
 }

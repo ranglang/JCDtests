@@ -38,10 +38,17 @@
     采用:
         ------否决------ 通过时间对比 (使用相同的类,方法 .asm耗时 23ms , spring耗时 37ms) 故采用asm , 虽然实现起来较为麻烦,但封装好之后一样方便.
         由于在Android环境无法获取到具体的class文件 , 只有apk文件
-        故采用方式3
+        ------废弃-------故采用方式3
+        (new) 更改源码拿到当前使用的形参值 , 通过参数注解拿到形参名 , 封装解决.
 
 6.  (完成)（已解决）遗留问题:每个Test方法都需要最后通知BaseTest 成功 , 否则都会保留截图
     解决方式:
         当前没有好的解决方式.
     采用:
         将BaseTest 中After的内容分布到 TestWatcherAdvance中的failed 和 finish 中去完成 , 构造方法增加BaseTest的形参.
+
+7.  (待解决)BeforeClass / AfterClass 和 ClassRule 协调的问题
+    问题:
+        ClassRule中启动起来的activity 在之后无法使用  , 然Rule中启动的activity也无法在BeforeClass / AfterClass中使用 .
+    解决方案:
+        1.

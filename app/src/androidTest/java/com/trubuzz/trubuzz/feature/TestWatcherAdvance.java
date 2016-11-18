@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 
 /**
  * Created by king on 2016/9/20.
@@ -115,12 +116,8 @@ public class TestWatcherAdvance extends TestName {
      */
     protected void finished(Description description) {
         Registor.unRegAll(BaseTest.class.toString());
-        Object[] objects = JUnitParamsRunner.getParams();
 
-//        this.useData = baseTest.getUseData();
-        this.useData = putUseData(getParamsName(JUnitParamsRunner.getCurrentMethod()) ,objects);
-        this.useData.putAll(getFieldData(baseTest , FieldVar.class));
-
+        this.setUseData(description);
         this.stopTime = new Date().getTime();
         Log.i(TAG, "finished: ...."+ testName + " at "+God.getDateFormat(stopTime));
 
@@ -135,6 +132,35 @@ public class TestWatcherAdvance extends TestName {
         testCase.setSpendTime(stopTime - startTime);
 
         testClass.getTestCases().add(testCase);
+    }
+
+    /**
+     * 设置 useData
+     * @param desc
+     * @return
+     */
+    private Map setUseData(Description desc){
+        Map mData = null;
+        Map fData = getFieldData(this.baseTest , FieldVar.class);
+        if(desc.getAnnotation(Parameters.class) != null){
+            Object[] objects = JUnitParamsRunner.getParams();
+            mData =  putUseData(getParamsName(JUnitParamsRunner.getCurrentMethod()) ,objects);
+        }
+        if(mData != null && !mData.isEmpty()){
+            if(this.useData != null){
+                this.useData.putAll(mData);
+            }else{
+                this.useData = mData;
+            }
+        }
+        if(fData != null && !fData.isEmpty()) {
+            if (this.useData != null) {
+                this.useData.putAll(fData);
+            } else {
+                this.useData = fData;
+            }
+        }
+        return null;
     }
 
     /**
@@ -162,6 +188,10 @@ public class TestWatcherAdvance extends TestName {
         return data;
     }
     private Map putUseData(String[] name , Object[] data){
+        if(name==null || data==null){
+            Log.e(TAG, "putUseData: 未获取到形参名 或 形参值",new NullPointerException());
+            return null;
+        }
         Map<String , Object> useData = new HashMap<String , Object>();
         int dataLen = data.length;
         int nameLen = name.length;
@@ -178,6 +208,8 @@ public class TestWatcherAdvance extends TestName {
      * @return
      */
     private String[] getParamsName(Method method){
+        if(method == null)  return null;
+
         Annotation[][] ass = method.getParameterAnnotations();
         String[] parameterNames = new String[ass.length];
         int i = 0;

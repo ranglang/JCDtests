@@ -37,6 +37,7 @@ public class CustomMatcher {
 
     /**
      * 匹配指定对象
+     * 使用方式 : assertThat("" , thisObject("1"));
      * @param obj
      * @return
      */
@@ -55,6 +56,7 @@ public class CustomMatcher {
     }
     /**
      * 匹配指定文本
+     * 使用方式 : assertThat("" , thisString("1"));
      * @param str
      * @return
      */

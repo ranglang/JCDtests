@@ -3,14 +3,10 @@ package com.trubuzz.trubuzz.shell;
 import android.support.test.espresso.web.assertion.WebAssertion;
 import android.support.test.espresso.web.model.Atom;
 import android.support.test.espresso.web.model.ElementReference;
+import android.support.test.espresso.web.model.WindowReference;
 import android.support.test.espresso.web.sugar.Web;
-import android.view.View;
-
-import org.hamcrest.Matcher;
 
 import java.util.concurrent.TimeUnit;
-
-import static android.support.test.espresso.web.sugar.Web.onWebView;
 
 /**
  * Created by king on 16/11/9.
@@ -19,19 +15,8 @@ import static android.support.test.espresso.web.sugar.Web.onWebView;
 public class AdWebInteraction<R> {
     private Web.WebInteraction<R> webInteraction;
 
-    private AdWebInteraction(Web.WebInteraction<R> webInteraction){
+    public AdWebInteraction(Web.WebInteraction<R> webInteraction){
         this.webInteraction = webInteraction;
-    }
-
-    /**
-     * 封装onWebView
-     * @return
-     */
-    public static AdWebInteraction webGiven(){
-        return new AdWebInteraction(onWebView());
-    }
-    public static AdWebInteraction webGiven(Matcher<View> viewMatcher) {
-        return new AdWebInteraction(onWebView(viewMatcher));
     }
 
     /**
@@ -79,6 +64,17 @@ public class AdWebInteraction<R> {
         return this;
     }
 
+    /**
+     * 封装inWindow
+     * @param windowPicker
+     * @return
+     */
+    public AdWebInteraction<R> inWindow(Atom<WindowReference> windowPicker){
+        return new AdWebInteraction<R>(webInteraction.inWindow(windowPicker));
+    }
+    public AdWebInteraction<R> inWindow(Element<Atom<WindowReference>> windowPicker){
+        return inWindow(windowPicker.interactionWay());
+    }
     /**
      * 封装withElement
      * @param elementPicker

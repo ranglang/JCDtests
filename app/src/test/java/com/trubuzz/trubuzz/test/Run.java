@@ -21,11 +21,12 @@ public class Run {
     }
 
     private Map tm(){
+        Map map = new HashMap();
         Map map1 = new HashMap();
         map1.put("hello" , 1);
-        Map map2 = new HashMap();
+        Map map2 = null;
 
-        map1.putAll(map2);
+        map.putAll(map2);
         System.out.println(1);
         return map1;
     }

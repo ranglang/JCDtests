@@ -1,36 +1,27 @@
 package com.trubuzz.trubuzz.elements;
 
-import android.support.test.espresso.ViewInteraction;
+import com.trubuzz.trubuzz.shell.Element;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
-import com.trubuzz.trubuzz.utils.God;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.test.R.string.logout;
+import static com.trubuzz.trubuzz.test.R.string.preference;
+import static com.trubuzz.trubuzz.utils.God.getString;
 
 /**
  * Created by king on 2016/9/6.
  */
 public class ASettings {
+    private final ActivityElement head_picture  = new ActivityElement().setId("icon");
+    private final ActivityElement nickname  = new ActivityElement().setId("title");
 
-    private final static String ID_LEFT = "action_drawer";
-    private final static String TEXT_SETTING = "设置";
-    private final static String ID_PRIVATE = "private_mode";
-    private final static String TEXT_LOGOUT = "退出";
+    public static final Element left_drawer = new ActivityElement().setId("action_drawer");
 
-    public static ViewInteraction leftButton() {
-        return onView(withResourceName(ID_LEFT));
-    }
+    public final Element setting = new ActivityElement().setText(getString("设置",preference));
+    public final Element private_set = new ActivityElement().setId("private_mode");
+    public final Element personal = new ActivityElement().setChildren(head_picture ,nickname);
 
-    public static ViewInteraction settingsButton() {
-       return onView(withText(God.getString(TEXT_SETTING ,com.trubuzz.trubuzz.test.R.string.preference)));
-    }
 
-    public static ViewInteraction privateButton() {
-        return onView(withResourceName(ID_PRIVATE));
-    }
+    public final Element notify_switch = new ActivityElement().setId("notify"); // text = '开启/关闭' , can checked .
+    public final Element logout_button = new ActivityElement().setText(getString("退出" ,logout));
 
-    public static ViewInteraction logoutButton() {
-        return onView(withText( God.getString(TEXT_LOGOUT ,com.trubuzz.trubuzz.test.R.string.logout)));
-    }
 }

@@ -17,6 +17,7 @@ import static com.trubuzz.trubuzz.test.R.string.sign_up_email_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_password_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_phone;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_phone_hint;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_sms_hint;
 import static com.trubuzz.trubuzz.test.R.string.terms_of_service;
 import static com.trubuzz.trubuzz.utils.God.getString;
 
@@ -25,14 +26,14 @@ import static com.trubuzz.trubuzz.utils.God.getString;
  */
 public class ASignUp {
 
-    public final ActivityElement captcha_frame = new ActivityElement().setChildren(
+    public final ActivityElement image_captcha_frame = new ActivityElement().setChildren(
             new ActivityElement().setId("title").setText(getString("请输入验证码",input_captcha)) ,
             new ActivityElement().setId("content")
     );
-    public final ActivityElement captcha_input = new ActivityElement().setId("captcha");
-    public final ActivityElement captcha_change = new ActivityElement().setText(getString("看不清? 换一张" ,reload_captcha));
-    public final ActivityElement captcha_ok_button = new ActivityElement().setId("ok").setText(getString("确定" ,ok));
-    public final ActivityElement captcha_cancel_button = new ActivityElement().setId("cancel").setText(getString("取消" ,cancel));
+    public final ActivityElement image_captcha_input = new ActivityElement().setId("captcha");
+    public final ActivityElement image_captcha_change = new ActivityElement().setText(getString("看不清? 换一张" ,reload_captcha));
+    public final ActivityElement image_captcha_ok_button = new ActivityElement().setId("ok").setText(getString("确定" ,ok));
+    public final ActivityElement image_captcha_cancel_button = new ActivityElement().setId("cancel").setText(getString("取消" ,cancel));
 
     protected final ActivityElement reg_pwd = new ActivityElement().setId("password").setHint(getString("请输入密码" ,sign_up_password_hint));
     protected final ActivityElement reg_pwd_confirm = new ActivityElement().setId("confirm").setHint(getString("请再次输入密码" ,sign_up_confirm_hint));
@@ -82,7 +83,13 @@ public class ASignUp {
 
         public final ActivityElement get_sms_button = new ActivityElement().setId("btn_sms").setText(getString("获取验证码" ,get_sms));
 
+        public final ActivityElement sms_captcha_input = new ActivityElement().setId("sms").setText(getString("请输入短信验证码" ,sign_up_sms_hint));
+
         public final ActivityElement phone_accept_service_check = accept_service_check.setCousinry(phone_input);
+
+        public final ActivityElement phone_reg_submit = new ActivityElement().setId("submit")
+                .setText(getString("注册" ,sign_up))
+                .setSibling(new ActivityElement().setChildren(phone_input));
 
     }
 }

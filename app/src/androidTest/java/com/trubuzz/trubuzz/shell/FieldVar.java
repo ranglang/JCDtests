@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * Created by king on 16/11/17.
  */
-@Target(ElementType.PARAMETER)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface FieldVar {

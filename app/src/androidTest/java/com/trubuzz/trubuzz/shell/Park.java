@@ -6,6 +6,7 @@ import android.view.View;
 import org.hamcrest.Matcher;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.web.sugar.Web.onWebView;
 
 /**
  * Created by king on 16/10/24.
@@ -44,4 +45,16 @@ public class Park {
         return new AdViewInteraction();
     }
 
+/****************** web view ********************/
+
+    /**
+     * 封装onWebView
+     * @return
+     */
+    public static AdWebInteraction webGiven(){
+        return new AdWebInteraction(onWebView());
+    }
+    public static AdWebInteraction webGiven(Matcher<View> viewMatcher) {
+        return new AdWebInteraction(onWebView(viewMatcher));
+    }
 }

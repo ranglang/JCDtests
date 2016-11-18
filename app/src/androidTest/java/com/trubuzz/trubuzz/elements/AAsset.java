@@ -2,6 +2,7 @@ package com.trubuzz.trubuzz.elements;
 
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.AtomElement;
 
 import static com.trubuzz.trubuzz.test.R.string.account_type;
 import static com.trubuzz.trubuzz.test.R.string.accrued_cash;
@@ -48,5 +49,9 @@ public class AAsset {
         public final Element maint_margin_req_view = new ActivityElement().setText(getString("维持准备金", maint_margin_req));
         public final Element available_funds_d_view = new ActivityElement().setText(getString("可用资金", available_funds));
         public final Element excess_liquidity_view = new ActivityElement().setText(getString("剩余流动性", excess_liquidity));
+    }
+
+    public static class ENouns{
+        public static final Element explanation_noun = new AtomElement().setCss("#main>.footer.base.container-fluid");
     }
 }

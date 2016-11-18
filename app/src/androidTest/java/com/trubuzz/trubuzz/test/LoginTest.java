@@ -4,9 +4,11 @@ import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
+import com.trubuzz.trubuzz.elements.EBrokerChoose;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
+import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.Var;
-import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.AtomElement;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -24,18 +26,17 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
-import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_account_or_pwd;
-import static com.trubuzz.trubuzz.elements.EBrokerChoose.ibBrokerTitle;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.shell.Park.webGiven;
 import static com.trubuzz.trubuzz.test.R.string.input_password;
-import static com.trubuzz.trubuzz.test.Wish.logout;
 import static com.trubuzz.trubuzz.utils.God.getString;
 import static org.hamcrest.Matchers.containsString;
 
 /**
  * Created by king on 2016/8/24.
+ * at 11/18 真机测试跑通
  */
 @RunWith(JUnitParamsRunner.class)
 public class LoginTest extends BaseTest{
@@ -55,28 +56,41 @@ public class LoginTest extends BaseTest{
 
     @Test
     @Parameters(method = "dLogin")
-    public void invalid_login(@Var("user") String user , @Var("pwd") String pwd ,
-                              @Var("expect") ActivityElement expect){
-
+    public void login(@Var("user") String user , @Var("pwd") String pwd ,
+                              @Var("expect") Element expect ){
+        Wish.wantNotLogin();
         Wish.login(user,pwd);
 
-        if ("失败".equals(expect)){
-            given(expect).check(matches(isDisplayed()));
-        }else {
+        given(expect).check(matches(isDisplayed()));
+
+        if(expect instanceof AtomElement){
             DoIt.regIdlingResource(new SomeActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
+            webGiven()
+                    .withElement(expect)
+                    .check(webMatches(getText(), containsString(EBrokerChoose.ib_broker_title_text)));
 
-            if ("成功登录".equals(expect)){
-                logout();  //退出登录
-
-            }else if ("未开户".equals(expect)) {
-                onWebView()
-                        .withElement(ibBrokerTitle())
-                        .check(webMatches(getText(), containsString("Interactive Brokers")));
-
-                logout();
-            }
             DoIt.unAllRegIdlingResource();
         }
+
+        Wish.wantNotLogin();
+
+//        if ("失败".equals(expect)){
+//            given(expect).check(matches(isDisplayed()));
+//        }else {
+//            DoIt.regIdlingResource(new SomeActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
+//
+//            if ("成功登录".equals(expect)){
+//                logout();  //退出登录
+//
+//            }else if ("未开户".equals(expect)) {
+//                onWebView()
+//                        .withElement(ib_broker_title)
+//                        .check(webMatches(getText(), containsString("Interactive Brokers")));
+//
+//                logout();
+//            }
+//            DoIt.unAllRegIdlingResource();
+//        }
     }
 
     @Test
