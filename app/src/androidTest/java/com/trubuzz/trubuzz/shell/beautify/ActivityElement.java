@@ -32,11 +32,11 @@ public class ActivityElement<T> implements Element<Matcher<View>>{
     private String id;
     private String text;
     private String hint;
-    private ActivityElement<T>[] children;
-    private ActivityElement<T>[] sibling;
-    private ActivityElement<T>[] cousinry;
-    private ActivityElement<T> parent;
-    private ActivityElement<T> uncle;
+    private Element<T>[] children;
+    private Element<T>[] sibling;
+    private Element<T>[] cousinry;
+    private Element<T> parent;
+    private Element<T> uncle;
     private int index = -1;
     private Class assignableClass;
 //    private ToastMsg toastMsg;
@@ -101,27 +101,27 @@ public class ActivityElement<T> implements Element<Matcher<View>>{
         return this;
     }
 
-    public ActivityElement<T> setChildren(ActivityElement... children) {
+    public ActivityElement<T> setChildren(Element... children) {
         this.children = children;
         return this;
     }
 
-    public ActivityElement<T> setSibling(ActivityElement... sibling) {
+    public ActivityElement<T> setSibling(Element... sibling) {
         this.sibling = sibling;
         return this;
     }
 
-    public final ActivityElement<T> setCousinry(ActivityElement... cousinry) {
+    public final ActivityElement<T> setCousinry(Element... cousinry) {
         this.cousinry = cousinry;
         return this;
     }
 
-    public ActivityElement<T> setParent(ActivityElement parent) {
+    public ActivityElement<T> setParent(Element parent) {
         this.parent = parent;
         return this;
     }
 
-    public ActivityElement<T> setUncle(ActivityElement uncle) {
+    public ActivityElement<T> setUncle(Element uncle) {
         this.uncle = uncle;
         return this;
     }
@@ -203,9 +203,9 @@ public class ActivityElement<T> implements Element<Matcher<View>>{
 
         if(notEmpty(cousinry)) ms.add(cousin(elements2matcher(cousinry)));
 
-        if(notEmpty(parent)) ms.add(withParent(all(parent.element2matcher())));
+        if(notEmpty(parent)) ms.add(withParent(all(((ActivityElement)parent).element2matcher())));
 
-        if(notEmpty(uncle)) ms.add(withUncle(all(uncle.element2matcher())));
+        if(notEmpty(uncle)) ms.add(withUncle(all(((ActivityElement)uncle).element2matcher())));
 
         if(index >= 0) ms.add(withIndex(index));
 
@@ -221,10 +221,10 @@ public class ActivityElement<T> implements Element<Matcher<View>>{
      * @param elements
      * @return
      */
-    private List<List<Matcher<View>>> elements2matcher(ActivityElement... elements){
+    private List<List<Matcher<View>>> elements2matcher(Element... elements){
         List<List<Matcher<View>>> ms = new ArrayList<>();
-        for(ActivityElement element : elements){
-            ms.add(element.element2matcher());
+        for(Element element : elements){
+            ms.add(((ActivityElement)element).element2matcher());
         }
         return ms;
     }

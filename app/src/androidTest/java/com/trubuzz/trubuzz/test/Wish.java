@@ -41,10 +41,10 @@ public class Wish {
      */
     public static boolean isLogin( ActivityTestRule<?> atr){
         for(int i=0; i<5 ;i++){
-            if(isVisible(ASettings.left_drawer)) return true;
             if(atr !=null && God.getTopActivityName(atr.getActivity()).equals(AName.LOGIN)){
                 return false;
             }
+            if(isVisible(ASettings.left_drawer)) return true;
             sleep(1000);
         }
         return false;
@@ -105,6 +105,23 @@ public class Wish {
     }
     public static void wantBrokerLogin(){
         wantBrokerLogin(null);
+    }
+    /**
+     * 希望登录 , 默认使用已开户的用户
+     * @param atr
+     * @param user
+     * @param pwd
+     */
+    public static void wantLogin(ActivityTestRule<?> atr ,String user , String pwd){
+        if(! isLogin(atr)) {
+            login(user, pwd);
+        }
+    }
+    public static void wantLogin(ActivityTestRule<?> atr){
+        wantLogin(atr,Config.hasBrokerUser , Config.hasBrokerPwd);
+    }
+    public static void wantLogin(){
+        wantLogin(null);
     }
     /**
      * 期望使用未开户用户登录
