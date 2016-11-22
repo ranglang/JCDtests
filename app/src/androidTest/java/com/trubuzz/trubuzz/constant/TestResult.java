@@ -5,5 +5,5 @@ package com.trubuzz.trubuzz.constant;
  */
 
 public enum TestResult {
-    SUCCEEDED ,FAILED , SKIPPED
+    SUCCEEDED ,FAILED , SKIPPED ,UNCALIBRATED
 }

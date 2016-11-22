@@ -23,7 +23,7 @@ public class ASettings {
             .setChildren(setting));
 
 
-    public final Element notify_switch = new ActivityElement().setId("notify-"); // text = '开启/关闭' , can checked .
+    public final Element notify_switch = new ActivityElement().setId("notify"); //  can checked .
     public final Element logout_button = new ActivityElement().setText(getString("退出" ,logout));
     public final Element rising_falling_set = new ActivityElement().setId("rising_falling_display");
 

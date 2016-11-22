@@ -19,6 +19,7 @@ public class CaseBean {
     private String localizedMessage;
     private long spendTime;
     private List<String> compareImageNames;
+    private String desc;
 
     public void setCaseName(String caseName) {
         this.caseName = caseName;
@@ -54,6 +55,14 @@ public class CaseBean {
 
     public void setCompareImageNames(List<String> compareImageNames) {
         this.compareImageNames = compareImageNames;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 
     public String getCaseName() {

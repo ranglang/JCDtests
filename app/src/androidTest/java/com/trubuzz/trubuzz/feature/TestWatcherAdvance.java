@@ -7,6 +7,7 @@ import com.trubuzz.trubuzz.report.CaseBean;
 import com.trubuzz.trubuzz.report.ClassBean;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.shell.FieldVar;
+import com.trubuzz.trubuzz.shell.Uncalibrated;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.utils.God;
@@ -15,7 +16,6 @@ import com.trubuzz.trubuzz.utils.Registor;
 import org.junit.AssumptionViolatedException;
 import org.junit.rules.TestName;
 import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -52,9 +52,9 @@ public class TestWatcherAdvance extends TestName {
         this.baseTest = baseTest;
     }
 
-    public Statement apply(final Statement base, final Description description) {
-        return super.apply(base , description);
-    }
+//    public Statement apply(final Statement base, final Description description) {
+//        return super.apply(base , description);
+//    }
 
     /**
      * Invoked when a test is about to start
@@ -69,7 +69,7 @@ public class TestWatcherAdvance extends TestName {
      * Invoked when a test succeeds
      */
     protected void succeeded(Description description) {
-        this.result = TestResult.SUCCEEDED;
+        if(result == null)  this.result = TestResult.SUCCEEDED;
         Log.i(TAG, "succeeded: ");
     }
 
@@ -88,7 +88,7 @@ public class TestWatcherAdvance extends TestName {
 
     /************** The End ***************/
         Log.e(TAG,"test failed : "+e.getMessage());
-        this.result = TestResult.FAILED;
+        if(result == null)    this.result = TestResult.FAILED;
         this.message = e.getMessage();                       //完整的错误信息
         this.localizedMessage = e.getLocalizedMessage();    //简短的错误信息
         StackTraceElement[] stackTraceElements = e.getStackTrace();        //错误堆栈信息
@@ -104,7 +104,7 @@ public class TestWatcherAdvance extends TestName {
     @Deprecated
     protected void skipped(AssumptionViolatedException e, Description description) {
         super.skipped(e,description);
-        this.result = TestResult.SKIPPED;
+        if(result == null)  this.result = TestResult.SKIPPED;
         this.message = e.getMessage();
     }
 
@@ -224,6 +224,19 @@ public class TestWatcherAdvance extends TestName {
         return parameterNames;
     }
 
+    /**
+     * 检查该方法是否是需要认为判断的
+     * @param description
+     * @param caseBean
+     */
+    public void checkUncalibrated(Description description ,CaseBean caseBean){
+        Uncalibrated uncalibrated = description.getAnnotation(Uncalibrated.class);
+        if(uncalibrated != null){
+            this.result = TestResult.UNCALIBRATED;
+            caseBean.setDesc(uncalibrated.value());
+        }
+    }
+
     public String getTestName() {
         return testName;
     }
@@ -250,5 +263,9 @@ public class TestWatcherAdvance extends TestName {
 
     public void setUseData(Map useData) {
         this.useData = useData;
+    }
+
+    public void setResult(TestResult result) {
+        this.result = result;
     }
 }
