@@ -138,7 +138,7 @@ public class DoIt {
     public static String makeImageName(String pratName){
         String time = God.getDateFormat(new Date(),"yyMMdd_HHmmssSSS", Locale.CHINA);
         pratName = pratName == null ? "" : pratName;
-        return "jcd_" + time + "_" + pratName;
+        return "jcd_" + pratName + "_" + time;
     }
 
     public static String writeFileData( String data , String fileName){

@@ -42,7 +42,7 @@ public class SettingsTest extends BaseTest {
         given(ASettings.left_drawer).perform(click());
         given(aSet.drawer_layout).check(matches(isDisplayed()));
     }
-    @Test
+   // @Test
     public void notify_test() throws Exception {
         given(aSet.setting).perform(click());
         // 消息免打扰测试 ( 目前需手动配合测试 )
@@ -67,6 +67,7 @@ public class SettingsTest extends BaseTest {
         }
         given(aSet.rising_falling_set).check(matches(withText(redUp)));
         //开始在各页面校验
+        ViewActions.pressBack();
         ViewActions.swipeLeft();        //向左轻扫
 
     }

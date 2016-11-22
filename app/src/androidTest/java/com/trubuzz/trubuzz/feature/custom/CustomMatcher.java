@@ -275,6 +275,20 @@ public class CustomMatcher {
         };
     }
 
+    public static Matcher<View> withView(final View view){
+        return new TypeSafeMatcher<View>() {
+            @Override
+            protected boolean matchesSafely(View item) {
+                return view.equals(item);
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with view : "+ view);
+            }
+        };
+    }
+
     /**
      * 通过堂兄妹匹配
      * @param cousinMatcher

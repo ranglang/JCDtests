@@ -12,6 +12,9 @@ import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.trubuzz.trubuzz.constant.Env.uiDevice;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 
@@ -23,6 +26,7 @@ import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 
 public class BaseTest {
     private final String TAG = "jcd_BaseTest";
+    private List<String> compareImageNames = new ArrayList<>();
 
     @ClassRule
     public static ClassWatcherAdvance classWatcherAdvance = new ClassWatcherAdvance();
@@ -49,4 +53,15 @@ public class BaseTest {
         return fPath;
     }
 
+    /**
+     * 截图并将路径保存至list
+     * @param secondName
+     */
+    public void compareTakeScreenshot(String secondName){
+        this.compareImageNames.add(DoIt.takeScreenshot(uiDevice ,secondName));
+    }
+
+    public List<String> getCompareImageNames() {
+        return compareImageNames;
+    }
 }

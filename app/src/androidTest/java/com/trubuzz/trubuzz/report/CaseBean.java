@@ -2,6 +2,7 @@ package com.trubuzz.trubuzz.report;
 
 import com.trubuzz.trubuzz.constant.TestResult;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,6 +18,7 @@ public class CaseBean {
     private String[] stackTraces;
     private String localizedMessage;
     private long spendTime;
+    private List<String> compareImageNames;
 
     public void setCaseName(String caseName) {
         this.caseName = caseName;
@@ -50,6 +52,9 @@ public class CaseBean {
         this.spendTime = spendTime;
     }
 
+    public void setCompareImageNames(List<String> compareImageNames) {
+        this.compareImageNames = compareImageNames;
+    }
 
     public String getCaseName() {
         return caseName;
@@ -81,5 +86,9 @@ public class CaseBean {
 
     public long getSpendTime() {
         return spendTime;
+    }
+
+    public List<String> getCompareImageNames() {
+        return compareImageNames;
     }
 }

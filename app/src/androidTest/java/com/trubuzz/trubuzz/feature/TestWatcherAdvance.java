@@ -129,6 +129,7 @@ public class TestWatcherAdvance extends TestName {
         testCase.setUseData(this.useData);
         testCase.setLocalizedMessage(this.localizedMessage);
         testCase.setStackTraces(this.stackTraces);
+        testCase.setCompareImageNames(baseTest.getCompareImageNames());
         testCase.setSpendTime(stopTime - startTime);
 
         testClass.getTestCases().add(testCase);
