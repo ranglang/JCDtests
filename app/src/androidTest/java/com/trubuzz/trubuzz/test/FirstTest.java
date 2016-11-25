@@ -12,8 +12,12 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
+import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.elements.AForgetPwd;
 import com.trubuzz.trubuzz.elements.ALogin;
+import com.trubuzz.trubuzz.elements.AQuotes;
+import com.trubuzz.trubuzz.elements.ASettings;
+import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
@@ -31,9 +35,12 @@ import dalvik.system.DexFile;
 import static android.support.test.InstrumentationRegistry.getContext;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
@@ -138,7 +145,7 @@ public class FirstTest extends BaseTest{
 
 
 
-    @Test
+   // @Test
     public void webTableTest(){
 //        Object s;
 //
@@ -212,5 +219,24 @@ public class FirstTest extends BaseTest{
         sleep(2000);
     }
 
+    @Test
+    public void swipe(){
+        sleep(1000);
+//        ViewActions.swipeLeft();
+        given(Global.quotes_radio).perform(click());
+        given(AQuotes.default_stock).perform(click());
+
+
+        God.getCurrentActivity(Env.instrumentation);
+        given(ASettings.left_drawer).perform(click());
+        onView(isRoot()).perform(swipeLeft());
+//        swipeLeft();
+//        pressBack();
+        given(Global.quotes_radio).perform(click());
+        onView(isRoot()).perform(swipeDown());
+//        onView(isDisplayingAtLeast(85)).perform(swipeLeft());
+
+        sleep(2000);
+    }
 
 }

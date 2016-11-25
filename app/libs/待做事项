@@ -52,3 +52,5 @@
         ClassRule中启动起来的activity 在之后无法使用  , 然Rule中启动的activity也无法在BeforeClass / AfterClass中使用 .
     解决方案:
         1.
+
+8.  (待解决)通过反射获取ViewInteraction对象 , 实现循环遍历

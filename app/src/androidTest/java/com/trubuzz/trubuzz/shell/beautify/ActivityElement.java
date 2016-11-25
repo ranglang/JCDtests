@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
@@ -39,53 +40,8 @@ public class ActivityElement<T> implements Element<Matcher<View>>{
     private Element<T> uncle;
     private int index = -1;
     private Class assignableClass;
-//    private ToastMsg toastMsg;
     private Matcher[] matchers;
 
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public String getText() {
-//        return text;
-//    }
-//
-//    public String getHint() {
-//        return hint;
-//    }
-//
-//    public ActivityElement<T>[] getChildren() {
-//        return children;
-//    }
-//
-//    public ActivityElement<T>[] getSibling() {
-//        return sibling;
-//    }
-//
-//    public ActivityElement<T>[] getCousinry() {
-//        return cousinry;
-//    }
-//
-//    public ActivityElement<T> getParent() {
-//        return parent;
-//    }
-//
-//    public ActivityElement<T> getUncle() {
-//        return uncle;
-//    }
-//
-//    public int getIndex() {
-//        return index;
-//    }
-//
-//    public Class getAssignableClass() {
-//        return assignableClass;
-//    }
-//
-//    public Matcher[] getMatchers() {
-//        return matchers;
-//    }
-/************************************************************/
     public ActivityElement<T> setId(String id) {
         this.id = id;
         return this;
@@ -142,25 +98,9 @@ public class ActivityElement<T> implements Element<Matcher<View>>{
         return this;
     }
 
-//    private ToastMsg getToastMsg() {
-//        return toastMsg;
-//    }
-//
-//    public ActivityElement<T> setToastMsg(String msg, ActivityTestRule activity) {
-//        this.toastMsg = new ToastMsg(msg , activity);
-//        return this;
-//    }
-//    public ActivityElement<T> setToastMsg(String msg) {
-//        this.toastMsg = new ToastMsg(msg );
-//        return this;
-//    }
 
     @Override
     public Matcher<View> interactionWay() {
-//        ActivityElement.ToastMsg toastMsg = this.getToastMsg();
-//        if(toastMsg != null){
-//            return getToast(toastMsg.getMsg() , toastMsg.getActivity());
-//        }
         return all(this.element2matcher());
     }
 
@@ -296,41 +236,8 @@ public class ActivityElement<T> implements Element<Matcher<View>>{
     }
 
     private Matcher<View> all(List<Matcher<View>> list){
+        list.add(isDisplayed());
         return allOf(God.list2array(Matcher.class ,list));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    /*******************/
-//    class ToastMsg{
-//        private String msg;
-//        private ActivityTestRule activity;
-//
-//        ToastMsg(String msg, ActivityTestRule activity) {
-//            this.msg = msg;
-//            this.activity = activity;
-//        }
-//        ToastMsg(String msg) {
-//            this.msg = msg;
-//        }
-//
-//        String getMsg() {
-//            return msg;
-//        }
-//
-//        ActivityTestRule getActivity() {
-//            return activity;
-//        }
-//    }
 }
