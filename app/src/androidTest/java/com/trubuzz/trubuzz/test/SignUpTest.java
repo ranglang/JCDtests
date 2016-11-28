@@ -86,7 +86,7 @@ public class SignUpTest extends BaseTest{
     @Parameters( method = "emailSignUp")
     public void invalid_sign_up_with_email(@Var("emailAddress")String emailAddress , @Var("pwd") String pwd ,
                                            @Var("pwdConfirm") String pwdConfirm , @Var("acceptTerms") boolean acceptTerms ,
-                                           @Var("imageCaptcha") String imageCaptcha , @Var("except") Element except){
+                                           @Var("imageCaptcha") String imageCaptcha , @Var("expect") Element expect){
 
         given(regEmail.use_email_reg).check(matches(isSelected()));       //检查"邮箱注册"默认被选中
         given(regEmail.email_input)
@@ -109,7 +109,7 @@ public class SignUpTest extends BaseTest{
             given(regEmail.image_captcha_input).perform(replaceText(imageCaptcha));     /* 未启用字符位数截取 */
             given(regEmail.image_captcha_ok_button).perform(click());
         }
-        given( except).check(matches(isDisplayed()));              //检查预期结果
+        given( expect).check(matches(isDisplayed()));              //检查预期结果
 
     }
 
@@ -117,10 +117,10 @@ public class SignUpTest extends BaseTest{
 //    @Parameters(method = "phoneSignUp")
     public void invalid_sign_up_with_phone(@Var("phoneNumber") String phoneNumber ,@Var("pwd") String pwd ,
                                            @Var("pwdConfirm") String pwdConfirm , @Var("acceptTerms") boolean acceptTerms ,
-                                           @Var("imageCaptcha") String imageCaptcha ,@Var("getSmsExcept")Element getSmsExcept ,
+                                           @Var("imageCaptcha") String imageCaptcha ,@Var("getSmsExpect")Element getSmsExpect ,
                                            @Var("confirmImageCaptcha")boolean confirmImageCaptcha ,
-                                           @Var("enteredImageCaptchaExcept")Element enteredImageCaptchaExcept ,
-                                           @Var("phoneCaptcha")String phoneCaptcha, @Var("except") Element except ){
+                                           @Var("enteredImageCaptchaExpect")Element enteredImageCaptchaExpect ,
+                                           @Var("phoneCaptcha")String phoneCaptcha, @Var("expect") Element expect ){
 
         given(regPhone.use_phone_reg)
                 .perform(click())
@@ -139,8 +139,8 @@ public class SignUpTest extends BaseTest{
         }
         given(regPhone.get_sms_button).perform(click());                   //点击检查"获取验证码"
         //若获取验证码时就异常 , 直接退出跳过后续操作 , 反之则继续
-        if(getSmsExcept != null) {
-            given(getSmsExcept).check(matches(isDisplayed()));      //检查获取验证码时的提示
+        if(getSmsExpect != null) {
+            given(getSmsExpect).check(matches(isDisplayed()));      //检查获取验证码时的提示
             given(regPhone.image_captcha_frame).check(matches(not(isDisplayed())));
             return;
         }
@@ -154,17 +154,17 @@ public class SignUpTest extends BaseTest{
         else
             given(regPhone.image_captcha_cancel_button).perform(click());
 
-        if(enteredImageCaptchaExcept != null)       //不为null后 验证toast提示消息
-            given(enteredImageCaptchaExcept).check(matches(isDisplayed()));
+        if(enteredImageCaptchaExpect != null)       //不为null后 验证toast提示消息
+            given(enteredImageCaptchaExpect).check(matches(isDisplayed()));
 
-        if(sms_sent_toast.equals(enteredImageCaptchaExcept)) {      //验证短信验证码已发送后的界面元素展示
+        if(sms_sent_toast.equals(enteredImageCaptchaExpect)) {      //验证短信验证码已发送后的界面元素展示
             given(regPhone.sms_captcha_input).check(matches(isDisplayed()));
             given(regPhone.phone_reg_submit).check(matches(isDisplayed()));
             Wish.allNotEnabled(regPhone.pickup_country_code_button , regPhone.country_code_input ,
                     regPhone.phone_input , regPhone.phone_reg_pwd , regPhone.phone_reg_pwd_confirm ,
                     regPhone.phone_accept_service_check);           //检查已禁用部分元素
         }else{
-            Wish.allNotVisible(regPhone.sms_captcha_input , regPhone.phone_reg_submit);
+            Wish.allNotDisplayed(regPhone.sms_captcha_input , regPhone.phone_reg_submit);
             return;
         }
 
@@ -174,8 +174,8 @@ public class SignUpTest extends BaseTest{
 
         given(regPhone.phone_reg_submit).perform(click());
 
-        if(except != null)                                      //没有预期toast则登录成功
-            given(except).check(matches(isDisplayed()));
+        if(expect != null)                                      //没有预期toast则登录成功
+            given(expect).check(matches(isDisplayed()));
         else
             assertThat(Wish.isLogin() , thisObject(true));      //期望可是自动登录成功
 

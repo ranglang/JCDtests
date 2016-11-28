@@ -11,6 +11,7 @@ import com.trubuzz.trubuzz.utils.God;
 import org.hamcrest.Matcher;
 
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withView;
+import static com.trubuzz.trubuzz.utils.DoIt.notEmpty;
 
 /**
  * Created by king on 16/11/22.
@@ -44,14 +45,17 @@ public class ViewElement implements Element<Matcher> {
         return withView(getElementView(this));
     }
 
+    /**
+     * 由于findViewById 只会匹配第一个匹配到的View
+     * @param element
+     * @return
+     */
     private View getElementView(Element element){
         ViewElement ve = (ViewElement) element;
-        if(ve.viewId != null){
-            return activity.findViewById(Find.byShortId(viewId));
-        }
-        if(ve.child != null){
-            return withChild(getElementView(ve.child));
-        }
+        if(notEmpty(ve.viewId))  return activity.findViewById(Find.byShortId(viewId));
+
+        if(notEmpty(ve.child))  return withChild(getElementView(ve.child));
+
         return null;
     }
 

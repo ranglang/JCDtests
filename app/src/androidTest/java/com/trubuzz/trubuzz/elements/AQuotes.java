@@ -2,7 +2,6 @@ package com.trubuzz.trubuzz.elements;
 
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
-import com.trubuzz.trubuzz.shell.beautify.ViewElement;
 
 import static com.trubuzz.trubuzz.test.R.string.buy;
 import static com.trubuzz.trubuzz.test.R.string.sell;
@@ -33,9 +32,7 @@ public class AQuotes {
             .setText(getString("编辑" ,watchlist_editor));
 
 
-    public static final Element default_stock = new ViewElement().setViewId("subtitle");
-    public static final String default_stock_id = "subtitle";
-    public static final Element default_stock_a = new ActivityElement().setIndex(5).
+    public static final Element default_stock = new ActivityElement().setIndex(5).
             setChildren(
                 new ActivityElement().setChildren(country_icon ) ,
                 new ActivityElement().setChildren(symbol_text ,security_text) ,

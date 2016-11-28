@@ -24,7 +24,7 @@ import static com.trubuzz.trubuzz.utils.God.getString;
 public interface ToastInfo {
     ToastElement incorrect_password_confirm_toast =
             new ToastElement(getString("确认密码输入不一致" ,incorrect_password_confirm));
-    ToastElement email_success_except =
+    ToastElement email_success_expect =
             new ToastElement(getString("重设密码信件已发送到您的邮箱，请查收并重置密码。" , reset_password_mail_sent));
     ToastElement incorrect_email_format_toast =
             new ToastElement(getString("邮箱地址格式不正确" ,incorrect_email_format)) ;

@@ -25,6 +25,8 @@ public class ASettings {
 
     public final Element notify_switch = new ActivityElement().setId("notify"); //  can checked .
     public final Element logout_button = new ActivityElement().setText(getString("退出" ,logout));
-    public final Element rising_falling_set = new ActivityElement().setId("rising_falling_display");
+    public final Element rising_falling_set = new ActivityElement().setId("rising_fallin" +
+            "g_display");
+    public final Element k_chart_set = new ActivityElement().setId("chart_type");   //K线图设置
 
 }

@@ -48,6 +48,9 @@ public class Park {
 
         return new AdViewInteraction();
     }
+    public static AdViewInteraction given(AdViewInteraction element){
+        return element;
+    }
 
 /****************** web view ********************/
 

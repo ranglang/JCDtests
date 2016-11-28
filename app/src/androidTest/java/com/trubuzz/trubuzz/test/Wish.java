@@ -10,6 +10,7 @@ import com.trubuzz.trubuzz.constant.Config;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASettings;
+import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -17,6 +18,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
@@ -167,7 +169,7 @@ public class Wish {
     public static boolean isVisible(ViewInteraction v ){
         try {
             sleep(1000);
-            v.check(matches(isDisplayed()));
+            v.check(matches(isDisplayingAtLeast(90)));
             return true;
         } catch (Throwable e) {
             e.printStackTrace();
@@ -176,7 +178,16 @@ public class Wish {
     }
     public static boolean isVisible(Element v ){
         try {
-            given(v).check(matches(isDisplayed()));
+            given(v).check(matches(isDisplayingAtLeast(90)));
+            return true;
+        } catch (Throwable e ){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public static boolean isVisible(AdViewInteraction v ){
+        try {
+            v.check(matches((isDisplayingAtLeast(90))));
             return true;
         } catch (Throwable e ){
             e.printStackTrace();
@@ -188,12 +199,12 @@ public class Wish {
      * 批量检查元素个性
      * @param elements
      */
-    public static void allVisible(Element ...elements){
+    public static void allDisplayed(Element ...elements){
         for(Element element : elements){
             given(element).check(matches(isDisplayed()));
         }
     }
-    public static void allNotVisible(Element ...elements){
+    public static void allNotDisplayed(Element ...elements){
         for(Element element : elements){
             given(element).check(matches(not(isDisplayed())));
         }

@@ -14,10 +14,11 @@ import java.util.Map;
  */
 
 public class Run {
+    boolean a;
 
     @Test
     public void run() throws NoSuchMethodException {
-        System.out.println(tm());
+        System.out.println(a);
     }
 
     private Map tm(){

@@ -13,9 +13,9 @@ import static com.trubuzz.trubuzz.utils.God.getString;
 
 public class AWealth {
     public static final Element portfolio_button = new ActivityElement().setId("button1")
-            .setText(getString("Portfolio" ,portfolio_set));
+            .setText(getString("Portfolio" ,portfolio_set));    //投资组合按钮
 
 
     public static final Element default_portfolio = new ViewElement().setChild(
-            new ViewElement().setViewId("title"));
+            new ViewElement().setViewId("title"));          //一项投资组合
 }

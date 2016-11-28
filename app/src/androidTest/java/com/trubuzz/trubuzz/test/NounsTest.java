@@ -75,7 +75,7 @@ public class NounsTest extends BaseTest {
 
     @Test
     @Parameters( method = "nounsData")
-    public void nouns(@Var("noun") Element noun , @Var("except") Nouns except ,
+    public void nouns(@Var("noun") Element noun , @Var("expect") Nouns expect ,
                       @Var("isInDetails") boolean isInDetails ){
         Wish.wantBrokerLogin();
         DoIt.regIdlingResource(new SomeActivityIdlingResource(MAIN ,matr.getActivity() , true));
@@ -90,12 +90,8 @@ public class NounsTest extends BaseTest {
         webGiven()
             .withElement(explanation_noun_path)
             .perform(getText())
-            .check(customWebMatches(getText(), containsString(except.getValue())));         //对比解释结果;
+            .check(customWebMatches(getText(), containsString(expect.getValue())));         //对比解释结果;
 
-//        onWebView()
-//            .withElement(findElement(locator , elementFinder))
-//            .perform(getText())
-//            .check(customWebMatches(getText(), containsString(except.getValue())));         //对比解释结果
         DoIt.unRegIdlingResource();
 
     }

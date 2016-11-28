@@ -29,75 +29,80 @@ import static org.hamcrest.Matchers.allOf;
  * Created by king on 16/11/1.
  */
 
-public class ActivityElement<T> implements Element<Matcher<View>>{
+public class ActivityElement implements Element<Matcher<View>>{
     private String id;
     private String text;
     private String hint;
-    private Element<T>[] children;
-    private Element<T>[] sibling;
-    private Element<T>[] cousinry;
-    private Element<T> parent;
-    private Element<T> uncle;
+    private Element[] children;
+    private Element[] sibling;
+    private Element[] cousinry;
+    private Element parent;
+    private Element uncle;
     private int index = -1;
     private Class assignableClass;
     private Matcher[] matchers;
+    private boolean displayed = true;
 
-    public ActivityElement<T> setId(String id) {
+    public ActivityElement setId(String id) {
         this.id = id;
         return this;
     }
 
-    public ActivityElement<T> setText(String text) {
+    public ActivityElement setText(String text) {
         this.text = text;
         return this;
     }
 
-    public ActivityElement<T> setHint(String hint) {
+    public ActivityElement setHint(String hint) {
         this.hint = hint;
         return this;
     }
 
-    public ActivityElement<T> setChildren(Element... children) {
+    public ActivityElement setChildren(Element... children) {
         this.children = children;
         return this;
     }
 
-    public ActivityElement<T> setSibling(Element... sibling) {
+    public ActivityElement setSibling(Element... sibling) {
         this.sibling = sibling;
         return this;
     }
 
-    public final ActivityElement<T> setCousinry(Element... cousinry) {
+    public final ActivityElement setCousinry(Element... cousinry) {
         this.cousinry = cousinry;
         return this;
     }
 
-    public ActivityElement<T> setParent(Element parent) {
+    public ActivityElement setParent(Element parent) {
         this.parent = parent;
         return this;
     }
 
-    public ActivityElement<T> setUncle(Element uncle) {
+    public ActivityElement setUncle(Element uncle) {
         this.uncle = uncle;
         return this;
     }
 
-    public ActivityElement<T> setIndex(int index) {
+    public ActivityElement setIndex(int index) {
         this.index = index;
         return this;
     }
 
-    public ActivityElement<T> setAssignableClass(Class assignableClass) {
+    public ActivityElement setAssignableClass(Class assignableClass) {
         this.assignableClass = assignableClass;
         return this;
     }
 
     @SafeVarargs
-    final public ActivityElement<T> setMatchers(Matcher<? super T>... matchers) {
+    final public <T> ActivityElement  setMatchers(Matcher<? super T>... matchers) {
         this.matchers = matchers;
         return this;
     }
 
+    public ActivityElement setDisplayed(boolean displayed) {
+        this.displayed = displayed;
+        return this;
+    }
 
     @Override
     public Matcher<View> interactionWay() {
@@ -152,6 +157,8 @@ public class ActivityElement<T> implements Element<Matcher<View>>{
         if(notEmpty(assignableClass)) ms.add(isAssignableFrom(assignableClass));
 
         if(notEmpty(matchers)) ms.addAll(God.<Matcher<View>>array2list(matchers));
+
+        if(displayed)   ms.add(isDisplayed());
 
         return ms;
     }
@@ -236,7 +243,6 @@ public class ActivityElement<T> implements Element<Matcher<View>>{
     }
 
     private Matcher<View> all(List<Matcher<View>> list){
-        list.add(isDisplayed());
         return allOf(God.list2array(Matcher.class ,list));
     }
 

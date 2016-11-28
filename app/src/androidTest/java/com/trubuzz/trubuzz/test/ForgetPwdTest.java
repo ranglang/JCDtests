@@ -23,7 +23,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.constant.ToastInfo.email_success_except;
+import static com.trubuzz.trubuzz.constant.ToastInfo.email_success_expect;
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_email_format_toast;
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_phone_format_toast;
 import static com.trubuzz.trubuzz.constant.ToastInfo.user_not_exist_toast;
@@ -46,7 +46,7 @@ public class ForgetPwdTest extends BaseTest{
         return new Object[]{
                 new Object[]{"123@321.com" , user_not_exist_toast },
                 new Object[]{"2343253543432" , incorrect_email_format_toast},
-                new Object[]{"abc@abc.com1" , email_success_except}
+                new Object[]{"abc@abc.com1" , email_success_expect}
         };
     }
 
@@ -79,27 +79,27 @@ public class ForgetPwdTest extends BaseTest{
 
     @Test
     @Parameters(method = "email_found_data")
-    public void use_email_found(@Var("email") String email , @Var("except") ActivityElement except){
+    public void use_email_found(@Var("email") String email , @Var("expect") ActivityElement expect){
 
         given(forgetPwd.email_input).perform(replaceText(email));
         given(forgetPwd.email_submit_button).perform(click());
-        given(except).check(matches(isDisplayed()));
+        given(expect).check(matches(isDisplayed()));
 
-        if(except.equals(email_success_except)){
+        if(expect.equals(email_success_expect)){
             given(ALogin.account_input).check(matches(withText(email)));    //重置邮件发送成功后,会自动将Email填写只account输入框
         }
     }
 //    @Test
 //    @Parameters(method = "phone_found_data")
-    public void use_phone_found(@Var("phone") String phone , @Var("get_sms_except") ActivityElement get_sms_except ,
+    public void use_phone_found(@Var("phone") String phone , @Var("get_sms_expect") ActivityElement get_sms_expect ,
                                 @Var("has_sms") boolean has_sms , @Var("sms_code") String sms_code , @Var("pwd") String pwd ,
-                                @Var("confirm_pwd") String confirm_pwd , @Var("submit_except") ActivityElement submit_except){
+                                @Var("confirm_pwd") String confirm_pwd , @Var("submit_expect") ActivityElement submit_expect){
 
         given(forgetPwd.use_phone_found).perform(click()).check(matches(isSelected()));
         given(forgetPwd.use_email_found).check(matches(not(isSelected())));
         given(forgetPwd.phone_input).perform(replaceText(phone)).check(matches(withText(phone)));
         given(forgetPwd.get_sms_button).perform(click());
-        given(get_sms_except).check(matches(isDisplayed()));
+        given(get_sms_expect).check(matches(isDisplayed()));
         if(has_sms){
             given(forgetPwd.sms_input).check(matches(isDisplayed()));
             if(sms_code != null)
@@ -117,7 +117,7 @@ public class ForgetPwdTest extends BaseTest{
             given(forgetPwd.phone_submit_button)
                     .check(matches(isDisplayed()))
                     .perform(click());
-            given(submit_except).check(matches(isDisplayed()));
+            given(submit_expect).check(matches(isDisplayed()));
 
         }
 

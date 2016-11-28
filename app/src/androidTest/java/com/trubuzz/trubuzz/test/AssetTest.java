@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.test;
 
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.FailureHandler;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewFinder;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.feature.viewFirm.ViewTracer;
 import com.trubuzz.trubuzz.feature.viewFirm.ViewHandle;
+import com.trubuzz.trubuzz.feature.viewFirm.ViewTracer;
+import com.trubuzz.trubuzz.shell.AdViewInteraction;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.utils.Find;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -26,10 +29,14 @@ import javax.inject.Provider;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeDown;
+import static android.support.test.espresso.action.ViewActions.swipeUp;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withView;
-import static com.trubuzz.trubuzz.utils.MReflect.getFieldObject;
+import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
+import static com.trubuzz.trubuzz.utils.MReflect.getFieldObject;
 
 /**
  * Created by king on 2016/10/19.
@@ -47,6 +54,28 @@ public class AssetTest extends BaseTest {
     }
 
     @Test
+    public void ellook(){
+        sleep(1000);
+        onView(isRoot()).perform(swipeUp());
+        onView(isRoot()).perform(swipeDown());
+//        onView(isRoot()).perform(scrollTo());
+        List<AdViewInteraction> vl = given(new ActivityElement().setId("percent").setDisplayed(false)).getInteractionList();
+        Log.i(TAG, "ellook: view size : "+vl.size());
+        for(AdViewInteraction v : vl){
+//            if(! Wish.isVisible(v))
+                v.perform(swipeUp());
+
+
+            if(vl.indexOf(v) < 2) {
+                v.perform(click());
+                Espresso.pressBack();
+            }else{
+                v.perform(click());
+            }
+        }
+        sleep(1000);
+    }
+    //@Test
     public void viewLook(){
         sleep(1000);
         View view = this.matr.getActivity().findViewById(Find.byShortId("recycler"));
