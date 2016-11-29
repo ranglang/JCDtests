@@ -27,6 +27,8 @@ import java.util.Map;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
+import static com.trubuzz.trubuzz.utils.DoIt.notEmpty;
+
 /**
  * Created by king on 2016/9/20.
  */
@@ -45,6 +47,7 @@ public class TestWatcherAdvance extends TestName {
     private String[] stackTraces;
     private long startTime;
     private long stopTime;
+    private Map<Integer,Object> updateData;
 
    // public TestWatcherAdvance(){}
     public TestWatcherAdvance(ClassBean testClass , BaseTest baseTest){
@@ -145,6 +148,12 @@ public class TestWatcherAdvance extends TestName {
         Map fData = getFieldData(this.baseTest , FieldVar.class);
         if(desc.getAnnotation(Parameters.class) != null){
             Object[] objects = JUnitParamsRunner.getParams();
+            //如果在执行过程中改变了数据 , 将执行更新
+            if(notEmpty(updateData)){
+                for(Integer i : this.updateData.keySet()){
+                    objects[i] = updateData.get(i);
+                }
+            }
             mData =  putUseData(getParamsName(JUnitParamsRunner.getCurrentMethod()) ,objects);
         }
         if(mData != null && !mData.isEmpty()){
@@ -267,5 +276,9 @@ public class TestWatcherAdvance extends TestName {
 
     public void setResult(TestResult result) {
         this.result = result;
+    }
+
+    public void setUpdateData(Map<Integer, Object> updateData) {
+        this.updateData = updateData;
     }
 }
