@@ -4,7 +4,10 @@ import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.shell.beautify.AtomElement;
 
+import static com.trubuzz.trubuzz.test.R.string.cancel;
+import static com.trubuzz.trubuzz.test.R.string.change_nickname;
 import static com.trubuzz.trubuzz.test.R.string.logout;
+import static com.trubuzz.trubuzz.test.R.string.ok;
 import static com.trubuzz.trubuzz.test.R.string.preference;
 import static com.trubuzz.trubuzz.test.R.string.privacy_policy;
 import static com.trubuzz.trubuzz.test.R.string.tutorial;
@@ -15,16 +18,17 @@ import static com.trubuzz.trubuzz.utils.God.getString;
  * Created by king on 2016/9/6.
  */
 public class ASettings {
-    private final Element head_picture  = new ActivityElement().setId("icon");
-    private final Element nickname  = new ActivityElement().setId("title");
-
     public static final Element left_drawer = new ActivityElement().setId("action_drawer");
 
     public final Element setting = new ActivityElement().setText(getString("设置",preference));
-    public final Element private_set = new ActivityElement().setId("private_mode");
-    public final Element personal = new ActivityElement().setChildren(head_picture ,nickname);
+
+    public final Element private_set = new ActivityElement().setId("private_mode");             //隐私模式
+    public final Element personal = new ActivityElement().setId("navi_profile");  //用户信息
     public final Element drawer_layout = new ActivityElement().setChildren(new ActivityElement()
-            .setChildren(setting));
+            .setChildren(setting));     //左侧抽屉
+
+    public final Element head_picture  = new ActivityElement().setId("icon").setParent(personal);   //用户头像
+    public final Element nickname  = new ActivityElement().setId("title").setParent(personal);      //昵称
 
 
     public final Element notify_switch = new ActivityElement().setId("notify"); //  can checked .
@@ -59,4 +63,17 @@ public class ASettings {
     );
     public final Element tutorial_start_button = new ActivityElement().setId("btn_done")
             .setText(getString("立即启程" ,tutorial_start));
+
+    /************ 用户信息 ************/
+    public final Element nickname_text = new ActivityElement().setId("nickname");
+    public final Element nickname_change_view = new ActivityElement().setChildren(nickname_text);
+    public final Element birthday_text = new ActivityElement().setId("birthday");
+    public final Element birthday_change_view = new ActivityElement().setChildren(birthday_text);
+    public final Element gender_text = new ActivityElement().setId("gender");
+    public final Element gender_change_view = new ActivityElement().setChildren(gender_text);
+
+    public final Element nickname_change_title = new ActivityElement().setId("alertTitle").setText(getString("修改昵称" ,change_nickname));
+    public final Element nickname_change_edit = new ActivityElement().setId("value");
+    public final Element nickname_ok = new ActivityElement().setId("button1").setText(getString("确定" ,ok));
+    public final Element nickname_cancel = new ActivityElement().setId("button2").setText(getString("取消",cancel));
 }
