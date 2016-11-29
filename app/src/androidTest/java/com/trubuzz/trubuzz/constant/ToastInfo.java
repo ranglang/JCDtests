@@ -15,6 +15,7 @@ import static com.trubuzz.trubuzz.test.R.string.incorrect_trade_password_format;
 import static com.trubuzz.trubuzz.test.R.string.invalid_username_password;
 import static com.trubuzz.trubuzz.test.R.string.reset_password_mail_sent;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_sms_auth_sent;
+import static com.trubuzz.trubuzz.test.R.string.status_success;
 import static com.trubuzz.trubuzz.test.R.string.user_not_exist;
 import static com.trubuzz.trubuzz.utils.God.getString;
 
@@ -61,4 +62,7 @@ public interface ToastInfo {
 
     ToastElement incorrect_trade_pwd_format_toast =
             new ToastElement(getString("请输入4~6位字母或数字" ,incorrect_trade_password_format));
+
+    ToastElement status_success_toast =
+            new ToastElement(getString("操作成功" ,status_success));
 }
