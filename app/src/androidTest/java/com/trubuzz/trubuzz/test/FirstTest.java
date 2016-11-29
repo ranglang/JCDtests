@@ -13,7 +13,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.Env;
-import com.trubuzz.trubuzz.elements.AForgetPwd;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.AQuotes;
 import com.trubuzz.trubuzz.elements.ASettings;
@@ -52,6 +51,7 @@ import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.test.R.string.terms_content;
+import static com.trubuzz.trubuzz.test.R.string.tutorial_title_4;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static com.trubuzz.trubuzz.utils.God.getString;
 import static org.hamcrest.CoreMatchers.allOf;
@@ -213,13 +213,20 @@ public class FirstTest extends BaseTest{
         sleep(2000);
     }
 
-    //@Test
+    @Test
     public void elementTest(){
-        given(new AForgetPwd().use_phone_found).perform(click());
-        sleep(2000);
+        Log.i(TAG, "elementTest: "+ God.getAppName(this.mActivityTestRule.getActivity()));
+        String s = getString(tutorial_title_4);
+        String sn = String.format(s , "123");
+        Log.i(TAG, "elementTest: s = "+s);
+        Log.i(TAG, "elementTest: sn = "+sn);
+//       SettingsTest st = new SettingsTest();
+//        st.intoSettings();
+//        st.tutorial_test();
+//        sleep(2000);
     }
 
-    @Test
+   // @Test
     public void swipe(){
         sleep(1000);
 //        ViewActions.swipeLeft();

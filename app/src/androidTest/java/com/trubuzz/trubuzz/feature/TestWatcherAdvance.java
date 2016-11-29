@@ -199,7 +199,7 @@ public class TestWatcherAdvance extends TestName {
         if(nameLen != dataLen) Log.w(TAG, "putUseData: 参数名和参数的数量不匹配 > "+"name = "+nameLen + " , data = "+dataLen );
         int len = dataLen > nameLen ? dataLen : nameLen;
         for(int i=0; i<len ;i++){
-            useData.put(name[i] , data[i].toString());
+            useData.put(name[i] , data[i] == null ? null : data[i].toString());
         }
         return useData;
     }

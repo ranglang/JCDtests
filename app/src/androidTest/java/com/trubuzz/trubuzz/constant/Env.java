@@ -5,6 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
 import com.trubuzz.trubuzz.feature.listen.EventSource;
+import com.trubuzz.trubuzz.utils.God;
 
 /**
  * Created by king on 2016/9/26.
@@ -23,6 +24,7 @@ public final class Env {
 
     /* 非 final 环境变量 */
     public static EventSource eventSource;
+
 
 
 }

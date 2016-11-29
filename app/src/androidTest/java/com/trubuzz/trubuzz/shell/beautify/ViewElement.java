@@ -52,7 +52,8 @@ public class ViewElement implements Element<Matcher> {
      */
     private View getElementView(Element element){
         ViewElement ve = (ViewElement) element;
-        if(notEmpty(ve.viewId))  return activity.findViewById(Find.byShortId(viewId));
+        if(notEmpty(ve.viewId))
+            return ve.activity.findViewById(Find.byShortId(ve.viewId));
 
         if(notEmpty(ve.child))  return withChild(getElementView(ve.child));
 

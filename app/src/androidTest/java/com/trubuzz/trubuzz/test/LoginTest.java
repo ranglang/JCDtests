@@ -27,7 +27,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
-import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_account_or_pwd;
+import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_account_or_pwd_toast;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.shell.Park.webGiven;
 import static com.trubuzz.trubuzz.test.R.string.input_password;
@@ -48,7 +48,7 @@ public class LoginTest extends BaseTest{
 
     private Object[] dLogin(){
         return new Object[]{
-                    new Object[]{"abc@abc.com","aA123321",incorrect_account_or_pwd},
+                    new Object[]{"abc@abc.com","aA123321", incorrect_account_or_pwd_toast},
 //                new Object[]{"abc@abc.com","123321","未开户"},
 //                new Object[]{"zhao.deng@jucaidao.com","aA123456","成功登录"}
         };

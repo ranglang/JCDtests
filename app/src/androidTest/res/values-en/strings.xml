@@ -420,7 +420,7 @@
     <string name="tutorial_title_1">Cloud Based Realtime Financial Information</string>
     <string name="tutorial_title_2">Globalized Wealth Management Platform</string>
     <string name="tutorial_title_3">"Top Performing Traders' Circle"</string>
-    <string name="tutorial_title_4">$appname$ opens the door to a world of financial opportunities.</string>
+    <string name="tutorial_title_4">%1$s opens the door to a world of financial opportunities.</string>
     <string name="unauthorized">Unauthorized operation</string>
     <string name="unset">No settings</string>
     <string name="update_version_msg">Click to upgrade</string>

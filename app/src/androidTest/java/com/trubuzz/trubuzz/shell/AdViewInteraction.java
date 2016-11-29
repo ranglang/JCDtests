@@ -68,7 +68,17 @@ public class AdViewInteraction {
     public AdViewInteraction perform(final ViewAction... viewActions) {
         return this.perform(5 ,viewActions);
     }
-
+    public AdViewInteraction perform(boolean isTry ,final ViewAction... viewActions) {
+        if(isTry){
+            try {
+                return perform(viewActions);
+            }catch (Throwable e ){
+                return this;
+            }
+        }else{
+            return perform(viewActions);
+        }
+    }
     /**
      * 判断操作是否成功
      * @param v
@@ -116,6 +126,16 @@ public class AdViewInteraction {
         return check(5 , viewAssert);
     }
 
+    public AdViewInteraction check(boolean isTry ,final ViewAssertion viewAssert){
+        if(isTry){
+            try {
+                return check(viewAssert);
+            }catch (Throwable e ){
+                return this;
+            }
+        }else
+            return check(viewAssert);
+    }
 
     /**
      * 判断断言是否成功

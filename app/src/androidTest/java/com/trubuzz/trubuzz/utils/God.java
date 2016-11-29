@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
@@ -67,6 +68,9 @@ public class God {
         } catch (Resources.NotFoundException e) {
             return defaultStr;
         }
+    }
+    public static String getStringFormat (String defaultStr ,int str , String formatString){
+        return String.format(getString(defaultStr , str) ,formatString);
     }
     /**
      * get ActivityManager
@@ -153,6 +157,12 @@ public class God {
         return cmpNameTemp.split(Pattern.quote("/"))[1].split(Pattern.quote("}"))[0];
     }
 
+    public static String getAppName(Activity activity){
+        PackageManager pm = activity.getPackageManager();
+        String s = activity.getApplicationInfo().loadLabel(pm).toString();
+        return s;
+    }
+
     /**
      * 格式化时间
      * @param d Date or long
@@ -196,5 +206,19 @@ public class God {
         List<T> list = new ArrayList<T>();
         Collections.addAll(list, arrays);
         return list;
+    }
+
+    /**
+     * 根据起始位置截取字符串
+     * @param str
+     * @param firstIndex
+     * @param endIndex
+     * @return 如果字符串小于end index 则返回本身
+     */
+    public static String getCutString(String str ,int firstIndex , int endIndex){
+        return str.length()< endIndex ? str : str.substring(firstIndex , endIndex);
+    }
+    public static String getCutString(String str , int endIndex){
+        return getCutString(str , 0 , endIndex);
     }
 }

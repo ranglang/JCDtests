@@ -28,6 +28,7 @@ public class BaseTest {
     private final String TAG = "jcd_BaseTest";
     private List<String> compareImageNames = new ArrayList<>();
 
+
     @ClassRule
     public static ClassWatcherAdvance classWatcherAdvance = new ClassWatcherAdvance();
     @Rule
