@@ -10,8 +10,11 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.web.webdriver.Locator;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.By;
+import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
 
+import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.AQuotes;
@@ -25,6 +28,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Enumeration;
@@ -32,6 +36,8 @@ import java.util.Enumeration;
 import dalvik.system.DexFile;
 
 import static android.support.test.InstrumentationRegistry.getContext;
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
@@ -46,12 +52,12 @@ import static android.support.test.espresso.web.sugar.Web.onWebView;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.AName.WEB_VIEW;
+import static com.trubuzz.trubuzz.constant.Env.uiDevice;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.test.R.string.terms_content;
-import static com.trubuzz.trubuzz.test.R.string.tutorial_title_4;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static com.trubuzz.trubuzz.utils.God.getString;
 import static org.hamcrest.CoreMatchers.allOf;
@@ -72,7 +78,7 @@ public class FirstTest extends BaseTest{
 
     @Rule
 //    public ActivityTestRule<?> matr = new ActivityTestRule(launcherActivityClass,true,true);
-    public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(getLauncherActivityClass(),true,true);
+    public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
 //    @Test
     public void testjava8(){
@@ -128,7 +134,7 @@ public class FirstTest extends BaseTest{
     public void fir() throws IOException {
 //        assertEquals(true,true);
         Context ctx = getContext();
-        Activity activity = God.getCurrentActivity(InstrumentationRegistry.getInstrumentation());
+        Activity activity = God.getCurrentActivity(getInstrumentation());
        // DoIt.takeScreenshot(uiDevice,new File("libs/aa.png"));
 
         System.out.println("jj : "+activity.getFilesDir().getCanonicalPath());
@@ -212,20 +218,66 @@ public class FirstTest extends BaseTest{
         ).perform(click());
         sleep(2000);
     }
-
     @Test
-    public void elementTest(){
-        Log.i(TAG, "elementTest: "+ God.getAppName(this.mActivityTestRule.getActivity()));
-        String s = getString(tutorial_title_4);
-        String sn = String.format(s , "123");
-        Log.i(TAG, "elementTest: s = "+s);
-        Log.i(TAG, "elementTest: sn = "+sn);
-//       SettingsTest st = new SettingsTest();
-//        st.intoSettings();
-//        st.tutorial_test();
-//        sleep(2000);
+    public void dateTest() throws Exception {
+        Userinfo userinfo = new Userinfo();
+        given(ASettings.left_drawer).perform(click());
+        userinfo.birthday_change_test("1998-10-01",true);
+        if(true)
+            throw new Exception("return ;");
+        int y = 1989;
+        int m = 3;
+        ASettings a = new ASettings();
+        given(ASettings.left_drawer).perform(click());
+        given(a.personal).perform(click());
+        given(a.birthday_change_view).perform(click());
+        String pak = "com.trubuzz.trubuzz";
+        UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        mDevice.pressHome();
+        mDevice.findObject(By.res(pak ,"date_picker_year")).click();
+        mDevice.findObject(By.descStartsWith("18")).click();
+
+//        given(a.birthday_picker_year).perform(click());
+//        onData(hasToString(is(String.valueOf(y))))
+//                .inAdapterView(allOf(withParent(withResourceName("animator")) , isAssignableFrom(ListView.class) ,isDisplayed()))
+//                .perform(click());
+//        sleep(3000);
+//
+//        int tmp = (y-1900)*12 + m-1;
+//        onData(anything())
+//                .inAdapterView(allOf(withParent(withResourceName("animator")) , isAssignableFrom(ListView.class) ,isDisplayed()))
+//                .atPosition(tmp)
+//                .perform(click());
+        sleep(9000);
     }
 
+//    @Test
+    public void fileCreateTest() throws IOException {
+        Log.i(TAG, "elementTest: start");
+        testfile();
+        File file = new File(Env.filesDir + "aa");
+
+
+//        FileInputStream fin = new FileInputStream(file);
+//        int length = fin.available();
+//        Log.i(TAG, "elementTest: FileInputStream length = " + length);
+        Log.i(TAG, "elementTest: file = "+file.getAbsolutePath());
+        boolean mkdir = file.mkdir();
+        Log.i(TAG, "elementTest: mkdir: "+mkdir);
+        DoIt.takeScreenshot(uiDevice , file);
+    }
+
+    public static void testfile(){
+        // In M+, trying to call a number will trigger a runtime dialog. Make sure
+        // the permission is granted before running this test.
+        String cmd = "pm grant " + getTargetContext().getPackageName()
+                + " android.permission.WRITE_EXTERNAL_STORAGE";
+        Log.i(TAG, "testfile: cmd = " + cmd);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getInstrumentation().getUiAutomation().executeShellCommand(cmd);
+        }
+
+    }
    // @Test
     public void swipe(){
         sleep(1000);

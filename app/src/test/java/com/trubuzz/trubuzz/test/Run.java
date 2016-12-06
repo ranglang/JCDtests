@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,9 +19,48 @@ public class Run {
 
     @Test
     public void run() throws NoSuchMethodException {
-        System.out.println(a);
+        long t = 1480652994166l;
+        long y = (366l * 24l * 60l * 60l *1000l);
+        int i = 1000;
+        String s = Long.toHexString(t);
+        System.out.println(s.toUpperCase());
+        System.out.println(s.substring(s.length()-8 , s.length()));
+
+    }
+    public static String conversionScale(long i , int scale){
+        char[] chars = new char[scale];
+        char ch = 'A';
+        char nu = '0';
+        long m = 0;  //商
+        long y = 0;  //余
+        int index = chars.length;
+        long c = 0;  //差
+
+        do{
+            m = i / scale;
+            y = i % scale;
+            c = y - 10;
+            chars[--index] = (char) (c < 0 ? nu + y : ch + c);
+            i = m;
+        }while (m!=0);
+
+        return new String(chars ,index ,chars.length-index);
     }
 
+    private void j16(){
+        long d = new Date().getTime();
+        long l = 31536000000l;
+        long y = (366l * 24l * 60l * 60l *1000l) * 47l;
+        long m = 31l*24l*60l*60l*1000l*5l;
+        System.out.println(l);
+        System.out.println("d = "+d);
+        System.out.println("y = "+y);
+        System.out.println("m = "+m);
+
+        System.out.println(Long.toHexString(d));
+        System.out.println(Long.toHexString(y));
+        System.out.println(Long.toHexString(m));
+    }
     private Map tm(){
         Map map = new HashMap();
         Map map1 = new HashMap();

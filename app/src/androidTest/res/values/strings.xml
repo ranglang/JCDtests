@@ -424,6 +424,7 @@
     <string name="notification_order_opened">委讬单 %1$s %2$s %3$s股</string>
     <string name="occurance_price">发生金额</string>
     <string name="ok">确定</string>
+    <string name="cancel">取消</string>
     <string name="open_in_browser">在浏览器中打开</string>
     <string name="open_price">开盘价格</string>
     <string name="order_amount">委托数量</string>

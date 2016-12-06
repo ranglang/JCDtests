@@ -1,5 +1,7 @@
 package com.trubuzz.trubuzz.elements;
 
+import android.widget.ListView;
+
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.shell.beautify.AtomElement;
@@ -27,7 +29,7 @@ public class ASettings {
     public final Element drawer_layout = new ActivityElement().setChildren(new ActivityElement()
             .setChildren(setting));     //左侧抽屉
 
-    public final Element head_picture  = new ActivityElement().setId("icon").setParent(personal);   //用户头像
+    public final Element head_picture  = new ActivityElement().setId("icon").setParent(personal);   //用户头像 -- 抽屉页面
     public final Element nickname  = new ActivityElement().setId("title").setParent(personal);      //昵称
 
 
@@ -65,6 +67,8 @@ public class ASettings {
             .setText(getString("立即启程" ,tutorial_start));
 
     /************ 用户信息 ************/
+    public final Element head_image = new ActivityElement().setId("avatar");    //用户头像
+    public final Element head_image_set = new ActivityElement().setChildren(head_image);
     public final Element nickname_text = new ActivityElement().setId("nickname");
     public final Element nickname_change_view = new ActivityElement().setChildren(nickname_text);
     public final Element birthday_text = new ActivityElement().setId("birthday");
@@ -76,4 +80,20 @@ public class ASettings {
     public final Element nickname_change_edit = new ActivityElement().setId("value");
     public final Element nickname_ok = new ActivityElement().setId("button1").setText(getString("确定" ,ok));
     public final Element nickname_cancel = new ActivityElement().setId("button2").setText(getString("取消",cancel));
+
+    /********** 设置头像 *********/
+    private final Element done_cancel_bar_view = new ActivityElement().setId("done_cancel_bar");
+    public final Element crop_image_view = new ActivityElement().setId("crop_image").setAssignableClass(android.widget.ImageView.class);    //头像裁剪View
+    public final Element crop_done_button = new ActivityElement().setId("btn_done").setParent(done_cancel_bar_view);
+    public final Element crop_cancel_button = new ActivityElement().setId("btn_cancel").setParent(done_cancel_bar_view);
+
+    /************* 设置生日 *************/
+    public final Element birthday_picker_year = new ActivityElement().setId("date_picker_year");
+    public final Element birthday_month_show = new ActivityElement().setId("date_picker_month");
+    public final Element birthday_day_show = new ActivityElement().setId("date_picker_day");
+    public final Element birthday_pick_ListView = new ActivityElement().setAssignableClass(ListView.class)
+            .setParent(new ActivityElement().setId("animator"));
+    public final Element birthday_ok = new ActivityElement().setId("ok").setText(getString("确定" ,ok));
+    public final Element birthday_cancel = new ActivityElement().setId("cancel").setText(getString("取消",cancel));
+
 }

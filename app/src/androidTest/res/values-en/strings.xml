@@ -240,6 +240,7 @@
     <string name="notification_order_opened">Order of %1$s %2$s %3$s shares</string>
     <string name="occurance_price">Trade Value</string>
     <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
     <string name="open_in_browser">Open in browser</string>
     <string name="open_price">Open</string>
     <string name="order_amount">QTY</string>

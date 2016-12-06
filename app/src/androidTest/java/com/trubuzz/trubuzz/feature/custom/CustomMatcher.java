@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.feature.custom;
 import android.os.IBinder;
 import android.support.test.espresso.Root;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.rule.ActivityTestRule;
 import android.text.InputType;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.utils.God;
@@ -347,7 +349,6 @@ public class CustomMatcher {
     }
 
 
-
     /**
      * 基于指定的兄弟姐妹匹配, 不包含自身.
      * {@link android.support.test.espresso.matcher.ViewMatchers#hasSibling } 则是包含自身的实现
@@ -377,6 +378,24 @@ public class CustomMatcher {
                     }
                 }
                 return false;
+            }
+        };
+    }
+
+    /**
+     * 匹配一个ImageView 是有图像的
+     * @return
+     */
+    public static BoundedMatcher<View, ImageView> hasDrawable() {
+        return new BoundedMatcher<View, ImageView>(ImageView.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has drawable");
+            }
+
+            @Override
+            public boolean matchesSafely(ImageView imageView) {
+                return imageView.getDrawable() != null;
             }
         };
     }

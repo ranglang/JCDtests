@@ -2,6 +2,8 @@ package com.trubuzz.trubuzz.utils;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.uiautomator.UiDevice;
@@ -112,10 +114,10 @@ public class DoIt {
         String fileName  = "";
         FileOutputStream out = null;
         try {
-            fileName = makeImageName(imgName) ;
+            fileName = makeImageName(imgName)+".png" ;
             out = activity.openFileOutput(fileName, Activity.MODE_PRIVATE);
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-            Log.i("jcd",out.getFD().toString());
+
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,7 +130,27 @@ public class DoIt {
                 exc.printStackTrace();
             }
         }
-        return fileName;
+        return Env.filesDir+fileName;
+    }
+    public static String outPutScreenshot(Bitmap bitmap , File file){
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            }
+        }
+        return file.getAbsolutePath();
     }
     /**
      * 为文件名加上时间戳
@@ -222,6 +244,101 @@ public class DoIt {
         return newString;
     }
 
+    /**
+     * 进制转换 , 尚未提供10进制以下的转换功能
+     * @param i 十进制数
+     * @param scale must be 10 < scale < 71
+     * @return 指定进制的字符串
+     */
+    public static String conversionScale(long i , int scale){
+        char[] chars = new char[scale];
+        char ch = 'A';
+        char nu = '0';
+        long m = 0;  //商
+        long y = 0;  //余
+        int index = chars.length;
+        long c = 0;  //差
+
+        do{
+            m = i / scale;
+            y = i % scale;
+            c = y - 10;
+            chars[--index] = (char) (c < 0 ? nu + y : ch + c);
+            i = m;
+        }while (m!=0);
+
+        return new String(chars ,index ,chars.length-index);
+    }
+
+    /**
+     * 为图片添加水印或文字
+     * @param target 被添加的图片
+     * @param mark 水印或文字
+     * @return 添加过水印或文字的图片
+     */
+    public static Bitmap createWatermark(Bitmap target, String mark , int color) {
+        int w = target.getWidth();
+        int h = target.getHeight();
+
+        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmp);
+
+        Paint p = new Paint();
+        p.setStyle(Paint.Style.STROKE);     //设置画笔
+        p.setStrokeWidth(5);                //画笔大小
+        p.setTextAlign(Paint.Align.CENTER);
+
+        // 水印的颜色
+        p.setColor(color);
+
+        // 水印的字体大小
+        p.setTextSize(80);
+
+        p.setAntiAlias(true);// 去锯齿
+
+        canvas.drawBitmap(target, 0, 0, p);
+
+        // 在左边的中间位置开始添加水印
+        canvas.drawText(mark, w/2, h / 2, p);
+
+        canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.restore();
+
+        return bmp;
+    }
+
+    /**
+     * 如果用long类型 则截取其16进制数的后8位作为颜色.
+     * @param target
+     * @param mark
+     * @param nu
+     * @return
+     */
+    public static Bitmap createWatermark(Bitmap target, String mark , long nu) {
+        String str = toHexUpString(nu);
+        str = str.substring(str.length()-8 ,str.length());
+        int color = hexString2int(str);
+        return createWatermark(target ,mark ,color);
+    }
+
+    /**
+     * long 转16进制字符串大写格式
+     * @param number
+     * @return
+     */
+    public static String toHexUpString(long number){
+        return Long.toHexString(number).toUpperCase();
+    }
+
+    /**
+     * 16进制字符串转int格式
+     * @param hex
+     * @return
+     */
+    public static int hexString2int(String hex){
+        Long l =  Long.parseLong(hex ,16);
+        return l.intValue();
+    }
 
     public static boolean notEmpty(Object o){
        return o !=null;

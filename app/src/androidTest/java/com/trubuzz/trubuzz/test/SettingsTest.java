@@ -45,6 +45,8 @@ import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.shell.Park.webGiven;
 import static com.trubuzz.trubuzz.test.R.string.chart_candle;
 import static com.trubuzz.trubuzz.test.R.string.chart_line;
+import static com.trubuzz.trubuzz.test.R.string.disabled;
+import static com.trubuzz.trubuzz.test.R.string.enabled;
 import static com.trubuzz.trubuzz.test.R.string.privacy_policy_terms;
 import static com.trubuzz.trubuzz.test.R.string.rising_green_falling_red;
 import static com.trubuzz.trubuzz.test.R.string.rising_red_falling_green;
@@ -70,6 +72,9 @@ public class SettingsTest extends BaseTest {
     private String greenUp = getString("绿涨红跌",rising_green_falling_red);
     private String candle = getString("蜡烛图" ,chart_candle);
     private String line = getString("曲线图" ,chart_line);
+
+    private final String ON = getString("开启",enabled);
+    private final String OFF = getString("关闭" ,disabled);
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
@@ -90,11 +95,12 @@ public class SettingsTest extends BaseTest {
         Wish.wantLogin();
         given(ASettings.left_drawer).perform(click());
         given(aSet.drawer_layout).check(matches(isDisplayed()));
-        given(aSet.setting).perform(click());
+
     }
 
    // @Test
     public void notify_test() throws Exception {
+        given(aSet.setting).perform(click());
         // 消息免打扰测试 ( 目前需手动配合测试 )
         if(Judge.isChecked(aSet.notify_switch)){
             given(aSet.notify_switch).perform(click())
@@ -110,6 +116,7 @@ public class SettingsTest extends BaseTest {
     @Test
     @Uncalibrated
     public void rising_red_falling_green_test(){
+        given(aSet.setting).perform(click());
         //涨跌显示方式 , 涉及持仓/行情/下单/投资组合等
         String rising_falling = getText(aSet.rising_falling_set);
         if(! redUp.equals(rising_falling)){     //如果不是红涨绿跌则点击一下
@@ -123,6 +130,7 @@ public class SettingsTest extends BaseTest {
     @Test
     @Uncalibrated
     public void rising_green_falling_red_test(){
+        given(aSet.setting).perform(click());
         //涨跌显示方式 , 涉及持仓/行情/下单/投资组合等
         String rising_falling = getText(aSet.rising_falling_set);
         if(! greenUp.equals(rising_falling)){     //如果不是绿涨红跌则点击一下
@@ -137,6 +145,7 @@ public class SettingsTest extends BaseTest {
     @Test
     @Uncalibrated
     public void k_chart_candle_test(){
+        given(aSet.setting).perform(click());
         String chart_type = getText(aSet.k_chart_set);
         if(! candle.equals(chart_type)){
             given(aSet.k_chart_set).perform(click());
@@ -151,6 +160,7 @@ public class SettingsTest extends BaseTest {
     @Test
     @Uncalibrated
     public void k_chart_line_test(){
+        given(aSet.setting).perform(click());
         String chart_type = getText(aSet.k_chart_set);
         if(! line.equals(chart_type)){
             given(aSet.k_chart_set).perform(click());
@@ -168,6 +178,7 @@ public class SettingsTest extends BaseTest {
     public void trade_password_change(@Var("old_pwd")String old_pwd ,@Var("new_pwd")String new_pwd,
                                       @Var("confirm_pwd")String confirm_pwd ,@Var("expect")Element expect){
 
+        given(aSet.setting).perform(click());
         given(aSet.change_trade_pwd_view).perform(click());
 
         given(aSet.trade_pwd_old).check(matches(isPassword()));
@@ -190,6 +201,7 @@ public class SettingsTest extends BaseTest {
     }
     @Test
     public void privacy_policy_test(){
+        given(aSet.setting).perform(click());
         given(aSet.privacy_policy_view).perform(click());
         webGiven()
                 .withElement(ASettings.EPrivacy.privacy_terms)
@@ -212,6 +224,7 @@ public class SettingsTest extends BaseTest {
 
     @Test
     public void tutorial_test(){
+        given(aSet.setting).perform(click());
         given(aSet.tutorial_view).perform(click());
         given(aSet.tutorial_1_title).check(matches(withText(tutorial_1_title_text)));
         given(aSet.tutorial_1_content).check(matches(withText(tutorial_1_content_text)));
@@ -234,8 +247,40 @@ public class SettingsTest extends BaseTest {
 
     @Test
     public void version_show_test(){
+        given(aSet.setting).perform(click());
         String version = getText(aSet.version_text);
         this.compareTakeScreenshot("version "+version);
+    }
+
+    @Test
+    @Uncalibrated
+    public void private_on_test() throws Exception {
+        String private_status = getText(aSet.private_set);
+        if(OFF.equals(private_status)){
+            given(aSet.private_set).perform(click());
+        }else if(ON.equals(private_status)){
+            Espresso.pressBack();
+        }else{
+            throw new Exception("private status error : private_status");
+        }
+        this.compareTakeScreenshot("private mode on");
+        given(ASettings.left_drawer).perform(click());
+        given(aSet.private_set).check(matches(withText(ON)));
+    }
+    @Test
+    @Uncalibrated
+    public void private_off_test() throws Exception {
+        String private_status = getText(aSet.private_set);
+        if(ON.equals(private_status)){
+            given(aSet.private_set).perform(click());
+        }else if(OFF.equals(private_status)){
+            Espresso.pressBack();
+        }else{
+            throw new Exception("private status error : private_status");
+        }
+        this.compareTakeScreenshot("private mode off");
+        given(ASettings.left_drawer).perform(click());
+        given(aSet.private_set).check(matches(withText(OFF)));
     }
 
     private void page_check(String rising_falling){
@@ -287,6 +332,8 @@ public class SettingsTest extends BaseTest {
         given(AWealth.default_portfolio).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" portfolio details ");
     }
+
+
 
     private void k_chart_check(String k_type){
         //自选列表

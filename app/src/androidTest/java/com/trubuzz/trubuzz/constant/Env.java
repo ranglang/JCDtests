@@ -5,7 +5,6 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
 import com.trubuzz.trubuzz.feature.listen.EventSource;
-import com.trubuzz.trubuzz.utils.God;
 
 /**
  * Created by king on 2016/9/26.
@@ -14,6 +13,7 @@ import com.trubuzz.trubuzz.utils.God;
 
 public final class Env {
     public final static String packageName = "com.trubuzz.trubuzz";
+    public final static String testPackageName = "com.trubuzz.trubuzz.test";
     public final static String filesDir = "/data/data/"+packageName + "/files/";
     public final static String suiteRegisterKey = "SUITE_REGISTER_KEY";
 

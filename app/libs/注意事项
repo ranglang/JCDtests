@@ -1,4 +1,6 @@
 1.  参数类型与 Test方法形参类型不一致 :
     I/TestRunner: java.lang.NoClassDefFoundError: Failed resolution of: Ljava/beans/PropertyEditorManager;
             at junitparams.internal.InvokeParameterisedMethod.castParameterDirectly(InvokeParameterisedMethod.java:211)
-2.
+2.  在使用 uiautomator 的时候 , 查找元素不能使用 By , 而是使用 new UiSelector() 这种方式.
+    实例:
+        uiDevice.findObject(new UiSelector().descriptionStartsWith("19")).click();

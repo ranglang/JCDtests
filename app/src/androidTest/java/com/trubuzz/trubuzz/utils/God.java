@@ -221,4 +221,12 @@ public class God {
     public static String getCutString(String str , int endIndex){
         return getCutString(str , 0 , endIndex);
     }
+
+    public static String getHead2EndString(String str){
+        char[] chars = str.toCharArray();
+        char tmp = chars[0];
+        chars[0] = chars[chars.length-1];
+        chars[chars.length-1] = tmp;
+        return String.valueOf(chars);
+    }
 }
