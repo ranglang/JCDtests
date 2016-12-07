@@ -47,6 +47,7 @@ android {
 dependencies {
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.+'
+    compile "com.android.support:recyclerview-v7:23.+"
     compile 'com.android.support:multidex:1.0.0'
 
     testCompile 'junit:junit:4.12'
@@ -54,17 +55,7 @@ dependencies {
     testCompile 'io.selendroid:selendroid-client:0.17.0'
     testCompile files('libs/JUnitParams-1.1.1.jar')
     testCompile files('libs/classes-dex2jar.jar')
-    testCompile 'asm:asm-all:3.3.1'
-//     https://mvnrepository.com/artifact/org.springframework/spring-webmvc
-    testCompile 'org.springframework:spring-webmvc:4.3.2.RELEASE'
-    // https://mvnrepository.com/artifact/org.springframework/spring-core
-    testCompile group: 'org.springframework', name: 'spring-core', version: '4.3.2.RELEASE'
-    testCompile ('com.wdullaer:materialdatetimepicker:2.1.1'){
-        exclude group: 'com.android.support', module: 'appcompat'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
+
 
 
     androidTestCompile 'com.android.support:support-annotations:23.+'
@@ -78,7 +69,6 @@ dependencies {
         // 经过实践,不如此将无法启动Junit4进行测试 ( 一直找不到测试方法 )
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'support-annotations'
         exclude module: 'recyclerview-v7'
     }
 

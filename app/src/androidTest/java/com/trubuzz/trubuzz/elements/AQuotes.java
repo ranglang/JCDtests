@@ -4,6 +4,7 @@ import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
 import static com.trubuzz.trubuzz.test.R.string.buy;
+import static com.trubuzz.trubuzz.test.R.string.default_watchlist_group;
 import static com.trubuzz.trubuzz.test.R.string.sell;
 import static com.trubuzz.trubuzz.test.R.string.watchlist_cn;
 import static com.trubuzz.trubuzz.test.R.string.watchlist_customized;
@@ -28,9 +29,9 @@ public class AQuotes {
     public static final Element hk_fence = new ActivityElement().setText(getString("港股" ,watchlist_hk)).setCousinry(watchlist_fence);;
     public static final Element cn_fence = new ActivityElement().setText(getString("沪深" ,watchlist_cn)).setCousinry(watchlist_fence);;
     public static final Element global_fence = new ActivityElement().setText(getString("环球" ,watchlist_global)).setCousinry(watchlist_fence);;
-    public static final Element editor_fence = new ActivityElement().setId("action_watchlist_edit")
+    public static final Element edit_watchlist = new ActivityElement().setId("action_watchlist_edit")
             .setText(getString("编辑" ,watchlist_editor));
-
+    public static final Element watchlist_default_item = new ActivityElement().setText(getString("默认名单", default_watchlist_group));
 
     public static final Element default_stock = new ActivityElement().setIndex(5).
             setChildren(
