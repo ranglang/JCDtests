@@ -14,4 +14,6 @@ public class Config {
 
     public static final String cacheHeadImage = "head.png";
 
+    public static final int VISIBILITY = 90;
+
 }

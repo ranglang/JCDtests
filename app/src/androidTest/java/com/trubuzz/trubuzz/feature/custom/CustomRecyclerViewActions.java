@@ -17,8 +17,12 @@ import com.trubuzz.trubuzz.utils.DoIt;
 
 import org.hamcrest.Matcher;
 
+import java.util.Arrays;
+
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.internal.util.Checks.checkNotNull;
+import static com.trubuzz.trubuzz.constant.Config.VISIBILITY;
 import static com.trubuzz.trubuzz.utils.Judge.isVisible;
 import static org.hamcrest.Matchers.allOf;
 
@@ -34,6 +38,34 @@ public class CustomRecyclerViewActions {
     }
     public static ViewAction atPositionAction(int position ,ViewAction viewAction){
         return new AtPositionViewAction<>(position, viewAction);
+    }
+    public static ViewAction swipeToVisible(int p){
+        return new SwipeToVisible(p);
+    }
+    public static ViewAction swipeUpToVisible(){
+        return new SwipeUpToVisible();
+    }
+    public static ViewAction doActions(ViewAction... viewActions){
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isDisplayed();
+            }
+
+            @Override
+            public String getDescription() {
+                return "do actions : "+ Arrays.toString(viewActions);
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                checkNotNull(viewActions);
+                for(ViewAction action : viewActions){
+                    Log.i(TAG, "doActions perform do action : " + action.getDescription());
+                    action.perform(uiController ,view);
+                }
+            }
+        };
     }
 
     /************ ViewActions ***********/
@@ -117,7 +149,7 @@ public class CustomRecyclerViewActions {
                         .withCause(new IllegalStateException("No view at position: " + position)).build();
             }
             for (int i = 0; i < 5; i++) {
-                if (isVisible(viewAtPosition, 90)) {
+                if (isVisible(viewAtPosition, VISIBILITY)) {
                     break;
                 } else {
                     new SwipeToVisible(position).perform(uiController, view);
@@ -157,7 +189,7 @@ public class CustomRecyclerViewActions {
             for (int i = childCount - 1; i >= 0; i--) {
                 View childAt = recyclerView.getChildAt(i);
 
-                if (isVisible(childAt, 90)) {
+                if (isVisible(childAt, VISIBILITY)) {
                     int childAdapterPosition = recyclerView.getChildAdapterPosition(childAt);
                     if(position < childAdapterPosition){
                         new GeneralSwipeAction(Swipe.FAST,
@@ -175,6 +207,54 @@ public class CustomRecyclerViewActions {
                     return;
                 }
             }
+        }
+    }
+
+    /**
+     * 向上滑动view至可见 , 由于不能提供position参考位置 , 故不能判断向上还是向下滑动.
+     */
+    public static final class SwipeUpToVisible implements ViewAction{
+
+        private static final float EDGE_FUZZ_FACTOR = 0.083f;
+        private ViewAction[] actions;
+
+        public SwipeUpToVisible(ViewAction ...actions) {
+            this.actions = actions;
+        }
+
+        @Override
+        public Matcher<View> getConstraints() {
+            return allOf(isAssignableFrom(RecyclerView.class), isDisplayed());
+        }
+
+        @Override
+        public String getDescription() {
+            return "swipe up to visible .";
+        }
+
+        @Override
+        public void perform(UiController uiController, View view) {
+            int j = 1;
+            RecyclerView recyclerView = (RecyclerView) view.getParent();
+            do {
+                if(isVisible(view, VISIBILITY)){
+                    return;
+                }else {
+                    int childCount = recyclerView.getChildCount();
+                    for (int i = childCount - 1; i >= 0; i--) {
+                        View childAt = recyclerView.getChildAt(i);
+                        if (isVisible(childAt, VISIBILITY)) {
+                            new GeneralSwipeAction(Swipe.FAST,
+                                    DoIt.translate(GeneralLocation.BOTTOM_CENTER, 0, -EDGE_FUZZ_FACTOR),
+                                    GeneralLocation.TOP_CENTER, Press.FINGER)
+                                    .perform(uiController, childAt);
+                            break;
+                        }
+                    }
+                }
+                j++;
+            }while (j <=5);
+
         }
     }
 }

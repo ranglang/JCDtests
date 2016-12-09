@@ -8,7 +8,11 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.WindowManager;
 
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
@@ -222,11 +226,41 @@ public class God {
         return getCutString(str , 0 , endIndex);
     }
 
+    /**
+     * 字符串收尾置换
+     * @param str
+     * @return
+     */
     public static String getHead2EndString(String str){
         char[] chars = str.toCharArray();
         char tmp = chars[0];
         chars[0] = chars[chars.length-1];
         chars[chars.length-1] = tmp;
         return String.valueOf(chars);
+    }
+
+    /**
+     * 获得屏幕可见区域的矩形( 去除status bar And action bar )
+     * @param view
+     * @return
+     */
+    public static ScreenRectangle getScreenRectangle(View view){
+        DisplayMetrics m = new DisplayMetrics();
+        ((WindowManager) view.getContext().getSystemService(Context.WINDOW_SERVICE))
+                .getDefaultDisplay().getMetrics(m);
+
+        // Get status bar height
+        int resourceId = view.getContext().getResources()
+                .getIdentifier("status_bar_height", "dimen", "android");
+        int statusBarHeight = (resourceId > 0) ? view.getContext().getResources()
+                .getDimensionPixelSize(resourceId) : 0;
+
+        // Get action bar height
+        TypedValue tv = new TypedValue();
+        int actionBarHeight = (view.getContext().getTheme().resolveAttribute(
+                android.R.attr.actionBarSize, tv, true)) ? TypedValue.complexToDimensionPixelSize(
+                tv.data, view.getContext().getResources().getDisplayMetrics()) : 0;
+
+        return new ScreenRectangle(statusBarHeight, m.heightPixels - actionBarHeight, 0, m.widthPixels);
     }
 }

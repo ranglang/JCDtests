@@ -21,9 +21,6 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -422,25 +419,18 @@ public class CustomMatcher {
         };
     }
 
-    public static Matcher<View> gl(Matcher<View> matcher){
-        List<View> views = new ArrayList<>();
+    public static Matcher<View> withAny(){
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
-
+                description.appendText("with any .");
             }
 
             @Override
             protected boolean matchesSafely(View view) {
-                if(matcher.matches(view)){
-                    views.add(view);
-                    return true;
-                }
-                Log.i(TAG, "matchesSafely: views size "+views.size());
-                return false;
+                return true;
             }
         };
-
     }
 
     /**

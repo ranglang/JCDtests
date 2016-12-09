@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.IdlingResource;
+import android.support.test.espresso.action.CoordinatesProvider;
 import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
 import android.view.View;
@@ -353,4 +354,27 @@ public class DoIt {
         return o != null && !o.isEmpty();
     }
 
+
+
+
+/**************************** 由Google API 中摘出来的封装方法 *****************************/
+    /**
+     * see {@link android.support.test.espresso.action.GeneralLocation#translate(CoordinatesProvider, float, float)}
+     * @param coords
+     * @param dx
+     * @param dy
+     * @return
+     */
+    public static CoordinatesProvider translate(final CoordinatesProvider coords,
+                                         final float dx, final float dy) {
+        return new CoordinatesProvider() {
+            @Override
+            public float[] calculateCoordinates(View view) {
+                float xy[] = coords.calculateCoordinates(view);
+                xy[0] += dx * view.getWidth();
+                xy[1] += dy * view.getHeight();
+                return xy;
+            }
+        };
+    }
 }
