@@ -10,7 +10,7 @@ import com.trubuzz.trubuzz.utils.Judge;
  * Created by king on 2016/9/2.
  * 用于等待给定info的activity处于栈顶
  */
-public class SomeActivityIdlingResource implements IdlingResource {
+public class ActivityIdlingResource implements IdlingResource {
     private final String TAG = "jcd_SomeIR";
 
     private ResourceCallback resourceCallback;
@@ -26,7 +26,7 @@ public class SomeActivityIdlingResource implements IdlingResource {
      * @param context
      * @param waitingAway 如果为true,则目的为等待指定的activity消失, 如果为false, 则为等待指定activity出现
      */
-    public SomeActivityIdlingResource(String currentActivityName , Context context , boolean waitingAway){
+    public ActivityIdlingResource(String currentActivityName , Context context , boolean waitingAway){
         this.currentActivityName = currentActivityName;
         this.context = context;
         this.waitingAway = waitingAway;

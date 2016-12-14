@@ -52,7 +52,7 @@ import static com.trubuzz.trubuzz.constant.Env.uiDevice;
 import static com.trubuzz.trubuzz.constant.ToastInfo.status_success_toast;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasDrawable;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.thisObject;
-import static com.trubuzz.trubuzz.shell.Park.getText;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getText;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.test.R.string.female;
 import static com.trubuzz.trubuzz.test.R.string.male;

@@ -1,5 +1,7 @@
 package com.trubuzz.trubuzz.elements;
 
+import android.widget.ListView;
+
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
@@ -31,7 +33,6 @@ public class AQuotes {
     public static final Element global_fence = new ActivityElement().setText(getString("环球" ,watchlist_global)).setCousinry(watchlist_fence);;
     public static final Element edit_watchlist = new ActivityElement().setId("action_watchlist_edit")
             .setText(getString("编辑" ,watchlist_editor));
-    public static final Element watchlist_default_item = new ActivityElement().setText(getString("默认名单", default_watchlist_group));
 
     public static final Element default_stock = new ActivityElement().setIndex(5).
             setChildren(
@@ -40,8 +41,11 @@ public class AQuotes {
                 price_text
             );
 
+    /* 自选 */
+    public static final Element watchlist_default_item = new ActivityElement().setText(getString("默认名单", default_watchlist_group));
+    public static final Element watchlist_ListView = new ActivityElement().setAssignableClass(ListView.class);
 
-
+    /* 行情详情 */
     public static class details{
         public static final Element buy_button = new ActivityElement().setId("button1").setText(getString("Buy" ,buy));
         public static final Element sell_button = new ActivityElement().setId("button2").setText(getString("Sell" ,sell));

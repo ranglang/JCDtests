@@ -2,16 +2,23 @@ package com.trubuzz.trubuzz.utils;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 
 import com.trubuzz.trubuzz.shell.Element;
 
+import org.hamcrest.Matcher;
+
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.shell.Park.given;
 
 /**
@@ -95,4 +102,46 @@ public class Judge {
         return new Rect(0, 0, m.widthPixels, m.heightPixels - (statusBarHeight + actionBarHeight));
     }
 
+    /**
+     * 判断 Adapter 是否存在某个子View
+     * @param view
+     * @param dataMatcher
+     * @return
+     */
+    public static boolean isExistData(final View view ,final Matcher dataMatcher){
+        if (view instanceof AdapterView) {
+            @SuppressWarnings("rawtypes")
+            Adapter adapter = ((AdapterView) view).getAdapter();
+            int adapterCount = adapter.getCount();
+            for (int i = 0; i < adapterCount; i++) {
+                Object adapterItem = adapter.getItem(i);
+                if (dataMatcher.matches(adapterItem)) {
+                    return true;
+                }
+            }
+        }
+
+        if (view instanceof RecyclerView) {
+            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView.Adapter adapter = recyclerView.getAdapter();
+            int itemCount = adapter.getItemCount();
+            for (int i = 0; i < itemCount; i++) {
+                View itemView = recyclerView.findViewHolderForAdapterPosition(i).itemView;
+                if (dataMatcher.matches(itemView)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean isExistData(final ViewInteraction v,final Matcher dataMatcher) {
+        return isExistData(getView(v), dataMatcher);
+    }
+    public static boolean isExistData(final Element v,final Matcher dataMatcher) {
+        return isExistData(getView(v), dataMatcher);
+    }
+    public static boolean isExistData(final Matcher<View> v,final Matcher dataMatcher) {
+        return isExistData(getView(v), dataMatcher);
+    }
 }

@@ -17,6 +17,7 @@ import static com.trubuzz.trubuzz.test.R.string.reset_password_mail_sent;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_sms_auth_sent;
 import static com.trubuzz.trubuzz.test.R.string.status_success;
 import static com.trubuzz.trubuzz.test.R.string.user_not_exist;
+import static com.trubuzz.trubuzz.test.R.string.watch_list_create_error;
 import static com.trubuzz.trubuzz.utils.God.getString;
 
 /**
@@ -65,4 +66,7 @@ public interface ToastInfo {
 
     ToastElement status_success_toast =
             new ToastElement(getString("操作成功" ,status_success));
+
+    ToastElement watchlist_existing_toast =
+            new ToastElement(getString("该名称已存在，请修改板块名称。" ,watch_list_create_error));
 }

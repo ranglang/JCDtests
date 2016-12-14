@@ -1,16 +1,18 @@
 package com.trubuzz.trubuzz.shell;
 
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.DataInteraction;
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewInteraction;
 import android.view.View;
-import android.widget.TextView;
 
 import org.hamcrest.Matcher;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.is;
 
 /**
  * Created by king on 16/10/24.
@@ -41,6 +43,10 @@ public class Park {
         return new AdViewInteraction(viewInteraction);
     }
 
+    public static AdViewInteraction given(Matcher<View> matcher){
+        return new AdViewInteraction(onView(matcher));
+    }
+
     public static <T> AdViewInteraction given(Element<T> element){
         T ele = element.interactionWay();
         if(ele instanceof ViewInteraction)  return new AdViewInteraction((ViewInteraction) ele);
@@ -65,42 +71,19 @@ public class Park {
         return new AdWebInteraction(onWebView(viewMatcher));
     }
 
-/************************** somethings *************************/
+
+/********************** onData ***********************/
     /**
-     * 获取元素上的字串
-     * @param viewInteraction
-     * @return
+     * Uses {@link Espresso#onData(org.hamcrest.Matcher)} to get a reference to a specific row.
+     * <p>
+     * Note: A custom matcher can be used to match the content and have more readable code.
+     * See the Custom Matcher Sample.
+     * </p>
+     *
+     * @param value the content of the field
+     * @return a {@link DataInteraction} referencing the row
      */
-    public static String getText(final ViewInteraction viewInteraction) {
-        final String[] stringHolder = { null };
-        viewInteraction.perform(new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return isAssignableFrom(TextView.class);
-            }
-            @Override
-            public String getDescription() {
-                return "getting text from a TextView";
-            }
-            @Override
-            public void perform(UiController uiController, View view) {
-                TextView tv = (TextView)view; //Save, because of check in getConstraints()
-                stringHolder[0] = tv.getText().toString();
-            }
-        });
-        return stringHolder[0];
+    public static DataInteraction onRow(String key ,String value) {
+        return onData(hasEntry(equalTo(key), is(value)));
     }
-    public static String getText(final Matcher<View> matcher) {
-        return getText(onView(matcher));
-    }
-    public static <T> String getText(final Element<T> element) {
-        T ele = element.interactionWay();
-        if(ele instanceof ViewInteraction)  return getText((ViewInteraction) ele);
-        if(ele instanceof Matcher)  return getText((Matcher<View>) ele);
-
-        return null;
-    }
-
-
-
 }

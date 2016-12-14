@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -434,6 +436,33 @@ public class CustomMatcher {
     }
 
     /**
+     * view 有至少 minChild 个孩子
+     * @param minChild 必须大于等于 1 .
+     * @return
+     */
+    public static Matcher<View> hasMoreChildren(int minChild){
+        return new TypeSafeMatcher<View>() {
+            @Override
+            protected boolean matchesSafely(View view) {
+                if (!(view instanceof ViewGroup)) {
+                    return false;
+                }
+                ViewGroup viewGroup = (ViewGroup) view;
+                int childCount = viewGroup.getChildCount();
+                Log.i(TAG, "hasMoreChildren: view : " + view.getContentDescription() + " ,has " + childCount + " children .");
+                return minChild <= childCount;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has more children .");
+            }
+        };
+    }
+    public static Matcher<View> hasMoreChildren() {
+        return hasMoreChildren(1);
+    }
+    /**
      * 判断输入框是否为password
      *
      * @return
@@ -456,6 +485,32 @@ public class CustomMatcher {
                         inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD ||
                         inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ||
                         inputType == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD;
+            }
+        };
+    }
+
+    private static Matcher<View> withAdaptedData(final Matcher<Object> dataMatcher) {
+        return new TypeSafeMatcher<View>() {
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with class name: ");
+                dataMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof AdapterView)) {
+                    return false;
+                }
+                @SuppressWarnings("rawtypes")
+                Adapter adapter = ((AdapterView) view).getAdapter();
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    if (dataMatcher.matches(adapter.getItem(i))) {
+                        return true;
+                    }
+                }
+                return false;
             }
         };
     }

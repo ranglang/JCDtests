@@ -7,7 +7,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASignUp;
-import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
+import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.utils.DoIt;
@@ -184,7 +184,7 @@ public class SignUpTest extends BaseTest{
 //    @Test
     public void terms_content_test(){
         given(regEmail.email_terms).perform(click());
-        DoIt.regIdlingResource(new SomeActivityIdlingResource(WEB_VIEW,this.matr.getActivity() ,true));
+        DoIt.regIdlingResource(new ActivityIdlingResource(WEB_VIEW,this.matr.getActivity() ,true));
         onWebView()
                 .withElement(findElement(Locator.CSS_SELECTOR , ".terms"))
                 .check(customWebMatches(getText() , containsString(getString(terms_content))));

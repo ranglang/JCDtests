@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
@@ -262,5 +263,10 @@ public class God {
                 tv.data, view.getContext().getResources().getDisplayMetrics()) : 0;
 
         return new ScreenRectangle(statusBarHeight, m.heightPixels - actionBarHeight, 0, m.widthPixels);
+    }
+
+    public static int getRandomInt(int max, int min) {
+        Random r = new Random();
+        return r.nextInt(max - min + 1) + min;
     }
 }

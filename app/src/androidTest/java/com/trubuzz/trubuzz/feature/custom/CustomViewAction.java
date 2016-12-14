@@ -80,48 +80,38 @@ public class CustomViewAction  {
     public static ViewAction swipeAs( Direction direction, int fuzz, int swipe_distance, boolean checkVisible){
         return new SwipeAsDirection(Swipe.FAST, direction, fuzz, swipe_distance, Press.FINGER, checkVisible);
     }
-//    public static final class SwipeUpToVisible implements ViewAction{
-//
-//        /** 允许距离屏幕边缘的点位 */
-//        private static final int FUZZ = 10;
-//        /** 滑动的距离 */
-////        private static final int swipe_distance = 100;
-//
-//        private final Swiper swiper;
-//        private final PrecisionDescriber precisionDescriber;
-//        private final int swipe_distance;
-//
-//
-//        public SwipeUpToVisible(Swiper swiper, PrecisionDescriber precisionDescriber, int swipe_distance) {
-//            this.swiper = swiper;
-//            this.precisionDescriber = precisionDescriber;
-//            this.swipe_distance = swipe_distance;
-//        }
-//
-//        @Override
-//        public Matcher<View> getConstraints() {
-//            return withAny();
-//        }
-//
-//        @Override
-//        public String getDescription() {
-//            return "to visible .";
-//        }
-//
-//        @Override
-//        public void perform(UiController uiController, View view) {
-////            if (isVisible(view,VISIBILITY)) return;
-//
-//            float[] precision = precisionDescriber.describePrecision();
-//            float[][] positions = Direction.UP.getPosition(10, 100, getScreenRectangle(view));
-//
-//            new SwipeAs(swiper, positions[0], positions[1], precision)
-//                    .perform(uiController, view);
-//
-//        }
-//
-//
-//    }
+
+    /**
+     * 滑动至view可见
+     */
+    public static final class SwipeToVisible implements ViewAction{
+        private final int MAX_TRIES = 5;
+        private final SwipeAs swiper;
+
+        public SwipeToVisible(SwipeAs swipeAs) {
+            this.swiper = swipeAs;
+        }
+
+        @Override
+        public Matcher<View> getConstraints() {
+            return withAny();
+        }
+
+        @Override
+        public String getDescription() {
+            return "swipe to visible .";
+        }
+
+        @Override
+        public void perform(UiController uiController, View view) {
+            for(int i=0;i<MAX_TRIES;i++) {
+                if (isVisible(view,VISIBILITY)) return;
+                swiper.perform(uiController, view);
+            }
+        }
+
+
+    }
 
     /**
      * 按指定的方向,距离等滑动.

@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by king on 2016/10/20.
@@ -17,15 +18,18 @@ import java.util.Map;
 public class Run {
     boolean a;
 
+
     @Test
     public void run() throws NoSuchMethodException {
-        long t = 1480652994166l;
-        long y = (366l * 24l * 60l * 60l *1000l);
-        int i = 1000;
-        String s = Long.toHexString(t);
-        System.out.println(s.toUpperCase());
-        System.out.println(s.substring(s.length()-8 , s.length()));
+        random(20 ,10);
 
+    }
+    private void random(int max , int min){
+        Random r = new Random();
+        for (int i = 0;i<20;i++) {
+            int s = r.nextInt(max-min+1)+min;
+            System.out.println(s);
+        }
     }
     public static String conversionScale(long i , int scale){
         char[] chars = new char[scale];

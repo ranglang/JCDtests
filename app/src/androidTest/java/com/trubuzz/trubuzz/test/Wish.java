@@ -4,6 +4,7 @@ import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
+import android.view.View;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Config;
@@ -14,6 +15,9 @@ import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.utils.God;
 
+import org.hamcrest.Matcher;
+
+import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -167,23 +171,13 @@ public class Wish {
      * @return
      */
     public static boolean isVisible(ViewInteraction v ){
-        try {
-            sleep(1000);
-            v.check(matches(isDisplayingAtLeast(90)));
-            return true;
-        } catch (Throwable e) {
-            e.printStackTrace();
-            return false;
-        }
+        return isVisible(new AdViewInteraction(v));
     }
     public static boolean isVisible(Element v ){
-        try {
-            given(v).check(matches(isDisplayingAtLeast(90)));
-            return true;
-        } catch (Throwable e ){
-            e.printStackTrace();
-            return false;
-        }
+        return isVisible(given(v));
+    }
+    public static boolean isVisible(Matcher<View> v ){
+        return isVisible(new AdViewInteraction(onView(v)));
     }
     public static boolean isVisible(AdViewInteraction v ){
         try {

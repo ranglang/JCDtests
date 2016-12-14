@@ -16,6 +16,7 @@ import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.nothing;
 
 /**
  * Created by king on 16/12/6.
+ * 专注于获得多个view
  */
 
 public class ViewsFinder {

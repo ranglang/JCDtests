@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.test;
 
+import android.database.CursorWrapper;
 import android.support.test.espresso.action.Press;
 import android.support.test.espresso.action.Swipe;
 import android.support.test.espresso.contrib.RecyclerViewActions;
@@ -11,9 +12,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.elements.AQuotes;
+import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.feature.custom.CustomViewAction;
 import com.trubuzz.trubuzz.feature.custom.ViewsFinder;
-import com.trubuzz.trubuzz.shell.beautify.RecyclerElement;
+import com.trubuzz.trubuzz.shell.beautify.RecyclerViewItemElement;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.hamcrest.Matcher;
@@ -24,10 +27,13 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.CursorMatchers.withRowString;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
@@ -43,6 +49,7 @@ import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeDownAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeLeftAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeRightAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeUpAs;
+import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static org.hamcrest.Matchers.allOf;
 
@@ -67,14 +74,28 @@ public class SingleTest {
     }
 
     @Test
+    public void adaptedTest() {
+        given(Global.quotes_radio).perform(click());
+        given(AQuotes.watchlist_default_item).perform(click());
+
+        CursorWrapper a;
+        onData(withRowString("name", "223"))
+//                .perform(click())
+//                .perform(nothing())
+                .check(matches(isDisplayed()));
+//        boolean isE = Judge.isExistData(AQuotes.watchlist_ListView, hasDescendant(withText("t001")));
+//        Log.i(TAG, "adaptedTest: isE = " + isE);
+        sleep(2000);
+    }
+//    @Test
     public void swipeTest(){
 //        onView(withText("00330")).perform(click());
-//        onView(withText("00700")).perform(new CustomViewAction.SwipeUpToVisible(null ,null));
+//        onView(withText("00700")).perform(new CustomViewAction.SwipeToVisible(null ,null));
 //        onView(withText("00700")).perform(swipeUp());
 //        onView(withText("00700")).perform(swipeUp());
 //        onView(withText("00700")).perform(swipeUp());
 //        onView(withText("00001")).perform(click());
-//        onView(withText("ABAC")).perform(new CustomViewAction.SwipeUpToVisible(Swipe.FAST, Press.FINGER));
+//        onView(withText("ABAC")).perform(new CustomViewAction.SwipeToVisible(Swipe.FAST, Press.FINGER));
         onView(isRoot()).perform(swipeUpAs());
         sleep(3000);
         onView(isRoot()).perform(swipeDownAs(300 ,false));
@@ -116,10 +137,11 @@ public class SingleTest {
 //        onView(withView(getVisibleView(onView(recyclerMatcher)))).perform(swipeUp());
 ////        sleep(3000);
         onView(isRoot()).perform(swipeUp());
-        onView(new RecyclerElement(recyclerMatcher).atMatcher(allOf(withText("行情") ,isDisplayed()))).perform(
+        onView(new RecyclerViewItemElement(recyclerMatcher).atMatcher(allOf(withText("行情") ,isDisplayed()))).perform(
                 swipeUpToVisible(),
-                click());
-
+                click())
+        ;
+        android.content.ContentResolver c;
         sleep(3000);
     }
 

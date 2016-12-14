@@ -5,7 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.EBrokerChoose;
-import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
+import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.AtomElement;
@@ -64,7 +64,7 @@ public class LoginTest extends BaseTest{
         given(expect).check(matches(isDisplayed()));
 
         if(expect instanceof AtomElement){
-            DoIt.regIdlingResource(new SomeActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
+            DoIt.regIdlingResource(new ActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
             webGiven()
                     .withElement(expect)
                     .check(webMatches(getText(), containsString(EBrokerChoose.ib_broker_title_text)));
@@ -77,7 +77,7 @@ public class LoginTest extends BaseTest{
 //        if ("失败".equals(expect)){
 //            given(expect).check(matches(isDisplayed()));
 //        }else {
-//            DoIt.regIdlingResource(new SomeActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
+//            DoIt.regIdlingResource(new ActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
 //
 //            if ("成功登录".equals(expect)){
 //                logout();  //退出登录

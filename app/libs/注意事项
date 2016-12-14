@@ -4,3 +4,4 @@
 2.  在使用 uiautomator 的时候 , 查找元素不能使用 By , 而是使用 new UiSelector() 这种方式.
     实例:
         uiDevice.findObject(new UiSelector().descriptionStartsWith("19")).click();
+3.  代码中调试语句以  ///---  开头 , 后面写入正确的语句 .

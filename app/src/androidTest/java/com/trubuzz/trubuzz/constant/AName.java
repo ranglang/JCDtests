@@ -14,6 +14,7 @@ public class AName {
     public static final String SETTINGS = "com.trubuzz.roy.PreferenceActivity";
     public static final String USER = "com.trubuzz.roy.auth.UserProfileActivity";
     public static final String NOUNS = "com.trubuzz.roy.trade.ItemDescriptorActivity";
+    public static final String WATCHLIST = "com.trubuzz.roy.trade.WatchlistEditorActivity";
 
 
     /** Android 原生 **/

@@ -42,7 +42,7 @@ import static com.trubuzz.trubuzz.utils.MReflect.getFieldObject;
  * Created by king on 2016/10/19.
  */
 
-public class AssetTest extends BaseTest {
+public class AssetTest  {
 
     private static final String TAG = "jcd_AssetTest";
     @Rule

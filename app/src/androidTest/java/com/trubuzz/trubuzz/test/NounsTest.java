@@ -5,7 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Nouns;
 import com.trubuzz.trubuzz.elements.AAsset;
-import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
+import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.utils.DoIt;
@@ -78,14 +78,14 @@ public class NounsTest extends BaseTest {
     public void nouns(@Var("noun") Element noun , @Var("expect") Nouns expect ,
                       @Var("isInDetails") boolean isInDetails ){
         Wish.wantBrokerLogin();
-        DoIt.regIdlingResource(new SomeActivityIdlingResource(MAIN ,matr.getActivity() , true));
+        DoIt.regIdlingResource(new ActivityIdlingResource(MAIN ,matr.getActivity() , true));
         if(isInDetails){                                    //如果在詳情裏, 則先点击"净资产"进入详情
             given(AAsset.net_worth_view).perform(click());
         }
         DoIt.unRegIdlingResource();
         given(noun).perform(click());                              //点击名词 , 进入解释
 
-        DoIt.regIdlingResource(new SomeActivityIdlingResource(NOUNS ,matr.getActivity() , true));
+        DoIt.regIdlingResource(new ActivityIdlingResource(NOUNS ,matr.getActivity() , true));
 
         webGiven()
             .withElement(explanation_noun_path)

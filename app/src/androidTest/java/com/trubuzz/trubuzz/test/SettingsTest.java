@@ -40,7 +40,7 @@ import static com.trubuzz.trubuzz.elements.AQuotes.default_stock;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.singleSpaceContains;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.thisString;
-import static com.trubuzz.trubuzz.shell.Park.getText;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getText;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.shell.Park.webGiven;
 import static com.trubuzz.trubuzz.test.R.string.chart_candle;

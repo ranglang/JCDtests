@@ -20,7 +20,7 @@ import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.AQuotes;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.Global;
-import com.trubuzz.trubuzz.idlingResource.SomeActivityIdlingResource;
+import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -156,7 +156,7 @@ public class FirstTest extends BaseTest{
 //        Object s;
 //
 //        given(AAsset.today_portfolio_view ).perform(click());
-//        DoIt.regIdlingResource(new SomeActivityIdlingResource(NOUNS ,mActivityTestRule.getActivity() , true));
+//        DoIt.regIdlingResource(new ActivityIdlingResource(NOUNS ,mActivityTestRule.getActivity() , true));
 //        s = onWebView()
 //                .withElement(findElement(Locator.CSS_SELECTOR, "#main>.footer.base.container-fluid"))
 //                .perform(getText())
@@ -171,7 +171,7 @@ public class FirstTest extends BaseTest{
 //        Log.e(TAG, "webTableTest: got    = |" + g + "|" );
 //        DoIt.unRegIdlingResource();
 
-        DoIt.regIdlingResource(new SomeActivityIdlingResource(WEB_VIEW,mActivityTestRule.getActivity() ,true));
+        DoIt.regIdlingResource(new ActivityIdlingResource(WEB_VIEW,mActivityTestRule.getActivity() ,true));
         onWebView()
                 .withElement(findElement(Locator.CSS_SELECTOR , ".terms"))
                 .check(customWebMatches(getText() , containsString(getString(terms_content))));
