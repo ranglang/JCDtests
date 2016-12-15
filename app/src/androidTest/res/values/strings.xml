@@ -674,7 +674,7 @@
     <string name="AxisNullMajorTickFrequency">Null currentMajorTickFrequency</string>
     <string name="AxisRangeNotSetPixelCall">Calling getUserValueForPixelValue before an axisRange has been set.</string>
     <string name="AxisRangeNotSetUserCall">Calling getPixelValueForUserValue before an axisRange has been set.</string>
-    <string name="AxisUndefinedRange">The axis has an undefined data range and cannot be displayed</string>
+    <string name="AxisUndefinedRange">The axis has an undefined data range and cannot be dis</string>
     <string name="AxisUnrecognisedOrientation">tickLabel orientation not recognised</string>
     <string name="BandSeriesBaselineNotApplicable">Baseline not applicable for BandSeries.</string>
     <string name="CandlestickSeriesBaselineNotApplicable">Baseline not applicable for CandlestickSeries.</string>

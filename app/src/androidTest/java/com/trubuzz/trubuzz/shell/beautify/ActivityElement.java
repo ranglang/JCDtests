@@ -33,15 +33,63 @@ public class ActivityElement implements Element<Matcher<View>>{
     private String id;
     private String text;
     private String hint;
-    private Element[] children;
-    private Element[] sibling;
-    private Element[] cousinry;
-    private Element parent;
-    private Element uncle;
+    private Element<Matcher<View>>[] children;
+    private Element<Matcher<View>>[] sibling;
+    private Element<Matcher<View>>[] cousinry;
+    private Element<Matcher<View>> parent;
+    private Element<Matcher<View>> uncle;
     private int index = -1;
     private Class assignableClass;
     private Matcher[] matchers;
-    private boolean displayed = true;
+    private boolean dis = true;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getHint() {
+        return hint;
+    }
+
+    public Element<Matcher<View>>[] getChildren() {
+        return children;
+    }
+
+    public Element<Matcher<View>>[] getSibling() {
+        return sibling;
+    }
+
+    public Element<Matcher<View>>[] getCousinry() {
+        return cousinry;
+    }
+
+    public Element<Matcher<View>> getParent() {
+        return parent;
+    }
+
+    public Element<Matcher<View>> getUncle() {
+        return uncle;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public Class getAssignableClass() {
+        return assignableClass;
+    }
+
+    public Matcher[] getMatchers() {
+        return matchers;
+    }
+
+    public boolean isDis() {
+        return dis;
+    }
 
     public ActivityElement setId(String id) {
         this.id = id;
@@ -58,27 +106,27 @@ public class ActivityElement implements Element<Matcher<View>>{
         return this;
     }
 
-    public ActivityElement setChildren(Element... children) {
+    public ActivityElement setChildren(Element<Matcher<View>>... children) {
         this.children = children;
         return this;
     }
 
-    public ActivityElement setSibling(Element... sibling) {
+    public ActivityElement setSibling(Element<Matcher<View>>... sibling) {
         this.sibling = sibling;
         return this;
     }
 
-    public final ActivityElement setCousinry(Element... cousinry) {
+    public final ActivityElement setCousinry(Element<Matcher<View>>... cousinry) {
         this.cousinry = cousinry;
         return this;
     }
 
-    public ActivityElement setParent(Element parent) {
+    public ActivityElement setParent(Element<Matcher<View>> parent) {
         this.parent = parent;
         return this;
     }
 
-    public ActivityElement setUncle(Element uncle) {
+    public ActivityElement setUncle(Element<Matcher<View>> uncle) {
         this.uncle = uncle;
         return this;
     }
@@ -99,14 +147,15 @@ public class ActivityElement implements Element<Matcher<View>>{
         return this;
     }
 
-    public ActivityElement setDisplayed(boolean displayed) {
-        this.displayed = displayed;
+    public ActivityElement setDis(boolean dis) {
+        this.dis = dis;
         return this;
     }
 
     @Override
     public Matcher<View> interactionWay() {
-        return all(this.element2matcher());
+//        return all(this.element2matcher());
+        return all(new ElementHandle().element2matcher(this));
     }
 
     @Override
@@ -129,6 +178,7 @@ public class ActivityElement implements Element<Matcher<View>>{
         return string += '}';
     }
 
+/************************** 代码已重构 , 以下部分将废弃 **************************/
     /**
      * 将封装的element 转换成 matcher list , 摒弃null和空值
      * @return
@@ -143,6 +193,7 @@ public class ActivityElement implements Element<Matcher<View>>{
         if(notEmpty(hint)) ms.add(withHint (hint));
 
         if(notEmpty(children))  ms.add(children(elements2matcher(children)));
+//        if(notEmpty(children)) ms.add(children(elements2matcher2(children)));
 
         if(notEmpty(sibling)) ms.add(sibling(elements2matcher(sibling)));
 
@@ -158,7 +209,7 @@ public class ActivityElement implements Element<Matcher<View>>{
 
         if(notEmpty(matchers)) ms.addAll(God.<Matcher<View>>array2list(matchers));
 
-        if(displayed)   ms.add(isDisplayed());
+        if(dis)   ms.add(isDisplayed());
 
         return ms;
     }
@@ -172,6 +223,15 @@ public class ActivityElement implements Element<Matcher<View>>{
         List<List<Matcher<View>>> ms = new ArrayList<>();
         for(Element element : elements){
             ms.add(((ActivityElement)element).element2matcher());
+        }
+        return ms;
+    }
+    ///---
+    @SafeVarargs
+    private final List<Matcher<View>> elements2matcher2(Element<Matcher<View>>... elements){
+        List<Matcher<View>> ms = new ArrayList<>();
+        for(Element<Matcher<View>> element : elements){
+            ms.add(element.interactionWay());
         }
         return ms;
     }

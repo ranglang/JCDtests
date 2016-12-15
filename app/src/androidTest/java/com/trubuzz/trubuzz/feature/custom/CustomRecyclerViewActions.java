@@ -73,10 +73,10 @@ public class CustomRecyclerViewActions {
     /**
      * 滚动到指定位置
      */
-    private static final class ScrollToRecyclerPosition implements ViewAction{
+    public static final class ScrollToRecyclerPosition implements ViewAction{
         private int position;
 
-        ScrollToRecyclerPosition(int position) {
+        public ScrollToRecyclerPosition(int position) {
             this.position = position;
         }
 

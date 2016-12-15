@@ -462,6 +462,57 @@ public class CustomMatcher {
     public static Matcher<View> hasMoreChildren() {
         return hasMoreChildren(1);
     }
+
+    /**
+     * 匹配最大孩子个数
+     * @param max
+     * @return
+     */
+    public static Matcher<View> hasMaxChildren(int max){
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText(String.format("has max %s children.", max));
+            }
+
+            @Override
+            protected boolean matchesSafely(View view) {
+                if (!(view instanceof ViewGroup)) {
+                    return false;
+                }
+                ViewGroup viewGroup = (ViewGroup) view;
+                int childCount = viewGroup.getChildCount();
+                Log.i(TAG, "hasMoreChildren: view : " + view.getContentDescription() + " ,has " + childCount + " children .");
+                return max >= childCount;
+            }
+        };
+    }
+
+    /**
+     * 匹配刚好孩子的个数
+     * @param count
+     * @return
+     */
+    public static Matcher<View> hasChildrenCount(int count){
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText(String.format("has %s children.", count));
+            }
+
+            @Override
+            protected boolean matchesSafely(View view) {
+                if (!(view instanceof ViewGroup)) {
+                    return false;
+                }
+                ViewGroup viewGroup = (ViewGroup) view;
+                int childCount = viewGroup.getChildCount();
+                Log.i(TAG, "hasMoreChildren: view : " + view.getContentDescription() + " ,has " + childCount + " children .");
+                return count == childCount;
+            }
+        };
+    }
+
     /**
      * 判断输入框是否为password
      *

@@ -67,7 +67,7 @@ public class RecyclerViewItemElement implements Element<Matcher<View>> {
         };
     }
 
-    private static void scrollToPosition(RecyclerView recyclerView ,int position){
+    public static void scrollToPosition(RecyclerView recyclerView ,int position){
         LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         layoutManager.scrollToPositionWithOffset(position, 0);
     }

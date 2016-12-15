@@ -59,7 +59,7 @@ public class AssetTest  {
         onView(isRoot()).perform(swipeUp());
         onView(isRoot()).perform(swipeDown());
 //        onView(isRoot()).perform(scrollTo());
-        List<AdViewInteraction> vl = given(new ActivityElement().setId("percent").setDisplayed(false)).getInteractionList();
+        List<AdViewInteraction> vl = given(new ActivityElement().setId("percent").setDis(false)).getInteractionList();
         Log.i(TAG, "ellook: view size : "+vl.size());
         for(AdViewInteraction v : vl){
 //            if(! Wish.isVisible(v))

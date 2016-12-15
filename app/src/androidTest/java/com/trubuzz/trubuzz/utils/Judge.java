@@ -2,29 +2,41 @@ package com.trubuzz.trubuzz.utils;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.support.test.espresso.PerformException;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.espresso.util.HumanReadables;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 
+import com.trubuzz.trubuzz.feature.custom.CustomRecyclerViewActions;
 import com.trubuzz.trubuzz.shell.Element;
 
 import org.hamcrest.Matcher;
 
+import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withView;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static org.hamcrest.Matchers.allOf;
 
 /**
  * Created by king on 2016/9/5.
  */
 public class Judge {
+    private static final String TAG = "jcd_" + Judge.class.getSimpleName();
 
     /**
      * 判断给定名称的activity是否是任务栈顶的activity
@@ -120,23 +132,57 @@ public class Judge {
                 }
             }
         }
-
         if (view instanceof RecyclerView) {
-            RecyclerView recyclerView = (RecyclerView) view;
-            RecyclerView.Adapter adapter = recyclerView.getAdapter();
-            int itemCount = adapter.getItemCount();
-            for (int i = 0; i < itemCount; i++) {
-                View itemView = recyclerView.findViewHolderForAdapterPosition(i).itemView;
-                if (dataMatcher.matches(itemView)) {
-                    return true;
-                }
-            }
+            return isExistData(onView(withView(view)),dataMatcher);
         }
         return false;
     }
 
-    public static boolean isExistData(final ViewInteraction v,final Matcher dataMatcher) {
-        return isExistData(getView(v), dataMatcher);
+    public static<VH extends RecyclerView.ViewHolder> boolean isExistData(final ViewInteraction v,final Matcher dataMatcher) {
+        final boolean[] exist = {false};
+        v.perform(new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return allOf(isAssignableFrom(RecyclerView.class), isDisplayed());
+            }
+            @Override
+            public String getDescription() {
+                return "Determine the view exist .";
+            }
+            @Override
+            public void perform(UiController uiController, View view) {
+                RecyclerView recyclerView = (RecyclerView) view;
+                RecyclerView.Adapter adapter = recyclerView.getAdapter();
+                int itemCount = adapter.getItemCount();
+                for(int position=0;position<itemCount;position++) {
+
+                    new CustomRecyclerViewActions.ScrollToRecyclerPosition(position).perform(uiController, view);
+                    uiController.loopMainThreadUntilIdle();
+
+                    @SuppressWarnings("unchecked")
+                    VH viewHolderForPosition = (VH) recyclerView.findViewHolderForAdapterPosition(position);
+                    if (null == viewHolderForPosition) {
+                        throw new PerformException.Builder().withActionDescription(this.toString())
+                                .withViewDescription(HumanReadables.describe(view))
+                                .withCause(new IllegalStateException("No view holder at position: " + position))
+                                .build();
+                    }
+
+                    View viewAtPosition = viewHolderForPosition.itemView;
+                    if (null == viewAtPosition) {
+                        throw new PerformException.Builder().withActionDescription(this.toString())
+                                .withViewDescription(HumanReadables.describe(viewAtPosition))
+                                .withCause(new IllegalStateException("No view at position: " + position)).build();
+                    }
+                    Log.d(TAG, String.format("isExistData: itemCount = %s , currentItem = %s", itemCount, position));
+                    if (dataMatcher.matches(viewAtPosition)) {
+                        exist[0] = true;
+                        return;
+                    }
+                }
+            }
+        });
+        return exist[0];
     }
     public static boolean isExistData(final Element v,final Matcher dataMatcher) {
         return isExistData(getView(v), dataMatcher);

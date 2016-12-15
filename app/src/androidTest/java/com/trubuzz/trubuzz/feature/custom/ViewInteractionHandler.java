@@ -68,7 +68,7 @@ public class ViewInteractionHandler {
      * @param viewInteraction
      * @return
      */
-    public static int getRecyclerViewChildrenCount(final ViewInteraction viewInteraction) {
+    public static int getRecyclerViewItemCount(final ViewInteraction viewInteraction) {
         final int[] count = {0};
         viewInteraction.perform(new ViewAction() {
             @Override
@@ -89,14 +89,14 @@ public class ViewInteractionHandler {
         });
         return count[0];
     }
-    public static int getRecyclerViewChildrenCount(final Matcher<View> matcher) {
-        return getRecyclerViewChildrenCount(onView(matcher));
+    public static int getRecyclerViewItemCount(final Matcher<View> matcher) {
+        return getRecyclerViewItemCount(onView(matcher));
     }
 
-    public static <T> int getRecyclerViewChildrenCount(final Element<T> element) {
+    public static <T> int getRecyclerViewItemCount(final Element<T> element) {
         T ele = element.interactionWay();
-        if (ele instanceof ViewInteraction) return getRecyclerViewChildrenCount((ViewInteraction) ele);
-        if (ele instanceof Matcher) return getRecyclerViewChildrenCount((Matcher<View>) ele);
+        if (ele instanceof ViewInteraction) return getRecyclerViewItemCount((ViewInteraction) ele);
+        if (ele instanceof Matcher) return getRecyclerViewItemCount((Matcher<View>) ele);
 
         return 0;
     }
