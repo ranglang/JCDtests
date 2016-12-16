@@ -38,57 +38,77 @@ public class ActivityElement implements Element<Matcher<View>>{
     private Element<Matcher<View>>[] cousinry;
     private Element<Matcher<View>> parent;
     private Element<Matcher<View>> uncle;
+    private Element<Matcher<View>> descendant;
+    private Element<Matcher<View>> ancestor;
     private int index = -1;
-    private Class assignableClass;
+    private Class<? extends View> assignableClass;
     private Matcher[] matchers;
     private boolean dis = true;
 
-    public String getId() {
+    String getId() {
         return id;
     }
 
-    public String getText() {
+    String getText() {
         return text;
     }
 
-    public String getHint() {
+    String getHint() {
         return hint;
     }
 
-    public Element<Matcher<View>>[] getChildren() {
+    Element<Matcher<View>>[] getChildren() {
         return children;
     }
 
-    public Element<Matcher<View>>[] getSibling() {
+    Element<Matcher<View>>[] getSibling() {
         return sibling;
     }
 
-    public Element<Matcher<View>>[] getCousinry() {
+    Element<Matcher<View>>[] getCousinry() {
         return cousinry;
     }
 
-    public Element<Matcher<View>> getParent() {
+    Element<Matcher<View>> getParent() {
         return parent;
     }
 
-    public Element<Matcher<View>> getUncle() {
+    Element<Matcher<View>> getUncle() {
         return uncle;
     }
 
-    public int getIndex() {
+    int getIndex() {
         return index;
     }
 
-    public Class getAssignableClass() {
+    Class<? extends View> getAssignableClass() {
         return assignableClass;
     }
 
-    public Matcher[] getMatchers() {
+    Matcher[] getMatchers() {
         return matchers;
     }
 
-    public boolean isDis() {
+    boolean isDis() {
         return dis;
+    }
+
+    Element<Matcher<View>> getDescendant() {
+        return descendant;
+    }
+
+    Element<Matcher<View>> getAncestor() {
+        return ancestor;
+    }
+
+    public ActivityElement setDescendant(Element<Matcher<View>> descendant) {
+        this.descendant = descendant;
+        return this;
+    }
+
+    public ActivityElement setAncestor(Element<Matcher<View>> ancestor) {
+        this.ancestor = ancestor;
+        return this;
     }
 
     public ActivityElement setId(String id) {
@@ -116,7 +136,7 @@ public class ActivityElement implements Element<Matcher<View>>{
         return this;
     }
 
-    public final ActivityElement setCousinry(Element<Matcher<View>>... cousinry) {
+    public ActivityElement setCousinry(Element<Matcher<View>>... cousinry) {
         this.cousinry = cousinry;
         return this;
     }
@@ -136,7 +156,7 @@ public class ActivityElement implements Element<Matcher<View>>{
         return this;
     }
 
-    public ActivityElement setAssignableClass(Class assignableClass) {
+    public ActivityElement setAssignableClass(Class<? extends View> assignableClass) {
         this.assignableClass = assignableClass;
         return this;
     }
@@ -169,6 +189,8 @@ public class ActivityElement implements Element<Matcher<View>>{
         if(cousinry != null&& cousinry.length >0) string += "cousinry=" + Arrays.toString(cousinry) + ", ";
         if(parent != null) string += "parent=" + parent + ", ";
         if(uncle != null) string += "uncle=" + uncle + ", ";
+        if(ancestor != null) string += "ancestor=" + ancestor + ", ";
+        if(descendant != null) string += "descendant=" + descendant + ", ";
         if(index != -1) string += "index=" + index + ", ";
         if(assignableClass != null) string += "assignableClass=" + assignableClass + ", ";
 //        if(toastMsg != null) string += "toastMsg='" + toastMsg.getMsg() + "', ";

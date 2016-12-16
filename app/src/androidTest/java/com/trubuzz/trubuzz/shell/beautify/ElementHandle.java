@@ -11,7 +11,9 @@ import org.hamcrest.Matcher;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
@@ -47,13 +49,14 @@ public class ElementHandle {
         if(notEmpty(hint)) ms.add(withHint (hint));
 
         Element[] children = ae.getChildren();
-        if(notEmpty(children))  ms.add(allOf(new MIterable(elements2matcher(children))));
+        if(notEmpty(children)) ms.add(withChild(allOf(new MIterable(elements2matcher(children)))));
 
         Element[] sibling = ae.getSibling();
-        if(notEmpty(sibling))   ms.add(allOf(new MIterable(elements2matcher(sibling))));
+        if(notEmpty(sibling))
+            ms.add(hasSiblingNoSelf(allOf(new MIterable(elements2matcher(sibling)))));
 
         Element[] cousinry = ae.getCousinry();
-        if(notEmpty(cousinry)) ms.add(allOf(new MIterable(elements2matcher(cousinry))));
+        if(notEmpty(cousinry)) ms.add(withCousin(allOf(new MIterable(elements2matcher(cousinry)))));
 
         Element<Matcher<View>> parent = ae.getParent();
         if(notEmpty(parent)) ms.add(withParent(parent.interactionWay()));
@@ -61,10 +64,16 @@ public class ElementHandle {
         Element<Matcher<View>> uncle = ae.getUncle();
         if(notEmpty(uncle)) ms.add(withUncle(uncle.interactionWay()));
 
+        Element<Matcher<View>> ancestor = ae.getAncestor();
+        if(notEmpty(ancestor)) ms.add(isDescendantOfA(ancestor.interactionWay()));
+
+        Element<Matcher<View>> descendant = ae.getDescendant();
+        if(notEmpty(descendant)) ms.add(hasDescendant(descendant.interactionWay()));
+
         int index = ae.getIndex();
         if(index >= 0) ms.add(withIndex(index));
 
-        Class assignableClass = ae.getAssignableClass();
+        Class<? extends View> assignableClass = ae.getAssignableClass();
         if(notEmpty(assignableClass)) ms.add(isAssignableFrom(assignableClass));
 
         Matcher[] matchers = ae.getMatchers();
