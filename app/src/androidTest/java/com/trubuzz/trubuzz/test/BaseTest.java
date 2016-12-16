@@ -1,13 +1,16 @@
 package com.trubuzz.trubuzz.test;
 
 import android.util.Log;
+import android.view.View;
 
+import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.feature.ClassWatcherAdvance;
 import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.Registor;
 
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -15,7 +18,9 @@ import org.junit.Rule;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.test.espresso.action.ViewActions.click;
 import static com.trubuzz.trubuzz.constant.Env.uiDevice;
+import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 
 /**
@@ -64,5 +69,25 @@ public class BaseTest {
 
     public List<String> getCompareImageNames() {
         return compareImageNames;
+    }
+
+
+    /* 一些常用的操作 ( 公共的 )*/
+    protected void back_to_main(){
+        while (Wish.isVisible(Global.back_up)) {
+            given(Global.back_up).perform(click());
+        }
+    }
+
+    protected void back_loop(int times) {
+        for (int i=0;i<times;i++) {
+            given(Global.back_up).perform(click());
+        }
+    }
+
+    protected void back_till(Matcher<View> matcher) {
+        do {
+            given(Global.back_up).perform(click());
+        } while (Wish.isVisible(matcher));
     }
 }

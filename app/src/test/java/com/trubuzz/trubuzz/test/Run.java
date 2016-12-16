@@ -21,7 +21,7 @@ public class Run {
 
     @Test
     public void run() throws NoSuchMethodException {
-        random(20 ,10);
+        random(-1 ,0);
 
     }
     private void random(int max , int min){

@@ -11,6 +11,9 @@ import com.trubuzz.trubuzz.shell.Element;
 
 import org.hamcrest.Matcher;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -93,14 +96,67 @@ public class ViewInteractionHandler {
         return getRecyclerViewItemCount(onView(matcher));
     }
 
-    public static <T> int getRecyclerViewItemCount(final Element<T> element) {
-        T ele = element.interactionWay();
-        if (ele instanceof ViewInteraction) return getRecyclerViewItemCount((ViewInteraction) ele);
-        if (ele instanceof Matcher) return getRecyclerViewItemCount((Matcher<View>) ele);
-
-        return 0;
+    public static int getRecyclerViewItemCount(final Element<Matcher<View>> element) {
+        return getRecyclerViewItemCount(element.interactionWay());
     }
 
+    /**
+     * 获得RecyclerView item 的position 和 view
+     * 封装在 {@link ViewPosition} 中
+     * @param v
+     * @param findMatcher
+     * @return
+     */
+    public static List<ViewPosition> getRecyclerViewItem(final ViewInteraction v , Matcher<View> findMatcher) {
+        List<ViewPosition> views = new ArrayList<ViewPosition>();
+        v.perform(new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return allOf(isAssignableFrom(RecyclerView.class), isDisplayed());
+            }
+
+            @Override
+            public String getDescription() {
+                return "get RecyclerView children position and view .";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                RecyclerView recyclerView = (RecyclerView) view;
+                int count = recyclerView.getAdapter().getItemCount();
+                for(int i = 0;i<count;i++) {
+                    new CustomRecyclerViewActions.ScrollToRecyclerPosition(i).perform(uiController, view);
+                    uiController.loopMainThreadUntilIdle();
+                    View tmpView = recyclerView.findViewHolderForAdapterPosition(i).itemView;
+                    if (findMatcher.matches(tmpView)) {
+                        ViewPosition vp = new ViewPosition(i, tmpView);
+                        views.add(vp);
+                    }
+                }
+            }
+
+        });
+        return views;
+    }
+
+    public static List<ViewPosition> getRecyclerViewItem(final Matcher<View> matcher ,Matcher<View> findMatcher){
+        return getRecyclerViewItem(onView(matcher), findMatcher);
+    }
+    public static List<ViewPosition> getRecyclerViewItem(final Element<Matcher<View>> element , Matcher<View> findMatcher){
+        return getRecyclerViewItem(element.interactionWay(), findMatcher);
+    }
+    /**
+     * {@link #getRecyclerViewItem} 的内部类
+     */
+    public static class ViewPosition{
+        public int position;
+        public View view;
+
+        ViewPosition(int position, View view) {
+            this.position = position;
+            this.view = view;
+        }
+    }
     /**
      * 从 ViewInteraction 获取View
      * @param viewInteraction

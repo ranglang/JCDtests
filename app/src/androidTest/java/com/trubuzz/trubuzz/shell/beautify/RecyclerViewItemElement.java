@@ -72,6 +72,11 @@ public class RecyclerViewItemElement implements Element<Matcher<View>> {
         layoutManager.scrollToPositionWithOffset(position, 0);
     }
 
+    /**
+     * 匹配指定位置的view
+     * @param position
+     * @return
+     */
     public Matcher<View> atPosition(int position){
         return new TypeSafeMatcher<View>() {
             @Override
@@ -116,6 +121,7 @@ public class RecyclerViewItemElement implements Element<Matcher<View>> {
             }
         };
     }
+
 
     @Override
     public Matcher<View> interactionWay() {

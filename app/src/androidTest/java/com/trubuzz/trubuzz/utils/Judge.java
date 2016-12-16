@@ -133,12 +133,26 @@ public class Judge {
             }
         }
         if (view instanceof RecyclerView) {
-            return isExistData(onView(withView(view)),dataMatcher);
+            return isExistRecyclerViewData(onView(withView(view)),dataMatcher);
         }
         return false;
     }
+    public static boolean isExistData(final Element v,final Matcher dataMatcher) {
+        return isExistData(getView(v), dataMatcher);
+    }
+    public static boolean isExistData(final Matcher<View> v,final Matcher dataMatcher) {
+        return isExistData(getView(v), dataMatcher);
+    }
 
-    public static<VH extends RecyclerView.ViewHolder> boolean isExistData(final ViewInteraction v,final Matcher dataMatcher) {
+    /**
+     * 判断RecyclerView 中的某个item 是否与指定的dataMatcher 匹配
+     * 若匹配后代 , see {@link ViewMatchers#hasDescendant(Matcher)}
+     * @param v
+     * @param dataMatcher
+     * @param <VH>
+     * @return
+     */
+    public static<VH extends RecyclerView.ViewHolder> boolean isExistRecyclerViewData(final ViewInteraction v, final Matcher dataMatcher) {
         final boolean[] exist = {false};
         v.perform(new ViewAction() {
             @Override
@@ -174,7 +188,7 @@ public class Judge {
                                 .withViewDescription(HumanReadables.describe(viewAtPosition))
                                 .withCause(new IllegalStateException("No view at position: " + position)).build();
                     }
-                    Log.d(TAG, String.format("isExistData: itemCount = %s , currentItem = %s", itemCount, position));
+                    Log.d(TAG, String.format("isExistRecyclerViewData: itemCount = %s , currentItem = %s", itemCount, position));
                     if (dataMatcher.matches(viewAtPosition)) {
                         exist[0] = true;
                         return;
@@ -184,10 +198,19 @@ public class Judge {
         });
         return exist[0];
     }
-    public static boolean isExistData(final Element v,final Matcher dataMatcher) {
-        return isExistData(getView(v), dataMatcher);
+    public static<VH extends RecyclerView.ViewHolder> boolean isExistRecyclerViewData(final Element<Matcher<View>> element, final Matcher dataMatcher){
+        return isExistRecyclerViewData(onView(element.interactionWay()), dataMatcher);
     }
-    public static boolean isExistData(final Matcher<View> v,final Matcher dataMatcher) {
-        return isExistData(getView(v), dataMatcher);
+
+    /**
+     * 检查int 不等于0
+     * @param reference
+     * @return 若不等于0 怎返回本身.
+     */
+    public static int checkNotZero(int reference){
+        if (reference == 0) {
+            throw new RuntimeException("reference cannot be zero.");
+        }
+        return reference;
     }
 }

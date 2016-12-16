@@ -266,6 +266,9 @@ public class God {
     }
 
     public static int getRandomInt(int max, int min) {
+        if(max == 0){
+            return 0;
+        }
         Random r = new Random();
         return r.nextInt(max - min + 1) + min;
     }

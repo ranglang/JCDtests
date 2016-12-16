@@ -1,6 +1,5 @@
 package com.trubuzz.trubuzz.test;
 
-import android.database.CursorWrapper;
 import android.support.test.espresso.action.Press;
 import android.support.test.espresso.action.Swipe;
 import android.support.test.espresso.contrib.RecyclerViewActions;
@@ -15,7 +14,9 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.AQuotes;
 import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.feature.custom.CustomViewAction;
+import com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler;
 import com.trubuzz.trubuzz.feature.custom.ViewsFinder;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.shell.beautify.RecyclerViewItemElement;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -27,13 +28,10 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
 import static android.support.test.espresso.action.ViewActions.swipeUp;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.CursorMatchers.withRowString;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
@@ -49,6 +47,7 @@ import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeDownAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeLeftAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeRightAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeUpAs;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getRecyclerViewItem;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static org.hamcrest.Matchers.allOf;
@@ -61,6 +60,7 @@ public class SingleTest {
     @Rule
     public ActivityTestRule mActivityRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
     public final String TAG = "jcd_"+this.getClass().getSimpleName();
+    private AQuotes aq = new AQuotes();
     Matcher<View> recyclerMatcher;
 
     UiDevice mDevice;
@@ -76,15 +76,18 @@ public class SingleTest {
     @Test
     public void adaptedTest() {
         given(Global.quotes_radio).perform(click());
-        given(AQuotes.watchlist_default_item).perform(click());
+        ViewsFinder vf = new ViewsFinder();
+        List<View> recycler = vf.getViews(new ActivityElement().setId("recycler"));
+        Log.i(TAG, String.format("adaptedTest: recycler count %s", recycler.size()));
 
-        CursorWrapper a;
-        onData(withRowString("name", "223"))
-//                .perform(click())
-//                .perform(nothing())
-                .check(matches(isDisplayed()));
-//        boolean isE = Judge.isExistData(AQuotes.watchlist_ListView, hasDescendant(withText("t001")));
-//        Log.i(TAG, "adaptedTest: isE = " + isE);
+        given(AQuotes.us_fence).perform(click());
+//        sleep(2000);
+        List<ViewInteractionHandler.ViewPosition> all = getRecyclerViewItem(aq.stocks_recycler, withChild(withText("全部")));
+        Log.i(TAG, String.format("adaptedTest: all views size %s",all.size() ));
+        sleep(2000);
+        int r = God.getRandomInt(all.size() - 1, 0);
+        ViewInteractionHandler.ViewPosition view = all.get(r);
+        given(aq.stocks_recycler).perform(RecyclerViewActions.actionOnItemAtPosition(view.position, click()));
         sleep(2000);
     }
 //    @Test

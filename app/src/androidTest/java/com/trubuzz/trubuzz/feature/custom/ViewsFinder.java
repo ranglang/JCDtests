@@ -4,6 +4,8 @@ import android.support.test.espresso.AmbiguousViewMatcherException;
 import android.util.Log;
 import android.view.View;
 
+import com.trubuzz.trubuzz.shell.Element;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -62,5 +64,8 @@ public class ViewsFinder {
             Log.w(TAG, "getViews: 没有匹配的view" );
             return null;
         }
+    }
+    public List<View> getViews(Element<Matcher<View>> matcher) {
+        return getViews(matcher.interactionWay());
     }
 }

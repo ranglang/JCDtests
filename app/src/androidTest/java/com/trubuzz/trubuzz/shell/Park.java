@@ -43,10 +43,21 @@ public class Park {
         return new AdViewInteraction(viewInteraction);
     }
 
+    /**
+     * 使用matcher的封装
+     * @param matcher
+     * @return
+     */
     public static AdViewInteraction given(Matcher<View> matcher){
         return new AdViewInteraction(onView(matcher));
     }
 
+    /**
+     * 较常用的方式
+     * @param element
+     * @param <T>
+     * @return
+     */
     public static <T> AdViewInteraction given(Element<T> element){
         T ele = element.interactionWay();
         if(ele instanceof ViewInteraction)  return new AdViewInteraction((ViewInteraction) ele);
