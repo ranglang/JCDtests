@@ -44,6 +44,7 @@ public class ActivityElement implements Element<Matcher<View>>{
     private Class<? extends View> assignableClass;
     private Matcher[] matchers;
     private boolean dis = true;
+    private String content_desc;
 
     String getId() {
         return id;
@@ -99,6 +100,10 @@ public class ActivityElement implements Element<Matcher<View>>{
 
     Element<Matcher<View>> getAncestor() {
         return ancestor;
+    }
+
+    String getContent_desc() {
+        return content_desc;
     }
 
     public ActivityElement setDescendant(Element<Matcher<View>> descendant) {
@@ -172,6 +177,11 @@ public class ActivityElement implements Element<Matcher<View>>{
         return this;
     }
 
+    public ActivityElement setContent_desc(String content_desc) {
+        this.content_desc = content_desc;
+        return this;
+    }
+
     @Override
     public Matcher<View> interactionWay() {
 //        return all(this.element2matcher());
@@ -184,6 +194,7 @@ public class ActivityElement implements Element<Matcher<View>>{
         if(id != null) string += "id='" + id + "', ";
         if(text != null) string += "text='" + text + "', ";
         if(hint != null) string += "hint='" + hint + "', ";
+        if(content_desc != null) string += "content_desc='" + content_desc + "', ";
         if(children != null && children.length >0) string += "children=" + Arrays.toString(children) + ", ";
         if(sibling != null && sibling.length >0) string +=  "sibling=" + Arrays.toString(sibling) + ", ";
         if(cousinry != null&& cousinry.length >0) string += "cousinry=" + Arrays.toString(cousinry) + ", ";

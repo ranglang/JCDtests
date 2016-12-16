@@ -16,6 +16,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFro
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
@@ -47,6 +48,9 @@ public class ElementHandle {
 
         String hint = ae.getHint();
         if(notEmpty(hint)) ms.add(withHint (hint));
+
+        String content_desc = ae.getContent_desc();
+        if(notEmpty(content_desc)) ms.add(withContentDescription(content_desc));
 
         Element[] children = ae.getChildren();
         if(notEmpty(children)) ms.add(withChild(allOf(new MIterable(elements2matcher(children)))));
@@ -98,74 +102,4 @@ public class ElementHandle {
         return ms;
     }
 
-    /**
-     * List<Matcher<View>>中包含了单个child的匹配方式,
-     * 使用all(List<Matcher<View>> list ) 提取出child的Matcher<View> .
-     * 如果有多个children 则使用allOf 多次匹配即可
-     * @param children
-     * @return
-     */
-    private Matcher<View> children(List<List<Matcher<View>>> children){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(List<Matcher<View>> matcher : children){
-            ms.add(withChild(all(matcher)));
-        }
-        return allOf(God.list2array(Matcher.class ,ms));
-    }
-    @SafeVarargs
-    private final Matcher<View> children(Matcher<View>... children){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(Matcher<View> matcher : children){
-            ms.add(withChild(matcher));
-        }
-        return allOf(God.list2array(Matcher.class ,ms));
-    }
-
-
-    /**
-     * <List<Matcher<View>> 中包含了单个的sibling的匹配方式
-     * @param siblings
-     * @return
-     */
-    private Matcher<View> sibling(List<List<Matcher<View>>> siblings){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(List<Matcher<View>> matcher : siblings){
-            ms.add(hasSiblingNoSelf(all(matcher)));
-        }
-        return allOf(God.list2array(Matcher.class ,ms));
-    }
-    @SafeVarargs
-    private final Matcher<View> sibling(Matcher<View>... siblings){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(Matcher<View> matcher : siblings){
-            ms.add(hasSiblingNoSelf(matcher));
-        }
-        return allOf(God.list2array(Matcher.class ,ms));
-    }
-
-    /**
-     * <List<Matcher<View>> 中包含了单个的cousin的匹配方式
-     * @param cousins
-     * @return
-     */
-    private Matcher<View> cousin(List<List<Matcher<View>>> cousins ){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(List<Matcher<View>> matcher : cousins ){
-            ms.add(withCousin(all(matcher)));
-        }
-        return allOf(God.list2array(Matcher.class ,ms));
-    }
-    /**
-     * allOf 的封装实现
-     * @param matcher
-     * @return
-     */
-    @SafeVarargs
-    private final Matcher<View> all(Matcher<View>... matcher){
-        return allOf(matcher);
-    }
-
-    private Matcher<View> all(List<Matcher<View>> list){
-        return allOf(God.list2array(Matcher.class ,list));
-    }
 }
