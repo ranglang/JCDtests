@@ -24,7 +24,7 @@ public class ViewMatcherIdlingResource implements IdlingResource {
 
     @Override
     public String getName() {
-        return this.getClass().getName() + " view : "+view.getContentDescription();
+        return this.getClass().getName() + " view : "+view.toString();
     }
 
     @Override

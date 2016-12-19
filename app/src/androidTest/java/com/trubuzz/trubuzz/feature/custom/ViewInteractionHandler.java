@@ -25,6 +25,7 @@ import static org.hamcrest.Matchers.any;
  */
 
 public class ViewInteractionHandler {
+    private final static String TAG = "jcd_"+ViewInteractionHandler.class.getSimpleName();
 
     /**
      * 获取元素上的字串

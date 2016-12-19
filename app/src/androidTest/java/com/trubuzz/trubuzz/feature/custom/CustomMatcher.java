@@ -449,7 +449,7 @@ public class CustomMatcher {
                 }
                 ViewGroup viewGroup = (ViewGroup) view;
                 int childCount = viewGroup.getChildCount();
-                Log.i(TAG, "hasMoreChildren: view : " + view.getContentDescription() + " ,has " + childCount + " children .");
+                Log.i(TAG, "hasMoreChildren: view : " + view.toString() + " ,has " + childCount + " children .");
                 return minChild <= childCount;
             }
 
@@ -482,7 +482,7 @@ public class CustomMatcher {
                 }
                 ViewGroup viewGroup = (ViewGroup) view;
                 int childCount = viewGroup.getChildCount();
-                Log.i(TAG, "hasMoreChildren: view : " + view.getContentDescription() + " ,has " + childCount + " children .");
+                Log.i(TAG, "hasMoreChildren: view : " + view.toString() + " ,has " + childCount + " children .");
                 return max >= childCount;
             }
         };
@@ -507,7 +507,7 @@ public class CustomMatcher {
                 }
                 ViewGroup viewGroup = (ViewGroup) view;
                 int childCount = viewGroup.getChildCount();
-                Log.i(TAG, "hasMoreChildren: view : " + view.getContentDescription() + " ,has " + childCount + " children .");
+                Log.i(TAG, "hasMoreChildren: view : " + view.toString() + " ,has " + childCount + " children .");
                 return count == childCount;
             }
         };
