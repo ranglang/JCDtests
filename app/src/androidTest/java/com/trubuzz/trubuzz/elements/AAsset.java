@@ -7,6 +7,7 @@ import com.trubuzz.trubuzz.shell.beautify.AtomElement;
 import static com.trubuzz.trubuzz.test.R.string.account_type;
 import static com.trubuzz.trubuzz.test.R.string.accrued_cash;
 import static com.trubuzz.trubuzz.test.R.string.available_funds;
+import static com.trubuzz.trubuzz.test.R.string.buy;
 import static com.trubuzz.trubuzz.test.R.string.buying_power;
 import static com.trubuzz.trubuzz.test.R.string.equity_with_loan_value;
 import static com.trubuzz.trubuzz.test.R.string.excess_liquidity;
@@ -15,6 +16,9 @@ import static com.trubuzz.trubuzz.test.R.string.init_margin_req;
 import static com.trubuzz.trubuzz.test.R.string.maint_margin_req;
 import static com.trubuzz.trubuzz.test.R.string.net_liqidation;
 import static com.trubuzz.trubuzz.test.R.string.net_liquidation;
+import static com.trubuzz.trubuzz.test.R.string.price;
+import static com.trubuzz.trubuzz.test.R.string.sell;
+import static com.trubuzz.trubuzz.test.R.string.sell_all;
 import static com.trubuzz.trubuzz.test.R.string.today_portfolio;
 import static com.trubuzz.trubuzz.test.R.string.total_amount;
 import static com.trubuzz.trubuzz.test.R.string.total_cash_value;
@@ -34,6 +38,15 @@ public class AAsset {
     public static final Element available_funds_view = new ActivityElement().setText(getString("可用资金", available_funds));
     public static final Element total_amount_view = new ActivityElement().setText(getString("持仓总额", total_amount));
 
+    private final ActivityElement operate_buttons = new ActivityElement().setId("buttons");
+    public final ActivityElement buy_button = new ActivityElement().setText(getString("买", buy)).setId("button1")
+            .setAssignableClass(android.widget.Button.class).setParent(operate_buttons);
+    public final ActivityElement sell_button = new ActivityElement().setText(getString("卖", sell)).setId("button2")
+            .setAssignableClass(android.widget.Button.class).setParent(operate_buttons);
+    public final ActivityElement close_position_button = new ActivityElement().setText(getString("一键平仓", sell_all)).setId("button3")
+            .setAssignableClass(android.widget.Button.class).setParent(operate_buttons);
+    public final ActivityElement price_button = new ActivityElement().setText(getString("行情", price)).setId("button4")
+            .setAssignableClass(android.widget.Button.class).setParent(operate_buttons);
 
     public static class Details{
         public final Element account_type_view = new ActivityElement().setText(getString("交易账号类型", account_type));

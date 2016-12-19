@@ -39,7 +39,7 @@ public class ViewElement implements Element<Matcher> {
     }
 
     @Override
-    public Matcher interactionWay() {
+    public Matcher way() {
 //        View view = activity.findViewById(Find.byShortId(viewId));
 //        return allOf(withView(getElementView(this)), isDisplayed());
         return withView(getElementView(this));

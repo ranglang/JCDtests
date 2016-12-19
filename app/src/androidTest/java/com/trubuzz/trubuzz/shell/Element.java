@@ -6,6 +6,6 @@ package com.trubuzz.trubuzz.shell;
 
 public interface Element<E>{
 
-    E interactionWay();
+    E way();
 
 }

@@ -5,6 +5,8 @@ import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewInteraction;
 import android.view.View;
 
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+
 import org.hamcrest.Matcher;
 
 import static android.support.test.espresso.Espresso.onData;
@@ -20,16 +22,12 @@ import static org.hamcrest.Matchers.is;
 
 public class Park {
 
-    /**
-     * @deprecated use {@link #given(Element)} instead .
-     * 1. 避免泛型不安全性
-     * 2. 已经使用了Element做封装, 可满足各式各样的需求
-     * @param viewInteractionDesc
-     * @param <T>
-     * @return
-     */
-    public static <T> AdViewInteraction given(T viewInteractionDesc){
-        return new AdViewInteraction(WithAny.getViewInteraction(viewInteractionDesc));
+    public static <T> ViewInteraction getViewInteraction(Element<T> element) {
+        T ele = element.way();
+        if(ele instanceof ViewInteraction)  return (ViewInteraction) ele;
+        if(ele instanceof Matcher)  return onView((Matcher<View>) ele);
+
+        return null;
     }
 
     /**
@@ -49,7 +47,7 @@ public class Park {
      * @return
      */
     public static AdViewInteraction given(Matcher<View> matcher){
-        return new AdViewInteraction(onView(matcher));
+        return new AdViewInteraction(new ActivityElement().setMatchers(matcher).setDis(false));
     }
 
     /**
@@ -59,11 +57,7 @@ public class Park {
      * @return
      */
     public static <T> AdViewInteraction given(Element<T> element){
-        T ele = element.interactionWay();
-        if(ele instanceof ViewInteraction)  return new AdViewInteraction((ViewInteraction) ele);
-        if(ele instanceof Matcher)  return new AdViewInteraction(onView((Matcher<View>) ele));
-
-        return new AdViewInteraction();
+        return new AdViewInteraction(element);
     }
     public static AdViewInteraction given(AdViewInteraction element){
         return element;

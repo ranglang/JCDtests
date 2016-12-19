@@ -43,6 +43,7 @@ import static android.support.test.espresso.matcher.CursorMatchers.withRowString
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.constant.Config.watchlistKey;
 import static com.trubuzz.trubuzz.constant.ToastInfo.watchlist_existing_toast;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasChildrenCount;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasMoreChildren;
@@ -148,7 +149,7 @@ public class WatchlistTest extends BaseTest{
             Espresso.pressBack();
             given(AQuotes.watchlist_default_item).perform(click());
             try {
-                onData(withRowString("name", name)).check(matches(isDisplayed()));
+                onData(withRowString(watchlistKey, name)).check(matches(isDisplayed()));
                 fail(String.format("the item \"%s\" has been deleted .", name));
             } catch (Exception e) {}
         }else{
@@ -156,7 +157,7 @@ public class WatchlistTest extends BaseTest{
 
             Espresso.pressBack();
             given(AQuotes.watchlist_default_item).perform(click());
-            onData(withRowString("name", name)).check(matches(isDisplayed()));
+            onData(withRowString(watchlistKey, name)).check(matches(isDisplayed()));
         }
     }
     /**
@@ -217,7 +218,7 @@ public class WatchlistTest extends BaseTest{
 
         given(aw.alter).perform(click());
 
-        List<View> views = new ViewsFinder().getViews(aw.alter_icon.interactionWay());
+        List<View> views = new ViewsFinder().getViews(aw.alter_icon.way());
         Log.i(TAG, String.format("alter_watchlist_item: has %s views", views.size()));
         for (View view : views) {
             given(withView(view)).check(matches(isDisplayed()));
@@ -292,7 +293,7 @@ public class WatchlistTest extends BaseTest{
             given(tmpEle).check(matches(isDisplayed()));
             given(Global.back_up).perform(click());
             given(AQuotes.watchlist_default_item).perform(click());
-            onData(withRowString("name", listName)).check(matches(isDisplayed()));
+            onData(withRowString(watchlistKey, listName)).check(matches(isDisplayed()));
         }else{
             given(aw.edit_cancel).perform(click());
             sleep(2000);
@@ -306,7 +307,7 @@ public class WatchlistTest extends BaseTest{
 
             //如本来不存在则 try perform一下, 若不抛异常则证明在列表存在了 , 这时当fail
             try {
-                onData(withRowString("name", listName)).perform(nothing());
+                onData(withRowString(watchlistKey, listName)).perform(nothing());
                 fail(String.format("Hope not found %s ,but found it ." +
                         "Should have thrown PerformException",listName));
             } catch (PerformException ignored) { }
@@ -328,7 +329,7 @@ public class WatchlistTest extends BaseTest{
     @Test
     public void b_delete_remain_one(){
         given(aw.del).perform(click());
-        List<View> views = new ViewsFinder().getViews(aw.del_icon.interactionWay());
+        List<View> views = new ViewsFinder().getViews(aw.del_icon.way());
         Log.i(TAG, String.format("alter_watchlist_item: has %s views", views.size()));
         for (View view : views) {
             given(withView(view)).check(matches(isDisplayed()));
@@ -342,7 +343,7 @@ public class WatchlistTest extends BaseTest{
 
             given(aw.del_icon.setParent(recyclerViewItem)).perform(click());
             given(aw.del_title).check(matches(isDisplayed()));
-            given(aw.del_content).check(matches(hasDescendant(aw.del_reminder.interactionWay())));
+            given(aw.del_content).check(matches(hasDescendant(aw.del_reminder.way())));
 
             given(aw.edit_ok).perform(click());
 

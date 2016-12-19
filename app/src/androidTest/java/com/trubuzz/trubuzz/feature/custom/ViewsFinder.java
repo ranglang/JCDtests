@@ -66,6 +66,6 @@ public class ViewsFinder {
         }
     }
     public List<View> getViews(Element<Matcher<View>> matcher) {
-        return getViews(matcher.interactionWay());
+        return getViews(matcher.way());
     }
 }

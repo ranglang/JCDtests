@@ -63,16 +63,16 @@ public class ElementHandle {
         if(notEmpty(cousinry)) ms.add(withCousin(allOf(new MIterable(elements2matcher(cousinry)))));
 
         Element<Matcher<View>> parent = ae.getParent();
-        if(notEmpty(parent)) ms.add(withParent(parent.interactionWay()));
+        if(notEmpty(parent)) ms.add(withParent(parent.way()));
 
         Element<Matcher<View>> uncle = ae.getUncle();
-        if(notEmpty(uncle)) ms.add(withUncle(uncle.interactionWay()));
+        if(notEmpty(uncle)) ms.add(withUncle(uncle.way()));
 
         Element<Matcher<View>> ancestor = ae.getAncestor();
-        if(notEmpty(ancestor)) ms.add(isDescendantOfA(ancestor.interactionWay()));
+        if(notEmpty(ancestor)) ms.add(isDescendantOfA(ancestor.way()));
 
         Element<Matcher<View>> descendant = ae.getDescendant();
-        if(notEmpty(descendant)) ms.add(hasDescendant(descendant.interactionWay()));
+        if(notEmpty(descendant)) ms.add(hasDescendant(descendant.way()));
 
         int index = ae.getIndex();
         if(index >= 0) ms.add(withIndex(index));
@@ -97,7 +97,7 @@ public class ElementHandle {
     private List<Matcher<View>> elements2matcher(Element<Matcher>... elements){
         List<Matcher<View>> ms = new ArrayList<>();
         for(Element<Matcher> element : elements){
-            ms.add(element.interactionWay());
+            ms.add(element.way());
         }
         return ms;
     }

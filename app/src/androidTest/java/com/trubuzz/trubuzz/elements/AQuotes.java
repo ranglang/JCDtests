@@ -4,6 +4,7 @@ import android.widget.ListView;
 
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
+import static com.trubuzz.trubuzz.R.string.abc_toolbar_collapse_description;
 import static com.trubuzz.trubuzz.test.R.string.add;
 import static com.trubuzz.trubuzz.test.R.string.all;
 import static com.trubuzz.trubuzz.test.R.string.buy;
@@ -46,6 +47,15 @@ public class AQuotes {
     public final ActivityElement kind_all = new ActivityElement().setChildren(
                 new ActivityElement().setText(getString("全部", all)).setDis(false)
             );
+    public final ActivityElement search_icon = new ActivityElement().setId("search");       //搜索图标
+    public final ActivityElement search_input = new ActivityElement().setId("search_src_text"); //搜索输入框
+    public final ActivityElement search_clean = new ActivityElement().setId("search_close_btn");    //清除按钮
+    public final ActivityElement search_back = new ActivityElement()
+            .setContent_desc(getString("收起", abc_toolbar_collapse_description))
+            .setAssignableClass(android.widget.ImageButton.class);
+    public final ActivityElement search_symbol = new ActivityElement().setId("value")
+            .setAssignableClass(android.widget.TextView.class); // 搜索结果Symbol
+
     /* 自选 */
     public static final ActivityElement watchlist_default_item = new ActivityElement().setText(getString("默认名单", default_watchlist_group));
     public static final ActivityElement watchlist_ListView = new ActivityElement().setAssignableClass(ListView.class);
@@ -58,8 +68,7 @@ public class AQuotes {
 
         /* 添加自选 */
         public final ActivityElement in_group_yet = new ActivityElement().setId("select")
-                .setText(getString("已在该分类中", in_group))
-                .setDis(false);
+                .setText(getString("已在该分类中", in_group));
         public final ActivityElement group_name = new ActivityElement().setId("title");
     }
 

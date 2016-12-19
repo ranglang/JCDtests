@@ -260,13 +260,13 @@ public class Userinfo extends BaseTest{
         given(aSet.birthday_picker_year).perform(click());
         // 设置年份
         onData(hasToString(is(String.valueOf(year))))
-                .inAdapterView(((ActivityElement)aSet.birthday_pick_ListView).interactionWay())
+                .inAdapterView(((ActivityElement)aSet.birthday_pick_ListView).way())
                 .perform(click());
 
         //设置月份
         int tmp_month = (year-1900)*12 + month-1;   //插件将月份设置成从1900-1 起 token:0 依次递增 , 故有此算法.
         onData(anything())
-                .inAdapterView(((ActivityElement)aSet.birthday_pick_ListView).interactionWay())
+                .inAdapterView(((ActivityElement)aSet.birthday_pick_ListView).way())
                 .atPosition(tmp_month)
                 .perform(click());
 

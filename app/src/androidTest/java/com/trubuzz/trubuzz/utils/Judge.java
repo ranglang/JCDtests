@@ -199,7 +199,7 @@ public class Judge {
         return exist[0];
     }
     public static<VH extends RecyclerView.ViewHolder> boolean isExistRecyclerViewData(final Element<Matcher<View>> element, final Matcher dataMatcher){
-        return isExistRecyclerViewData(onView(element.interactionWay()), dataMatcher);
+        return isExistRecyclerViewData(onView(element.way()), dataMatcher);
     }
 
     /**

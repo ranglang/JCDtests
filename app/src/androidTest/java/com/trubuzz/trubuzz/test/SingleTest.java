@@ -11,12 +11,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.AQuotes;
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.elements.AWatchlist;
 import com.trubuzz.trubuzz.feature.custom.CustomViewAction;
-import com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler;
 import com.trubuzz.trubuzz.feature.custom.ViewsFinder;
-import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.shell.beautify.RecyclerViewItemElement;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -47,8 +46,9 @@ import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeDownAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeLeftAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeRightAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeUpAs;
-import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getRecyclerViewItem;
-import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getDescendant;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getText;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static org.hamcrest.Matchers.allOf;
 
@@ -61,6 +61,9 @@ public class SingleTest {
     public ActivityTestRule mActivityRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
     public final String TAG = "jcd_"+this.getClass().getSimpleName();
     private AQuotes aq = new AQuotes();
+    private AAsset aa = new AAsset();
+    private AQuotes.details d = new AQuotes.details();
+    private AWatchlist aw = new AWatchlist();
     Matcher<View> recyclerMatcher;
 
     UiDevice mDevice;
@@ -75,21 +78,14 @@ public class SingleTest {
 
     @Test
     public void adaptedTest() {
-        given(Global.quotes_radio).perform(click());
-        ViewsFinder vf = new ViewsFinder();
-        List<View> recycler = vf.getViews(new ActivityElement().setId("recycler"));
-        Log.i(TAG, String.format("adaptedTest: recycler count %s", recycler.size()));
+        RecyclerViewItemElement self_group = new RecyclerViewItemElement(aw.watchlist_recycler).setPosition(0);
+        View view = getView(self_group);
+        View amount = getDescendant(view, withResourceName("amount1"));
+        String text = getText(amount);
+        Log.i(TAG, String.format("adaptedTest: text %s", text));
 
-        given(AQuotes.us_fence).perform(click());
-//        sleep(2000);
-        List<ViewInteractionHandler.ViewPosition> all = getRecyclerViewItem(aq.stocks_recycler, withChild(withText("全部")));
-        Log.i(TAG, String.format("adaptedTest: all views size %s",all.size() ));
-        sleep(2000);
-        int r = God.getRandomInt(all.size() - 1, 0);
-        ViewInteractionHandler.ViewPosition view = all.get(r);
-        given(aq.stocks_recycler).perform(RecyclerViewActions.actionOnItemAtPosition(view.position, click()));
-        sleep(2000);
     }
+
 //    @Test
     public void swipeTest(){
 //        onView(withText("00330")).perform(click());
@@ -126,7 +122,7 @@ public class SingleTest {
 //        onView(withRecyclerMatcher(recyclerMatcher)
 //                .setFindMatcher(withResourceName("percent"))
 //                .setPosition(3)
-//            .interactionWay()).perform(click());
+//            .way()).perform(click());
 //        onView(withResourceName("tab")).perform(scrollTo());
 //        onView(recyclerMatcher).perform(atPositionAction(31,click()));
 //        onView(recyclerMatcher).perform(RecyclerViewActions.actionOnItemAtPosition(31,doActions(swipeUpToVisible() ,nothing(),click())));

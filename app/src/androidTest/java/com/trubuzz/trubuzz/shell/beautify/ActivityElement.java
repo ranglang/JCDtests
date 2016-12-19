@@ -183,7 +183,7 @@ public class ActivityElement implements Element<Matcher<View>>{
     }
 
     @Override
-    public Matcher<View> interactionWay() {
+    public Matcher<View> way() {
 //        return all(this.element2matcher());
         return all(new ElementHandle().element2matcher(this));
     }
@@ -264,7 +264,7 @@ public class ActivityElement implements Element<Matcher<View>>{
     private final List<Matcher<View>> elements2matcher2(Element<Matcher<View>>... elements){
         List<Matcher<View>> ms = new ArrayList<>();
         for(Element<Matcher<View>> element : elements){
-            ms.add(element.interactionWay());
+            ms.add(element.way());
         }
         return ms;
     }

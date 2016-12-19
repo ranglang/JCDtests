@@ -27,7 +27,7 @@ public class AWatchlist {
     public final Element add_icon = new ActivityElement().setId("add");
     public final Element default_item_text = new ActivityElement().setParent(
             new ActivityElement().setMatchers(
-            new RecyclerViewItemElement(((ActivityElement) watchlist_recycler).interactionWay()).atPosition(0)));    //默认名单
+            new RecyclerViewItemElement(((ActivityElement) watchlist_recycler).way()).atPosition(0)));    //默认名单
 
     private final Element actions = new ActivityElement().setId("action_menu");
     public final Element del = new ActivityElement().setId("delete")

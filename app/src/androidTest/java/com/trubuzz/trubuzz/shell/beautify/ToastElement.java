@@ -51,7 +51,7 @@ public class ToastElement implements Element<ViewInteraction>{
     }
 
     @Override
-    public ViewInteraction interactionWay() {
+    public ViewInteraction way() {
         if(notEmpty(toastMsg)){
             if(notEmpty(activity)){
                 return onView(withText(toastMsg))

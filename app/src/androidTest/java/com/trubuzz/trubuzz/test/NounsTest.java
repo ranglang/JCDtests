@@ -24,10 +24,22 @@ import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.AName.MAIN;
 import static com.trubuzz.trubuzz.constant.AName.NOUNS;
 import static com.trubuzz.trubuzz.constant.Nouns.accrued_cash_n;
+import static com.trubuzz.trubuzz.constant.Nouns.available_funds_n;
 import static com.trubuzz.trubuzz.constant.Nouns.buying_power_n;
 import static com.trubuzz.trubuzz.constant.Nouns.equity_with_loan_value_n;
+import static com.trubuzz.trubuzz.constant.Nouns.excess_liquidity_n;
 import static com.trubuzz.trubuzz.constant.Nouns.gross_position_value_n;
+import static com.trubuzz.trubuzz.constant.Nouns.init_margin_req_n;
+import static com.trubuzz.trubuzz.constant.Nouns.maint_margin_req_n;
 import static com.trubuzz.trubuzz.constant.Nouns.net_liquidation_n;
+import static com.trubuzz.trubuzz.constant.Nouns.today_portfolio_n;
+import static com.trubuzz.trubuzz.constant.Nouns.total_amount_n;
+import static com.trubuzz.trubuzz.constant.Nouns.total_pnl_n;
+import static com.trubuzz.trubuzz.elements.AAsset.available_funds_view;
+import static com.trubuzz.trubuzz.elements.AAsset.buying_power_view;
+import static com.trubuzz.trubuzz.elements.AAsset.today_portfolio_view;
+import static com.trubuzz.trubuzz.elements.AAsset.total_amount_view;
+import static com.trubuzz.trubuzz.elements.AAsset.total_portfolio_view;
 import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.shell.Park.webGiven;
@@ -52,15 +64,15 @@ public class NounsTest extends BaseTest {
             new Object[]{details.accrued_cash_view, accrued_cash_n ,true },		                //净累计利息
             new Object[]{details.equity_with_loan_value_view, equity_with_loan_value_n ,true },	//有贷款价值的资产
             new Object[]{details.gross_position_value_view, gross_position_value_n , true},		//股票+期权
-//            new Object[]{details.init_margin_req_view, init_margin_req_n , true},		            //初始准备金
-//            new Object[]{details.maint_margin_req_view, maint_margin_req_n , true},		        //维持准备金
-//            new Object[]{details.available_funds_d_view, available_funds_n , true },		        //可用资金
-//            new Object[]{details.excess_liquidity_view, excess_liquidity_n , true},		        //剩余流动性
-//            new Object[]{total_amount_view, total_amount_n , false },		                        //持仓总额
-//            new Object[]{available_funds_view, available_funds_n , false },		                //可用资金
-//            new Object[]{total_portfolio_view, total_pnl_n , false },		                        //总收益
-//            new Object[]{today_portfolio_view, today_portfolio_n , false },		                //当日收益
-//            new Object[]{buying_power_view, buying_power_n , false },		                        //购买力
+            new Object[]{details.init_margin_req_view, init_margin_req_n , true},		            //初始准备金
+            new Object[]{details.maint_margin_req_view, maint_margin_req_n , true},		        //维持准备金
+            new Object[]{details.available_funds_d_view, available_funds_n , true },		        //可用资金
+            new Object[]{details.excess_liquidity_view, excess_liquidity_n , true},		        //剩余流动性
+            new Object[]{total_amount_view, total_amount_n , false },		                        //持仓总额
+            new Object[]{available_funds_view, available_funds_n , false },		                //可用资金
+            new Object[]{total_portfolio_view, total_pnl_n , false },		                        //总收益
+            new Object[]{today_portfolio_view, today_portfolio_n , false },		                //当日收益
+            new Object[]{buying_power_view, buying_power_n , false },		                        //购买力
         };
     }
 

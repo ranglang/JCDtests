@@ -27,7 +27,7 @@ public class AdViewInteractionC {
 
     public AdViewInteractionC(Element<Matcher<View>> viewElement){
         this.viewElement = viewElement;
-        this.viewInteraction = onView(viewElement.interactionWay());
+        this.viewInteraction = onView(viewElement.way());
     }
     /**
      * 改良后的perform , 加入等待与错误截图

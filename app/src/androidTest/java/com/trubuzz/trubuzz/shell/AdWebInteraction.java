@@ -46,7 +46,7 @@ public class AdWebInteraction<R> {
         return new AdWebInteraction<E>(webInteraction.perform(atom));
     }
     public <E> AdWebInteraction<E> perform(Element<Atom> atom) {
-        return perform(atom.interactionWay());
+        return perform(atom.way());
     }
     /**
      * 封装reset
@@ -73,7 +73,7 @@ public class AdWebInteraction<R> {
         return new AdWebInteraction<R>(webInteraction.inWindow(windowPicker));
     }
     public AdWebInteraction<R> inWindow(Element<Atom<WindowReference>> windowPicker){
-        return inWindow(windowPicker.interactionWay());
+        return inWindow(windowPicker.way());
     }
     /**
      * 封装withElement
@@ -84,7 +84,7 @@ public class AdWebInteraction<R> {
         return new AdWebInteraction<R>(webInteraction.withElement(elementPicker));
     }
     public AdWebInteraction<R> withElement(Element<Atom<ElementReference>> elementPicker) {
-        return withElement(elementPicker.interactionWay());
+        return withElement(elementPicker.way());
     }
     /**
      * 封装withContextualElement
@@ -95,7 +95,7 @@ public class AdWebInteraction<R> {
         return new AdWebInteraction<R>(webInteraction.withContextualElement(elementPicker));
     }
     public AdWebInteraction<R> withContextualElement(Element<Atom<ElementReference>> elementPicker) {
-        return withContextualElement(elementPicker.interactionWay());
+        return withContextualElement(elementPicker.way());
     }
     /**
      * 封装withTimeout

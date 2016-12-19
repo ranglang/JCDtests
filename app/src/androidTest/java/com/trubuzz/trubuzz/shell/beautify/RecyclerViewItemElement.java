@@ -35,7 +35,7 @@ public class RecyclerViewItemElement implements Element<Matcher<View>> {
         this.recyclerMatcher = recyclerMatcher;
     }
     public RecyclerViewItemElement(Element<Matcher<View>> recyclerMatcher) {
-        this.recyclerMatcher = recyclerMatcher.interactionWay();
+        this.recyclerMatcher = recyclerMatcher.way();
     }
 
     public RecyclerViewItemElement setPosition(int position) {
@@ -46,6 +46,15 @@ public class RecyclerViewItemElement implements Element<Matcher<View>> {
     public RecyclerViewItemElement setFindMatcher(Matcher<View> findMatcher) {
         this.findMatcher = findMatcher;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "RecyclerViewItemElement{" +
+                "recyclerMatcher=" + recyclerMatcher +
+                ", position=" + position +
+                ", findMatcher=" + findMatcher +
+                '}';
     }
 
     public static ViewAction scrollToRecyclerPosition(int position) {
@@ -124,7 +133,7 @@ public class RecyclerViewItemElement implements Element<Matcher<View>> {
 
 
     @Override
-    public Matcher<View> interactionWay() {
+    public Matcher<View> way() {
         if(position != -1){
             return this.atPosition(position);
         }

@@ -85,7 +85,7 @@ public class AtomElement implements Element<Atom> {
     }
 
     @Override
-    public Atom interactionWay() {
+    public Atom way() {
         if(notEmpty(id))                return findElement(ID , id);
         if(notEmpty(css))               return findElement(CSS_SELECTOR ,css);
         if(notEmpty(className))        return findElement(CLASS_NAME ,className);
