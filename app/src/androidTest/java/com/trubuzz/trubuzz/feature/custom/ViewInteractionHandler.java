@@ -4,7 +4,9 @@ import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.ViewInteraction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.trubuzz.trubuzz.shell.Element;
@@ -60,13 +62,43 @@ public class ViewInteractionHandler {
     }
 
     public static <T> String getText(final Element<T> element) {
-        T ele = element.interactionWay();
+        T ele = element.way();
         if (ele instanceof ViewInteraction) return getText((ViewInteraction) ele);
         if (ele instanceof Matcher) return getText((Matcher<View>) ele);
 
         return null;
     }
+    public static String getText(View view){
+        if (!(view instanceof TextView)) {
+            return null;
+        }
+        return ((TextView)view).getText().toString();
+    }
 
+    /**
+     * 从其后裔中查找符合条件的 View .
+     * @param view
+     * @param matcher
+     * @return
+     */
+    public static View getDescendant(View view ,Matcher<View> matcher){
+        if(matcher.matches(view))   return view;
+        if(!(view instanceof ViewGroup))    return null;
+
+        ViewGroup viewGroup = (ViewGroup) view;
+        int childCount = viewGroup.getChildCount();
+        for(int i=0;i<childCount;i++) {
+            View childView = viewGroup.getChildAt(i);
+            View descendant = getDescendant(childView, matcher);
+            if (descendant != null) {
+                return descendant;
+            }
+        }
+        return null;
+    }
+    public static View getDescendant(View view , Element<Matcher<View>> matcherElement){
+        return getDescendant(view, matcherElement.way());
+    }
     /**
      * 获取 RecyclerView 项目的个数
      * @param viewInteraction
@@ -98,7 +130,7 @@ public class ViewInteractionHandler {
     }
 
     public static int getRecyclerViewItemCount(final Element<Matcher<View>> element) {
-        return getRecyclerViewItemCount(element.interactionWay());
+        return getRecyclerViewItemCount(element.way());
     }
 
     /**
@@ -118,13 +150,17 @@ public class ViewInteractionHandler {
 
             @Override
             public String getDescription() {
-                return "get RecyclerView children position and view .";
+                return String.format("get RecyclerView children position and view with %s." ,findMatcher.toString());
             }
 
             @Override
             public void perform(UiController uiController, View view) {
                 RecyclerView recyclerView = (RecyclerView) view;
-                int count = recyclerView.getAdapter().getItemCount();
+                int count = recyclerView.getAdapter().getItemCount();/////
+                Log.i(TAG, String.format("getRecyclerViewItem > perform: " +
+                        "all RecyclerView item count =  %s ;" +
+                        " findMatcher = %s",count ,findMatcher.toString() ));
+
                 for(int i = 0;i<count;i++) {
                     new CustomRecyclerViewActions.ScrollToRecyclerPosition(i).perform(uiController, view);
                     uiController.loopMainThreadUntilIdle();
@@ -144,7 +180,7 @@ public class ViewInteractionHandler {
         return getRecyclerViewItem(onView(matcher), findMatcher);
     }
     public static List<ViewPosition> getRecyclerViewItem(final Element<Matcher<View>> element , Matcher<View> findMatcher){
-        return getRecyclerViewItem(element.interactionWay(), findMatcher);
+        return getRecyclerViewItem(element.way(), findMatcher);
     }
     /**
      * {@link #getRecyclerViewItem} 的内部类
@@ -188,7 +224,7 @@ public class ViewInteractionHandler {
     }
 
     public static <T> View getView(final Element<T> element) {
-        T ele = element.interactionWay();
+        T ele = element.way();
         if (ele instanceof ViewInteraction) return getView((ViewInteraction) ele);
         if (ele instanceof Matcher) return getView((Matcher<View>) ele);
 
