@@ -61,22 +61,25 @@ public class SelfStockTest extends BaseTest{
 
         List<ViewInteractionHandler.ViewPosition> kind_all_view = getRecyclerViewItem(aq.stocks_recycler, aq.kind_all.interactionWay());
         Log.i(TAG, String.format("add_us_stock: kind_all_view size: %s",kind_all_view.size() ));
-        int r = God.getRandomInt(checkNotZero(kind_all_view.size()) - 1, 0);
-        r=3; ///---
-        ViewInteractionHandler.ViewPosition view = kind_all_view.get(r);
+        int randomGroup = God.getRandomInt(checkNotZero(kind_all_view.size()) - 1, 0);      //生成类别随机数
+//        randomGroup=3; ///---
+        ViewInteractionHandler.ViewPosition view = kind_all_view.get(randomGroup);
         //随机点击一个类别的查看全部
         given(aq.stocks_recycler).perform(RecyclerViewActions.actionOnItemAtPosition(view.position, click()));
         String symbol ="";
 
         List<ViewInteractionHandler.ViewPosition> not_in_group_views = null;
-        for(int i=0;i<3;i++) {
+        for(int i=1;i<=3;i++) {
             symbol = getSymbol ();   //选择股票并返回 Symbol
             sleep(2000);
             not_in_group_views = getRecyclerViewItem(aq.stocks_recycler, not(hasDescendant(details.in_group_yet.interactionWay())));
             if (not_in_group_views.size() != 0) {
                 break;
             }
-            Log.i(TAG, String.format("add_us_stock: 第 %s 次没有空闲的自选列表 .",i+1 ));
+            Log.i(TAG, String.format("add_us_stock: 第 %s 次没有空闲的自选列表 .",i ));
+            if (i == 3) {
+                fail(String.format("%s 次随机选择没有空闲自选列表 ,请初始化自选 .",i));
+            }
             this.back_loop(2);
         }
 
@@ -107,7 +110,7 @@ public class SelfStockTest extends BaseTest{
     private String getSymbol (){
         int count = getRecyclerViewItemCount(aq.stocks_recycler);       //获得某分类中全部股票个数
         int random = God.getRandomInt(checkNotZero(count) - 1, 0);                      //随机取一个
-        random = 3;///---
+//        random = 3;///---
         given(aq.stocks_recycler).perform(scrollToRecyclerPosition(random));    //先滑动到view至可见
         RecyclerViewItemElement itemElement = new RecyclerViewItemElement(aq.stocks_recycler).setPosition(random);
         String symbol = getText(AQuotes.symbol_text.setAncestor(itemElement));      //保存股票代码
@@ -118,10 +121,7 @@ public class SelfStockTest extends BaseTest{
 
         return symbol;
     }
-    private List<ViewInteractionHandler.ViewPosition> get_not_in_group_views(){
-        sleep(2000);
-        return getRecyclerViewItem(aq.stocks_recycler, not(hasDescendant(details.in_group_yet.interactionWay())));
-    }
+
     /**
      * 添加 / 删除 港股
      */
