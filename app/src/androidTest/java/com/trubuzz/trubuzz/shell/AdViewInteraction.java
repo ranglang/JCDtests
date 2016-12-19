@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.trubuzz.trubuzz.feature.viewFirm.ViewHandle;
 import com.trubuzz.trubuzz.feature.viewFirm.ViewTracer;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.Registor;
@@ -24,8 +25,8 @@ import java.util.concurrent.Executor;
 
 import javax.inject.Provider;
 
-import static android.support.test.espresso.Espresso.onView;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withView;
+import static com.trubuzz.trubuzz.shell.Park.getViewInteraction;
 import static com.trubuzz.trubuzz.utils.MReflect.getDecFields;
 import static com.trubuzz.trubuzz.utils.MReflect.getFieldObject;
 
@@ -35,13 +36,20 @@ import static com.trubuzz.trubuzz.utils.MReflect.getFieldObject;
 
 public class AdViewInteraction {
     private static final String TAG = "jcd_AdViewInteraction";
-    private ViewInteraction viewInteraction;
     private static String key = AdViewInteraction.class.toString();
+    private  Element viewElement ;
+    private final ViewInteraction viewInteraction;
+
+
+    public AdViewInteraction(Element viewElement){
+        this.viewElement = viewElement;
+        this.viewInteraction = getViewInteraction(viewElement);
+    }
 
     public AdViewInteraction(ViewInteraction viewInteraction) {
         this.viewInteraction = viewInteraction;
     }
-    public AdViewInteraction(){}
+
     /**
      * 改良后的perform , 加入等待与错误截图
      * @param times
@@ -51,7 +59,8 @@ public class AdViewInteraction {
     public AdViewInteraction perform(final int times ,final ViewAction... viewActions) {
         for(int i = 1; i<times ; i++){
 
-            Log.i(TAG, "perform: 开始第"+i+"次匹配.....");
+            Log.i(TAG, String.format("perform: 开始第 %s 次匹配 ' %s ' .", i,
+                    viewElement == null ? viewInteraction.toString() : viewElement.toString()));
             if(canPerform(this.viewInteraction, viewActions)){
                 DoIt.delFile((String) Registor.unReg(key));
                 return this;
@@ -59,7 +68,8 @@ public class AdViewInteraction {
                 //执行截图并保存文件名
                 Registor.reg( key , ((BaseTest)Registor.peekReg(BaseTest.class.toString())).takeScreenshot());
             }
-            Log.w(TAG,"perform: 第"+i+"次未匹配到元素:"+this.viewInteraction.toString());
+            Log.w(TAG,String.format("perform: 第 %s 次未匹配到元素 ' %s ' .",i ,
+                    viewElement == null ? viewInteraction.toString() : viewElement.toString()));
         }
         this.viewInteraction.perform(viewActions);
         DoIt.delFile((String)Registor.unReg(key));
@@ -103,7 +113,8 @@ public class AdViewInteraction {
      */
     public AdViewInteraction check(final int times ,final ViewAssertion viewAssert){
         for(int i=1; i<times ; i++){
-            Log.i(TAG, "check: 开始第"+i+"次匹配.....");
+            Log.i(TAG, String.format("check: 开始第 %s 次匹配 ' %s ' .",i,
+                    viewElement == null ? viewInteraction.toString() : viewElement.toString()));
             if(checkRight(viewAssert)){
                 DoIt.delFile((String)Registor.unReg(key));
                 return this;
@@ -111,7 +122,8 @@ public class AdViewInteraction {
                 //执行截图并保存文件名
                 Registor.reg( key , ((BaseTest)Registor.peekReg(BaseTest.class.toString())).takeScreenshot());
             }
-            Log.w(TAG,"check: 第"+i+"次未匹配到元素:"+this.viewInteraction.toString());
+            Log.w(TAG,String.format("check: 第 %s 次未匹配到元素 ' %s ' .",i ,
+                    viewElement == null ? viewInteraction.toString() : viewElement.toString()));
         }
         this.viewInteraction.check(viewAssert);
         DoIt.delFile((String)Registor.unReg(key));
@@ -167,6 +179,8 @@ public class AdViewInteraction {
     }
 
     /**
+     * @deprecated use {@link com.trubuzz.trubuzz.feature.custom.ViewsFinder#getViews(Matcher)}
+     * 由于过度强依赖 , 过度反射, 故决定弃用.
      * 匹配到多个View时使用
      * 强依赖于{@link ViewInteraction#viewFinder};{@link ViewInteraction#uiController};{@link ViewInteraction#failureHandler}
      *          {@link ViewInteraction#mainThreadExecutor};{@link ViewInteraction#viewMatcher} .
@@ -211,7 +225,7 @@ public class AdViewInteraction {
             List<View> views = viewHandle.getTargetViews();
             adViewInteractions = new ArrayList<>();
             for(View view : views){
-                adViewInteractions.add(new AdViewInteraction(onView(withView(view))));
+                adViewInteractions.add(new AdViewInteraction(new ActivityElement().setMatchers(withView(view))));
             }
         }catch (Exception e ){
             e.printStackTrace();
