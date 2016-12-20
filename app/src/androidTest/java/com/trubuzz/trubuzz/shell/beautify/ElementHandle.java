@@ -102,4 +102,12 @@ public class ElementHandle {
         return ms;
     }
 
+    /**
+     * 直接返回set的text值.
+     * @param activityElement
+     * @return
+     */
+    public static String getElementText(ActivityElement activityElement) {
+        return activityElement.getText();
+    }
 }

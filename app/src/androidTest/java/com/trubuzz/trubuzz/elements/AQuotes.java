@@ -57,7 +57,8 @@ public class AQuotes {
             .setAssignableClass(android.widget.TextView.class); // 搜索结果Symbol
 
     /* 自选 */
-    public static final ActivityElement watchlist_default_item = new ActivityElement().setText(getString("默认名单", default_watchlist_group));
+    public static final ActivityElement watchlist_spinner = new ActivityElement().setId("spinner"); // 自选下拉列表
+    public final ActivityElement watchlist_default_item = new ActivityElement().setText(getString("默认名单", default_watchlist_group));
     public static final ActivityElement watchlist_ListView = new ActivityElement().setAssignableClass(ListView.class);
 
     /* 行情详情 */

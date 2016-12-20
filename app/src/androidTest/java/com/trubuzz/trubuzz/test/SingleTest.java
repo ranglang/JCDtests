@@ -14,6 +14,7 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.AQuotes;
 import com.trubuzz.trubuzz.elements.AWatchlist;
+import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.feature.custom.CustomViewAction;
 import com.trubuzz.trubuzz.feature.custom.ViewsFinder;
 import com.trubuzz.trubuzz.shell.beautify.RecyclerViewItemElement;
@@ -46,9 +47,7 @@ import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeDownAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeLeftAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeRightAs;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeUpAs;
-import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getDescendant;
-import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getText;
-import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
+import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static org.hamcrest.Matchers.allOf;
 
@@ -78,11 +77,10 @@ public class SingleTest {
 
     @Test
     public void adaptedTest() {
-        RecyclerViewItemElement self_group = new RecyclerViewItemElement(aw.watchlist_recycler).setPosition(0);
-        View view = getView(self_group);
-        View amount = getDescendant(view, withResourceName("amount1"));
-        String text = getText(amount);
-        Log.i(TAG, String.format("adaptedTest: text %s", text));
+
+        given(Global.quotes_radio).perform(click());
+        given(withResourceName("spinner")).perform(click());
+        sleep(2000);
 
     }
 

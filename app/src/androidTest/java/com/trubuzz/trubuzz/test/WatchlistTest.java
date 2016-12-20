@@ -92,7 +92,7 @@ public class WatchlistTest extends BaseTest{
     }
 
     @Before
-    public void into_quotes(){
+    public void b_into_watchlist(){
         Wish.wantLogin();
         given(Global.quotes_radio).perform(click());
         given(AQuotes.edit_watchlist).perform(click());
@@ -104,6 +104,11 @@ public class WatchlistTest extends BaseTest{
 
         DoIt.unAllRegIdlingResource();
 
+
+    }
+    @Before
+    public void a_check_item_count(){
+        // 如果小于5项则添加9个item
         if(itemCount < 5){
             for(int i=0;i<=8;i++) {
                 c_add_watchlist_item(toHexUpString(new Date().getTime()),true);
@@ -124,7 +129,7 @@ public class WatchlistTest extends BaseTest{
         String watchlist = getText(aw.default_item_text);
         given(Global.back_up).perform(click());
 
-        given(AQuotes.watchlist_default_item).check(matches(isDisplayed()))
+        given(AQuotes.watchlist_spinner).check(matches(isDisplayed()))
                 .check(matches(withText(watchlist)));
     }
 
@@ -147,7 +152,7 @@ public class WatchlistTest extends BaseTest{
             given(aw.edit_ok).perform(click());
 
             Espresso.pressBack();
-            given(AQuotes.watchlist_default_item).perform(click());
+            given(AQuotes.watchlist_spinner).perform(click());
             try {
                 onData(withRowString(watchlistKey, name)).check(matches(isDisplayed()));
                 fail(String.format("the item \"%s\" has been deleted .", name));
@@ -156,7 +161,7 @@ public class WatchlistTest extends BaseTest{
             given(aw.edit_cancel).perform(click());
 
             Espresso.pressBack();
-            given(AQuotes.watchlist_default_item).perform(click());
+            given(AQuotes.watchlist_spinner).perform(click());
             onData(withRowString(watchlistKey, name)).check(matches(isDisplayed()));
         }
     }
@@ -292,7 +297,7 @@ public class WatchlistTest extends BaseTest{
 
             given(tmpEle).check(matches(isDisplayed()));
             given(Global.back_up).perform(click());
-            given(AQuotes.watchlist_default_item).perform(click());
+            given(AQuotes.watchlist_spinner).perform(click());
             onData(withRowString(watchlistKey, listName)).check(matches(isDisplayed()));
         }else{
             given(aw.edit_cancel).perform(click());
@@ -303,7 +308,7 @@ public class WatchlistTest extends BaseTest{
             }
             given(new ActivityElement().setText(listName)).check(doesNotExist());
             given(Global.back_up).perform(click());
-            given(AQuotes.watchlist_default_item).perform(click());
+            given(AQuotes.watchlist_spinner).perform(click());
 
             //如本来不存在则 try perform一下, 若不抛异常则证明在列表存在了 , 这时当fail
             try {
@@ -360,7 +365,7 @@ public class WatchlistTest extends BaseTest{
         }
 
         Espresso.pressBack();
-        given(AQuotes.watchlist_default_item).perform(click());
+        given(AQuotes.watchlist_spinner).perform(click());
         given(AQuotes.watchlist_ListView).check(matches(hasChildrenCount(1)));
 
     }

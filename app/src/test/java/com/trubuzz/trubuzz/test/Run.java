@@ -14,16 +14,28 @@ import java.util.Random;
 /**
  * Created by king on 2016/10/20.
  */
-
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Run {
     boolean a;
 
 
     @Test
-    public void run() throws NoSuchMethodException {
-        random(-1 ,0);
+    public void xrun() throws NoSuchMethodException {
+        tr(false);
 
     }
+
+    public void tr(boolean c){
+        // c >> 期望是否存在 , 期望存在则为true.
+        boolean is = false;  //返回是否存在
+        is =! c ^ is;
+        System.out.println(is);
+        // f + t = f
+        // t + t = t
+        // t + f = f
+        // f + f = t
+    }
+
     private void random(int max , int min){
         Random r = new Random();
         for (int i = 0;i<20;i++) {
