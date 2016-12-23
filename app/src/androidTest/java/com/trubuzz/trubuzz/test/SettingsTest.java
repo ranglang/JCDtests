@@ -99,7 +99,10 @@ public class SettingsTest extends BaseTest {
 
     }
 
-   // @Test
+    /**
+     * 消息免打扰 测试
+     */
+    @Test
     public void notify_test() throws Exception {
         given(aSet.setting).perform(click());
         // 消息免打扰测试 ( 目前需手动配合测试 )
@@ -114,6 +117,9 @@ public class SettingsTest extends BaseTest {
         //具体的免打扰push 需手动测试
     }
 
+    /**
+     * 红涨绿跌 测试
+     */
     @Test
     @Uncalibrated
     public void rising_red_falling_green_test(){
@@ -128,6 +134,10 @@ public class SettingsTest extends BaseTest {
         /*开始在各页面校验*/
         this.page_check("rising red falling green");
     }
+
+    /**
+     * 绿涨红跌 测试
+     */
     @Test
     @Uncalibrated
     public void rising_green_falling_red_test(){
@@ -143,6 +153,9 @@ public class SettingsTest extends BaseTest {
         this.page_check("rising green falling red");
     }
 
+    /**
+     * 蜡烛图 测试
+     */
     @Test
     @Uncalibrated
     public void k_chart_candle_test(){
@@ -158,6 +171,10 @@ public class SettingsTest extends BaseTest {
         /*开始在各页面校验*/
         this.k_chart_check("K chart candle");
     }
+
+    /**
+     * 折线图 测试
+     */
     @Test
     @Uncalibrated
     public void k_chart_line_test(){
@@ -174,6 +191,13 @@ public class SettingsTest extends BaseTest {
         this.k_chart_check("K chart line");
     }
 
+    /**
+     * 交易密码修改 测试
+     * @param old_pwd
+     * @param new_pwd
+     * @param confirm_pwd
+     * @param expect
+     */
     @Test
     @Parameters(method = "trade_password_change_data")
     public void trade_password_change(@Var("old_pwd")String old_pwd ,@Var("new_pwd")String new_pwd,
@@ -200,6 +224,10 @@ public class SettingsTest extends BaseTest {
         given(expect).check(matches(isDisplayed()));
 
     }
+
+    /**
+     * 隐私政策 测试
+     */
     @Test
     public void privacy_policy_test(){
         given(aSet.setting).perform(click());
@@ -223,6 +251,9 @@ public class SettingsTest extends BaseTest {
 
     private final String tutorial_4_title_text = getStringFormat("TRUBUZZ为您开启全球投资理财梦想" ,tutorial_title_4 ,appName);
 
+    /**
+     * 用户指导 测试
+     */
     @Test
     public void tutorial_test(){
         given(aSet.setting).perform(click());
@@ -246,6 +277,9 @@ public class SettingsTest extends BaseTest {
         given(isRoot()).perform(swipeLeft());
     }
 
+    /**
+     * 版本 测试
+     */
     @Test
     public void version_show_test(){
         given(aSet.setting).perform(click());
@@ -253,6 +287,10 @@ public class SettingsTest extends BaseTest {
         this.compareTakeScreenshot("version "+version);
     }
 
+    /**
+     * 开启隐私模式 测试
+     * @throws Exception
+     */
     @Test
     @Uncalibrated
     public void private_on_test() throws Exception {
@@ -268,6 +306,11 @@ public class SettingsTest extends BaseTest {
         given(ASettings.left_drawer).perform(click());
         given(aSet.private_set).check(matches(withText(ON)));
     }
+
+    /**
+     * 关闭隐私模式测试
+     * @throws Exception
+     */
     @Test
     @Uncalibrated
     public void private_off_test() throws Exception {
@@ -283,6 +326,8 @@ public class SettingsTest extends BaseTest {
         given(ASettings.left_drawer).perform(click());
         given(aSet.private_set).check(matches(withText(OFF)));
     }
+
+/********************* 私有辅助方法 **********************/
 
     private void page_check(String rising_falling){
         //持仓页面

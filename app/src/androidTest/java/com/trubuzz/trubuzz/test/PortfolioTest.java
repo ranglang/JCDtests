@@ -9,6 +9,7 @@ import com.trubuzz.trubuzz.elements.AWealth;
 import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler;
 import com.trubuzz.trubuzz.shell.Element;
+import com.trubuzz.trubuzz.shell.Uncalibrated;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.RecyclerViewItemElement;
 import com.trubuzz.trubuzz.utils.God;
@@ -60,6 +61,7 @@ public class PortfolioTest extends BaseTest {
      */
     @Test
     @Parameters(method = "has_broker_data")
+    @Uncalibrated
     public void outside_subscribe_test(@Var("has_broker") boolean has_broker){
         this.into_portfolio(has_broker);     //使用已开户 / 未开户 用户登录
 

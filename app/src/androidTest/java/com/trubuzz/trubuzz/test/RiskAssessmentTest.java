@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.utils.God;
 
+import org.junit.Before;
 import org.junit.Rule;
 
 /**
@@ -17,5 +18,8 @@ public class RiskAssessmentTest {
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
-
+    @Before
+    public void into_risk(){
+        // 暂定人工测试
+    }
 }
