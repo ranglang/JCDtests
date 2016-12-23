@@ -68,6 +68,7 @@ import static org.hamcrest.Matchers.not;
 @RunWith(JUnitParamsRunner.class)
 public class SettingsTest extends BaseTest {
     private ASettings aSet = new ASettings();
+    private AWealth aw = new AWealth();
     private String redUp = getString("红涨绿跌",rising_red_falling_green);
     private String greenUp = getString("绿涨红跌",rising_green_falling_red);
     private String candle = getString("蜡烛图" ,chart_candle);
@@ -327,9 +328,9 @@ public class SettingsTest extends BaseTest {
 
         //投资组合
         given(Global.wealth_radio).perform(true, click());
-        given(AWealth.portfolio_button).perform(true, click());
+        given(aw.portfolio_button).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" portfolio list ");
-        given(AWealth.default_portfolio).perform(true, click());
+        given(aw.default_portfolio).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" portfolio details ");
     }
 
@@ -364,8 +365,8 @@ public class SettingsTest extends BaseTest {
 
         //投资组合
         given(Global.wealth_radio).perform(true, click());
-        given(AWealth.portfolio_button).perform(true, click());
-        given(AWealth.default_portfolio).perform(true, click());
+        given(aw.portfolio_button).perform(true, click());
+        given(aw.default_portfolio).perform(true, click());
         this.compareTakeScreenshot(k_type +" portfolio details ");
     }
 }

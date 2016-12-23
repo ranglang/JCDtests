@@ -15,6 +15,10 @@ public class AName {
     public static final String USER = "com.trubuzz.roy.auth.UserProfileActivity";
     public static final String NOUNS = "com.trubuzz.roy.trade.ItemDescriptorActivity";
     public static final String WATCHLIST = "com.trubuzz.roy.trade.WatchlistEditorActivity";
+    public static final String RISK_ASSESSMENT = "com.trubuzz.roy.management.RiskAssessmentActivity";
+    public static final String PORTFOLIO_DETAIL = "com.trubuzz.roy.management.PortfolioDetailActivity";
+    public static final String PORTFOLIO_LIST = "com.trubuzz.roy.management.PortfolioActivity";
+
 
 
     /** Android 原生 **/
