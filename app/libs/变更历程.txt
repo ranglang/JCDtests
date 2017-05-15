@@ -5,3 +5,4 @@
         今天添加field 定义data的实现 , 需使用FieldVar 注解
 11/22   添加 UNCALIBRATED 类型的TestResult;  使用时直接在Test方法中set即可 .
         ->  改为使用注解 Uncalibrated 来标明该方法需要人为判断.
+05/15   之前改版后退出再次进入会保留退出前所在的位置 , 故后期在判断一些东西的时候需注意(如登录,开户等)

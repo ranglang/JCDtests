@@ -12,9 +12,16 @@ buildscript {
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'trubuzz'
+            keyPassword 'trubuzz'
+            storeFile file('E:/data/android/.android/debug.keystore')
+            storePassword 'trubuzz'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion '24.0.3'
-
     defaultConfig {
         applicationId "com.trubuzz.trubuzz"
         minSdkVersion 19
@@ -25,7 +32,6 @@ android {
         testInstrumentationRunner "com.trubuzz.trubuzz.feature.AdRunner"
 //        multiDexEnabled true
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -34,6 +40,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
     packagingOptions {
@@ -45,38 +54,31 @@ android {
 }
 
 dependencies {
-//    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.+'
-    compile "com.android.support:recyclerview-v7:23.+"
+    compile 'com.android.support:recyclerview-v7:23.+'
     compile 'com.android.support:multidex:1.0.0'
-
     testCompile 'junit:junit:4.12'
     testCompile 'io.selendroid:selendroid:0.17.0'
     testCompile 'io.selendroid:selendroid-client:0.17.0'
-    testCompile files('libs/JUnitParams-1.1.1.jar')
-    testCompile files('libs/classes-dex2jar.jar')
-
-
-
+//    testCompile files('libs/JUnitParams-1.1.1.jar')
+//    testCompile files('libs/classes-dex2jar.jar')
     androidTestCompile 'com.android.support:support-annotations:23.+'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
     androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
-    androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.2'){
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2') {
         // Necessary to avoid version conflicts
         // 经过实践,不如此将无法启动Junit4进行测试 ( 一直找不到测试方法 )
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude module: 'recyclerview-v7'
     }
-
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.+'
     androidTestCompile 'com.alibaba:fastjson:1.2.20'
     androidTestCompile files('libs/JUnitParams-1.1.1.jar')
-
-
 }
 
 task assembleDebug(overwrite: true) {}

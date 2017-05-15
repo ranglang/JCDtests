@@ -1,8 +1,8 @@
 package com.trubuzz.trubuzz.test;
 
+import android.app.Activity;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.ViewActions;
-import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 import android.view.View;
 
@@ -24,6 +24,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
+import static com.trubuzz.trubuzz.elements.Global.assets_radio;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static org.hamcrest.CoreMatchers.not;
@@ -42,15 +43,15 @@ public class Wish {
      * 判断是否登录
      * 通过当前activity来判断 , 拥有5秒的加载时间
      * if 已登录则返回 true
-     * @param atr
+     * @param activity
      * @return
      */
-    public static boolean isLogin( ActivityTestRule<?> atr){
+    public static boolean isLogin( Activity activity){
         for(int i=0; i<5 ;i++){
-            if(atr !=null && God.getTopActivityName(atr.getActivity()).equals(AName.LOGIN)){
+            if(activity !=null && God.getTopActivityName(activity).equals(AName.LOGIN)){
                 return false;
             }
-            if(isVisible(ASettings.left_drawer)) return true;
+            if(isVisible(assets_radio)) return true;//如果"资产"button可见则认为已登录
             sleep(1000);
         }
         return false;
@@ -61,6 +62,7 @@ public class Wish {
     public static boolean hasBroker(){
         for(int i=0; i<5; i++){
             try {
+                given(assets_radio).perform(click());
                 given(AAsset.net_worth_view).check( matches((isDisplayed())));
                 return true;
             } catch (Exception e){
@@ -97,7 +99,7 @@ public class Wish {
      * @param user
      * @param pwd
      */
-    public static void wantBrokerLogin(ActivityTestRule<?> atr ,String user , String pwd){
+    public static void wantBrokerLogin(Activity atr ,String user , String pwd){
         if(! isLogin(atr)){
             login(user,pwd);
         }else if(! hasBroker()){
@@ -106,7 +108,7 @@ public class Wish {
         }else
             Log.i(TAG, "wantBrokerLogin: 已经是已开户用户登录");
     }
-    public static void wantBrokerLogin(ActivityTestRule<?> atr ){
+    public static void wantBrokerLogin(Activity atr ){
         wantBrokerLogin(atr , Config.hasBrokerUser , Config.hasBrokerPwd);
     }
     public static void wantBrokerLogin(){
@@ -118,12 +120,12 @@ public class Wish {
      * @param user
      * @param pwd
      */
-    public static void wantLogin(ActivityTestRule<?> atr ,String user , String pwd){
+    public static void wantLogin(Activity atr ,String user , String pwd){
         if(! isLogin(atr)) {
             login(user, pwd);
         }
     }
-    public static void wantLogin(ActivityTestRule<?> atr){
+    public static void wantLogin(Activity atr){
         wantLogin(atr,Config.hasBrokerUser , Config.hasBrokerPwd);
     }
     public static void wantLogin(){
@@ -135,7 +137,7 @@ public class Wish {
      * @param user
      * @param pwd
      */
-    public static void wantNotBrokerLogin(ActivityTestRule<?> atr ,String user , String pwd){
+    public static void wantNotBrokerLogin(Activity atr ,String user , String pwd){
         if(! isLogin(atr)){
             login(user,pwd);
         }else if( hasBroker()){
@@ -144,7 +146,7 @@ public class Wish {
         }else
             Log.i(TAG, "wantNotBrokerLogin: 已经是未开户用户登录");
     }
-    public static void wantNotBrokerLogin(ActivityTestRule<?> atr ){
+    public static void wantNotBrokerLogin(Activity atr ){
         wantNotBrokerLogin(atr ,Config.notBrokerUser , Config.notBrokerPwd);
     }
     public static void wantNotBrokerLogin(){
@@ -155,7 +157,7 @@ public class Wish {
      * 期望是没有登录的
      * @param atr
      */
-    public static void wantNotLogin(ActivityTestRule<?> atr){
+    public static void wantNotLogin(Activity atr){
         if(isLogin(atr)){
             logout();
         }

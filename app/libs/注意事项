@@ -5,3 +5,4 @@
     实例:
         uiDevice.findObject(new UiSelector().descriptionStartsWith("19")).click();
 3.  代码中调试语句以  ///---  开头 , 后面写入正确的语句 .
+4.  代码中出现 "///X--" 则表示该行代码错误 或 不稳定 , 需安排时间重写
