@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.elements;
+package com.trubuzz.trubuzz.test.quote;
 
 import android.widget.ListView;
 
@@ -23,7 +23,7 @@ import static com.trubuzz.trubuzz.utils.God.getString;
  * Created by king on 16/11/22.
  */
 
-public class AQuotes {
+public class QuoteView {
     public static final ActivityElement symbol_text = new ActivityElement().setId("subtitle");
     private static final ActivityElement security_text = new ActivityElement().setId("title");
     private static final ActivityElement price_text = new ActivityElement().setId("price");
@@ -53,8 +53,13 @@ public class AQuotes {
     public final ActivityElement search_back = new ActivityElement()
             .setContent_desc(getString("收起", abc_toolbar_collapse_description))
             .setAssignableClass(android.widget.ImageButton.class);
+    // 搜索结果Symbol
     public final ActivityElement search_symbol = new ActivityElement().setId("value")
-            .setAssignableClass(android.widget.TextView.class); // 搜索结果Symbol
+            .setAssignableClass(android.widget.TextView.class);
+
+    // 搜索结果 name
+    public final ActivityElement search_name = new ActivityElement().setId("title")
+            .setAssignableClass(android.widget.TextView.class);
 
     /* 自选 */
     public static final ActivityElement watchlist_spinner = new ActivityElement().setId("spinner"); // 自选下拉列表
@@ -62,15 +67,18 @@ public class AQuotes {
     public static final ActivityElement watchlist_ListView = new ActivityElement().setAssignableClass(ListView.class);
 
     /* 行情详情 */
-    public static class details{
-        public final ActivityElement buy_button = new ActivityElement().setId("button1").setText(getString("Buy" ,buy));
-        public final ActivityElement sell_button = new ActivityElement().setId("button2").setText(getString("Sell" ,sell));
-        public final ActivityElement add_self_stock = new ActivityElement().setContent_desc(getString("新增", add));
 
-        /* 添加自选 */
-        public final ActivityElement in_group_yet = new ActivityElement().setId("select")
-                .setText(getString("已在该分类中", in_group));
-        public final ActivityElement group_name = new ActivityElement().setId("title");
-    }
+    // 股票名称
+    public final ActivityElement stock_name = new ActivityElement().setId("name");
+    public final ActivityElement buy_button = new ActivityElement().setId("button1").setText(getString("Buy" ,buy));
+    public final ActivityElement sell_button = new ActivityElement().setId("button2").setText(getString("Sell" ,sell));
+    public final ActivityElement add_self_stock = new ActivityElement().setContent_desc(getString("新增", add));
+
+
+    /* 添加自选 */
+    public final ActivityElement in_group_yet = new ActivityElement().setId("select")
+            .setText(getString("已在该分类中", in_group));
+    public final ActivityElement group_name = new ActivityElement().setId("title");
+
 
 }

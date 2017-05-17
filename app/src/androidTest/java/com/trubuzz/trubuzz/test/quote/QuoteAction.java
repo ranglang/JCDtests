@@ -1,0 +1,74 @@
+package com.trubuzz.trubuzz.test.quote;
+
+import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+import com.trubuzz.trubuzz.test.common.Actions;
+import com.trubuzz.trubuzz.test.trade.TradeView;
+
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
+import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.utils.DoIt.regIdlingResource;
+
+/**
+ * Created by king on 17/5/17.
+ */
+
+public class QuoteAction extends Actions {
+    private QuoteView qv = new QuoteView();
+    private TradeView tv = new TradeView();
+
+
+    /**
+     * 进入行情页面
+     */
+    public void into_quote(){
+        given(Global.quotes_radio).perform(click())
+                .check(matches(isChecked()));
+    }
+
+    /**
+     * 搜索股票 ( 只输入Symbol , 不管其他 )
+     * @param symbol
+     */
+    public void search_stock(String symbol){
+        given(qv.search_icon).perform(click());
+        given(qv.search_input).perform(replaceText(symbol))
+                .check(matches(withText(symbol)));
+    }
+
+    /**
+     * 等待搜索结果
+     */
+    public void waiting_search_result(){
+        regIdlingResource(new ViewIdlingResource(getView(qv.stocks_recycler)));
+        given(qv.stocks_recycler).check(matches(isDisplayed()));
+//        unRegIdlingResource();
+    }
+
+    /**
+     * 进入搜索股票的行情详情
+     * @param symbol
+     */
+    public void into_search_stock_quote(String symbol){
+        ActivityElement searchSymbol = qv.search_symbol.setText(symbol);
+        given(searchSymbol).check(matches(isDisplayingAtLeast(90)));
+        given(qv.search_name).check(matches(isDisplayed()));
+        given(qv.search_name.setSibling(searchSymbol)).check(matches(isDisplayed()));
+//        String stockName = getText(qv.search_name.setSibling(searchSymbol));
+        given(searchSymbol).perform(click()); //选择指定记录进入详情
+//        given(qv.stock_name).check(matches(withText(stockName)));
+    }
+
+
+    /**
+     * 价格预警
+     */
+}

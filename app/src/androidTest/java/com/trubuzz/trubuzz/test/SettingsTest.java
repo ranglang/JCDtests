@@ -5,7 +5,7 @@ import android.support.test.espresso.web.webdriver.DriverAtoms;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.elements.AQuotes;
+import com.trubuzz.trubuzz.test.quote.QuoteView;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.AWealth;
 import com.trubuzz.trubuzz.elements.Global;
@@ -36,7 +36,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_password_confirm_toast;
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_trade_pwd_format_toast;
-import static com.trubuzz.trubuzz.elements.AQuotes.default_stock;
+import static com.trubuzz.trubuzz.test.quote.QuoteView.default_stock;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.singleSpaceContains;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.thisString;
@@ -338,14 +338,14 @@ public class SettingsTest extends BaseTest {
         this.compareTakeScreenshot(rising_falling +" watchlist ");
 
         //自选列表
-        given(AQuotes.watchlist_fence).check(true, matches(isSelected()));
+        given(QuoteView.watchlist_fence).check(true, matches(isSelected()));
         this.compareTakeScreenshot(rising_falling +" watchlist");
         given(default_stock).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" watchlist stock details ");
         Espresso.pressBack();
 
         //美股行情
-        given(AQuotes.us_fence).perform(true, click());
+        given(QuoteView.us_fence).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" quotes us ");
         given(default_stock).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" us stock details ");
@@ -353,7 +353,7 @@ public class SettingsTest extends BaseTest {
         Espresso.pressBack();
 
         //港股行情
-        given(AQuotes.hk_fence).perform(true, click());
+        given(QuoteView.hk_fence).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" quotes hk ");
         given(default_stock).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" hk stock details ");
@@ -361,14 +361,14 @@ public class SettingsTest extends BaseTest {
         Espresso.pressBack();
 
         //沪深行情
-        given(AQuotes.cn_fence).perform(true, click());
+        given(QuoteView.cn_fence).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" quotes cn ");
         given(default_stock).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" cn stock details ");
         Espresso.pressBack();
 
         //环球行情
-        given(AQuotes.global_fence).perform(true, click());
+        given(QuoteView.global_fence).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" quotes global ");
 
         //投资组合
@@ -383,27 +383,27 @@ public class SettingsTest extends BaseTest {
 
     private void k_chart_check(String k_type){
         //自选列表
-        given(AQuotes.watchlist_fence).check(true, matches(isSelected()));
+        given(QuoteView.watchlist_fence).check(true, matches(isSelected()));
         given(default_stock).perform(true, click());
         this.compareTakeScreenshot(k_type +" watchlist stock details ");
         Espresso.pressBack();
 
         //美股行情
-        given(AQuotes.us_fence).perform(true, click());
+        given(QuoteView.us_fence).perform(true, click());
         given(default_stock).perform(true, click());
         this.compareTakeScreenshot(k_type +" us stock details ");
 
         Espresso.pressBack();
 
         //港股行情
-        given(AQuotes.hk_fence).perform(true, click());
+        given(QuoteView.hk_fence).perform(true, click());
         given(default_stock).perform(true, click());
         this.compareTakeScreenshot(k_type +" hk stock details ");
 
         Espresso.pressBack();
 
         //沪深行情
-        given(AQuotes.cn_fence).perform(true, click());
+        given(QuoteView.cn_fence).perform(true, click());
         given(default_stock).perform(true, click());
         this.compareTakeScreenshot(k_type +" cn stock details ");
         Espresso.pressBack();

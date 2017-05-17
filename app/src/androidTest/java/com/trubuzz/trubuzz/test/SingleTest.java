@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.AAsset;
-import com.trubuzz.trubuzz.elements.AQuotes;
+import com.trubuzz.trubuzz.test.quote.QuoteView;
 import com.trubuzz.trubuzz.elements.AWatchlist;
 import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.feature.custom.CustomViewAction;
@@ -59,9 +59,8 @@ public class SingleTest {
     @Rule
     public ActivityTestRule mActivityRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
     public final String TAG = "jcd_"+this.getClass().getSimpleName();
-    private AQuotes aq = new AQuotes();
+    private QuoteView aq = new QuoteView();
     private AAsset aa = new AAsset();
-    private AQuotes.details d = new AQuotes.details();
     private AWatchlist aw = new AWatchlist();
     Matcher<View> recyclerMatcher;
 

@@ -17,7 +17,7 @@ import android.util.Log;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.elements.ALogin;
-import com.trubuzz.trubuzz.elements.AQuotes;
+import com.trubuzz.trubuzz.test.quote.QuoteView;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
@@ -283,7 +283,7 @@ public class FirstTest extends BaseTest{
         sleep(1000);
 //        ViewActions.swipeLeft();
         given(Global.quotes_radio).perform(click());
-        given(AQuotes.default_stock).perform(click());
+        given(QuoteView.default_stock).perform(click());
 
 
         God.getCurrentActivity(Env.instrumentation);

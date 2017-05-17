@@ -5,7 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.elements.AQuotes;
+import com.trubuzz.trubuzz.test.quote.QuoteView;
 import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
@@ -57,8 +57,7 @@ import static org.hamcrest.Matchers.not;
 public class SelfStockTest extends BaseTest{
     private final String TAG = "jcd_" + this.getClass().getSimpleName();
     private static boolean initialized = false;
-    private final AQuotes aq = new AQuotes();
-    private final AQuotes.details details = new AQuotes.details();
+    private final QuoteView aq = new QuoteView();
 
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
@@ -107,7 +106,7 @@ public class SelfStockTest extends BaseTest{
      */
     @Test
     public void add_us_stock(){
-        given(AQuotes.us_fence).perform(click());
+        given(QuoteView.us_fence).perform(click());
 
         add_stock();
     }
@@ -116,7 +115,7 @@ public class SelfStockTest extends BaseTest{
      */
     @Test
     public void add_hk_stock(){
-        given(AQuotes.hk_fence).perform(click());
+        given(QuoteView.hk_fence).perform(click());
 
         add_stock();
     }
@@ -126,7 +125,7 @@ public class SelfStockTest extends BaseTest{
      */
     @Test
     public void add_cn_stock(){
-        given(AQuotes.cn_fence).perform(click());
+        given(QuoteView.cn_fence).perform(click());
 
         add_stock();
     }
@@ -144,10 +143,10 @@ public class SelfStockTest extends BaseTest{
                 index_symbol));
         given(aq.search_symbol.setText(index_symbol)).perform(click()); //选择指定记录进入详情
 
-        given(details.add_self_stock).perform(click(pressBack()));  //点击添加自选按钮
+        given(aq.add_self_stock).perform(click(pressBack()));  //点击添加自选按钮
         sleep(2000);
         List<ViewInteractionHandler.ViewPosition> not_in_group_views =
-                getRecyclerViewItem(aq.stocks_recycler, not(hasDescendant(details.in_group_yet.way())));
+                getRecyclerViewItem(aq.stocks_recycler, not(hasDescendant(aq.in_group_yet.way())));
         String group_text = "";
 
         // 若所选指数已存在于列表则跳过
@@ -157,18 +156,18 @@ public class SelfStockTest extends BaseTest{
             //随机选取未在分类的view
             given(aq.stocks_recycler).perform(scrollToRecyclerPosition(groupPosition.position));    //先滑动到view至可见
             RecyclerViewItemElement self_group = new RecyclerViewItemElement(aq.stocks_recycler).setPosition(groupPosition.position);
-            group_text = getText(details.group_name.setAncestor(self_group));      //保存自选列表名
+            group_text = getText(aq.group_name.setAncestor(self_group));      //保存自选列表名
             Log.i(TAG, String.format("add_us_stock: select watchlist '%s'", group_text));
 
             given(self_group).perform(click());
             sleep(2000);
-            given(self_group).check(matches(hasDescendant(details.in_group_yet.way())));
+            given(self_group).check(matches(hasDescendant(aq.in_group_yet.way())));
         }else{
             //这里只为随机获取一个Group name 方便check.
             List<ViewInteractionHandler.ViewPosition> in_group_views =
-                    getRecyclerViewItem(aq.stocks_recycler, hasDescendant(details.in_group_yet.way()));
+                    getRecyclerViewItem(aq.stocks_recycler, hasDescendant(aq.in_group_yet.way()));
             int random_group = God.getRandomInt(in_group_views.size() - 1, 0);
-            group_text = getText(getDescendant(in_group_views.get(random_group).view ,details.group_name));///////
+            group_text = getText(getDescendant(in_group_views.get(random_group).view ,aq.group_name));///////
         }
         this.back_to_main();
         this.check_group(index_symbol ,group_text,true);
@@ -179,7 +178,7 @@ public class SelfStockTest extends BaseTest{
      */
     @Test
     public void add_more_group(){
-        given(AQuotes.us_fence).perform(click());
+        given(QuoteView.us_fence).perform(click());
 
         this.into_all_stocks();
         String symbol ="";
@@ -188,7 +187,7 @@ public class SelfStockTest extends BaseTest{
         for(int i=1;i<=3;i++) {
             symbol = getSymbol ();   //选择股票并返回 Symbol
             sleep(2000);
-            not_in_group_views = getRecyclerViewItem(aq.stocks_recycler, not(hasDescendant(details.in_group_yet.way())));
+            not_in_group_views = getRecyclerViewItem(aq.stocks_recycler, not(hasDescendant(aq.in_group_yet.way())));
             Log.i(TAG, String.format("add_more_group: %s 为在分类列表数为 : %s .",symbol ,not_in_group_views.size() ));
             if (not_in_group_views.size() >= 2) {
                 break;
@@ -205,9 +204,9 @@ public class SelfStockTest extends BaseTest{
             RecyclerViewItemElement self_group = new RecyclerViewItemElement(aq.stocks_recycler).setPosition(groupPosition.position);
             given(self_group).perform(click());
             sleep(2000);
-            given(self_group).check(matches(hasDescendant(details.in_group_yet.way())));
+            given(self_group).check(matches(hasDescendant(aq.in_group_yet.way())));
 
-            String group_text = getText(details.group_name.setAncestor(self_group));      //保存自选列表名
+            String group_text = getText(aq.group_name.setAncestor(self_group));      //保存自选列表名
             Log.i(TAG, String.format("add_more_group: add to watchlist '%s'", group_text));
             group_texts.add(group_text);
         }
@@ -223,8 +222,8 @@ public class SelfStockTest extends BaseTest{
      */
     @Test
     public void del_with_default_group(){
-        given(AQuotes.watchlist_fence).perform(click());
-        given(AQuotes.watchlist_spinner).perform(click());
+        given(QuoteView.watchlist_fence).perform(click());
+        given(QuoteView.watchlist_spinner).perform(click());
         given(aq.watchlist_default_item).perform(click());
 
         int recyclerViewItemCount = getRecyclerViewItemCount(aq.stocks_recycler);
@@ -233,13 +232,13 @@ public class SelfStockTest extends BaseTest{
         RecyclerViewItemElement recyclerViewItem = new RecyclerViewItemElement(aq.stocks_recycler).setPosition(randomItem);
         given(aq.stocks_recycler).perform(scrollToRecyclerPosition(randomItem));    //滚动到位置
 
-        String symbol = getText(AQuotes.symbol_text.setAncestor(recyclerViewItem)); //获取该股票的Symbol
+        String symbol = getText(QuoteView.symbol_text.setAncestor(recyclerViewItem)); //获取该股票的Symbol
         given(recyclerViewItem).perform(click());
-        given(details.add_self_stock).perform(click(pressBack()));
+        given(aq.add_self_stock).perform(click(pressBack()));
         sleep(2000);
 
         given(aq.watchlist_default_item)
-                .check(matches(hasSibling(details.in_group_yet.way())))
+                .check(matches(hasSibling(aq.in_group_yet.way())))
                 .perform(click());
 
         this.back_to_main();
@@ -258,7 +257,7 @@ public class SelfStockTest extends BaseTest{
         for(int i=1;i<=3;i++) {
             symbol = getSymbol ();   //选择股票并返回 Symbol
             sleep(2000);
-            not_in_group_views = getRecyclerViewItem(aq.stocks_recycler, not(hasDescendant(details.in_group_yet.way())));
+            not_in_group_views = getRecyclerViewItem(aq.stocks_recycler, not(hasDescendant(aq.in_group_yet.way())));
             Log.i(TAG, String.format("add_us_stock: %s 为在分类列表数为 : %s .",symbol ,not_in_group_views.size() ));
             if (not_in_group_views.size() != 0) {
                 break;
@@ -275,12 +274,12 @@ public class SelfStockTest extends BaseTest{
         //随机选取未在分类的view
         given(aq.stocks_recycler).perform(scrollToRecyclerPosition(groupPosition.position));    //先滑动到view至可见
         RecyclerViewItemElement self_group = new RecyclerViewItemElement(aq.stocks_recycler).setPosition(groupPosition.position);
-        String group_text = getText(details.group_name.setAncestor(self_group));      //保存自选列表名
+        String group_text = getText(aq.group_name.setAncestor(self_group));      //保存自选列表名
         Log.i(TAG, String.format("add_us_stock: select watchlist '%s'",group_text ));
 
         given(self_group).perform(click());
         sleep(2000);
-        given(self_group).check(matches(hasDescendant(details.in_group_yet.way())));
+        given(self_group).check(matches(hasDescendant(aq.in_group_yet.way())));
 
         this.back_to_main();
 
@@ -300,8 +299,8 @@ public class SelfStockTest extends BaseTest{
         given(aq.stocks_recycler).perform(RecyclerViewActions.actionOnItemAtPosition(view.position, click()));
     }
     private void check_group(String symbol , String group_text , boolean exist){
-        given(AQuotes.watchlist_fence).perform(click());
-        given(AQuotes.watchlist_spinner).perform(click());
+        given(QuoteView.watchlist_fence).perform(click());
+        given(QuoteView.watchlist_spinner).perform(click());
         onData(withRowString(watchlistKey, group_text)).perform(click());
         Log.d(TAG, String.format("check_group: 展开自选列表 '%s'",group_text));
         sleep(1000);
@@ -319,11 +318,11 @@ public class SelfStockTest extends BaseTest{
 //        random = 3;///---
         given(aq.stocks_recycler).perform(scrollToRecyclerPosition(random));    //先滑动到view至可见
         RecyclerViewItemElement itemElement = new RecyclerViewItemElement(aq.stocks_recycler).setPosition(random);
-        String symbol = getText(AQuotes.symbol_text.setAncestor(itemElement));      //保存股票代码
+        String symbol = getText(QuoteView.symbol_text.setAncestor(itemElement));      //保存股票代码
         Log.i(TAG, String.format("add_us_stock: select symbol '%s'",symbol ));
 
         given(itemElement).perform(click());
-        given(details.add_self_stock).perform(click(pressBack()));
+        given(aq.add_self_stock).perform(click(pressBack()));
 
         return symbol;
     }

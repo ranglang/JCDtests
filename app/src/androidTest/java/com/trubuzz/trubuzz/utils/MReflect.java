@@ -47,4 +47,19 @@ public class MReflect {
     public static Object getFieldObject(String fieldName , Object object) throws IllegalAccessException {
         return matcherField(getDecFields(object) , fieldName).get(object);
     }
+
+    /**
+     * 通过 Class 获取对象
+     * @param clz
+     * @param <T>
+     * @return
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
+    public static <T> T getObject(Class<T> clz) throws IllegalAccessException, InstantiationException {
+        return clz.newInstance();
+    }
+    public static <T> T getObject(Class<T> clz ,Object ...obj) throws IllegalAccessException, InstantiationException {
+        return null;
+    }
 }
