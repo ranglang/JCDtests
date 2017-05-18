@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.shell.Element;
 
 import org.hamcrest.Matcher;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static org.hamcrest.Matchers.allOf;
@@ -36,6 +38,8 @@ public class ViewInteractionHandler {
      * @return
      */
     public static String getText(final ViewInteraction viewInteraction) {
+        // 在获取 text 前需检查是否存在 ( check 中有智能等待 ^v^ )
+        new AdViewInteraction(viewInteraction).check(matches(isDisplayed()));
         final String[] stringHolder = {null};
         viewInteraction.perform(new ViewAction() {
             @Override

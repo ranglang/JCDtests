@@ -11,17 +11,19 @@ import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getText;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.regIdlingResource;
+import static com.trubuzz.trubuzz.utils.DoIt.unRegIdlingResource;
 
 /**
  * Created by king on 17/5/17.
  */
 
 public class QuoteAction extends Actions {
+    private String TAG = "jcd_" + QuoteAction.class.getSimpleName();
     private QuoteView qv = new QuoteView();
     private TradeView tv = new TradeView();
 
@@ -49,8 +51,9 @@ public class QuoteAction extends Actions {
      */
     public void waiting_search_result(){
         regIdlingResource(new ViewIdlingResource(getView(qv.stocks_recycler)));
+        // 这里只等待 RecyclerView 的出现, 而不确保其中会有内容
         given(qv.stocks_recycler).check(matches(isDisplayed()));
-//        unRegIdlingResource();
+        unRegIdlingResource();
     }
 
     /**
@@ -59,12 +62,10 @@ public class QuoteAction extends Actions {
      */
     public void into_search_stock_quote(String symbol){
         ActivityElement searchSymbol = qv.search_symbol.setText(symbol);
-        given(searchSymbol).check(matches(isDisplayingAtLeast(90)));
-        given(qv.search_name).check(matches(isDisplayed()));
-        given(qv.search_name.setSibling(searchSymbol)).check(matches(isDisplayed()));
-//        String stockName = getText(qv.search_name.setSibling(searchSymbol));
+        ActivityElement search = qv.search_symbol.setText(symbol);
+        String stockName = getText(qv.search_name.setSibling(searchSymbol));
         given(searchSymbol).perform(click()); //选择指定记录进入详情
-//        given(qv.stock_name).check(matches(withText(stockName)));
+        given(qv.stock_name).check(matches(withText(stockName)));
     }
 
 

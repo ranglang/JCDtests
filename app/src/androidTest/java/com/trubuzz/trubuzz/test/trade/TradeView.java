@@ -49,7 +49,7 @@ public class TradeView {
     public final ActivityElement orderTypeSwitch = new ActivityElement().setId("button_order_type_switch");
 
     // 金额 / 股数 输入框
-    public final ActivityElement amountInput = new ActivityElement().setId("amountInput");
+    public final ActivityElement amountInput = new ActivityElement().setId("amount");
     public final ActivityElement orderAmountType = new ActivityElement().setId("order_amount_type");
     public final ActivityElement restOfDay = new ActivityElement().setId("button_order_available_time_2");
     public final ActivityElement ioc = new ActivityElement().setId("button_order_available_time_1");

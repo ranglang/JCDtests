@@ -1,6 +1,7 @@
 package com.trubuzz.trubuzz.shell;
 
 import android.support.test.espresso.FailureHandler;
+import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.ViewAssertion;
@@ -158,7 +159,8 @@ public class AdViewInteraction {
         try {
             this.viewInteraction.check(viewAssert);
             return true;
-        } catch (Error e) {
+        } catch (NoMatchingViewException e) {
+            Log.e(TAG, "checkRight: check "+ viewAssert.toString() +" error", e);
             e.printStackTrace();
             return false;
         }
