@@ -1,0 +1,444 @@
+<resources>
+    <string name="empty">沒有項目</string>
+    <string name="preference">設置</string>
+    <string name="notification">通知</string>
+    <string name="refresh">刷新</string>
+    <string name="unset">未設置</string>
+    <string name="private_mode">隱私模式</string>
+    <string name="enabled">開啟</string>
+    <string name="disabled">關閉</string>
+    <string name="downloading">下載中…</string>
+
+    <!-- OAUTH -->
+    <string name="login">登入</string>
+    <string name="sign_up">註冊</string>
+    <string name="forget_password">忘記密碼</string>
+    <string name="invalid_username_password">無效的帳號或密碼</string>
+    <string name="no_account_question">沒有帳號?</string>
+    <string name="sign_up_description">快速註冊登入</string>
+    <string name="login_account_hint">請輸入您的電子信箱或手機號</string>
+    <string name="login_password_hint">請輸入密碼</string>
+    <string name="incorrect_account_format">帳號必須是電子信箱或手機號</string>
+    <string name="accept">同意</string>
+    <string name="terms_of_service">服務條款</string>
+    <string name="accept_terms_of_service_hint">請閱讀並勾選同意服務條款以註冊帳號</string>
+    <string name="confirm_resend_mail">重新發送驗證信</string>
+    <string name="confirm_resend_mail_hint">您將收到一封驗證信件，請在郵件中認證您的帳號，未認證帳戶七天後自動失效</string>
+    <string name="country_code">電話國碼</string>
+    <string name="pickup">挑選</string>
+    <string name="bind_account_warning">請先綁定一個交易帳號</string>
+    <string name="open_account">馬上開戶</string>
+    <!-- END -->
+
+
+    <!-- NAVI -->
+    <string name="assets">資產</string>
+    <string name="price">行情</string>
+    <string name="money_management">理財</string>
+    <string name="news">新聞</string>
+    <string name="social">圈子</string>
+    <!-- END -->
+
+
+    <!-- TRADE -->
+    <string name="sell_all">一鍵平倉</string>
+    <string name="sell">賣</string>
+    <string name="buy">買</string>
+    <string name="sell_out">賣出</string>
+    <string name="buy_in">買入</string>
+    <string name="code_value">代碼/市值</string>
+    <string name="price_avgprice">現值/成本</string>
+    <string name="amount">數量</string>
+    <string name="portfolio">盈虧</string>
+    <string name="net_liqidation">淨資產</string>
+    <string name="total_portfolio">總收益</string>
+    <string name="today_portfolio">當日收益</string>
+    <string name="total_amount">持倉市值</string>
+    <string name="available_fund">可用資金</string>
+    <string name="buying_power">購買力</string>
+    <string name="code_date">代碼/時間</string>
+    <string name="code_time">代碼/時間</string>
+    <string name="byu_sell">買/賣</string>
+    <string name="price_amount">價格/數量</string>
+    <string name="status">狀態</string>
+    <string name="modify">修改</string>
+    <string name="set">設定</string>
+    <string name="cancel_order">撤單</string>
+    <string name="order_detail">委託明細</string>
+    <string name="occurance_price">發生金額</string>
+    <string name="updated">更新:</string>
+    <string name="customer_service">客戶經理</string>
+    <string name="order_limit_buy">限價買入</string>
+    <string name="order_limit_sell">限價賣出</string>
+    <string name="order_market_buy">市價買入</string>
+    <string name="order_market_sell">市價賣出</string>
+    <string name="order_sell">賣出委託</string>
+    <string name="order_buy">買入委託</string>
+    <string name="resistance_price">壓力</string>
+    <string name="support_price">支撐</string>
+    <string name="guess_rising">看多 %1$s</string>
+    <string name="guess_falling">看空 %1$s</string>
+    <string name="submit_order">下單</string>
+    <string name="stock_code">證券代碼</string>
+    <string name="order_price">委託價格</string>
+    <string name="plus_100">+100</string>
+    <string name="plus_200">+200</string>
+    <string name="plus_500">+500</string>
+    <string name="plus_1000">+1000</string>
+    <string name="available_time">有效時間</string>
+    <string name="order_time_ioc">立即成交</string>
+    <string name="order_time_day">當日有效</string>
+    <string name="amount_buy">買入數量</string>
+    <string name="amount_sell">賣出數量</string>
+    <string name="amount_buy_cash">買入金額</string>
+    <string name="amount_sell_cash">賣出金額</string>
+    <string name="order_price_warning">以最優的五檔內部時價成交</string>
+    <string name="sell_all_message">您確定要一鍵平倉嗎?</string>
+    <string name="sell_all_confirm_message">您已經有%1$s%2$s，價格為%3$s的委託</string>
+    <string name="market_price">市價</string>
+    <string name="market_price_short">市價</string>
+    <string name="price_open">今開</string>
+    <string name="price_close">昨收</string>
+    <string name="price_high">最高</string>
+    <string name="price_low">最低</string>
+    <string name="total_value">市值</string>
+    <string name="total_cost">每股收益</string>
+    <string name="volume">成交量</string>
+    <string name="price_to_earning">市盈率</string>
+
+    <string name="chart_type_minute">分時</string>
+    <string name="chart_type_one_minute">1分</string>
+    <string name="chart_type_five_minute">5分</string>
+    <string name="chart_type_hour">時</string>
+    <string name="chart_type_day">日</string>
+    <string name="chart_type_week">周</string>
+    <string name="chart_type_month">月</string>
+    <string name="chart_type_year">年</string>
+    <string name="chart_data_load_failed">數據載入失敗，請檢查網路。</string>
+    <string name="stock_news">新聞</string>
+    <string name="stock_data">資料</string>
+    <string name="stock_finance">財務</string>
+    <string name="setting_price_alert_range">設置價格區間</string>
+    <string name="setting_price_alert_range_hint">當價格接近您設置的警告值時，聚財道會發出警告訊息</string>
+    <string name="price_alert_add_success">添加警告成功</string>
+    <string name="price_alert_add_failed">添加警告失敗</string>
+    <string name="price_alert_modify_success">修改警告成功</string>
+    <string name="price_alert_modify_failed">修改警告失敗</string>
+    <string name="price_alert_delete_success">刪除警告成功</string>
+    <string name="price_alert_delete_failed">刪除警告失敗</string>
+    <string name="price_alert_limit_up">價格上限</string>
+    <string name="price_alert_limit_down">價格下限</string>
+    <string name="ok">確定</string>
+    <string name="confirm">確定</string>
+    <string name="cancel">取消</string>
+    <string name="price_alert">股價提醒</string>
+    <string name="order_time">委託時間</string>
+    <string name="stock_name">證券名稱</string>
+    <string name="direction">操作</string>
+    <string name="order_amount">委託數量</string>
+    <string name="price_avg">成交均價</string>
+    <string name="order_status">委託狀態</string>
+    <string name="exchange">交易所</string>
+    <string name="order_id">合約編號</string>
+    <string name="cancel_order_message">您確定要撤單嗎?</string>
+    <string name="position_list">持倉</string>
+    <string name="order_list">委託</string>
+    <string name="trade_history">成交歷史</string>
+    <string name="trade_history_detail">成交歷史明細</string>
+    <string name="transaction_date">成交日期</string>
+    <string name="transaction_time">成交時間</string>
+    <string name="transaction_price">成交價格</string>
+    <string name="transaction_amount">成交數量</string>
+    <string name="transaction_price_total">成交金額</string>
+    <string name="trade_password">交易密碼</string>
+    <string name="each_time">每次</string>
+    <string name="minute_10">10分鐘</string>
+    <string name="minute_30">30分鐘</string>
+    <string name="hour_1">1小時</string>
+    <string name="hour_4">4小時</string>
+    <string name="order_status_pending">發送中</string>
+    <string name="order_status_pendingSubmit">已發送訂單</string>
+    <string name="order_status_pendingCancel">已發送取消訂單</string>
+    <string name="order_status_preSubmitted">系統已接收</string>
+    <string name="order_status_submitted">訂單工作中</string>
+    <string name="order_status_apiCanceled">已由系統取消</string>
+    <string name="order_status_cancelled">訂單已取消</string>
+    <string name="order_status_filled">已成交</string>
+    <string name="order_status_inactive">訂單失效</string>
+    <string name="order_status_genfail">發送訂單失敗</string>
+    <string name="order_status_cancelorderfail">刪除訂單失敗</string>
+    <string name="country_us">美國</string>
+    <string name="country_hk">香港</string>
+    <string name="country_cn">中國</string>
+    <string name="country_btc">比特幣</string>
+    <string name="country_wg">全球</string>
+    <string name="country_sg">新加坡</string>
+    <string name="trade_password_mismatch">交易密碼不正確</string>
+    <string name="sell_all_success">平倉訂單送出成功</string>
+    <string name="cancel_order_success">撤銷訂單成功</string>
+    <string name="order_place_success">下單成功</string>
+    <string name="change_trade_password">修改交易密碼</string>
+    <string name="change_login_password">修改登入密碼</string>
+    <string name="setup_trade_password">設置交易密碼</string>
+    <string name="setup_trade_password_success">設定交易密碼成功</string>
+    <string name="confirm_trade_password">確認交易密碼</string>
+    <string name="input_old_trade_password">輸入舊密碼</string>
+    <string name="input_new_trade_password">輸入新密碼</string>
+    <string name="confirm_trade_password_again">再次確認新密碼</string>
+    <string name="change_trade_password_success">修改交易密碼成功</string>
+    <string name="change_value">漲跌值</string>
+    <string name="change_percent">漲跌幅</string>
+    <string name="notification_order_filled">委託單 %1$s %2$s %3$s股已成交，成交價 %4$s 元</string>
+    <string name="notification_order_opened">委託單 %1$s %2$s %3$s股</string>
+    <string name="notification_exchange_order_filled">委託單 %1$s %2$s %3$s元已成交，成交價 %4$s 元</string>
+    <string name="notification_exchange_order_opened">委託單 %1$s %2$s %3$s元</string>
+    <string name="sell_5">賣5</string>
+    <string name="sell_4">賣4</string>
+    <string name="sell_3">賣3</string>
+    <string name="sell_2">賣2</string>
+    <string name="sell_1">賣1</string>
+    <string name="open_price">開盤價格</string>
+    <string name="buy_1">買1</string>
+    <string name="buy_2">買2</string>
+    <string name="buy_3">買3</string>
+    <string name="buy_4">買4</string>
+    <string name="buy_5">買5</string>
+    <string name="liquid_opening">開盤中</string>
+    <string name="liquid_closed">未開盤</string>
+    <string name="account_summary">帳戶詳情</string>
+    <string name="account_summary_us">帳戶詳情</string>
+    <string name="account_summary_hk">港幣帳戶詳情</string>
+    <string name="account_summary_other">其它</string>
+    <string name="account_type">交易帳號類型</string>
+    <string name="net_liquidation">淨清算值</string>
+    <string name="total_cash_value">現金</string>
+    <string name="accrued_cash">淨累計利息</string>
+    <string name="equity_with_loan_value">有貸款價值的資產</string>
+    <string name="gross_position_value">股票+期權</string>
+    <string name="init_margin_req">初始準備金</string>
+    <string name="maint_margin_req">維持準備金</string>
+    <string name="available_funds">可用資金</string>
+    <string name="excess_liquidity">剩餘流動性</string>
+    <string name="net_liquidation_by_currency">港幣資産</string>
+    <string name="stock_marketValue">港幣部位</string>
+    <string name="total_cashBalance">港幣現金</string>
+    <string name="accrued_cash_hk">港幣利息</string>
+    <string name="unrealized_pnL">未實現損益</string>
+    <string name="realized_pnL">已實現損益</string>
+    <string name="hk_exchange_rate">匯率</string>
+    <string name="lotsize_limit">下單最小單位</string>
+    <string name="price_tick_limit">最小價格跳動</string>
+    <string name="denied_action_without_trade_account">您當前尚未開戶不能進行該操作</string>
+    <string name="market_status_preMarket">盤前</string>
+    <string name="market_status_opening">盤中</string>
+    <string name="market_status_afterMarket">盤後</string>
+    <string name="market_status_closing">收盤</string>
+    <string name="market_status_rest">休息</string>
+    <string name="market_status_unknown">未知</string>
+    <string name="exchange_title">貨幣兌換</string>
+    <string name="submit_exchange">兌換</string>
+    <string name="exchange_hint">聲明\n1. 您的換匯行為會產生港幣或美元資產，這些資產會存在於您的IB帳戶中\n2.
+        這部分資產是您帳戶中真實存在的，IB並不會收取利息\n3. 在操作之前您要確定您有相應的貨幣可兌換\n4. 匯率是以IB最優的浮動匯率為您兌換，因為匯率是浮動的，所以如果您對換匯的數額有精確的要求，請儘量兌換稍多於您的期望數額，比如：您希望兌換10000港幣，建議您兌換10100，來防止匯率浮動帶來的風險</string>
+    <string name="exchange_rate">當前匯率:</string>
+    <string name="exchange_rate_now">1美元=%1$s港元</string>
+    <string name="us_dollar">美元</string>
+    <string name="hk_dollar">港元</string>
+    <string name="original_currency">原始貨幣</string>
+    <string name="object_currency">目標貨幣</string>
+    <string name="exchange_amount">兌換金額</string>
+    <string name="exchange_amount_hint">當前帳戶剩余%1$s%2$s可兌換</string>
+    <string name="exchange_history">兌換歷史</string>
+    <string name="exchange_history_time">時間</string>
+    <string name="exchange_history_direction">換匯方向</string>
+    <string name="exchange_history_amount">金額</string>
+    <string name="exchange_history_charge">手續費</string>
+    <string name="exchange_history_rate">匯率</string>
+    <string name="exchange_history_buy">港元\u21c0美元</string>
+    <string name="exchange_history_sell">美元\u21c0港元</string>
+    <string name="exchange_quantity_null">兌換金額不能為空</string>
+    <string name="exchange_quantity_zero">兌換金額必須大於0</string>
+    <string name="exchange_quantity_invalid">請輸入合法兌換金額</string>
+    <string name="exchange_alert">換匯提醒</string>
+    <string name="exchange_alert_content">您的換匯金額為:%1$s%2$s换%3$s%4$s</string>
+    <string name="order_by_shares">股數成交</string>
+    <string name="order_by_cash">金額成交</string>
+    <string name="order_type_switch">\u21cc 切換</string>
+    <string name="order_by_shares_unit">股</string>
+    <string name="order_by_cash_usd">USD</string>
+    <string name="order_by_cash_hkd">HKD</string>
+    <string name="order_by_shares_cash_number">資金:%1$s%2$s</string>
+    <string name="order_by_shares_fee">預估手續費:%1$s%2$s</string>
+    <string name="order_available_shares">可%1$s:%2$s股</string>
+    <string name="order_by_cash_shares_number">預估可%1$s入股數:%2$s股</string>
+
+    <string name="time_zone_us">(美東)</string>
+    <string name="time_zone_hk">(香港)</string>
+    <string name="time_zone_cn">(北京)</string>
+    <!-- END -->
+
+
+    <!-- WATCHLIST -->
+    <string name="watchlist_customized">自選</string>
+    <string name="watchlist_hk">港股</string>
+    <string name="watchlist_us">美股</string>
+    <string name="watchlist_cn">滬深</string>
+    <string name="watchlist_global">環球</string>
+    <string name="search">搜尋</string>
+    <string name="stock_search_hint">請輸入股票代碼或股票名稱</string>
+    <string name="management">管理</string>
+    <string name="rename">更名</string>
+    <string name="delete">刪除</string>
+    <string name="add">新增</string>
+    <string name="watchlist_add">新增</string>
+    <string name="watchlist_rename">重命名</string>
+    <string name="watchlist_delete">刪除</string>
+    <string name="watchlist_delete_message">您確定要刪除%1$s嗎?</string>
+    <string name="interactive_broker">盈透証券</string>
+    <string name="trade_expired">有效期限</string>
+    <string name="watchlist_editor">編輯</string>
+    <string name="modify_name">修改名稱</string>
+    <string name="in_group">已在該分類中</string>
+    <string name="default_watchlist_group">預設名單</string>
+    <string name="price_lastest">最新價格</string>
+    <string name="incorrect_trade_password_format">請輸入4~6位字母或數字</string>
+    <!-- END -->
+
+    <!-- PRICE -->
+    <string name="connected_quote">已連線</string>
+    <string name="quote_service">報價服務</string>
+    <!-- END -->
+
+
+    <!-- REGISTER -->
+    <string name="sign_up_email">電子信箱註冊</string>
+    <string name="sign_up_phone">手機註冊</string>
+    <string name="email">電子郵箱地址</string>
+    <string name="sign_up_email_hint">請輸入您的電子郵箱地址</string>
+    <string name="input_password">輸入密碼</string>
+    <string name="sign_up_password_hint">請輸入密碼</string>
+    <string name="confirm_password">確認密碼</string>
+    <string name="sign_up_confirm_hint">請再次輸入密碼</string>
+    <string name="input_captcha">請輸入驗證碼</string>
+    <string name="reload_captcha">看不清楚? 換一張</string>
+    <string name="captcha_format_error">驗證碼為六個數字</string>
+    <string name="incorrect_email_empty">請輸入電子信箱地址</string>
+    <string name="incorrect_email_format">電子信箱地址格式不正確</string>
+    <string name="incorrect_password_format">請輸入6–16字符的大小寫字母和數字組合</string>
+    <string name="incorrect_password_empty">密碼不能為空</string>
+    <string name="incorrect_sms_format">簡訊驗證碼格式不正確</string>
+    <string name="incorrect_password_same">新舊密碼不可相同</string>
+    <string name="incorrect_password_confirm">兩次密碼輸入不一致</string>
+    <string name="phone_number">手機號碼</string>
+    <string name="sign_up_phone_hint">請輸入手機號碼</string>
+    <string name="incorrect_phone_format">手機號碼格式不正確</string>
+    <string name="input_sms">輸入簡訊驗證碼</string>
+    <string name="sign_up_sms_hint">輸入簡訊驗證碼</string>
+    <string name="get_sms">獲取驗證碼</string>
+    <string name="register_success">註冊成功</string>
+    <string name="sign_up_sms_auth_sent">簡訊驗證碼已發送</string>
+    <string name="forget_password_email">電子信箱找回</string>
+    <string name="forget_password_phone">手機號找回</string>
+    <string name="submit">提交</string>
+    <string name="reset_password_mail_sent">重設密碼信件已發送到您的信箱，請查收並重置密碼。</string>
+    <string name="change_login_password_success">修改登入密碼成功</string>
+    <!-- END -->
+
+
+    <!-- PREFERENCE -->
+    <string name="notification_disable">訊息免打擾</string>
+    <string name="light_theme_enable">白天模式</string>
+    <string name="rising_falling_display">漲跌顯示</string>
+    <string name="k_chart_type">K圖類型</string>
+    <string name="privacy_policy">隱私權政策</string>
+    <string name="tutorial">新用戶指導</string>
+    <string name="version">版本</string>
+    <string name="logout">退出</string>
+    <string name="rising_green_falling_red">綠漲紅跌</string>
+    <string name="rising_red_falling_green">紅漲綠跌</string>
+    <string name="chart_candle">蠟燭圖</string>
+    <string name="chart_line">曲線圖</string>
+    <!-- END -->
+
+
+    <!-- PROFILE -->
+    <string name="avatar">頭像</string>
+    <string name="nickname">暱稱</string>
+    <string name="birthday">生日</string>
+    <string name="gender">性別</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="user_profile">個人訊息</string>
+    <string name="change_nickname">修改暱稱</string>
+    <!-- END -->
+
+
+    <!-- SOCIAL -->
+    <string name="circle">圈子</string>
+    <string name="nice_reply">精彩評論</string>
+    <string name="send">發送</string>
+    <string name="say_something">我也說兩句…</string>
+    <string name="circle_mute_enable">不接收通知</string>
+    <string name="circle_mute_disable">接收通知</string>
+    <string name="circle_mute_confirm_title">新文章通知</string>
+    <string name="circle_mute_confirm_msg">當圈子有新文章時通知您嗎?</string>
+    <string name="circle_mute_confirm_yes">好的</string>
+    <string name="circle_mute_confirm_no">不用了</string>
+    <string name="notification_circle_new_message">快來瞧瞧圈子的新文章</string>
+    <string name="article_title">動態</string>
+    <!-- END -->
+
+
+    <!-- NEWS -->
+    <string name="news_hotline">要聞</string>
+    <string name="news_hk">港股</string>
+    <string name="news_us">美股</string>
+    <string name="news_collage">聚財學院</string>
+    <string name="all">全部</string>
+    <!-- END -->
+
+
+    <!-- MANAGEMENT -->
+    <string name="portfolio_set">投資組合</string>
+    <string name="wealth_management">財富管理</string>
+    <string name="total_assets">總資產</string>
+    <string name="min_investment">起投金額</string>
+    <string name="total_pnl">總收益</string>
+    <string name="year_pnl">年收益</string>
+    <string name="month_pnl">月收益</string>
+    <string name="week_pnl">周收益</string>
+    <string name="pnl">收益</string>
+    <string name="month_win_rate">月勝率</string>
+    <string name="subscribe">訂閱</string>
+    <string name="subscribed">已訂閱</string>
+    <string name="date">日期</string>
+    <string name="investment_risk_assessment">投資風險評測</string>
+    <string name="investment_risk_assessment_description">根據相關法規，因金融產品有不同的風險等級，需要你完成風險評測了解自身的風險承受能力，便於做出理性的投資決策，防止違背意願購買了與自身風險承受能力不匹配的產品。</string>
+    <string name="investment_risk_assessment_finished">評測完成</string>
+    <string name="annualized_rate_of_return">年化收益率</string>
+    <string name="click_buy_fund">我有興趣，請客戶經理聯繫我</string>
+    <string name="request_sent">請求已發送</string>
+    <string name="click_buy_fund_sent">%1$s您好，已經為您通知客戶經理</string>
+    <string name="known">我知道了</string>
+    <string name="show_more">了解更多</string>
+    <string name="open_in_browser">由瀏覽器檢視</string>
+    <!-- END -->
+
+
+    <!-- UPGRADE -->
+    <string name="update_version_title">有新版本可升級</string>
+    <string name="update_version_msg">點擊更新</string>
+    <!-- END -->
+
+
+    <!-- TUTORIAL -->
+    <string name="tutorial_title_1">全雲端化即時金融訊息</string>
+    <string name="tutorial_content_1">365全天更新國際行情動態，一鍵捕捉17個國家60多個\n交易所的6萬多個種類投資機會。</string>
+    <string name="tutorial_title_2">全球化財富管理平台</string>
+    <string name="tutorial_content_2">實現外幣投資組合，布局境外資產配置，\n依據風險偏好提供理財建議與合規財富管理產品。</string>
+    <string name="tutorial_title_3">頂級國際操盤手圈子</string>
+    <string name="tutorial_content_3">訂閱頂尖基金經理人、卓越對沖基金操盤手實盤投資組合，\n不定期交流投資策略理念。</string>
+    <string name="tutorial_title_4">$appname$為您開啟全球投資理財夢想</string>
+    <string name="tutorial_start">立即啟程</string>
+    <string name="open_account_title">交易帳號開立/交易帳號綁定</string>
+    <!-- END -->
+</resources>

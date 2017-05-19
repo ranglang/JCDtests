@@ -33,7 +33,11 @@ public class CustomViewAction  {
 
     private CustomViewAction(){}
 
-   public static ViewAction nothing(){
+    /**
+     * 没什么可做的 , 辅助方法
+     * @return
+     */
+    public static ViewAction nothing(){
        return new ViewAction() {
            @Override
            public Matcher<View> getConstraints() {
@@ -50,45 +54,38 @@ public class CustomViewAction  {
                Log.i(TAG, "perform: no thing to do .");
            }
        };
-   }
-
-    public static ViewAction swipeUpAs(int distance,boolean checkVisible){
-        return new SwipeAsDirection(Swipe.FAST, Direction.UP ,10 ,distance ,Press.FINGER, checkVisible);
-    }
-    public static ViewAction swipeUpAs(){
-        return swipeUpAs(100,false);
-    }
-    public static ViewAction swipeDownAs(int distance,boolean checkVisible){
-        return new SwipeAsDirection(Swipe.FAST, Direction.DOWN ,500 ,distance ,Press.FINGER, checkVisible);
-    }
-    public static ViewAction swipeDownAs(){
-        return swipeDownAs(100,false);
-    }
-    public static ViewAction swipeLeftAs(int distance,boolean checkVisible){
-        return new SwipeAsDirection(Swipe.FAST, Direction.LEFT,100 ,distance ,Press.FINGER, checkVisible);
-    }
-    public static ViewAction swipeLeftAs(){
-        return swipeLeftAs(100,false);
-    }
-    public static ViewAction swipeRightAs(int distance,boolean checkVisible){
-        return new SwipeAsDirection(Swipe.FAST, Direction.RIGHT ,100 ,distance ,Press.FINGER, checkVisible);
-    }
-    public static ViewAction swipeRightAs(){
-        return swipeRightAs(100,false);
     }
 
-    public static ViewAction swipeAs( Direction direction, int fuzz, int swipe_distance, boolean checkVisible){
+
+    /**
+     * 自由滑动
+     * @param direction 方向
+     * @param fuzz 毛刺
+     * @param swipe_distance 距离
+     * @param checkVisible 是否检查存在
+     * @return
+     */
+    public static ViewAction swipeAsDirection(Direction direction, int fuzz, int swipe_distance, boolean checkVisible){
         return new SwipeAsDirection(Swipe.FAST, direction, fuzz, swipe_distance, Press.FINGER, checkVisible);
     }
 
+    /**
+     * 滑动至View可见
+     *
+     * @param direction 滑动方向
+     * @return
+     */
+    public static ViewAction swipeToVisible(Direction direction){
+        return new SwipeToVisible((SwipeAsDirection) swipeAsDirection(direction ,10 ,300 ,false));
+    }
     /**
      * 滑动至view可见
      */
     public static final class SwipeToVisible implements ViewAction{
         private final int MAX_TRIES = 5;
-        private final SwipeAs swiper;
+        private final SwipeAsDirection swiper;
 
-        public SwipeToVisible(SwipeAs swipeAs) {
+        public SwipeToVisible(SwipeAsDirection swipeAs) {
             this.swiper = swipeAs;
         }
 
@@ -106,7 +103,8 @@ public class CustomViewAction  {
         public void perform(UiController uiController, View view) {
             for(int i=0;i<MAX_TRIES;i++) {
                 if (isVisible(view,VISIBILITY)) return;
-                swiper.perform(uiController, view);
+                Log.i(TAG, String.format("perform: swipe %s times",i ));
+                swiper.perform(uiController ,view);
             }
         }
 
@@ -124,6 +122,15 @@ public class CustomViewAction  {
         private final PrecisionDescriber precisionDescriber;
         private final boolean checkVisible;
 
+        /**
+         *
+         * @param swiper 速度
+         * @param direction 方向
+         * @param fuzz  边缘毛刺
+         * @param swipe_distance  滑动距离 ( start -> end 的像素长度 )
+         * @param precisionDescriber    精度 ( 拇指 / 食指 等 )
+         * @param checkVisible  是否需要检查可见
+         */
         public SwipeAsDirection(Swiper swiper, Direction direction, int fuzz, int swipe_distance,
                                 PrecisionDescriber precisionDescriber, boolean checkVisible) {
             this.swiper = swiper;
@@ -158,6 +165,11 @@ public class CustomViewAction  {
         }
     }
 
+    /**
+     * 这是一个较原始的方法 , 根据坐标轴来滑动
+     * 如: startCoordinates = {10 ,720} -> endCoordinates = {400 ,720}
+     * 则说明是从左向右滑动
+     */
     public static final class SwipeAs implements ViewAction{
         /** Maximum number of times to attempt sending a swipe action. */
         private static final int MAX_TRIES = 3;

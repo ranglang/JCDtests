@@ -2,6 +2,8 @@ package com.trubuzz.trubuzz.test.trade;
 
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
+import static com.trubuzz.trubuzz.test.R.string.order_by_cash;
+import static com.trubuzz.trubuzz.test.R.string.order_by_shares;
 import static com.trubuzz.trubuzz.test.R.string.order_price_warning;
 import static com.trubuzz.trubuzz.utils.God.getString;
 
@@ -10,6 +12,9 @@ import static com.trubuzz.trubuzz.utils.God.getString;
  */
 
 public class TradeView {
+    // 顶级View
+    public final ActivityElement topView = new ActivityElement().setId("decor_content_parent");
+
     // 股票名称
     public final ActivityElement stockName = new ActivityElement().setId("name");
 
@@ -44,9 +49,19 @@ public class TradeView {
     // 价格微增
     public final ActivityElement priceIncrease = new ActivityElement().setId("price_increase");
 
-
+    // 成交方式展示
     public final ActivityElement orderType = new ActivityElement().setId("order_type");
+
+    // 成交方式切换按钮
     public final ActivityElement orderTypeSwitch = new ActivityElement().setId("button_order_type_switch");
+
+    // 成交方式选择对话框
+    public final ActivityElement orderTypeSelectDialog= new ActivityElement().setId("select_dialog_listview").setDis(false);
+
+    // 金额成交单选框
+    public final ActivityElement amountRadio = new ActivityElement().setText(getString("金额成交" ,order_by_cash ));
+    // 股数成交单选框
+    public final ActivityElement volumeRadio = new ActivityElement().setText(getString("股数成交" ,order_by_shares));
 
     // 金额 / 股数 输入框
     public final ActivityElement amountInput = new ActivityElement().setId("amount");
@@ -55,5 +70,5 @@ public class TradeView {
     public final ActivityElement ioc = new ActivityElement().setId("button_order_available_time_1");
 
     // 下单按钮
-    public final ActivityElement ordering = new ActivityElement().setId("submit");
+    public final ActivityElement ordering = new ActivityElement().setId("submit").setDis(false);
 }

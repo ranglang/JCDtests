@@ -55,6 +55,8 @@ public class TradeUSTest extends BaseTest {
 
         ta.click_buy_button();
         ta.limit_buy_default_show();
+        ta.decrease_price();
+        ta.change_deal_type(TradeAction.Deal.amount);
         ta.input_amount("3000");
         ta.click_submit_button();
 

@@ -1,21 +1,32 @@
 package com.trubuzz.trubuzz.test.trade;
 
+import com.trubuzz.trubuzz.constant.Direction;
+import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
 import com.trubuzz.trubuzz.test.common.Actions;
 import com.trubuzz.trubuzz.test.quote.QuoteView;
+
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeToVisible;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getText;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.test.R.string.order_by_cash;
+import static com.trubuzz.trubuzz.test.R.string.order_by_shares;
 import static com.trubuzz.trubuzz.test.R.string.order_limit_buy;
 import static com.trubuzz.trubuzz.test.R.string.order_market_buy;
+import static com.trubuzz.trubuzz.utils.DoIt.regIdlingResource;
+import static com.trubuzz.trubuzz.utils.DoIt.unRegIdlingResource;
 import static com.trubuzz.trubuzz.utils.God.getString;
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.not;
 
 /**
@@ -27,6 +38,8 @@ class TradeAction extends Actions {
     private TradeView tv = new TradeView();
     private String limitBuyTab = getString("限价买入",order_limit_buy);
     private String marketBuyTab = getString("市价买入", order_market_buy);
+    private String orderByShares = getString("股数成交", order_by_shares);
+    private String orderByCash = getString("金额成交", order_by_cash);
 
 
     /**
@@ -50,8 +63,10 @@ class TradeAction extends Actions {
         given(tv.limit).check(matches(withText(limitBuyTab)));
         given(tv.limitSelected).check(matches(isDisplayed()));
         given(tv.limitPriceInput).check(matches(isDisplayed()));
-        given(tv.priceDecrease).check(matches(allOf(isDisplayed() ,isEnabled())));
-        given(tv.priceIncrease).check(matches(allOf(isDisplayed() ,isEnabled())));
+
+        // 价格微调 + - 出现太慢 , 10秒都不一定能出来
+//        given(tv.priceDecrease).check(10 , matches(allOf(isDisplayed() ,isEnabled())));
+//        given(tv.priceIncrease).check(10 , matches(allOf(isDisplayed() ,isEnabled())));
     }
 
     /**
@@ -101,9 +116,83 @@ class TradeAction extends Actions {
     }
 
     /**
+     * 更改成交方式 ( 金额成交 / 股数成交 )
+     * @param deal 已定义的成交方式
+     */
+    public void change_deal_type(Deal deal){
+        given(tv.orderTypeSwitch).perform(click());
+        given(tv.orderTypeSelectDialog).check(matches(isDisplayed()));
+        switch (deal) {
+            case amount:
+                given(tv.amountRadio).perform(click());
+                given(tv.orderType).check(matches(withText(orderByCash)));
+                break;
+            case volume:
+                given(tv.volumeRadio).perform(click());
+                given(tv.orderType).check(matches(withText(orderByShares)));
+                break;
+        }
+    }
+    public enum Deal{
+        amount ,volume
+    }
+
+    /**
+     * 点击价格微减
+     */
+    public void decrease_price(){
+        // 等待减号可用
+        regIdlingResource(new ViewIdlingResource(getView(tv.priceDecrease)));
+        given(tv.priceDecrease).check(matches(isEnabled()));
+        unRegIdlingResource();
+
+        float price = Float.parseFloat(getText(tv.limitPriceInput));
+        // 由于不能取到各股的价格最小变动 , 这里只能以最大变动 ( 5 HKD )做校验了
+        given(tv.priceDecrease).perform(click());
+        float priceAfter = Float.parseFloat(getText(tv.limitPriceInput));
+        assertThat(priceAfter, new TypeSafeMatcher<Float>() {
+            @Override
+            protected boolean matchesSafely(Float item) {
+                return item >= 0.001f && 5.00f >= price - item && price - item >= 0.001f ;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("价格微减结果检查:"+ price);
+            }
+        });
+    }
+
+    /**
+     * 点击价格微加
+     */
+    public void increase_price(){
+        // 等待加号可用
+        regIdlingResource(new ViewIdlingResource(getView(tv.priceIncrease)));
+        given(tv.priceIncrease).check(matches(isEnabled()));
+        unRegIdlingResource();
+
+        float price = Float.parseFloat(getText(tv.limitPriceInput));
+        // 由于不能取到各股的价格最小变动 , 这里只能以最大变动 ( 5 HKD )做校验了
+        given(tv.priceIncrease).perform(click());
+        float priceAfter = Float.parseFloat(getText(tv.limitPriceInput));
+        assertThat(priceAfter, new TypeSafeMatcher<Float>() {
+            @Override
+            protected boolean matchesSafely(Float item) {
+                return item >= 0.001f && 5.00f >= item - price && item - price >= 0.001f ;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("价格微减结果检查.");
+            }
+        });
+    }
+    /**
      * 点击下单按钮
      */
     public void click_submit_button(){
+        given(tv.ordering).perform(swipeToVisible(Direction.CENTER_UP ));
         given(tv.ordering).perform(click());
     }
 

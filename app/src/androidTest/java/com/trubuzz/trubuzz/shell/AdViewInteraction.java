@@ -160,8 +160,11 @@ public class AdViewInteraction {
             this.viewInteraction.check(viewAssert);
             return true;
         } catch (NoMatchingViewException e) {
-            Log.e(TAG, "checkRight: check "+ viewAssert.toString() +" error", e);
+            Log.e(TAG, "checkRight: check "+ viewAssert.toString() +" not match ", e);
             e.printStackTrace();
+            return false;
+        } catch (Error error){
+            Log.e(TAG, "checkRight: check " + viewAssert.toString() + " assertion failed", error );
             return false;
         }
     }

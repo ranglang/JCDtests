@@ -42,7 +42,6 @@ public class CustomMatcher {
     /**
      * 匹配指定对象
      * 使用方式 : assertThat("" , thisObject("1"));
-     *
      * @param obj
      * @return
      */

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="status_success">Successful</string>
+
+    <string name="status_friend_invite_become_friend">Friend has been added</string>
+    <string name="status_friend_invite_waite_response">Friend request sent, waiting for confirmation</string>
+    <string name="status_friend_invite_reject">Friend request rejected</string>
+    <string name="status_friend_invite_reject_cancel">Rejected request canceled</string>
+
+    <string name="status_friend_check_isfriend">Check relationship status</string>
+    <string name="status_friend_check_waiting_response">Waiting for response</string>
+    <string name="status_friend_check_waiting_accept">Waiting to be accepted</string>
+    <string name="status_friend_check_reject">Rejected</string>
+    <string name="status_friend_check_nothing">No relationship</string>
+    <string name="status_friend_check_isblock">Blocked</string>
+    <string name="status_friend_check_removed">Deleted</string>
+    <string name="status_circle_join_success">Joined circle</string>
+    <string name="status_circle_applied_join">Join request sent</string>
+    <string name="status_circle_invite_success">Invitation successful</string>
+    <string name="status_circle_invitation_send">Join circle invitation sent</string>
+    <string name="status_circle_application_accept">Added to circle</string>
+
+    <string name="common_error">Internal error: undefined error</string>
+    <string name="path_error">Invalid URL path</string>
+    <string name="timeout_error">Connection timeout</string>
+    <string name="no_network_error">Server connection faild</string>
+    <string name="network_error">Connection timeout</string>
+    <string name="user_not_exist">User does not exist</string>
+    <string name="user_not_comfirm">User is not verified within 7 days</string>
+    <string name="parameter_error">Internal error: incorrect parameter</string>
+    <string name="login_failed">Invalid username or password</string>
+    <string name="register_failed">Registration failed</string>
+    <string name="register_confirm_failed">Registration confirmation failed</string>
+    <string name="register_confirm_validate_user_failed">Registration failed, verification error</string>
+    <string name="register_confirmed_already">Account has been verified</string>
+    <string name="reset_pass_email_invalidated">Invalid email</string>
+    <string name="reset_pass_failed">Password reset failed</string>
+    <string name="reset_pass_code_error">Invalid verification code</string>
+    <string name="reset_pass_code_expired">Verification code expired</string>
+    <string name="reset_pass_code_phone">Invalid mobile phone</string>
+    <string name="friend_invite_old_friend">This user is already your friend</string>
+    <string name="friend_inviting_rejected_person">Invitation to rejected user is denied</string>
+    <string name="friend_invite_self">Invitation to yourself is denied</string>
+    <string name="friend_inviter_invalid">Invalid invitation</string>
+
+    <string name="friend_invitation_not_exist">Invalid invitation</string>
+    <string name="friend_not_exist">Friend does not exist</string>
+    <string name="friend_rejected_invitation_not_exist">Invitation does not exist</string>
+    <string name="friend_check_self">Internal error: relationship check is denied</string>
+    <string name="friend_invite_blocked">Blocked user cannot be invited</string>
+    <string name="user_avatar_upload_error">Upload failed</string>
+    <string name="user_oldpass_incorrect">Original password incorrect</string>
+    <string name="user_identity_unavailable">Internal error: identity unavailable</string>
+
+    <string name="user_identity_unchangeable">Internal error：identity unchangeable</string>
+    <string name="user_identity_not_change">Internal error: identity not changed</string>
+
+    <string name="user_tutorial_not_done">User tutorial has not been completed. Number of friend, circle and stock river is insufficient.</string>
+    <string name="user_has_email">User has an registered email, cannot be reset</string>
+    <string name="user_email_invalid">Invalid email or email has been registered</string>
+    <string name="user_send_confirm_mail_failed">Confirmation email sent failed</string>
+    <string name="user_has_phone">User already has a phone number</string>
+    <string name="user_phone_invalid">Invalid phone number</string>
+    <string name="user_phone_registered">Phone number has been registered</string>
+    <string name="user_sms_failed">SMS send failed</string>
+    <string name="user_auth_code_invalid">Invalid auth code</string>
+    <string name="user_auth_code_expired">Auth code is expired</string>
+    <string name="user_sms_code_incorrect">SMS code is expired</string>
+    <string name="user_no_phone">User has not registered a mobile phone number</string>
+    <string name="user_no_email">User has not registered an email</string>
+    <string name="user_omin_pass_change_failed">Password change failed</string>
+    <string name="user_id_num_auth_failed">ID number verification failed</string>
+    <string name="user_id_num_not_auth_yet">ID number has not been verified</string>
+    <string name="user_bank_card_num_auth_failed">Bank card number verification failed</string>
+    <string name="user_device_not_exist">User device does not exist</string>
+    <string name="user_invalid_a50_user">Invalid a50 user</string>
+    <string name="user_invalid_a50_api">User does not exist</string>
+
+    <string name="msg_post_target_error">You are not authorized to perform this operation</string>
+    <string name="msg_sort_failed">Internal error: Message sorting failed</string>
+    <string name="msg_wall_invalidated">Invalid wall</string>
+    <string name="msg_unavailable">Invalid message</string>
+    <string name="msg_already_buzzed">buzzed already</string>
+    <string name="msg_not_buzz_yet">Not buzzed yet</string>
+    <string name="msg_already_bull_beared">Bulled/Beared already</string>
+    <string name="msg_not_bull_bear_yet">Not bulled/beared yet</string>
+    <string name="rply_msg_invalidate">Invalid reply message</string>
+    <string name="rply_sort_failed">Internal error: Reply sorting failed</string>
+    <string name="rply_unavailable">Reply unavailable</string>
+    <string name="rply_already_buzzed">Buzzed already</string>
+    <string name="reply_not_buzz_yet">Not buzzed yet</string>
+    <string name="blocklist_add_existed">User has been blocked</string>
+    <string name="blocklist_block_self">You are not allowed to block yourself</string>
+    <string name="blocklist_remove_failed">Remove from block list failed</string>
+    <string name="circle_create_failed">Create circle failed</string>
+    <string name="circle_not_exist">Circle does not exist</string>
+    <string name="circle_not_member">Not a circle member</string>
+    <string name="circle_not_admin">You are not the administrator</string>
+    <string name="circle_must_have_one_admin">At least one administrator is needed</string>
+    <string name="circle_already_joined">Joined circle</string>
+    <string name="circle_application_pending">Join request sent, please wait for confirmation</string>
+    <string name="circle_member_not_exist">Member does not exist</string>
+    <string name="circle_is_admin_already">Already an administrator</string>
+    <string name="circle_removing_last_admin">At least one administrator is needed</string>
+    <string name="circle_is_member_already">Already a member</string>
+    <string name="circle_user_is_blocking">User is blocked</string>
+    <string name="circle_user_not_in_blocklist">User is not blocked</string>
+    <string name="circle_user_invited">This user is invited, please wait for response</string>
+    <string name="circle_application_not_exist">Application does not exist</string>
+    <string name="circle_name_duplicated">Circle name is taken</string>
+    <string name="circle_image_upload_error">Upload failed</string>
+    <string name="circle_read_id_error">Internal error: Message ID error</string>
+    <string name="server_token_check_invalidated">Internal error: token checking failed, this is not a token from our auth server.</string>
+    <string name="server_token_check_expired">Internal error: token checking failed, token is expired.</string>
+    <string name="server_token_check_type_error">Internal error: token type is not expected</string>
+    <string name="server_token_check_user_invalidated">Internal error: token owner invalidated.</string>
+    <string name="superant_format_error">Internal error: superant data format incorrect.</string>
+    <string name="stock_river_not_exist">Stock does not exist</string>
+    <string name="stock_river_code_error">Stock code error</string>
+    <string name="stock_river_not_follow">Not following stock</string>
+    <string name="stock_river_already_follow">Following stock</string>
+
+    <string name="no_trade_account">No trade account</string>
+    <string name="error_pdf_condition_mismatched">Permission denied</string>
+    <string name="error_no_trade_service">Trading service temporarily down</string>
+    <string name="error_trade_service_invaild">Trading server error, try again later or contact customer rep</string>
+    <string name="error_no_market_data">Market data not available</string>
+    <string name="error_timeout">Request timeout</string>
+    <string name="error_timeout_with_place_order">Please check the internet connection and your order list to see if the order is successful.</string>
+    <string name="error_not_support">Operation denied</string>
+    <string name="error_trade_password_mismatch">Original password error</string>
+    <string name="error_trade_account_not_exist">Account does not exist</string>
+    <string name="error_service_error">Trade platform: server error</string>
+    <string name="error_order_fail">Transmit order failed</string>
+    <string name="error_other">Other error</string>
+    <string name="error_data">Data error</string>
+    <string name="error_order_duplicated">Order duplicated</string>
+    <string name="error_no_subaccount">Subaccount does not exist</string>
+    <string name="error_killing_order">Liquidation in progress</string>
+    <string name="error_buyingpower_not_enough">Insufficient buying power</string>
+    <string name="error_availabefund_not_enough">Insufficient fund</string>
+    <string name="error_retention_below_alert">Retention below alert</string>
+    <string name="error_retention_below_kill">Retention below liquidation level</string>
+    <string name="error_subaccount_frozen">Subaccount frozen(suspended)</string>
+    <string name="error_not_open_trade">Not open for trading</string>
+    <string name="error_no_empty_position">Short position not allowed</string>
+    <string name="error_order_before_close">Open position not allowed, orders closed before makret closing.</string>
+    <string name="error_subaccount_block">Subaccount disabled</string>
+    <string name="error_no_modify_order">Modify order denied</string>
+
+    <string name="error_captcha_code">code incorrect</string>
+
+    <string name="error_ib_small_than_mini_quantity">Trade volume cannot be lower than minimum</string>
+    <string name="error_ib_hk_no_ioc">IOC order does not support HK stock</string>
+    <string name="error_ib_not_connteced">IB is not connected</string>
+    <string name="error_ib_cancel_order">IB cancel order error</string>
+    <string name="error_ib_contract_error">IB contract error</string>
+
+    <string name="error_password_format">Invalid password format</string>
+    <string name="error_phone_duplicated">Phone number has been registered</string>
+    <string name="error_phone_auth_error">Invalid auth code</string>
+    <string name="error_invalid_email">Email not exist or has been registered</string>
+    <string name="error_invalid_phone_number">Invalid phone number</string>
+    <string name="error_phone_auth_sms_sent_failed">SMS code send failed, please make sure you have the correct phone number</string>
+
+    <string name="invitecode_not_exist">Code does not exist</string>
+    <string name="invitecode_invaild">Code invalid</string>
+    <string name="invitecode_has_used">Code has been used</string>
+    <string name="invitecode_incorrect">Code incorrect</string>
+    <string name="invitecode_has_disable">Code disabled</string>
+    <string name="invitecode_has_enable">Code enabled</string>
+    <string name="invitecode_user_has_blocked">Code sent to user is blocked</string>
+
+    <string name="invalid_trade_account">Invalid account</string>
+
+    <string name="unauthorized">Unauthorized operation</string>
+
+    <string name="watch_list_create_error">Name is taken, please try again</string>
+
+    <string name="error_exchange_order_undone">Currency exchange is not allowed as previous order has not been cleared.</string>
+    <string name="error_exchange_not_trading_hours">Reject currency exchange order due to not in CASH order trading hours.</string>
+
+</resources>
+

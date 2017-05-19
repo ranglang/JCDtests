@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="status_success">操作成功</string>
+
+    <string name="status_friend_invite_become_friend">已添加為好友</string>
+    <string name="status_friend_invite_waite_response">好友請求已發送，等待對方接受</string>
+    <string name="status_friend_invite_reject">已拒絕請求</string>
+    <string name="status_friend_invite_reject_cancel">已取消拒絕</string>
+
+    <string name="status_friend_check_isfriend">檢查好友</string>
+    <string name="status_friend_check_waiting_response">等待對方回應</string>
+    <string name="status_friend_check_waiting_accept">等待對方接受</string>
+    <string name="status_friend_check_reject">已謝絕</string>
+    <string name="status_friend_check_nothing">No relationship</string>
+    <string name="status_friend_check_isblock">已屏除</string>
+    <string name="status_friend_check_removed">已刪除</string>
+    <string name="status_circle_join_success">已加入圈子</string>
+    <string name="status_circle_applied_join">加入請求已發送</string>
+    <string name="status_circle_invite_success">邀請成功</string>
+    <string name="status_circle_invitation_send">加入圈子的邀請已發送</string>
+    <string name="status_circle_application_accept">已被加入圈子</string>
+
+    <string name="common_error">內部錯誤：未指定的錯誤</string>
+    <string name="path_error">網路位置有錯</string>
+    <string name="timeout_error">網路連線逾時</string>
+    <string name="no_network_error">伺服器連線異常</string>
+    <string name="network_error">網路連線逾時</string>
+    <string name="user_not_exist">帳號不存在</string>
+    <string name="user_not_comfirm">帳號超過七天未認證</string>
+    <string name="parameter_error">內部錯誤：錯誤的參數</string>
+    <string name="login_failed">無效的帳號或密碼</string>
+    <string name="register_failed">註冊失敗</string>
+    <string name="register_confirm_failed">註冊認證失敗</string>
+    <string name="register_confirm_validate_user_failed">註冊失敗，驗證出錯</string>
+    <string name="register_confirmed_already">已經驗證過，無須重複驗證</string>
+    <string name="reset_pass_email_invalidated">Email不正確</string>
+    <string name="reset_pass_failed">重置密碼失敗</string>
+    <string name="reset_pass_code_error">驗證碼錯誤</string>
+    <string name="reset_pass_code_expired">驗證碼過期</string>
+    <string name="reset_pass_code_phone">手機號不正確</string>
+    <string name="friend_invite_old_friend">該用戶已經是您的好友</string>
+    <string name="friend_inviting_rejected_person">無法邀請拒絕過的好友</string>
+    <string name="friend_invite_self">該用戶是您自己</string>
+    <string name="friend_inviter_invalid">無效的邀請</string>
+
+    <string name="friend_invitation_not_exist">這個邀請無效</string>
+    <string name="friend_not_exist">好友不存在</string>
+    <string name="friend_rejected_invitation_not_exist">這個邀請不存在</string>
+    <string name="friend_check_self">內部錯誤：不應該檢查自己跟朋友的狀態</string>
+    <string name="friend_invite_blocked">不能邀請被屏蔽的好友</string>
+    <string name="user_avatar_upload_error">頭像上傳失敗</string>
+    <string name="user_oldpass_incorrect">原始密碼錯誤</string>
+    <string name="user_identity_unavailable">內部錯誤：identity 無法使用</string>
+
+    <string name="user_identity_unchangeable">內部錯誤：identity 不可變更</string>
+    <string name="user_identity_not_change">內部錯誤：沒有改變</string>
+
+    <string name="user_tutorial_not_done">新手教學沒有完成，friend, circle, stock-river 的數目不足。</string>
+    <string name="user_has_email">user 已有 email，無法重新設定</string>
+    <string name="user_email_invalid">email 不正確或已被使用</string>
+    <string name="user_send_confirm_mail_failed">寄送 Email 確認信失敗</string>
+    <string name="user_has_phone">user 已有 phone number</string>
+    <string name="user_phone_invalid">電話號碼不正確</string>
+    <string name="user_phone_registered">電話號碼已被註冊</string>
+    <string name="user_sms_failed">簡訊傳送失敗</string>
+    <string name="user_auth_code_invalid">auth code 驗證碼不正確</string>
+    <string name="user_auth_code_expired">auth code 驗證碼已過期</string>
+    <string name="user_sms_code_incorrect">sms code 手機驗證碼已過期</string>
+    <string name="user_no_phone">使用者尚未註冊手機號碼</string>
+    <string name="user_no_email">使用者尚未註冊電子信箱</string>
+    <string name="user_omin_pass_change_failed">交易密碼變更失敗</string>
+    <string name="user_id_num_auth_failed">身分證號驗證失敗</string>
+    <string name="user_id_num_not_auth_yet">身分證號尚未驗證</string>
+    <string name="user_bank_card_num_auth_failed">銀行卡號驗證失敗</string>
+    <string name="user_device_not_exist">使用者的行動裝置不存在</string>
+    <string name="user_invalid_a50_user">不是a50使用者</string>
+    <string name="user_invalid_a50_api">該使用者不存在</string>
+
+    <string name="msg_post_target_error">您沒有權限操作這則訊息</string>
+    <string name="msg_sort_failed">內部錯誤:訊息排序失敗</string>
+    <string name="msg_wall_invalidated">這個動態訊息牆已失敗</string>
+    <string name="msg_unavailable">訊息不可用</string>
+    <string name="msg_already_buzzed">這則訊息已經被評論過了</string>
+    <string name="msg_not_buzz_yet">這則訊息還沒被評論</string>
+    <string name="msg_already_bull_beared">這則訊息已經被評論過了</string>
+    <string name="msg_not_bull_bear_yet">這則訊息還沒被評論</string>
+    <string name="rply_msg_invalidate">回覆的訊息不正確</string>
+    <string name="rply_sort_failed">內部錯誤：replies 排序失敗</string>
+    <string name="rply_unavailable">回覆不可用</string>
+    <string name="rply_already_buzzed">這則回覆已經被Buzz過</string>
+    <string name="reply_not_buzz_yet">這則回覆還沒被Buzz過</string>
+    <string name="blocklist_add_existed">該用戶已經被屏蔽</string>
+    <string name="blocklist_block_self">不能屏蔽自己</string>
+    <string name="blocklist_remove_failed">解除屏蔽失敗</string>
+    <string name="circle_create_failed">圈子名稱已經被使用</string>
+    <string name="circle_not_exist">該圈子不存在</string>
+    <string name="circle_not_member">不是圈子成員</string>
+    <string name="circle_not_admin">不是圈子管理員</string>
+    <string name="circle_must_have_one_admin">圈子至少要保留一名管理員</string>
+    <string name="circle_already_joined">已加入該圈子</string>
+    <string name="circle_application_pending">加入請求已發送，請您耐心等待管理員的回覆</string>
+    <string name="circle_member_not_exist">該成員不存在</string>
+    <string name="circle_is_admin_already">該成員已經是管理員</string>
+    <string name="circle_removing_last_admin">圈子至少要保留一名管理員</string>
+    <string name="circle_is_member_already">用戶已經是該圈子成員</string>
+    <string name="circle_user_is_blocking">用戶已經被屏蔽</string>
+    <string name="circle_user_not_in_blocklist">用戶未被屏蔽</string>
+    <string name="circle_user_invited">您已邀請過此好友，請您等待他的回覆</string>
+    <string name="circle_application_not_exist">該申請不存在</string>
+    <string name="circle_name_duplicated">這個圈子名稱已被使用</string>
+    <string name="circle_image_upload_error">上傳失敗</string>
+    <string name="circle_read_id_error">內部錯誤：訊息ID錯誤</string>
+    <string name="server_token_check_invalidated">內部錯誤：token checking failed, this is not a token from our oauth server.</string>
+    <string name="server_token_check_expired">內部錯誤：token checking failed, token is expired.</string>
+    <string name="server_token_check_type_error">內部錯誤：token type is not expected</string>
+    <string name="server_token_check_user_invalidated">內部錯誤：token owner invalidated.</string>
+    <string name="superant_format_error">內部錯誤：superant data format incorrect.</string>
+    <string name="stock_river_not_exist">您請求的股票不存在</string>
+    <string name="stock_river_code_error">股票代碼錯誤</string>
+    <string name="stock_river_not_follow">未追蹤此股票</string>
+    <string name="stock_river_already_follow">股票已經追蹤</string>
+
+    <string name="no_trade_account">無法取得交易帳號</string>
+    <string name="error_pdf_condition_mismatched">下載資格不符</string>
+    <string name="error_no_trade_service">暫時無法提供交易服務</string>
+    <string name="error_trade_service_invaild">交易服務異常，請稍後再試或者聯絡客服人員</string>
+    <string name="error_no_market_data">尚未提供此行情</string>
+    <string name="error_timeout">請求逾時</string>
+    <string name="error_timeout_with_place_order">請檢查您的網路，同時檢查一下委託列表是否委託成功。</string>
+    <string name="error_not_support">不支持此動作</string>
+    <string name="error_trade_password_mismatch">原始密碼錯誤</string>
+    <string name="error_trade_account_not_exist">交易帳號不存在</string>
+    <string name="error_service_error">交易平台：服務異常</string>
+    <string name="error_order_fail">發送訂單失敗</string>
+    <string name="error_other">其他的錯誤</string>
+    <string name="error_data">資料錯誤</string>
+    <string name="error_order_duplicated">單號重複</string>
+    <string name="error_no_subaccount">無此子帳號</string>
+    <string name="error_killing_order">正在砍倉流程中</string>
+    <string name="error_buyingpower_not_enough"> 購買力不足</string>
+    <string name="error_availabefund_not_enough">可用餘額不足</string>
+    <string name="error_retention_below_alert">維持率低於警示水位</string>
+    <string name="error_retention_below_kill">維持率低於砍倉水位</string>
+    <string name="error_subaccount_frozen">子帳號凍結(暫停交易)</string>
+    <string name="error_not_open_trade">未開放交易</string>
+    <string name="error_no_empty_position">不予許空倉</string>
+    <string name="error_order_before_close">禁止留倉，收盤前停止接受下單</string>
+    <string name="error_subaccount_block">子帳戶已停用</string>
+    <string name="error_no_modify_order">訂單狀態不允許變更</string>
+
+    <string name="error_captcha_code">驗證碼錯誤</string>
+
+    <string name="error_ib_small_than_mini_quantity">交易量小於最小交易量</string>
+    <string name="error_ib_hk_no_ioc">港股不支援立即下單方式</string>
+    <string name="error_ib_not_connteced">IB尚未連線</string>
+    <string name="error_ib_cancel_order">IB取消訂單錯誤</string>
+    <string name="error_ib_contract_error">IB取得合約錯誤</string>
+
+    <string name="error_password_format">密碼格式不正確</string>
+    <string name="error_phone_duplicated">電話號碼已註冊</string>
+    <string name="error_phone_auth_error">簡訊認證碼錯誤</string>
+    <string name="error_invalid_email">郵箱地址不存在或已被註冊</string>
+    <string name="error_invalid_phone_number">無效的手機號碼</string>
+    <string name="error_phone_auth_sms_sent_failed">無法發送簡訊認證碼，請檢查手機號碼是否有效</string>
+
+    <string name="invitecode_not_exist">邀請碼不存在</string>
+    <string name="invitecode_invaild">無效的邀請碼</string>
+    <string name="invitecode_has_used">已使用過此邀請碼</string>
+    <string name="invitecode_incorrect">邀請碼不正確</string>
+    <string name="invitecode_has_disable">邀請碼已失效</string>
+    <string name="invitecode_has_enable">邀請碼已經生效</string>
+    <string name="invitecode_user_has_blocked">邀請碼所屬的用戶已被阻止</string>
+
+    <string name="invalid_trade_account">無效的交易帳戶</string>
+
+    <string name="unauthorized">未授權的操作</string>
+
+    <string name="watch_list_create_error">該名稱已存在，請修改板塊名稱。</string>
+
+    <string name="error_exchange_order_undone">尚有未完成的換匯交易</string>
+    <string name="error_exchange_not_trading_hours">未在外匯商品交易時段內交易</string>
+</resources>
+

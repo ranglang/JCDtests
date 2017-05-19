@@ -43,10 +43,6 @@ import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withCousin;
 import static com.trubuzz.trubuzz.feature.custom.CustomRecyclerViewActions.doActions;
 import static com.trubuzz.trubuzz.feature.custom.CustomRecyclerViewActions.swipeUpToVisible;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.nothing;
-import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeDownAs;
-import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeLeftAs;
-import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeRightAs;
-import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeUpAs;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static org.hamcrest.Matchers.allOf;
@@ -92,13 +88,6 @@ public class SingleTest {
 //        onView(withText("00700")).perform(swipeUp());
 //        onView(withText("00001")).perform(click());
 //        onView(withText("ABAC")).perform(new CustomViewAction.SwipeToVisible(Swipe.FAST, Press.FINGER));
-        onView(isRoot()).perform(swipeUpAs());
-        sleep(3000);
-        onView(isRoot()).perform(swipeDownAs(300 ,false));
-        sleep(3000);
-        onView(isRoot()).perform(swipeLeftAs(300 ,false));
-        sleep(3000);
-        onView(isRoot()).perform(swipeRightAs(300 ,false));
         onView(isRoot()).perform(
                 new CustomViewAction.SwipeAs(Swipe.FAST ,new float[]{213.0f ,1578.356f}
                         ,new float[]{213.0f ,1517.0f} , Press.FINGER.describePrecision())
