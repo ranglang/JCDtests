@@ -12,12 +12,12 @@ import android.view.View;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.AAsset;
-import com.trubuzz.trubuzz.test.quote.QuoteView;
 import com.trubuzz.trubuzz.elements.AWatchlist;
 import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.feature.custom.CustomViewAction;
 import com.trubuzz.trubuzz.feature.custom.ViewsFinder;
 import com.trubuzz.trubuzz.shell.beautify.RecyclerViewItemElement;
+import com.trubuzz.trubuzz.test.quote.QuoteView;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.hamcrest.Matcher;
@@ -51,11 +51,11 @@ import static org.hamcrest.Matchers.allOf;
  * Created by king on 16/12/6.
  */
 @RunWith(AndroidJUnit4.class)
-public class SingleTest {
+public class SingleTest extends BaseTest{
     @Rule
     public ActivityTestRule mActivityRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
     public final String TAG = "jcd_"+this.getClass().getSimpleName();
-    private QuoteView aq = new QuoteView();
+    private QuoteView qv = new QuoteView();
     private AAsset aa = new AAsset();
     private AWatchlist aw = new AWatchlist();
     Matcher<View> recyclerMatcher;
@@ -66,16 +66,18 @@ public class SingleTest {
     String userContactName = "Android Tester";
 
     @Before
-    public void setUp() throws Exception{
-        Wish.wantLogin();
+    public void setUp(){
+
     }
 
     @Test
     public void adaptedTest() {
-
+        Wish.wantLogin();
         given(Global.quotes_radio).perform(click());
-        given(withResourceName("spinner")).perform(click());
-        sleep(2000);
+        given(qv.us_fence).perform(click());
+//        onView(qv.stocks_recycler.way()).perform(RecyclerViewActions.actionOnItem(
+//                new ActivityElement().setChildren(new ActivityElement().setText("中国概念股")).way(), click()));
+        onView(qv.stocks_recycler.way()).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
     }
 

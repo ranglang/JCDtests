@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.test.quote;
 
+import com.trubuzz.trubuzz.constant.StockType;
 import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
@@ -36,6 +37,12 @@ public class QuoteAction extends Actions {
                 .check(matches(isChecked()));
     }
 
+    public void random_select_stock(StockType stockType){
+        switch (stockType) {
+            case US:
+                given(qv.us_fence).perform(click());
+        }
+    }
     /**
      * 搜索股票 ( 只输入Symbol , 不管其他 )
      * @param symbol

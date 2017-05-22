@@ -420,6 +420,10 @@ public class CustomMatcher {
         };
     }
 
+    /**
+     * 匹配任何元素
+     * @return
+     */
     public static Matcher<View> withAny(){
         return new TypeSafeMatcher<View>() {
             @Override

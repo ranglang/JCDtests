@@ -16,6 +16,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeToVisible;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getText;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
@@ -139,10 +140,11 @@ class TradeAction extends Actions {
 
     /**
      * 点击价格微减
+     * 这里只能做模糊校验 , 具体还需人工测试
      */
     public void decrease_price(){
         // 等待减号可用
-        regIdlingResource(new ViewIdlingResource(getView(tv.priceDecrease)));
+        regIdlingResource(new ViewIdlingResource(getView(tv.priceDecrease.setMatchers(isEnabled()))));
         given(tv.priceDecrease).check(matches(isEnabled()));
         unRegIdlingResource();
 
@@ -165,6 +167,7 @@ class TradeAction extends Actions {
 
     /**
      * 点击价格微加
+     * 这里只能做模糊校验 , 具体还需人工测试
      */
     public void increase_price(){
         // 等待加号可用
@@ -196,4 +199,23 @@ class TradeAction extends Actions {
         given(tv.ordering).perform(click());
     }
 
+    /**
+     * 输入交易密码
+     * @param pwd
+     */
+    public void type_trade_password(String pwd) {
+        given(tv.tradePwdInput).perform(replaceText(pwd))
+                .check(matches(isPassword()));
+    }
+
+    /**
+     * 确认交易密码后下单
+     */
+    public void confirm_trade_pwd(){
+        given(tv.confirmTrade).perform(click());
+    }
+
+    public void check_trade_succeed(){
+        given(tv.order_place_success_toast).check(matches(isDisplayed()));
+    }
 }

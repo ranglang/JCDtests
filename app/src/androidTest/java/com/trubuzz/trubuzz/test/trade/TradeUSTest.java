@@ -4,6 +4,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.constant.Config;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.quote.QuoteAction;
@@ -59,7 +60,9 @@ public class TradeUSTest extends BaseTest {
         ta.change_deal_type(TradeAction.Deal.amount);
         ta.input_amount("3000");
         ta.click_submit_button();
-
+        ta.type_trade_password(Config.tradePwd);
+        ta.confirm_trade_pwd();
+        ta.check_trade_succeed();
     }
     /**
      * 1. 随机下单  --> 行情

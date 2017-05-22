@@ -69,4 +69,5 @@ public interface ToastInfo {
 
     ToastElement watchlist_existing_toast =
             new ToastElement(getString("该名称已存在，请修改板块名称。" ,watch_list_create_error));
+
 }

@@ -1,9 +1,12 @@
 package com.trubuzz.trubuzz.test.trade;
 
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 
+import static com.trubuzz.trubuzz.test.R.string.confirm;
 import static com.trubuzz.trubuzz.test.R.string.order_by_cash;
 import static com.trubuzz.trubuzz.test.R.string.order_by_shares;
+import static com.trubuzz.trubuzz.test.R.string.order_place_success;
 import static com.trubuzz.trubuzz.test.R.string.order_price_warning;
 import static com.trubuzz.trubuzz.utils.God.getString;
 
@@ -71,4 +74,26 @@ public class TradeView {
 
     // 下单按钮
     public final ActivityElement ordering = new ActivityElement().setId("submit").setDis(false);
+
+    // 证券账号
+    public final ActivityElement account = new ActivityElement().setId("account");
+
+    // 交易密码输入框
+    public final ActivityElement tradePwdInput = new ActivityElement().setId("password");
+
+    // 交易密码有效期选择器
+    public final ActivityElement tradePwdSpinner = new ActivityElement().setId("expired");
+
+    // 当前交易密码有效期
+    public final ActivityElement tradePwdExpires = new ActivityElement().setId("text1");
+
+    // 确定交易密码
+    public final ActivityElement confirmTrade = new ActivityElement().setId("submit")
+            .setText(getString("确定", confirm));
+
+
+    /***************
+     * toast
+     **************/
+    public final ToastElement order_place_success_toast = new ToastElement(getString("下单成功", order_place_success));
 }
