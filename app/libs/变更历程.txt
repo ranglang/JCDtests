@@ -5,5 +5,13 @@
         今天添加field 定义data的实现 , 需使用FieldVar 注解
 11/22   添加 UNCALIBRATED 类型的TestResult;  使用时直接在Test方法中set即可 .
         ->  改为使用注解 Uncalibrated 来标明该方法需要人为判断.
+
+2017年历 ||
+
 05/15   之前改版后退出再次进入会保留退出前所在的位置 , 故后期在判断一些东西的时候需注意(如登录,开户等)
 05/18   改变check的异常捕获方式 Error -> NoMatchingViewException . 由于 Error 捕获不到
+05/23   使用jdk1.8 编译问题:
+        使用插件 apply plugin: 'me.tatarka.retrolambda'   -> 由于地域问题或是别的原因 加载不到该jar包 , 将无法使用
+        使用 jack : android { …….  defaultConfig {    jackOptions {        enabled true    }  }} 并启用jkd1.8 , 编译是成功的 , Run的时候出现问题(各种异常)
+        故 :
+            取消使用 jdk 1.8 更改初始化map时 使用了变量的代码

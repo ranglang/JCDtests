@@ -45,7 +45,7 @@ public class CustomMatcher {
      * @param obj
      * @return
      */
-    public static Matcher<Object> thisObject(Object obj) {
+    public static Matcher<Object> thisObject(final Object obj) {
         return new TypeSafeMatcher<Object>() {
             @Override
             public void describeTo(Description description) {
@@ -66,7 +66,7 @@ public class CustomMatcher {
      * @param str
      * @return
      */
-    public static Matcher<String> thisString(String str) {
+    public static Matcher<String> thisString(final String str) {
         return new TypeSafeMatcher<String>() {
             @Override
             public void describeTo(Description description) {
@@ -293,6 +293,11 @@ public class CustomMatcher {
         };
     }
 
+    /**
+     * 通过 view 来匹配
+     * @param view
+     * @return
+     */
     public static Matcher<View> withView(final View view) {
         return new TypeSafeMatcher<View>() {
             @Override
@@ -309,7 +314,6 @@ public class CustomMatcher {
 
     /**
      * 通过堂兄妹匹配
-     *
      * @param cousinMatcher
      * @return
      */
@@ -348,11 +352,10 @@ public class CustomMatcher {
     /**
      * 检查包含指定字符串 ,
      * 会将原字串 和 比较字符串 中的多个空格替换成一个 , 再和指定字串比较
-     *
      * @param str
      * @return
      */
-    public static Matcher<String> singleSpaceContains(String str) {
+    public static Matcher<String> singleSpaceContains(final String str) {
         return new TypeSafeMatcher<String>() {
             @Override
             public void describeTo(Description description) {
@@ -443,7 +446,7 @@ public class CustomMatcher {
      * @param minChild 必须大于等于 1 .
      * @return
      */
-    public static Matcher<View> hasMoreChildren(int minChild){
+    public static Matcher<View> hasMoreChildren(final int minChild){
         return new TypeSafeMatcher<View>() {
             @Override
             protected boolean matchesSafely(View view) {
@@ -471,7 +474,7 @@ public class CustomMatcher {
      * @param max
      * @return
      */
-    public static Matcher<View> hasMaxChildren(int max){
+    public static Matcher<View> hasMaxChildren(final int max){
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
@@ -496,7 +499,7 @@ public class CustomMatcher {
      * @param count
      * @return
      */
-    public static Matcher<View> hasChildrenCount(int count){
+    public static Matcher<View> hasChildrenCount(final int count){
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
@@ -568,4 +571,7 @@ public class CustomMatcher {
             }
         };
     }
+
+//    public static Matcher
+
 }

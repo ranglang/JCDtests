@@ -30,7 +30,6 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.util.Date;
-import java.util.HashMap;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -126,7 +125,8 @@ public class Userinfo extends BaseTest{
         if(newNickname.equals(nickname)){
             newNickname = God.getHead2EndString(nickname);     //如果新昵称与原来一致 , 则将昵称收尾置换
             String finalNewNickname = newNickname;
-            this.testWatcherAdvance.setUpdateData(new HashMap(){{put(0 , finalNewNickname);}});
+//            this.testWatcherAdvance.setUpdateData(new HashMap(){{put(0 , finalNewNickname);}});
+            this.testWatcherAdvance.setUpdateData(DoIt.<Integer, Object>createMap(0,finalNewNickname));
         }
         given(aSet.nickname_change_edit)
                 .check(matches(withText(nickname)))  //验证会带入原来的昵称

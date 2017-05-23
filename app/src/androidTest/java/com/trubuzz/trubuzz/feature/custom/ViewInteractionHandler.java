@@ -144,8 +144,8 @@ public class ViewInteractionHandler {
      * @param findMatcher
      * @return
      */
-    public static List<ViewPosition> getRecyclerViewItem(final ViewInteraction v , Matcher<View> findMatcher) {
-        List<ViewPosition> views = new ArrayList<ViewPosition>();
+    public static List<ViewPosition> getRecyclerViewItem(final ViewInteraction v , final Matcher<View> findMatcher) {
+        final List<ViewPosition> views = new ArrayList<ViewPosition>();
         v.perform(new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {

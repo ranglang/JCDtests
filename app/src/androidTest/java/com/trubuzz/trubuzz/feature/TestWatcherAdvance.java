@@ -148,7 +148,8 @@ public class TestWatcherAdvance extends TestName {
         Map fData = getFieldData(this.baseTest , FieldVar.class);
         if(desc.getAnnotation(Parameters.class) != null){
             Object[] objects = JUnitParamsRunner.getParams();
-            //如果在执行过程中改变了数据 , 将执行更新
+            // 如果在执行过程中改变了数据 , 将执行更新
+            // 这里的updateData 的key 代表了params 的index
             if(notEmpty(updateData)){
                 for(Integer i : this.updateData.keySet()){
                     objects[i] = updateData.get(i);
@@ -278,6 +279,10 @@ public class TestWatcherAdvance extends TestName {
         this.result = result;
     }
 
+    /**
+     * 测试时数据更新了 , 需要通知到改Watcher
+     * @param updateData key == params的index , value == params的新值
+     */
     public void setUpdateData(Map<Integer, Object> updateData) {
         this.updateData = updateData;
     }

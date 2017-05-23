@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -376,5 +377,12 @@ public class DoIt {
                 return xy;
             }
         };
+    }
+
+
+    public static <K,V> Map<K,V> createMap(K k ,V v){
+        Map<K,V> map = new HashMap<>();
+        map.put(k, v);
+        return map;
     }
 }

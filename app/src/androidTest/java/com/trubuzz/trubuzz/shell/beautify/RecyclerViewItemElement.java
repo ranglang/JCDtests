@@ -57,7 +57,7 @@ public class RecyclerViewItemElement implements Element<Matcher<View>> {
                 '}';
     }
 
-    public static ViewAction scrollToRecyclerPosition(int position) {
+    public static ViewAction scrollToRecyclerPosition(final int position) {
         return new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {
@@ -86,7 +86,7 @@ public class RecyclerViewItemElement implements Element<Matcher<View>> {
      * @param position
      * @return
      */
-    public Matcher<View> atPosition(int position){
+    public Matcher<View> atPosition(final int position){
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
@@ -107,7 +107,7 @@ public class RecyclerViewItemElement implements Element<Matcher<View>> {
         };
     }
 
-    public Matcher<View> atMatcher(Matcher<View> matcher) {
+    public Matcher<View> atMatcher(final Matcher<View> matcher) {
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
@@ -143,7 +143,7 @@ public class RecyclerViewItemElement implements Element<Matcher<View>> {
         return null;
     }
 
-    public static int getPosition(final ViewInteraction viewInteraction ,Matcher<View> viewMatcher){
+    public static int getPosition(final ViewInteraction viewInteraction , final Matcher<View> viewMatcher){
         final int[] position = {-1};
         viewInteraction.perform(new ViewAction() {
             @Override

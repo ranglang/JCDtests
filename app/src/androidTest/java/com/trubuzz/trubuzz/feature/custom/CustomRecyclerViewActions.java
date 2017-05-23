@@ -45,7 +45,7 @@ public class CustomRecyclerViewActions {
     public static ViewAction swipeUpToVisible(){
         return new SwipeUpToVisible();
     }
-    public static ViewAction doActions(ViewAction... viewActions){
+    public static ViewAction doActions(final ViewAction... viewActions){
         return new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {

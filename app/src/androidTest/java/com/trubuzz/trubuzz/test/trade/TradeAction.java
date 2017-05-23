@@ -148,7 +148,7 @@ class TradeAction extends Actions {
         given(tv.priceDecrease).check(matches(isEnabled()));
         unRegIdlingResource();
 
-        float price = Float.parseFloat(getText(tv.limitPriceInput));
+        final float price = Float.parseFloat(getText(tv.limitPriceInput));
         // 由于不能取到各股的价格最小变动 , 这里只能以最大变动 ( 5 HKD )做校验了
         given(tv.priceDecrease).perform(click());
         float priceAfter = Float.parseFloat(getText(tv.limitPriceInput));
@@ -175,7 +175,7 @@ class TradeAction extends Actions {
         given(tv.priceIncrease).check(matches(isEnabled()));
         unRegIdlingResource();
 
-        float price = Float.parseFloat(getText(tv.limitPriceInput));
+        final float price = Float.parseFloat(getText(tv.limitPriceInput));
         // 由于不能取到各股的价格最小变动 , 这里只能以最大变动 ( 5 HKD )做校验了
         given(tv.priceIncrease).perform(click());
         float priceAfter = Float.parseFloat(getText(tv.limitPriceInput));

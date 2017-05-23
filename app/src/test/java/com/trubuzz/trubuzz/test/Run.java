@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by king on 2016/10/20.
@@ -26,14 +28,12 @@ public class Run {
     }
 
     public void tr(boolean c){
-        // c >> 期望是否存在 , 期望存在则为true.
-        boolean is = false;  //返回是否存在
-        is =! c ^ is;
-        System.out.println(is);
-        // f + t = f
-        // t + t = t
-        // t + f = f
-        // f + f = t
+        String str = "demo@qq.com";
+        String pattern = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
+
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(str);
+        System.out.println(m.matches());
     }
 
     private void random(int max , int min){

@@ -41,8 +41,8 @@ public class CustomWebAssert {
      * @param resultMatcher a matcher to apply to the result of the atom.
      * @param resultDescriber a describer that converts the result to a string.
      */
-    public static <E> WebAssertion<E> customWebMatches(Atom<E> atom, Matcher<E> resultMatcher,
-                                                 final WebViewAssertions.ResultDescriber<? super E> resultDescriber) {
+    public static <E> WebAssertion<E> customWebMatches(Atom<E> atom, final Matcher<E> resultMatcher,
+                                                       final WebViewAssertions.ResultDescriber<? super E> resultDescriber) {
         checkNotNull(resultMatcher);
         checkNotNull(resultDescriber);
         checkNotNull(atom);

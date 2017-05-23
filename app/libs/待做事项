@@ -54,3 +54,5 @@
         1.
 
 8.  (待解决)通过反射获取ViewInteraction对象 , 实现循环遍历
+
+9.  toast 匹配出现问题 , 错误的toast可成功匹配

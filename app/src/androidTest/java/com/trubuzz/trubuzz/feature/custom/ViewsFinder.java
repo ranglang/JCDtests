@@ -26,7 +26,7 @@ public class ViewsFinder {
     private boolean has_more_views;
     private final String TAG = "jcd_" + this.getClass().getSimpleName();
 
-    private Matcher<View> thisMatcher(Matcher<View> matcher){
+    private Matcher<View> thisMatcher(final Matcher<View> matcher){
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
