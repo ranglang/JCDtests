@@ -70,8 +70,14 @@ public class QuoteView {
 
     // 股票名称
     public final ActivityElement stock_name = new ActivityElement().setId("name");
+
+    // 买
     public final ActivityElement buy_button = new ActivityElement().setId("button1").setText(getString("Buy" ,buy));
+
+    // 卖
     public final ActivityElement sell_button = new ActivityElement().setId("button2").setText(getString("Sell" ,sell));
+
+    // 添加自选图标
     public final ActivityElement add_self_stock = new ActivityElement().setContent_desc(getString("新增", add));
 
 

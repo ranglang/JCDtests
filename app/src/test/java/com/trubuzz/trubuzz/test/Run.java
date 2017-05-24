@@ -23,13 +23,17 @@ public class Run {
 
     @Test
     public void xrun() throws NoSuchMethodException {
-        tr(false);
-
+        tr();
     }
 
-    public void tr(boolean c){
+    public void tt(){
+        String o = "abcc";
+        String r = o.replace("*",".*").replace("?",".?");
+        System.out.println(r);
+    }
+    public void tr(){
         String str = "demo@qq.com";
-        String pattern = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
+        String pattern = ".*o.?";
 
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(str);

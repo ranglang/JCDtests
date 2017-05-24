@@ -15,8 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.regex.Pattern;
-
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -55,14 +53,6 @@ public class TradeUSTest extends BaseTest {
         Log.i(TAG, String.format("buyFixedUS: search %s RecyclerView has shown .",
                 fixed_symbol));
         qa.into_search_stock_quote(fixed_symbol);
-
-        ///
-        String pattern = "[\\u4e00-\\u9fa5]";
-
-        Pattern r = Pattern.compile(pattern);
-//        Matcher m = r.matcher(str);
-//        onView(withText())
-        ///
 
         ta.click_buy_button();
         ta.limit_buy_default_show();

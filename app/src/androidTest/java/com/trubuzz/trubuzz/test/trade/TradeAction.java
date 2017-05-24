@@ -144,7 +144,7 @@ class TradeAction extends Actions {
      */
     public void decrease_price(){
         // 等待减号可用
-        regIdlingResource(new ViewIdlingResource(getView(tv.priceDecrease.setMatchers(isEnabled()))));
+        regIdlingResource(new ViewIdlingResource(getView(tv.priceDecrease),isEnabled()));
         given(tv.priceDecrease).check(matches(isEnabled()));
         unRegIdlingResource();
 
@@ -215,6 +215,9 @@ class TradeAction extends Actions {
         given(tv.confirmTrade).perform(click());
     }
 
+    /**
+     * 检查交易成功
+     */
     public void check_trade_succeed(){
         given(tv.order_place_success_toast).check(matches(isDisplayed()));
     }

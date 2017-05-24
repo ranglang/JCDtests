@@ -69,7 +69,6 @@ public class QuoteAction extends Actions {
      */
     public void into_search_stock_quote(String symbol){
         ActivityElement searchSymbol = qv.search_symbol.setText(symbol);
-        ActivityElement search = qv.search_symbol.setText(symbol);
         String stockName = getText(qv.search_name.setSibling(searchSymbol));
         given(searchSymbol).perform(click()); //选择指定记录进入详情
         given(qv.stock_name).check(matches(withText(stockName)));

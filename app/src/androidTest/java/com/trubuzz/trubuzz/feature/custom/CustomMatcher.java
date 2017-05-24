@@ -15,6 +15,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.utils.God;
@@ -22,6 +23,8 @@ import com.trubuzz.trubuzz.utils.God;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+
+import java.util.regex.Pattern;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
@@ -572,6 +575,41 @@ public class CustomMatcher {
         };
     }
 
-//    public static Matcher
+    /**
+     * 使用正则表达式匹配Text
+     * @param regexText
+     * @return
+     */
+    public static Matcher<View> withRegexText(final String regexText) {
+        checkNotNull(regexText);
+        return new BoundedMatcher<View, TextView>(TextView.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with regex text: " + regexText);
+            }
+
+            @Override
+            protected boolean matchesSafely(TextView textView) {
+                String text = textView.getText().toString();
+                // 编译正则
+                Pattern pattern = Pattern.compile(regexText);
+                // 创建matcher对象
+                java.util.regex.Matcher m = pattern.matcher(text);
+                return m.matches();
+            }
+        };
+    }
+
+    /**
+     * 使用通配符匹配Text
+     * 目前限定通配符为 * , ? 两种
+     * @param wildcardText
+     * @return
+     */
+    public static Matcher<View> withWildcardText(final String wildcardText){
+        checkNotNull(wildcardText);
+        String regexText = wildcardText.replace("*",".*").replace("?",".?");;
+        return withRegexText(regexText);
+    }
 
 }
