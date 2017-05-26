@@ -612,4 +612,20 @@ public class CustomMatcher {
         return withRegexText(regexText);
     }
 
+    public static Matcher<View> withContainText(final String containText) {
+        checkNotNull(containText);
+        return new BoundedMatcher<View, TextView>(TextView.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with contain text: " + containText);
+            }
+
+            @Override
+            protected boolean matchesSafely(TextView textView) {
+                String text = textView.getText().toString();
+
+                return text.contains(containText);
+            }
+        };
+    }
 }

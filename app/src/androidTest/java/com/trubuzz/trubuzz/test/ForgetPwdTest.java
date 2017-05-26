@@ -4,7 +4,7 @@ import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.AForgetPwd;
-import com.trubuzz.trubuzz.elements.ALogin;
+import com.trubuzz.trubuzz.test.login.LoginView;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.utils.God;
@@ -65,7 +65,7 @@ public class ForgetPwdTest extends BaseTest{
 
     @Before
     public void into_password_found(){
-        given(ALogin.forget_pwd_button).perform(click());
+        given(LoginView.forget_pwd_button).perform(click());
     }
     @Test
     public void default_show(){
@@ -86,7 +86,7 @@ public class ForgetPwdTest extends BaseTest{
         given(expect).check(matches(isDisplayed()));
 
         if(expect.equals(email_success_expect)){
-            given(ALogin.account_input).check(matches(withText(email)));    //重置邮件发送成功后,会自动将Email填写只account输入框
+            given(LoginView.account_input).check(matches(withText(email)));    //重置邮件发送成功后,会自动将Email填写只account输入框
         }
     }
 //    @Test

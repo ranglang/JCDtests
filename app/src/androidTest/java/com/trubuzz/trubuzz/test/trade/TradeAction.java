@@ -216,6 +216,13 @@ class TradeAction extends Actions {
     }
 
     /**
+     * 检查交易密码错误
+     */
+    public void check_trade_password_error(){
+        given(tv.trade_pwd_error_toast).check(matches(isDisplayed()));
+    }
+
+    /**
      * 检查交易成功
      */
     public void check_trade_succeed(){

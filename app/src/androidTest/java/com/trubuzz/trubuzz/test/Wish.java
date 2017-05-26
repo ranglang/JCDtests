@@ -9,10 +9,11 @@ import android.view.View;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Config;
 import com.trubuzz.trubuzz.elements.AAsset;
-import com.trubuzz.trubuzz.elements.ALogin;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.shell.Element;
+import com.trubuzz.trubuzz.test.login.LoginAction;
+import com.trubuzz.trubuzz.test.login.LoginView;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.hamcrest.Matcher;
@@ -24,6 +25,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
+import static com.trubuzz.trubuzz.constant.Env.instrumentation;
 import static com.trubuzz.trubuzz.elements.Global.assets_radio;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
@@ -36,28 +38,45 @@ import static org.hamcrest.CoreMatchers.not;
 public class Wish {
 
     private static final String TAG = "jcd_Wish";
-    private static ALogin aLogin = new ALogin();
+    private static LoginView loginView = new LoginView();
     private static ASettings aSettings = new ASettings();
 
     /**
      * 判断是否登录
-     * 通过当前activity来判断 , 拥有5秒的加载时间
      * if 已登录则返回 true
-     * @param activity
      * @return
      */
-    public static boolean isLogin( Activity activity){
+    public static boolean isLogin(){
         for(int i=0; i<5 ;i++){
-            if(activity !=null && God.getTopActivityName(activity).equals(AName.LOGIN)){
-                return false;
-            }
             if(isVisible(assets_radio)) return true;//如果"资产"button可见则认为已登录
             sleep(1000);
         }
         return false;
     }
-    public static boolean isLogin(){
-        return isLogin(null);
+
+    /**
+     * 通过当前activity来判断 , 拥有5秒的加载时间
+     * @param activity
+     * @return
+     */
+    public static boolean isLogin(Activity activity){
+        if(activity == null)     activity = God.getCurrentActivity(instrumentation);
+        String topActivityName = God.getTopActivityName(activity);
+        if (topActivityName == null) {
+            // 如果获取不到 topActivityName 则使用判断 " 资产"的方式
+            return isLogin();
+        }
+        switch (topActivityName) {
+            case AName.TUTORIAL:
+                new LoginAction().browse_tutorial();
+                return false;
+            case AName.LOGIN:
+                return false;
+            case AName.MAIN:
+                return true;
+            default:
+                return false;
+        }
     }
     public static boolean hasBroker(){
         for(int i=0; i<5; i++){
@@ -88,9 +107,9 @@ public class Wish {
      * @param pwd
      */
     public static void login(String user , String pwd){
-        given(ALogin.account_input).perform(replaceText(user));
-        given(aLogin.pwd_input).perform(replaceText(pwd));
-        given(aLogin.login_button).perform( click());
+        given(LoginView.account_input).perform(replaceText(user));
+        given(loginView.pwd_input).perform(replaceText(pwd));
+        given(loginView.login_button).perform( click());
     }
 
     /**

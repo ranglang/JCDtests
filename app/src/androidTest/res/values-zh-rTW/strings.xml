@@ -437,7 +437,7 @@
     <string name="tutorial_content_2">實現外幣投資組合，布局境外資產配置，\n依據風險偏好提供理財建議與合規財富管理產品。</string>
     <string name="tutorial_title_3">頂級國際操盤手圈子</string>
     <string name="tutorial_content_3">訂閱頂尖基金經理人、卓越對沖基金操盤手實盤投資組合，\n不定期交流投資策略理念。</string>
-    <string name="tutorial_title_4">$appname$為您開啟全球投資理財夢想</string>
+    <string name="tutorial_title_4">%s為您開啟全球投資理財夢想</string>
     <string name="tutorial_start">立即啟程</string>
     <string name="open_account_title">交易帳號開立/交易帳號綁定</string>
     <!-- END -->

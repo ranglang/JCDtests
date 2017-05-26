@@ -438,7 +438,7 @@
     <string name="tutorial_content_2">Develop Forex trading portfolio, allocate global assets efficiently, provide suitable financial advice and products based on risk evaluation.</string>
     <string name="tutorial_title_3">Top Performing Traders\' Circle</string>
     <string name="tutorial_content_3">Follow Top-notch fund managers and experienced hedge fund trader\'s portfolio, exchange investment strategies regularly.</string>
-    <string name="tutorial_title_4">$appname$ opens the door to a world of financial opportunities.</string>
+    <string name="tutorial_title_4">%s opens the door to a world of financial opportunities.</string>
     <string name="tutorial_start">Start now</string>
     <string name="open_account_title">Trading Account Opening / Binding</string>
     <!-- END -->

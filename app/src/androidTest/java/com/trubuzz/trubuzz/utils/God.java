@@ -74,6 +74,15 @@ public class God {
             return defaultStr;
         }
     }
+
+    /**
+     * 将strings.xml中的占位符进行匹配转换
+     * 注: 需将strings.xml 中的自定义占位符替换为 %s (即java通用占位符 )
+     * @param defaultStr 默认字符串
+     * @param str strings.xml 中的 name
+     * @param formatString 需要替换成的字符串
+     * @return
+     */
     public static String getStringFormat (String defaultStr ,int str , String formatString){
         return String.format(getString(defaultStr , str) ,formatString);
     }

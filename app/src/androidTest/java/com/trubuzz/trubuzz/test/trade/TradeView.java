@@ -3,11 +3,14 @@ package com.trubuzz.trubuzz.test.trade;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 
+import static com.trubuzz.trubuzz.shell.beautify.ToastElement.MsgType.contain;
 import static com.trubuzz.trubuzz.test.R.string.confirm;
+import static com.trubuzz.trubuzz.test.R.string.lotsize_limit;
 import static com.trubuzz.trubuzz.test.R.string.order_by_cash;
 import static com.trubuzz.trubuzz.test.R.string.order_by_shares;
 import static com.trubuzz.trubuzz.test.R.string.order_place_success;
 import static com.trubuzz.trubuzz.test.R.string.order_price_warning;
+import static com.trubuzz.trubuzz.test.R.string.trade_password_mismatch;
 import static com.trubuzz.trubuzz.utils.God.getString;
 
 /**
@@ -96,4 +99,6 @@ public class TradeView {
      * toast
      **************/
     public final ToastElement order_place_success_toast = new ToastElement(getString("下单成功", order_place_success));
+    public final ToastElement trade_pwd_error_toast = new ToastElement(getString("交易密码不正确", trade_password_mismatch));
+    public final ToastElement order_lotsize_limit_toast = new ToastElement(getString("下单批量为" ,lotsize_limit) ,contain);
 }

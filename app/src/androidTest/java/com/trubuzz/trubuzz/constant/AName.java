@@ -19,6 +19,8 @@ public class AName {
     public static final String PORTFOLIO_DETAIL = "com.trubuzz.roy.management.PortfolioDetailActivity";
     public static final String PORTFOLIO_LIST = "com.trubuzz.roy.management.PortfolioActivity";
 
+    // 引导页面A
+    public static final String TUTORIAL = "com.trubuzz.roy.TutorialActivity";
 
 
     /** Android 原生 **/

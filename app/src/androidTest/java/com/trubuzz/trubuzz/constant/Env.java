@@ -5,6 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
 import com.trubuzz.trubuzz.feature.listen.EventSource;
+import com.trubuzz.trubuzz.utils.God;
 
 /**
  * Created by king on 2016/9/26.
@@ -19,6 +20,7 @@ public final class Env {
 
     public final static Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     public final static UiDevice uiDevice = UiDevice.getInstance(instrumentation);
+    public final static String appName = God.getAppName(God.getCurrentActivity(instrumentation));
 
 
 

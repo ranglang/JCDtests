@@ -16,7 +16,7 @@ import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Env;
-import com.trubuzz.trubuzz.elements.ALogin;
+import com.trubuzz.trubuzz.test.login.LoginView;
 import com.trubuzz.trubuzz.test.quote.QuoteView;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.Global;
@@ -119,7 +119,7 @@ public class FirstTest extends BaseTest{
 
    // @Test
     public void testLogin1() throws InterruptedException {
-        ALogin aLogin = new ALogin();
+        LoginView loginView = new LoginView();
         Thread.sleep(2000);
         onView(withText("无效的账号或密码"))
                 .inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));

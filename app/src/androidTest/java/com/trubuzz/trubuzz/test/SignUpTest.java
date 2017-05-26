@@ -5,7 +5,7 @@ import android.support.test.espresso.web.webdriver.Locator;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.elements.ALogin;
+import com.trubuzz.trubuzz.test.login.LoginView;
 import com.trubuzz.trubuzz.elements.ASignUp;
 import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.shell.Element;
@@ -70,7 +70,7 @@ public class SignUpTest extends BaseTest{
 
     @Before
     public void intoSignUp(){
-        given(ALogin.sign_up_link).perform(click());                    //点击立即注册进入注册页面
+        given(LoginView.sign_up_link).perform(click());                    //点击立即注册进入注册页面
     }
 
     @Test

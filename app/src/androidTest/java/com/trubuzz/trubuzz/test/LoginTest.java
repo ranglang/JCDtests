@@ -3,7 +3,7 @@ package com.trubuzz.trubuzz.test;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.elements.ALogin;
+import com.trubuzz.trubuzz.test.login.LoginView;
 import com.trubuzz.trubuzz.elements.EBrokerChoose;
 import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.shell.Element;
@@ -43,7 +43,7 @@ public class LoginTest extends BaseTest{
 
     @Rule
     public ActivityTestRule<?> mActivityTestRule = new ActivityTestRule(God.getFixedClass(AName.MAIN));
-    private ALogin login = new ALogin();
+    private LoginView login = new LoginView();
 
 
     private Object[] dLogin(){
