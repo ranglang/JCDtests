@@ -1,6 +1,6 @@
 package com.trubuzz.trubuzz.report;
 
-import com.trubuzz.trubuzz.constant.TestResult;
+import com.trubuzz.trubuzz.constant.enumerate.TestResult;
 
 import java.util.List;
 import java.util.Map;

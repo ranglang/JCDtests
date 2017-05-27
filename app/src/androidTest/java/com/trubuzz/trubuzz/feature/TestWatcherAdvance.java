@@ -2,7 +2,7 @@ package com.trubuzz.trubuzz.feature;
 
 import android.util.Log;
 
-import com.trubuzz.trubuzz.constant.TestResult;
+import com.trubuzz.trubuzz.constant.enumerate.TestResult;
 import com.trubuzz.trubuzz.report.CaseBean;
 import com.trubuzz.trubuzz.report.ClassBean;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;

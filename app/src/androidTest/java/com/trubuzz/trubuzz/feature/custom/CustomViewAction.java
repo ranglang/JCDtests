@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewConfiguration;
 
-import com.trubuzz.trubuzz.constant.Direction;
+import com.trubuzz.trubuzz.constant.enumerate.Direction;
 
 import org.hamcrest.Matcher;
 

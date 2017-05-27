@@ -441,4 +441,10 @@
     <string name="tutorial_start">立即啟程</string>
     <string name="open_account_title">交易帳號開立/交易帳號綁定</string>
     <!-- END -->
+
+    <!-- add start ... -->
+
+    <string name="forecast_shares_number">可買*股</string>
+
+
 </resources>

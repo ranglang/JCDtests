@@ -1,10 +1,12 @@
 package com.trubuzz.trubuzz.test.trade;
 
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Config;
+import com.trubuzz.trubuzz.constant.enumerate.Deal;
+import com.trubuzz.trubuzz.constant.enumerate.Position;
+import com.trubuzz.trubuzz.constant.enumerate.StockType;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.quote.QuoteAction;
@@ -24,8 +26,12 @@ import junitparams.Parameters;
 @RunWith(JUnitParamsRunner.class)
 public class TradeUSTest extends BaseTest {
     private final String TAG = "jcd_" + this.getClass().getSimpleName();
-    private final TradeAction ta = new TradeAction();
+    private final TradeServer ta = new TradeAction();
     private final QuoteAction qa = new QuoteAction();
+    private final String limit = "limit";
+    private final String market = "market";
+    private final String GFD = "GFD";
+    private final String IOC = "IOC";
 
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
@@ -45,20 +51,77 @@ public class TradeUSTest extends BaseTest {
         qa.into_quote();
     }
 
+    /**
+     * 验证买单页面默认展示
+     * @param symbol us 和 hk 各一只
+     */
+    @Test
+    @Parameters(method = "")
+    public void verify_buy_order_default_show(String symbol){
+        ta.into_ordering_page(symbol , Position.BULL);
+        ta.check_buy_order_default_show();
+        ta.check_limit_buy_default_show(StockType.US);  // 默认展示限价
+    }
+
+    /**
+     * 验证买单市价默认展示
+     * @param symbol
+     */
+    public void verify_buy_order_market_default_show(String symbol) {
+        ta.into_ordering_page(symbol ,Position.BULL);
+        ta.click_market_buy_tab();
+        ta.check_market_buy_default_show(StockType.US);
+    }
+
+    /**
+     * 美股买入 ,金额成交
+     * @param symbol
+     */
+    public void us_cash_buy_ordering(String symbol ,String limitOrMarket ,String timeForce) {
+
+    }
+
+    /**
+     * 美股市价买入 ,金额成交 ,当日有效
+     * @param symbol
+     */
+    public void us_market_cash_buy_ordering_GFD(String symbol) {
+
+    }
+
+    /**
+     * 美股限价买入 ,金额成交 ,IOC
+     * @param symbol
+     */
+    public void us_limit_cash_buy_ordering_IOC(String symbol) {
+
+    }
+
+    /**
+     * 美股市价买入 ,金额成交 ,IOC
+     * @param symbol
+     */
+    public void us_market_cash_buy_ordering_IOC(String symbol) {
+
+    }
+
+
+
+
+
+
+
+
+
     @Test
     @Parameters(method = "fixedUS")
     public void buyFixedUS(String fixed_symbol){
-        qa.search_stock(fixed_symbol);
-        qa.waiting_search_result();
-        Log.i(TAG, String.format("buyFixedUS: search %s RecyclerView has shown .",
-                fixed_symbol));
-        qa.into_search_stock_quote(fixed_symbol);
 
-        ta.click_buy_button();
-        ta.limit_buy_default_show();
+
+        ta.check_limit_buy_default_show(StockType.US);
         ta.decrease_price();
-        ta.change_deal_type(TradeAction.Deal.amount);
-        ta.input_amount("3000");
+        ta.change_deal_type(Deal.amount);
+        ta.type_cash_amount("3000");
         ta.click_submit_button();
         ta.type_trade_password(Config.tradePwd);
         ta.confirm_trade_pwd();

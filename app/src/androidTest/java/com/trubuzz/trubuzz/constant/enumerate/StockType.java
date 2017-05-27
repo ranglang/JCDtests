@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.constant;
+package com.trubuzz.trubuzz.constant.enumerate;
 
 /**
  * Created by king on 17/5/22.

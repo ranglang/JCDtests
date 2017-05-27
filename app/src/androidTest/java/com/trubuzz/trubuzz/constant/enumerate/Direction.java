@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.constant;
+package com.trubuzz.trubuzz.constant.enumerate;
 
 import com.trubuzz.trubuzz.utils.ScreenRectangle;
 

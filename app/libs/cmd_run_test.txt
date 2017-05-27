@@ -1,0 +1,23 @@
+1.	启动 cmd窗口
+
+2.	cd 到项目根目录 . 如:E:\data\workspace\android\JCDtests
+
+3.	执行两个 gradle task:
+	执行命令 gradlew app:assembleDebug app:assembleDebugAndroidTest
+	这里会执行很多依赖的 task , 同样最终出现 BUILD SUCCESSFUL 为成功
+	
+4.	push 编译好的被测apk 并install
+	adb push E:\data\workspace\android\JCDtests\app\build\outputs\apk\app-debug.apk /data/local/tmp/com.trubuzz.trubuzz
+	adb shell pm install -r "/data/local/tmp/com.trubuzz.trubuzz"
+	注 : 这里的路径除了根目录需要变化,其余皆不变
+	
+5.	push 测试apk 并install
+	adb push E:\data\workspace\android\JCDtests\app\build\outputs\apk\app-debug-androidTest-unaligned.apk /data/local/tmp/com.trubuzz.trubuzz.test
+	adb shell pm install -r "/data/local/tmp/com.trubuzz.trubuzz.test"
+	注 : 这里的路径除了根目录需要变化,其余皆不变
+	
+6.	最终执行测试
+	adb shell am instrument -w -r   -e debug false -e class com.trubuzz.trubuzz.test.trade.TradeUSTest com.trubuzz.trubuzz.test/com.trubuzz.trubuzz.feature.AdRunner
+	注: com.trubuzz.trubuzz.test.trade.TradeUSTest 为需要执行的测试类
+	
+7.	坐等结果

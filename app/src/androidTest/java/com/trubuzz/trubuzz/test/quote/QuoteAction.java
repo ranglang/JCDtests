@@ -1,10 +1,9 @@
 package com.trubuzz.trubuzz.test.quote;
 
-import com.trubuzz.trubuzz.constant.StockType;
+import com.trubuzz.trubuzz.constant.enumerate.StockType;
 import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
-import com.trubuzz.trubuzz.test.common.Actions;
 import com.trubuzz.trubuzz.test.trade.TradeView;
 
 import static android.support.test.espresso.action.ViewActions.click;
@@ -37,6 +36,10 @@ public class QuoteAction extends Actions {
                 .check(matches(isChecked()));
     }
 
+    /**
+     * 随机选择股票
+     * @param stockType
+     */
     public void random_select_stock(StockType stockType){
         switch (stockType) {
             case US:

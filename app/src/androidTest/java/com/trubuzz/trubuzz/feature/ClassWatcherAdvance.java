@@ -3,7 +3,7 @@ package com.trubuzz.trubuzz.feature;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.Env;
-import com.trubuzz.trubuzz.constant.TestResult;
+import com.trubuzz.trubuzz.constant.enumerate.TestResult;
 import com.trubuzz.trubuzz.report.CaseBean;
 import com.trubuzz.trubuzz.report.ClassBean;
 import com.trubuzz.trubuzz.report.SuiteBean;
@@ -18,9 +18,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.trubuzz.trubuzz.constant.TestResult.FAILED;
-import static com.trubuzz.trubuzz.constant.TestResult.SKIPPED;
-import static com.trubuzz.trubuzz.constant.TestResult.SUCCEEDED;
+import static com.trubuzz.trubuzz.constant.enumerate.TestResult.FAILED;
+import static com.trubuzz.trubuzz.constant.enumerate.TestResult.SKIPPED;
+import static com.trubuzz.trubuzz.constant.enumerate.TestResult.SUCCEEDED;
 
 /**
  * Created by king on 2016/9/20.
