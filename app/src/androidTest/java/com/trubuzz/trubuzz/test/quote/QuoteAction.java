@@ -22,7 +22,7 @@ import static com.trubuzz.trubuzz.utils.DoIt.unRegIdlingResource;
  * Created by king on 17/5/17.
  */
 
-public class QuoteAction extends Actions {
+public class QuoteAction  {
     private String TAG = "jcd_" + QuoteAction.class.getSimpleName();
     private QuoteView qv = new QuoteView();
     private TradeView tv = new TradeView();
@@ -74,7 +74,7 @@ public class QuoteAction extends Actions {
         ActivityElement searchSymbol = qv.search_symbol.setText(symbol);
         String stockName = getText(qv.search_name.setSibling(searchSymbol));
         given(searchSymbol).perform(click()); //选择指定记录进入详情
-        given(qv.stock_name).check(matches(withText(stockName)));
+//        given(qv.stock_name).check(matches(withText(stockName)));
     }
 
 

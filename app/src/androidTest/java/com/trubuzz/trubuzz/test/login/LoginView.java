@@ -7,7 +7,6 @@ import static com.trubuzz.trubuzz.constant.Env.appName;
 import static com.trubuzz.trubuzz.test.R.string.forget_password;
 import static com.trubuzz.trubuzz.test.R.string.input_password;
 import static com.trubuzz.trubuzz.test.R.string.login;
-import static com.trubuzz.trubuzz.test.R.string.login_account_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_description;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_content_1;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_content_2;
@@ -57,9 +56,10 @@ public class LoginView {
     public final ActivityElement tutorial_start_button = new ActivityElement().setId("btn_done")
             .setText(getString("立即启程" ,tutorial_start));
 
+    private static final int login_account_hint = com.trubuzz.trubuzz.test.R.string.login_account_hint;
     /************** 登录 ***************/
     // 用户名输入框
-    public static final ActivityElement account_input = new ActivityElement().setId("account").setHint(getString("请输入您的邮箱或手机号" ,login_account_hint));
+    public static final ActivityElement account_input = new ActivityElement().setId("account").setHint(getString("请输入您的邮箱或手机号" , login_account_hint));
 
     // 密码输入框
     public final ActivityElement pwd_input = new ActivityElement().setId("password").setHint(getString("输入密码",input_password));

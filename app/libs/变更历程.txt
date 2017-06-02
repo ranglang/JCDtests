@@ -24,3 +24,6 @@
             fail(String.format("the item \"%s\" has been deleted .", name));
         } catch (Exception e) {}
         代码大意 : 尝试检查该元素是否可见 , 若可见则使用 fail 抛出异常
+
+06/02   将需要使用小数的地方用 BigDecimal 类型 , 不使用float 或者 double类型 ( 特殊情况除外 ) , 实例化使用 String
+            如: BigDecimal bd = new BigDecimal("1.2345");

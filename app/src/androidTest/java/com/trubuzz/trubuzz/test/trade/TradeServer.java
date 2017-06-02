@@ -1,8 +1,12 @@
 package com.trubuzz.trubuzz.test.trade;
 
+import com.trubuzz.trubuzz.constant.enumerate.Commissioned;
 import com.trubuzz.trubuzz.constant.enumerate.Deal;
 import com.trubuzz.trubuzz.constant.enumerate.Position;
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
+import com.trubuzz.trubuzz.constant.enumerate.TimeInForce;
+
+import java.util.Date;
 
 /**
  * Created by king on 17/5/26.
@@ -12,44 +16,27 @@ public interface TradeServer {
 
 
     /**
-     * 限价买入默认展示
-     * @param type
-     */
-    void check_limit_buy_default_show(StockType type);
-
-    /**
-     * 市价默认买入默认展示
-     * @param type
-     */
-    void check_market_buy_default_show(StockType type);
-
-    /**
-     * 点击限价买入
-     */
-    void click_limit_buy_tab();
-
-    /**
-     * 点击市价买入
-     */
-    void click_market_buy_tab();
-
-    /**
      * 输入交易价格
      * @param price 单价
      */
     void type_price(String price);
 
     /**
-     * 输入成交金额
+     * 输入成交金额 / 成交股数
      * @param amount
      */
-    void type_cash_amount(String amount);
+    void type_amount(String amount);
 
     /**
-     * 输入成交股数
-     * @param amount
+     * 验证预估手续费 / 预估可买股数 / 预估所需金额等
+     * @param deal 成交方式
+     * @param position 方向 [ 买/卖 ]
+     * @param limitOrMarket 委托方式
+     * @param amount 金额/股数
+     * @param stockType 股票类型
+     * @return 购买股数(预期) ,金额成交需转换
      */
-    void type_shares_amount(String amount);
+    String check_forecast_show(Deal deal, Position position, Commissioned limitOrMarket, String amount, StockType stockType);
 
     /**
      * 更改成交方式 ( 金额成交 / 股数成交 )
@@ -103,7 +90,44 @@ public interface TradeServer {
     void into_ordering_page(String symbol , Position position);
 
     /**
-     * 检查买单页面除订单填写部分的默认展示
+     * 检查下单页面除订单填写部分的默认展示
      */
-    void check_buy_order_default_show();
+    void check_order_default_show();
+
+    /**
+     * 选择委托方式
+     * @param limitOrMarket
+     */
+    void select_commission_way(Commissioned limitOrMarket);
+
+    /**
+     * 比对下单成功后的委托列表中的数据
+     * @param symbol 股票代码
+     * @param now 下单时间
+     * @param price 委托价格
+     * @param shareAmount 交易股数
+     * @param position 交易方向
+     */
+    void check_assets_order_list_show(String symbol, Date now, String price, String shareAmount, Position position);
+
+    /**
+     * 委托默认展示(不包含时效指令)
+     * @param position
+     * @param limitOrMarket
+     * @param us
+     * @param amount
+     */
+    void check_commission_default_show(Position position, Commissioned limitOrMarket, StockType us, Deal amount);
+
+    /**
+     * 订单时效指令默认展示
+     * @param stockType
+     */
+    void check_time_in_force_default_show(StockType stockType);
+
+    /**
+     * 选择时效指令
+     * @param timeInForce
+     */
+    void select_time_in_force(TimeInForce timeInForce);
 }
