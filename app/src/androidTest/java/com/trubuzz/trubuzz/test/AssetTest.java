@@ -13,7 +13,7 @@ import org.junit.Rule;
 
 public class AssetTest  {
 
-    private static final String TAG = "jcd_AssetTest";
+    private static final String TAG = "jcd_AssetTest ";
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
