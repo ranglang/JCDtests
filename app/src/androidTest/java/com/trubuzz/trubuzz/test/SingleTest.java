@@ -42,6 +42,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withCousin;
 import static com.trubuzz.trubuzz.feature.custom.CustomRecyclerViewActions.doActions;
 import static com.trubuzz.trubuzz.feature.custom.CustomRecyclerViewActions.swipeUpToVisible;
+import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.clickXY;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.nothing;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
@@ -72,8 +73,8 @@ public class SingleTest extends BaseTest{
 
     @Test
     public void adaptedTest() {
-        Wish.wantLogin();
-        given(Global.quotes_radio).perform(click());
+//        Wish.wantLogin();
+        given(Global.quotes_radio).perform(clickXY(10 ,12));
         given(qv.us_fence).perform(click());
 //        onView(qv.stocks_recycler.way()).perform(RecyclerViewActions.actionOnItem(
 //                new ActivityElement().setChildren(new ActivityElement().setText("中国概念股")).way(), click()));

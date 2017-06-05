@@ -21,6 +21,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.any;
 
@@ -232,6 +233,6 @@ public class ViewInteractionHandler {
         if (ele instanceof ViewInteraction) return getView((ViewInteraction) ele);
         if (ele instanceof Matcher) return getView((Matcher<View>) ele);
 
-        return null;
+        return getView(isRoot());
     }
 }

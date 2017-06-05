@@ -114,10 +114,9 @@ public interface TradeServer {
      * 委托默认展示(不包含时效指令)
      * @param position
      * @param limitOrMarket
-     * @param us
-     * @param amount
+     * @param stockType
      */
-    void check_commission_default_show(Position position, Commissioned limitOrMarket, StockType us, Deal amount);
+    void check_commission_default_show(Position position, Commissioned limitOrMarket, StockType stockType);
 
     /**
      * 订单时效指令默认展示
@@ -130,4 +129,9 @@ public interface TradeServer {
      * @param timeInForce
      */
     void select_time_in_force(TimeInForce timeInForce);
+
+    /**
+     * 点击自定义键盘上的submit
+     */
+    void click_keyboard_submit();
 }

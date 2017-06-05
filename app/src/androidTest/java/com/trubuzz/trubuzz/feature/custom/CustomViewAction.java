@@ -1,12 +1,16 @@
 package com.trubuzz.trubuzz.feature.custom;
 
+import android.support.annotation.Size;
 import android.support.test.espresso.PerformException;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.action.CoordinatesProvider;
+import android.support.test.espresso.action.GeneralClickAction;
 import android.support.test.espresso.action.PrecisionDescriber;
 import android.support.test.espresso.action.Press;
 import android.support.test.espresso.action.Swipe;
 import android.support.test.espresso.action.Swiper;
+import android.support.test.espresso.action.Tap;
 import android.support.test.espresso.util.HumanReadables;
 import android.util.Log;
 import android.view.View;
@@ -241,5 +245,54 @@ public class CustomViewAction  {
                         .build();
             }
         }
+    }
+
+    /**
+     * 按View的相对坐标click
+     * @param x
+     * @param y
+     * @return
+     */
+    public static ViewAction clickRelativeXY(final int x, final int y){
+        return new GeneralClickAction(
+                Tap.SINGLE,
+                new CoordinatesProvider() {
+                    @Override
+                    public float[] calculateCoordinates(View view) {
+
+                        final int[] screenPos = new int[2];
+                        view.getLocationOnScreen(screenPos);
+                        Log.d(TAG, String.format("calculateCoordinates: screenPos %s", Arrays.toString(screenPos)));
+
+                        final float screenX = screenPos[0] + x;
+                        final float screenY = screenPos[1] + y;
+                        float[] coordinates = {screenX, screenY};
+                        Log.d(TAG, String.format("calculateCoordinates: coordinates %s", Arrays.toString(coordinates)));
+
+                        return coordinates;
+                    }
+                },
+                Press.FINGER);
+    }
+
+    /**
+     * 按绝对坐标点击 , 无关View
+     * @param x
+     * @param y
+     * @return
+     */
+    public static ViewAction clickXY(final float x, final float y){
+        return new GeneralClickAction(
+                Tap.SINGLE,
+                new CoordinatesProvider() {
+                    @Override
+                    public float[] calculateCoordinates(View view) {
+                        return new float[]{x, y};
+                    }
+                },
+                Press.FINGER);
+    }
+    public static ViewAction clickXY(@Size(2) int[] xy){
+        return clickXY(xy[0], xy[1]);
     }
 }

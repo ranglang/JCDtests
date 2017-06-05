@@ -5,9 +5,9 @@ import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
 import static com.trubuzz.trubuzz.constant.Env.appName;
 import static com.trubuzz.trubuzz.test.R.string.forget_password;
-import static com.trubuzz.trubuzz.test.R.string.input_password;
 import static com.trubuzz.trubuzz.test.R.string.login;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_description;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_password_hint;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_content_1;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_content_2;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_content_3;
@@ -62,7 +62,7 @@ public class LoginView {
     public static final ActivityElement account_input = new ActivityElement().setId("account").setHint(getString("请输入您的邮箱或手机号" , login_account_hint));
 
     // 密码输入框
-    public final ActivityElement pwd_input = new ActivityElement().setId("password").setHint(getString("输入密码",input_password));
+    public final ActivityElement pwd_input = new ActivityElement().setId("password").setHint(getString("输入密码",sign_up_password_hint));
 
     // 忘记密码按钮
     public static final ActivityElement forget_pwd_button = new ActivityElement().setText(getString("忘记密码",forget_password));
