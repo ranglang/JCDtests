@@ -1,6 +1,7 @@
 package com.trubuzz.trubuzz.test.trade;
 
 import android.util.Log;
+import android.view.View;
 
 import com.trubuzz.trubuzz.constant.Config;
 import com.trubuzz.trubuzz.constant.enumerate.Commissioned;
@@ -18,6 +19,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import static android.support.test.espresso.action.ViewActions.click;
@@ -34,6 +36,7 @@ import static com.trubuzz.trubuzz.constant.enumerate.Position.BEAR;
 import static com.trubuzz.trubuzz.constant.enumerate.Position.BULL;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withWildcardText;
+import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.clickXY;
 import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.swipeToVisible;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getText;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
@@ -103,7 +106,7 @@ class TradeAction implements TradeServer {
      * 金额/股数成交这块的默认展示
      */
     private void amount_default_show(Position position ,StockType stockType){
-        // 检查单位
+        // 获取当前成交方式
         String ot = getText(tv.orderType);
         if (Deal.amount.getValue().equals(ot)) {
             given(tv.orderUnit).check(matches(withText(getCurrencyString(stockType))));
@@ -226,8 +229,24 @@ class TradeAction implements TradeServer {
         return new DecimalFormat(format).format(needAmount);
     }
 
+    /**
+     * 获取自定义键盘submit点击点的绝对位置
+     * @return
+     */
+    private int[] getSubmitXY(){
+        View view = getView(tv.keyboard);
+        final int[] screenPos = new int[2];
+        view.getLocationOnScreen(screenPos);
+        Log.i(TAG, String.format("getSubmitXY: screenPos before : %s", Arrays.toString(screenPos)));
+        screenPos[0] = screenPos[0] + view.getWidth() - 10;
+        screenPos[1] = screenPos[1] + view.getHeight() -10;
+        Log.i(TAG, String.format("getSubmitXY: screenPos after : %s", Arrays.toString(screenPos)));
+        return screenPos;
+
+    }
+
     @Override
-    public void check_commission_default_show(Position position, Commissioned limitOrMarket, StockType stockType, Deal deal) {
+    public void check_commission_default_show(Position position, Commissioned limitOrMarket, StockType stockType) {
         switch (limitOrMarket) {
             case limit:
                 if (position == BULL) {
@@ -289,7 +308,7 @@ class TradeAction implements TradeServer {
             shares = amount;
             needAmount = this.getForecastAmount(shares, price);
             // 格式化字符串
-            text = String.format(fundString, sm_s1, needAmount);
+            text = String.format(fundString, needAmount ,getCurrencyString(stockType));
             Log.d(TAG, "check_forecast_show: 预估资金提示: " + text);
         }
         // 验证预估股数/资金 提示
@@ -400,6 +419,11 @@ class TradeAction implements TradeServer {
                 break;
             default:
         }
+    }
+
+    @Override
+    public void click_keyboard_submit() {
+        given(tv.keyboard).perform(clickXY(getSubmitXY()));
     }
 
     @Override

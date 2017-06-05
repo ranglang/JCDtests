@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.test.trade;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 
+import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasChildrenCount;
 import static com.trubuzz.trubuzz.shell.beautify.ToastElement.MsgType.contain;
 import static com.trubuzz.trubuzz.test.R.string.confirm;
 import static com.trubuzz.trubuzz.test.R.string.lotsize_limit;
@@ -10,6 +11,8 @@ import static com.trubuzz.trubuzz.test.R.string.order_by_cash;
 import static com.trubuzz.trubuzz.test.R.string.order_by_shares;
 import static com.trubuzz.trubuzz.test.R.string.order_place_success;
 import static com.trubuzz.trubuzz.test.R.string.order_price_warning;
+import static com.trubuzz.trubuzz.test.R.string.resistance_price;
+import static com.trubuzz.trubuzz.test.R.string.support_price;
 import static com.trubuzz.trubuzz.test.R.string.trade_password_mismatch;
 import static com.trubuzz.trubuzz.utils.God.getString;
 
@@ -26,6 +29,24 @@ public class TradeView {
 
     // 股票价格
     public final ActivityElement stockPrice = new ActivityElement().setId("price");
+
+    // 看多
+    public final ActivityElement guessRising = new ActivityElement().setId("guess_rising");
+
+    // 看空
+    public final ActivityElement guessFalling = new ActivityElement().setId("guess_falling");
+
+    // 支撑价
+    public final ActivityElement supportPrice = new ActivityElement().setId("support_price")
+            .setSibling(new ActivityElement().setText(getString("支撑", support_price)));
+
+    // 压力价
+    public final ActivityElement resistancePrice = new ActivityElement().setId("resistance_price")
+            .setSibling(new ActivityElement().setText(getString("压力", resistance_price)));
+
+    // 多空图
+    public final ActivityElement bullBearBar = new ActivityElement().setId("bar")
+            .setMatchers(hasChildrenCount(2));
 
     // 限价xx
     public final ActivityElement limit = new ActivityElement().setId("order_limit_tab");
@@ -71,9 +92,31 @@ public class TradeView {
 
     // 金额 / 股数 输入框
     public final ActivityElement amountInput = new ActivityElement().setId("amount");
+    // [买/卖][金额/股数] 文字展示
     public final ActivityElement orderAmountType = new ActivityElement().setId("order_amount_type");
+
+    // 交易单位[USD / HKD / 股]
+    public final ActivityElement orderUnit = new ActivityElement().setId("order_unit");
+
+    // 预计可交易股数
+    public final ActivityElement orderBySharesNumber = new ActivityElement().setId("order_by_shares_number");
+
+    // 预估可购股数 / 预估所需金额
+    public final ActivityElement forecast_amount = new ActivityElement().setId("text1").setAssignableClass(android.widget.TextView.class)
+            .setParent(new ActivityElement().setAssignableClass(android.widget.FrameLayout.class))
+            .setDis(false);
+
+    // 预估手续费
+    public final ActivityElement orderBySharesFee = new ActivityElement().setId("order_by_shares_fee").setDis(false);
+
+    // 当日有效
     public final ActivityElement restOfDay = new ActivityElement().setId("button_order_available_time_2");
+
+    // IOC
     public final ActivityElement ioc = new ActivityElement().setId("button_order_available_time_1");
+
+    // 自定义键盘
+    public final ActivityElement keyboard = new ActivityElement().setId("keyboard_view");
 
     // 下单按钮
     public final ActivityElement ordering = new ActivityElement().setId("submit").setDis(false);
