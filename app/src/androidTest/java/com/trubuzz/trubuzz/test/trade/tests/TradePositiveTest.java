@@ -1,11 +1,11 @@
-package com.trubuzz.trubuzz.test.trade;
+package com.trubuzz.trubuzz.test.trade.tests;
 
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Config;
 import com.trubuzz.trubuzz.constant.enumerate.Commissioned;
-import com.trubuzz.trubuzz.constant.enumerate.Deal;
+import com.trubuzz.trubuzz.constant.enumerate.OrderType;
 import com.trubuzz.trubuzz.constant.enumerate.Position;
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
 import com.trubuzz.trubuzz.constant.enumerate.TimeInForce;
@@ -13,6 +13,8 @@ import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.quote.QuoteAction;
+import com.trubuzz.trubuzz.test.trade.TradeAction;
+import com.trubuzz.trubuzz.test.trade.TradeService;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Before;
@@ -28,8 +30,8 @@ import junitparams.Parameters;
 import static android.support.test.espresso.intent.Checks.checkNotNull;
 import static com.trubuzz.trubuzz.constant.enumerate.Commissioned.limit;
 import static com.trubuzz.trubuzz.constant.enumerate.Commissioned.market;
-import static com.trubuzz.trubuzz.constant.enumerate.Deal.amount;
-import static com.trubuzz.trubuzz.constant.enumerate.Deal.volume;
+import static com.trubuzz.trubuzz.constant.enumerate.OrderType.amount;
+import static com.trubuzz.trubuzz.constant.enumerate.OrderType.volume;
 import static com.trubuzz.trubuzz.constant.enumerate.Position.BEAR;
 import static com.trubuzz.trubuzz.constant.enumerate.Position.BULL;
 import static com.trubuzz.trubuzz.constant.enumerate.StockType.HK;
@@ -43,7 +45,7 @@ import static com.trubuzz.trubuzz.constant.enumerate.TimeInForce.IOC;
 @RunWith(JUnitParamsRunner.class)
 public class TradePositiveTest extends BaseTest {
     private final String TAG = "jcd_" + this.getClass().getSimpleName();
-    private final TradeServer ta = new TradeAction();
+    private final TradeService ta = new TradeAction();
     private final QuoteAction qa = new QuoteAction();
 
     @Rule
@@ -115,7 +117,7 @@ public class TradePositiveTest extends BaseTest {
     @Parameters(method = "search_stock_ordering_data")
     public void search_stock_ordering(@Var("symbol") String symbol , @Var("limitOrMarket")Commissioned limitOrMarket , @Var("position")Position position ,
                                       @Var("amount")String amount , @Var("timeInForce")TimeInForce timeInForce , @Var("price")String price,
-                                      @Var("stockType") StockType stockType , @Var("cashOrShares") Deal cashOrShares) {
+                                      @Var("stockType") StockType stockType , @Var("cashOrShares") OrderType cashOrShares) {
         ta.into_ordering_page(symbol, position);
         ta.check_order_default_show();
 
@@ -147,8 +149,8 @@ public class TradePositiveTest extends BaseTest {
 
     }
     private Object[] create_search_stock_ordering_data(String symbol , Commissioned limitOrMarket , Position position ,
-                                                       String amount , TimeInForce timeInForce , String price , StockType stockType , Deal deal) {
-        return new Object[]{symbol, limitOrMarket, position, amount, timeInForce, price ,stockType ,deal};
+                                                       String amount , TimeInForce timeInForce , String price , StockType stockType , OrderType orderType) {
+        return new Object[]{symbol, limitOrMarket, position, amount, timeInForce, price ,stockType , orderType};
     }
 
 

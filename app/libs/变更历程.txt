@@ -17,7 +17,7 @@
             取消使用 jdk 1.8 更改初始化map时 使用了变量的代码
 05/27   1. 将case逐步分化 , 一条用例无需太多的关注点 , 将一些常用的关注点分化出去, 如分给default show ,xxx page show
         2. action也需分化 , 确保每个action的独立性 , 逻辑性的东西在case中去组织吧
-05/27   这是一个以前的变更, 没有做记录,这里说明一下:
+05/27--(作废)--   这是一个以前的变更, 没有做记录,这里说明一下:
         反向验证可使用 fail(..)方法 , 如:
         try {
             onData(withRowString(watchlistKey, name)).check(matches(isDisplayed()));
@@ -27,3 +27,5 @@
 
 06/02   将需要使用小数的地方用 BigDecimal 类型 , 不使用float 或者 double类型 ( 特殊情况除外 ) , 实例化使用 String
             如: BigDecimal bd = new BigDecimal("1.2345");
+06/09   作废05/27的写法 , 需要断言元素不可见 只需要使用 ViewAssertion doesNotExist() 即可
+        示例: given(tv.restOfDay).check(doesNotExist());

@@ -5,6 +5,7 @@ import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewInteraction;
 import android.view.View;
 
+import com.trubuzz.trubuzz.feature.custom.CustomAssert;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
 import org.hamcrest.Matcher;
@@ -90,5 +91,11 @@ public class Park {
      */
     public static DataInteraction onRow(String key ,String value) {
         return onData(hasEntry(equalTo(key), is(value)));
+    }
+
+
+    /********************** then ***********************/
+    public static <E> CustomAssert then(Element<E> ele) {
+        return new CustomAssert(ele);
     }
 }

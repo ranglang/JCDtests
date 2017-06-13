@@ -8,11 +8,11 @@ import static com.trubuzz.trubuzz.utils.God.getString;
  * Created by king on 17/5/26.
  */
 
-public enum Deal {
+public enum OrderType {
     amount(getString("金额成交" ,order_by_cash)) ,
     volume(getString("股数成交" ,order_by_shares));
 
-    Deal(String value) {
+    OrderType(String value) {
         this.value = value;
     }
     private String value;

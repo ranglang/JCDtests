@@ -1,7 +1,7 @@
 package com.trubuzz.trubuzz.test.trade;
 
 import com.trubuzz.trubuzz.constant.enumerate.Commissioned;
-import com.trubuzz.trubuzz.constant.enumerate.Deal;
+import com.trubuzz.trubuzz.constant.enumerate.OrderType;
 import com.trubuzz.trubuzz.constant.enumerate.Position;
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
 import com.trubuzz.trubuzz.constant.enumerate.TimeInForce;
@@ -12,7 +12,7 @@ import java.util.Date;
  * Created by king on 17/5/26.
  */
 
-public interface TradeServer {
+public interface TradeService {
 
 
     /**
@@ -29,20 +29,20 @@ public interface TradeServer {
 
     /**
      * 验证预估手续费 / 预估可买股数 / 预估所需金额等
-     * @param deal 成交方式
+     * @param orderType 成交方式
      * @param position 方向 [ 买/卖 ]
      * @param limitOrMarket 委托方式
      * @param amount 金额/股数
      * @param stockType 股票类型
      * @return 购买股数(预期) ,金额成交需转换
      */
-    String check_forecast_show(Deal deal, Position position, Commissioned limitOrMarket, String amount, StockType stockType);
+    String check_forecast_show(OrderType orderType, Position position, Commissioned limitOrMarket, String amount, StockType stockType);
 
     /**
      * 更改成交方式 ( 金额成交 / 股数成交 )
-     * @param deal 已定义的成交方式
+     * @param orderType 已定义的成交方式
      */
-    void change_deal_type(Deal deal);
+    void change_deal_type(OrderType orderType);
 
     /**
      * 点击价格微减

@@ -5,8 +5,8 @@ import android.view.View;
 
 import com.trubuzz.trubuzz.constant.Config;
 import com.trubuzz.trubuzz.constant.enumerate.Commissioned;
-import com.trubuzz.trubuzz.constant.enumerate.Deal;
 import com.trubuzz.trubuzz.constant.enumerate.Direction;
+import com.trubuzz.trubuzz.constant.enumerate.OrderType;
 import com.trubuzz.trubuzz.constant.enumerate.Position;
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
 import com.trubuzz.trubuzz.constant.enumerate.TimeInForce;
@@ -25,6 +25,7 @@ import java.util.Date;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
@@ -57,14 +58,13 @@ import static com.trubuzz.trubuzz.test.R.string.sell;
 import static com.trubuzz.trubuzz.utils.DoIt.regIdlingResource;
 import static com.trubuzz.trubuzz.utils.DoIt.unRegIdlingResource;
 import static com.trubuzz.trubuzz.utils.God.getString;
-import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.not;
 
 /**
  * Created by king on 17/5/16.
  */
 
-class TradeAction implements TradeServer {
+public class TradeAction implements TradeService {
     private final String TAG = "jcd_" + this.getClass().getSimpleName();
     private QuoteView qv = new QuoteView();
     private TradeView tv = new TradeView();
@@ -100,7 +100,7 @@ class TradeAction implements TradeServer {
         // 验证股票名称与行情中一致
         given(tv.stockName).check(matches(withText(stockName)));
         // 验证股票价格展示不为空
-        given(tv.stockPrice).check(matches(not(withText(""))));
+//        given(tv.stockPrice).check(matches(not(withText("")))); ////--暂时注释
     }
     /**
      * 金额/股数成交这块的默认展示
@@ -108,9 +108,9 @@ class TradeAction implements TradeServer {
     private void amount_default_show(Position position ,StockType stockType){
         // 获取当前成交方式
         String ot = getText(tv.orderType);
-        if (Deal.amount.getValue().equals(ot)) {
+        if (OrderType.amount.getValue().equals(ot)) {
             given(tv.orderUnit).check(matches(withText(getCurrencyString(stockType))));
-        } else if (Deal.volume.getValue().equals(ot)) {
+        } else if (OrderType.volume.getValue().equals(ot)) {
             given(tv.orderUnit).check(matches(withText(shares)));
         }
         forecastSharesNumber = String.format(forecastSharesNumber ,getPositionString(position) ,"*");
@@ -270,7 +270,7 @@ class TradeAction implements TradeServer {
                 // 展示市价交易提示 ( 以最优五档价成交 )
                 given(tv.marketReminder).check(matches(isDisplayed()));
         }
-        amount_default_show(position, stockType);
+//        amount_default_show(position, stockType); ////-- 暂时注释
     }
 
 
@@ -286,7 +286,7 @@ class TradeAction implements TradeServer {
     }
 
     @Override
-    public String check_forecast_show(Deal deal, Position position, Commissioned limitOrMarket, String amount, StockType stockType) {
+    public String check_forecast_show(OrderType orderType, Position position, Commissioned limitOrMarket, String amount, StockType stockType) {
         String price = this.getPrice(limitOrMarket);
         String shares = "";
         String needAmount = "";
@@ -295,7 +295,7 @@ class TradeAction implements TradeServer {
         String sm_s1 = getPositionString(position);
         String sm_s2 = "";
         // 金额成交 : 验证提示预计可购买股数
-        if(deal == Deal.amount) {
+        if(orderType == OrderType.amount) {
             // 计算可购股数
             shares = this.getForecastShares(amount, price);
             // 格式化字符串
@@ -303,7 +303,7 @@ class TradeAction implements TradeServer {
             Log.d(TAG, "check_forecast_show: 预计可购买股数提示: " + text);
         }
         // 股数成交: 验证预估资金
-        else if(deal == Deal.volume)   {
+        else if(orderType == OrderType.volume)   {
             // 计算预估资金
             shares = amount;
             needAmount = this.getForecastAmount(shares, price);
@@ -325,10 +325,10 @@ class TradeAction implements TradeServer {
     }
 
     @Override
-    public void change_deal_type(Deal deal){
+    public void change_deal_type(OrderType orderType){
         given(tv.orderTypeSwitch).perform(click());
         given(tv.orderTypeSelectDialog).check(matches(isDisplayed()));
-        switch (deal) {
+        switch (orderType) {
             case amount:
                 given(tv.amountRadio).perform(click());
                 break;
@@ -336,7 +336,7 @@ class TradeAction implements TradeServer {
                 given(tv.volumeRadio).perform(click());
                 break;
         }
-        given(tv.orderType).check(matches(withText(deal.getValue())));
+        given(tv.orderType).check(matches(withText(orderType.getValue())));
     }
 
     @Override
@@ -396,12 +396,7 @@ class TradeAction implements TradeServer {
                 break;
             case HK:
                 // 港股没有ioc模式
-                try {
-                    given(tv.ioc).check(matches(isDisplayed()));
-                } catch (Exception e) {
-                    return;
-                }
-                fail("港股下单页面出现 ioc 模式");
+                given(tv.ioc).check(doesNotExist());
                 break;
         }
     }

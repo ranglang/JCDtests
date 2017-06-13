@@ -116,7 +116,7 @@ public class DoIt {
         String fileName  = "";
         FileOutputStream out = null;
         try {
-            fileName = makeImageName(imgName)+".png" ;
+            fileName = makeFileName(imgName)+".png" ;
             out = activity.openFileOutput(fileName, Activity.MODE_PRIVATE);
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
 
@@ -159,17 +159,18 @@ public class DoIt {
      * @param pratName
      * @return
      */
-    public static String makeImageName(String pratName){
-        String time = God.getDateFormat(new Date(),"yyMMdd_HHmmssSSS", Locale.CHINA);
+    private static String makeFileName(String pratName){
+        Date date = new Date();
+        String time = God.getDateFormat(date,"yyMMdd", Locale.CHINA);
         pratName = pratName == null ? "" : pratName;
-        return "jcd_" + pratName + "_" + time;
+        return "jcd_" + pratName + "_" + time + "_" + date.getTime();
     }
 
     public static String writeFileData( String data , String fileName){
         BufferedWriter writer = null;
         File file = null;
         try {
-            file = new File(Env.filesDir + makeImageName("json_"+ fileName) + ".json");
+            file = new File(Env.filesDir + makeFileName("json_"+ fileName) + ".json");
             if (file.exists()){
                 file.createNewFile();
             }
@@ -199,7 +200,7 @@ public class DoIt {
         return file.getAbsolutePath();
     }
     public static String takeScreenshot(UiDevice uiDevice,String imageName){
-        String localName = makeImageName( "ps_"+ imageName) + ".png";
+        String localName = makeFileName( "ps_"+ imageName) + ".png";
         String fileAbsolutePath = Env.filesDir+ localName;
 
         uiDevice.takeScreenshot(new File(fileAbsolutePath));

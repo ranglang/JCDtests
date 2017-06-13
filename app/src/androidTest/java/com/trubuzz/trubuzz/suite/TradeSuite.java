@@ -1,6 +1,6 @@
 package com.trubuzz.trubuzz.suite;
 
-import com.trubuzz.trubuzz.test.trade.TradePositiveTest;
+import com.trubuzz.trubuzz.test.trade.tests.TradePositiveTest;
 
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;

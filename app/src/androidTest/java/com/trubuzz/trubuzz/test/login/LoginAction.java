@@ -12,9 +12,10 @@ import static com.trubuzz.trubuzz.shell.Park.given;
  * Created by king on 17/5/25.
  */
 
-public class LoginAction {
+public class LoginAction implements LoginService{
     LoginView lv = new LoginView();
 
+    @Override
     public void browse_tutorial(){
         given(lv.tutorial_1_title).check(matches(withText(lv.tutorial_1_title_text)));
         given(lv.tutorial_1_content).check(matches(withText(lv.tutorial_1_content_text)));

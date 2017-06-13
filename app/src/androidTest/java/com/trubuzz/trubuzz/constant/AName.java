@@ -19,7 +19,11 @@ public class AName {
     public static final String PORTFOLIO_DETAIL = "com.trubuzz.roy.management.PortfolioDetailActivity";
     public static final String PORTFOLIO_LIST = "com.trubuzz.roy.management.PortfolioActivity";
 
-    // 引导页面A
+    // 下单页
+    public static final String ORDER = "com.trubuzz.roy.trade.OrderActivity";
+    // 下单交易密码
+    public static final String TRADE_PWD = "com.trubuzz.roy.trade.TradePasswordActivity";
+    // 引导页面
     public static final String TUTORIAL = "com.trubuzz.roy.TutorialActivity";
 
 
