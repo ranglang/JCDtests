@@ -422,6 +422,11 @@ public class TradeAction implements TradeService {
     }
 
     @Override
+    public void check_lotsize_error_msg_toast() {
+        given(tv.order_lotsize_limit_toast).check(matches(isDisplayed()));
+    }
+
+    @Override
     public void click_submit_button(){
         given(tv.ordering).perform(swipeToVisible(Direction.CENTER_UP ));
         given(tv.ordering).perform(click());
@@ -483,7 +488,7 @@ public class TradeAction implements TradeService {
 
     @Override
     public void check_assets_order_list_show(String symbol, Date now, String price, String shareAmount, Position position) {
-
+        ///- 尚未实现
     }
 
 

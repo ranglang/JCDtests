@@ -16,6 +16,7 @@ import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getText;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.regIdlingResource;
+import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static com.trubuzz.trubuzz.utils.DoIt.unRegIdlingResource;
 
 /**
@@ -71,6 +72,7 @@ public class QuoteAction  {
      * @param symbol
      */
     public void into_search_stock_quote(String symbol){
+        sleep(1000);
         ActivityElement searchSymbol = qv.search_symbol.setText(symbol);
         String stockName = getText(qv.search_name.setSibling(searchSymbol));
         given(searchSymbol).perform(click()); //选择指定记录进入详情

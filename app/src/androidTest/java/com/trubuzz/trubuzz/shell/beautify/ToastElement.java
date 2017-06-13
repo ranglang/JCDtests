@@ -100,6 +100,13 @@ public class ToastElement implements Element<ViewInteraction>{
     }
 
     public enum  MsgType{
-        intact ,contain ,regex ,wildcard
+        // 完整匹配
+        intact ,
+        // 包含匹配
+        contain ,
+        // 正则匹配
+        regex ,
+        // 统配符匹配
+        wildcard
     }
 }

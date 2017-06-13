@@ -5,10 +5,46 @@
     <string name="notification">通知</string>
     <string name="refresh">刷新</string>
     <string name="unset">未设置</string>
-    <string name="private_mode">隐私模式</string>
+    <string name="navi_assets">我的总资产</string>
+    <string name="navi_exchange">货币兑换</string>
+    <string name="navi_customer_service">线上客服</string>
+    <string name="preference">设置</string>
+    <string name="navi_private_mode">隐私模式</string>
     <string name="enabled">开启</string>
     <string name="disabled">关闭</string>
     <string name="downloading">下载中…</string>
+
+    <!-- ASSETS -->
+    <string name="assets_net_liquidation_title">總淨值 USD</string>
+    <string name="assets_available_funds">總本金</string>
+    <string name="assets_total_portfolio">當前收益</string>
+    <string name="assets_status">资产状态 USD</string>
+    <string name="assets_status_name">名称</string>
+    <string name="assets_status_weight">权重</string>
+    <string name="assets_status_net_liquidation">当前净值</string>
+    <string name="assets_status_annualized_return">年化收益率</string>
+    <string name="brokerage">券商</string>
+    <string name="self_account_status">帐户状态</string>
+    <string name="self_account_name">帐户名称</string>
+    <string name ="borrowed">借贷</string>
+    <string name="total_assets_title">我的总资产</string>
+    <string name="self_trade_title">自主交易帐户</string>
+    <string name="recommended_product">推荐商品</string>
+    <string name="see_recommended_product">查看推荐商品</string>
+    <string name="holden_fund">持有基金 (USD)</string>
+    <string name="product_name">商品名称</string>
+    <string name="risk_tilie">您的风险偏好型态为</string>Your risk preference type is
+    <string name="risk_type1">积极型</string>
+    <string name="re_assesment">重新评测</string>
+    <string name="high_risk">高风险</string>
+    <string name="expert">专家</string>
+    <string name="fund">基金</string>
+    <string name="robot">机器人</string>
+    <string name="currency_type">货币类型</string>
+    <string name="position_record">持仓列表</string>
+    <string name="trade_record">交易纪录</string>
+    <string name="portfolio_title">风险型态和商品资讯</string>
+    <!-- END -->
 
     <!-- OAUTH -->
     <string name="login">登入</string>
@@ -232,8 +268,8 @@
     <string name="unrealized_pnL">未实现损益</string>
     <string name="realized_pnL">已实现损益</string>
     <string name="hk_exchange_rate">汇率</string>
-    <string name="lotsize_limit">下单批量为</string>
-    <string name="price_tick_limit">最小价格跳动为</string>
+    <string name="lotsize_limit">当前商品的最小批量为：</string>
+    <string name="price_tick_limit">最小价格跳动为：</string>
     <string name="six_star" translatable="false">******</string>
     <string name="denied_action_without_trade_account">您当前尚未开户不能进行该操作</string>
     <string name="market_status_preMarket">盘前</string>
@@ -244,16 +280,17 @@
     <string name="market_status_unknown">未知</string>
     <string name="exchange_title">货币兑换</string>
     <string name="submit_exchange">兑换</string>
-    <string name="exchange_hint">声明\n1. 您的换汇行为会产生港币或美元资产，这些资产会存在于您的IB账户中\n2.
-        这部分资产是您账户中真实存在的，IB并不会收取利息\n3. 在操作之前您要确定您有相应的货币可兑换\n4. 汇率是以IB最优的浮动汇率为您兑换，因为汇率是浮动的，所以如果您对换汇的数额有精确的要求，请尽量兑换稍多于您的期望数额，比如：您希望兑换10000港币，建议您兑换10100，来防止汇率浮动带来的风险"</string>
-    <string name="exchange_rate">当前汇率:</string>
-    <string name="exchange_rate_now">1美元=%1$s港元</string>
+    <string name="exchange_hint">1. 您的换汇行为会产生港币或美元资产，这些资产会存在于您的IB账户中\n\n2.
+        这部分资产是您账户中真实存在的，IB并不会收取利息\n\n3. 在操作之前您要确定您有相应的货币可兑换\n\n4. 汇率是以IB最优的浮动汇率为您兑换，因为汇率是浮动的，所以如果您对换汇的数额有精确的要求，请尽量兑换稍多于您的期望数额，比如：您希望兑换10000港币，建议您兑换10100，来防止汇率浮动带来的风险"</string>
+    <string name="exchange_rate">汇率</string>
+    <string name="exchange_rate_now">1 %1$s = %2$s %3$s</string>
+    <string name="exchange_input_hint">输入兑换金额</string>
     <string name="us_dollar">美元</string>
     <string name="hk_dollar">港元</string>
     <string name="original_currency">原始货币</string>
     <string name="object_currency">目标货币</string>
     <string name="exchange_amount">兑换金额</string>
-    <string name="exchange_amount_hint">当前账户剩余%1$s%2$s可兑换</string>
+    <string name="exchange_amount_hint">您的帐户余额%1$s %2$s</string>
     <string name="exchange_history">兑换历史</string>
     <string name="exchange_history_time">时间</string>
     <string name="exchange_history_direction">换汇方向</string>
@@ -277,6 +314,8 @@
     <string name="order_by_shares_fee">预估手续费:%1$s%2$s</string>
     <string name="order_available_shares">可%1$s:%2$s股</string>
     <string name="order_by_cash_shares_number">预估可%1$s入股数:%2$s股</string>
+    <string name="order_invalid_price">请输入合法的价格</string>
+    <string name="order_invalid_quantity">请输入合法的数量</string>
 
     <string name="time_zone_us">(美东)</string>
     <string name="time_zone_hk">(香港)</string>
@@ -420,7 +459,8 @@
     <string name="subscribe">订阅</string>
     <string name="subscribed">已订阅</string>
     <string name="date">日期</string>
-    <string name="investment_risk_assessment">投资风险测评</string>
+    <string name="investment_risk_assessment">更稳健的生活 更稳健的报酬</string>
+    <string name="investment_risk_btn">测评</string>
     <string name="investment_risk_assessment_description">根据相关法规，因金融产品有不同的风险等级，需要你完成风险测评了解自身的风险承受能力，便于做出理性的投资决策，防止违背意愿购买了与自身风险承受能力不匹配的产品。</string>
     <string name="investment_risk_assessment_finished">测评完成</string>
     <string name="annualized_rate_of_return">年化收益率</string>
@@ -445,6 +485,7 @@
     <string name="tutorial_content_2">实现外币投资组合，布局境外资产配置，\n依据风险偏好提供理财建议与合规财富管理产品。</string>
     <string name="tutorial_title_3">顶级国际操盘手圈子</string>
     <string name="tutorial_content_3">订阅顶尖基金经理人、卓越对冲基金操盘手实盘投资组合，\n不定期交流投资策略理念。</string>
+    <!-- 这一段不做更改 -->
     <string name="tutorial_title_4">%s为您开启全球投资理财梦想</string>
     <string name="tutorial_start">立即启程</string>
     <string name="open_account_title">交易账号开立/交易账号绑定</string>

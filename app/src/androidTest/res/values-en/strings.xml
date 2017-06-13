@@ -4,10 +4,46 @@
     <string name="notification">Notification</string>
     <string name="refresh">Refresh</string>
     <string name="unset">No settings</string>
-    <string name="private_mode">Privacy Mode</string>
+    <string name="navi_assets">My Assets</string>
+    <string name="navi_exchange">Currency exchange</string>
+    <string name="navi_customer_service">Customer Service</string>
+    <string name="preference">Setting</string>
+    <string name="navi_private_mode">Privacy Mode</string>
     <string name="enabled">ON</string>
     <string name="disabled">OFF</string>
     <string name="downloading">Downloading…</string>
+
+    <!-- ASSETS -->
+    <string name="assets_net_liquidation_title">Net Liquidation USD</string>
+    <string name="assets_available_funds">Available Funds</string>
+    <string name="assets_total_portfolio">Total Portfolio</string>
+    <string name="assets_status">Assets Status (USD)</string>
+    <string name="assets_status_name">Name</string>
+    <string name="assets_status_weight">Weight</string>
+    <string name="assets_status_net_liquidation">Liquidation</string>
+    <string name="assets_status_annualized_return">Return</string>
+    <string name="brokerage">Brokerage</string>
+    <string name="self_account_status">Account Status</string>
+    <string name="self_account_name">Account Name</string>
+    <string name ="borrowed">Borrowed</string>
+    <string name="total_assets_title">My Assets</string>
+    <string name="self_trade_title">Trade Account</string>
+    <string name="recommended_product">Recommended Products</string>
+    <string name="see_recommended_product">View Products</string>
+    <string name="holden_fund">Holden fund (USD)</string>
+    <string name="product_name">Product Name</string>
+    <string name="risk_tilie">Risk preference type:</string>
+    <string name="risk_type1">Positive</string>
+    <string name="re_assesment">Re-evaluation</string>
+    <string name="high_risk">High Risk</string>
+    <string name="expert">Expert</string>
+    <string name="fund">Fund</string>
+    <string name="robot">Robot</string>
+    <string name="currency_type">Type of currency</string>
+    <string name="position_record">Position</string>
+    <string name="trade_record">Trade Record</string>
+    <string name="portfolio_title">Risk type and product information</string>
+    <!-- END -->
 
     <!-- OAUTH -->
     <string name="login">Login</string>
@@ -219,15 +255,15 @@
     <string name="maint_margin_req">Maintenance Margin</string>
     <string name="available_funds">Available Funds</string>
     <string name="excess_liquidity">Excess Liquidity</string>
-    <string name="net_liquidation_by_currency">Net liquidation(HKD)</string>
-    <string name="stock_marketValue">Positions(HKD)</string>
-    <string name="total_cashBalance">Cash(HKD)</string>
+    <string name="net_liquidation_by_currency">Net liquidation</string>
+    <string name="stock_marketValue">Positions</string>
+    <string name="total_cashBalance">Cash</string>
     <string name="accrued_cash_hk">Accrued interest</string>
-    <string name="unrealized_pnL">Unrlz(HKD)</string>
-    <string name="realized_pnL">P&amp;L(HKD)</string>
+    <string name="unrealized_pnL">Unrlz</string>
+    <string name="realized_pnL">P&amp;L</string>
     <string name="hk_exchange_rate">Rate</string>
-    <string name="lotsize_limit">Lot size limit</string>
-    <string name="price_tick_limit">Price tick limit</string>
+    <string name="lotsize_limit">Lot size limit is:</string>
+    <string name="price_tick_limit">Price tick limit:</string>
     <string name="denied_action_without_trade_account">Access denied without trade account</string>
 
     <string name="time_zone_us">(EST)</string>
@@ -268,16 +304,17 @@
     <string name="market_status_unknown">Unknown</string>
     <string name="submit_exchange">CONVERT</string>
     <string name="exchange_title">Currency exchange</string>
-    <string name="exchange_hint">Important Notice\n1. When you exchange currency, you sell one
-        currency to buy another. Your account will have either a positive HKD or USD cash balance once the exchange is complete.\n2. The cash balance is a real balance and no interest will be charged upon it.\n3. Please make sure your account has sufficient currency for the exchange.\n4. The currency rate is based on the IB currency conversion rate. It is a floating exchange rate, please make sure the amount you exchange is greater than the expected amount. For example: If you wish to exchange HKD 10,000, we suggest that you convert HKD 10,100 to reduce floating rate risk.</string>
-    <string name="exchange_rate">Current Exchange Rate:</string>
-    <string name="exchange_rate_now">1USD=%1$sHKD</string>
+    <string name="exchange_hint">1. When you exchange currency, you sell one
+        currency to buy another. Your account will have either a positive HKD or USD cash balance once the exchange is complete.\n\n2. The cash balance is a real balance and no interest will be charged upon it.\n\n3. Please make sure your account has sufficient currency for the exchange.\n\n4. The currency rate is based on the IB currency conversion rate. It is a floating exchange rate, please make sure the amount you exchange is greater than the expected amount. For example: If you wish to exchange HKD 10,000, we suggest that you convert HKD 10,100 to reduce floating rate risk.</string>
+    <string name="exchange_rate">Exchange Rate</string>
+    <string name="exchange_rate_now">1 %1$s = %2$s %3$s</string>
+    <string name="exchange_input_hint">Enter the amount of the exchange</string>
     <string name="us_dollar">USD</string>
     <string name="hk_dollar">HKD</string>
     <string name="original_currency">From</string>
     <string name="object_currency">To</string>
     <string name="exchange_amount">Amount</string>
-    <string name="exchange_amount_hint">Maximum Amount Available for Exchange %1$s%2$s</string>
+    <string name="exchange_amount_hint">Your account balance %1$s %2$s</string>
     <string name="exchange_history">History</string>
     <string name="exchange_history_time">Date&amp;Time</string>
     <string name="exchange_history_direction">Exchange Direction</string>
@@ -302,6 +339,8 @@
     <string name="order_by_shares_fee">Estimated fee:%1$s%2$s</string>
     <string name="order_available_shares">Qty Avail %1$s:%2$s shares</string>
     <string name="order_by_cash_shares_number">Quantity available to %1$s:%2$s shares</string>
+    <string name="order_invalid_price">Price is invalid</string>
+    <string name="order_invalid_quantity">Quantity is invalid.</string>
     <!-- END -->
 
     <!-- PRICE -->
@@ -413,7 +452,8 @@
     <string name="subscribe">Subscribe</string>
     <string name="subscribed">Subscribed</string>
     <string name="date">Date</string>
-    <string name="investment_risk_assessment">Risk Evaluation</string>
+    <string name="investment_risk_assessment">More stable life, More robust remuneration</string>
+    <string name="investment_risk_btn">Evaluation</string>
     <string name="investment_risk_assessment_description">Different financial instruments involve different level of exposure to risk and in deciding whether to trade in such instruments, you shall complete the risk evaluation in order to understand your risk profile and avoid making irrational decisions.</string>
     <string name="investment_risk_assessment_finished">Risk evaluation completed</string>
     <string name="annualized_rate_of_return">annual return</string>
@@ -438,6 +478,7 @@
     <string name="tutorial_content_2">Develop Forex trading portfolio, allocate global assets efficiently, provide suitable financial advice and products based on risk evaluation.</string>
     <string name="tutorial_title_3">Top Performing Traders\' Circle</string>
     <string name="tutorial_content_3">Follow Top-notch fund managers and experienced hedge fund trader\'s portfolio, exchange investment strategies regularly.</string>
+    <!-- don't change -->
     <string name="tutorial_title_4">%s opens the door to a world of financial opportunities.</string>
     <string name="tutorial_start">Start now</string>
     <string name="open_account_title">Trading Account Opening / Binding</string>

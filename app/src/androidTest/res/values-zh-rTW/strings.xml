@@ -4,10 +4,46 @@
     <string name="notification">通知</string>
     <string name="refresh">刷新</string>
     <string name="unset">未設置</string>
-    <string name="private_mode">隱私模式</string>
+    <string name="navi_assets">我的總資產</string>
+    <string name="navi_exchange">貨幣兌換</string>
+    <string name="navi_customer_service">線上客服</string>
+    <string name="preference">設置</string>
+    <string name="navi_private_mode">隱私模式</string>
     <string name="enabled">開啟</string>
     <string name="disabled">關閉</string>
     <string name="downloading">下載中…</string>
+
+    <!-- ASSETS -->
+    <string name="assets_net_liquidation_title">總淨值 USD</string>
+    <string name="assets_available_funds">總本金</string>
+    <string name="assets_total_portfolio">當前收益</string>
+    <string name="assets_status">資產狀態 USD</string>
+    <string name="assets_status_name">名稱</string>
+    <string name="assets_status_weight">權重</string>
+    <string name="assets_status_net_liquidation">當前淨值</string>
+    <string name="assets_status_annualized_return">年化收益率</string>
+    <string name="brokerage">券商</string>
+    <string name="self_account_status">帳戶狀態</string>
+    <string name="self_account_name">帳戶名稱</string>
+    <string name="borrowed">借貸</string>
+    <string name="total_assets_title">我的總資產</string>
+    <string name="self_trade_title">自主交易帳戶</string>
+    <string name="recommended_product">推薦商品</string>
+    <string name="see_recommended_product">查看推薦商品</string>
+    <string name="holden_fund">持有基金 (USD)</string>
+    <string name="product_name">商品名稱</string>
+    <string name="risk_tilie">您的風險偏好型態為</string>
+    <string name="risk_type1">積極型</string>
+    <string name="re_assesment">重新評測</string>
+    <string name="high_risk">高風險</string>
+    <string name="expert">專家</string>
+    <string name="fund">基金</string>
+    <string name="robot">機器人</string>
+    <string name="currency_type">貨幣類型</string>
+    <string name="position_record">持倉列表</string>
+    <string name="trade_record">交易紀錄</string>
+    <string name="portfolio_title">風險型態和商品資訊</string>
+    <!-- END -->
 
     <!-- OAUTH -->
     <string name="login">登入</string>
@@ -219,15 +255,15 @@
     <string name="maint_margin_req">維持準備金</string>
     <string name="available_funds">可用資金</string>
     <string name="excess_liquidity">剩餘流動性</string>
-    <string name="net_liquidation_by_currency">港幣資産</string>
-    <string name="stock_marketValue">港幣部位</string>
-    <string name="total_cashBalance">港幣現金</string>
-    <string name="accrued_cash_hk">港幣利息</string>
+    <string name="net_liquidation_by_currency">資産</string>
+    <string name="stock_marketValue">部位</string>
+    <string name="total_cashBalance">現金</string>
+    <string name="accrued_cash_hk">利息</string>
     <string name="unrealized_pnL">未實現損益</string>
     <string name="realized_pnL">已實現損益</string>
     <string name="hk_exchange_rate">匯率</string>
-    <string name="lotsize_limit">下單最小單位</string>
-    <string name="price_tick_limit">最小價格跳動</string>
+    <string name="lotsize_limit">當前商品的最小批量為：</string>
+    <string name="price_tick_limit">最小價格跳動：</string>
     <string name="denied_action_without_trade_account">您當前尚未開戶不能進行該操作</string>
     <string name="market_status_preMarket">盤前</string>
     <string name="market_status_opening">盤中</string>
@@ -237,16 +273,17 @@
     <string name="market_status_unknown">未知</string>
     <string name="exchange_title">貨幣兌換</string>
     <string name="submit_exchange">兌換</string>
-    <string name="exchange_hint">聲明\n1. 您的換匯行為會產生港幣或美元資產，這些資產會存在於您的IB帳戶中\n2.
-        這部分資產是您帳戶中真實存在的，IB並不會收取利息\n3. 在操作之前您要確定您有相應的貨幣可兌換\n4. 匯率是以IB最優的浮動匯率為您兌換，因為匯率是浮動的，所以如果您對換匯的數額有精確的要求，請儘量兌換稍多於您的期望數額，比如：您希望兌換10000港幣，建議您兌換10100，來防止匯率浮動帶來的風險</string>
-    <string name="exchange_rate">當前匯率:</string>
-    <string name="exchange_rate_now">1美元=%1$s港元</string>
+    <string name="exchange_hint">1. 您的換匯行為會產生港幣或美元資產，這些資產會存在於您的IB帳戶中\n\n2.
+        這部分資產是您帳戶中真實存在的，IB並不會收取利息\n\n3. 在操作之前您要確定您有相應的貨幣可兌換\n\n4. 匯率是以IB最優的浮動匯率為您兌換，因為匯率是浮動的，所以如果您對換匯的數額有精確的要求，請儘量兌換稍多於您的期望數額，比如：您希望兌換10000港幣，建議您兌換10100，來防止匯率浮動帶來的風險</string>
+    <string name="exchange_rate">匯率</string>
+    <string name="exchange_rate_now">1 %1$s = %2$s %3$s</string>
+    <string name="exchange_input_hint">輸入兌換金額</string>
     <string name="us_dollar">美元</string>
     <string name="hk_dollar">港元</string>
     <string name="original_currency">原始貨幣</string>
     <string name="object_currency">目標貨幣</string>
     <string name="exchange_amount">兌換金額</string>
-    <string name="exchange_amount_hint">當前帳戶剩余%1$s%2$s可兌換</string>
+    <string name="exchange_amount_hint">您的帳戶餘額 %1$s %2$s</string>
     <string name="exchange_history">兌換歷史</string>
     <string name="exchange_history_time">時間</string>
     <string name="exchange_history_direction">換匯方向</string>
@@ -270,6 +307,8 @@
     <string name="order_by_shares_fee">預估手續費:%1$s%2$s</string>
     <string name="order_available_shares">可%1$s:%2$s股</string>
     <string name="order_by_cash_shares_number">預估可%1$s入股數:%2$s股</string>
+    <string name="order_invalid_price">請輸入合法的價格</string>
+    <string name="order_invalid_quantity">請輸入合法的數量</string>
 
     <string name="time_zone_us">(美東)</string>
     <string name="time_zone_hk">(香港)</string>
@@ -411,7 +450,8 @@
     <string name="subscribe">訂閱</string>
     <string name="subscribed">已訂閱</string>
     <string name="date">日期</string>
-    <string name="investment_risk_assessment">投資風險評測</string>
+    <string name="investment_risk_assessment">更穩健的生活 更穩健的報酬</string>
+    <string name="investment_risk_btn">評測</string>
     <string name="investment_risk_assessment_description">根據相關法規，因金融產品有不同的風險等級，需要你完成風險評測了解自身的風險承受能力，便於做出理性的投資決策，防止違背意願購買了與自身風險承受能力不匹配的產品。</string>
     <string name="investment_risk_assessment_finished">評測完成</string>
     <string name="annualized_rate_of_return">年化收益率</string>
@@ -437,6 +477,7 @@
     <string name="tutorial_content_2">實現外幣投資組合，布局境外資產配置，\n依據風險偏好提供理財建議與合規財富管理產品。</string>
     <string name="tutorial_title_3">頂級國際操盤手圈子</string>
     <string name="tutorial_content_3">訂閱頂尖基金經理人、卓越對沖基金操盤手實盤投資組合，\n不定期交流投資策略理念。</string>
+    <!-- 无需更改 -->
     <string name="tutorial_title_4">%s為您開啟全球投資理財夢想</string>
     <string name="tutorial_start">立即啟程</string>
     <string name="open_account_title">交易帳號開立/交易帳號綁定</string>

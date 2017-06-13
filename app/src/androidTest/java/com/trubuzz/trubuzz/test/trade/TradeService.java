@@ -134,4 +134,9 @@ public interface TradeService {
      * 点击自定义键盘上的submit
      */
     void click_keyboard_submit();
+
+    /**
+     * 检查下单批量错误
+     */
+    void check_lotsize_error_msg_toast();
 }
