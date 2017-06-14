@@ -9,6 +9,7 @@ package com.trubuzz.trubuzz.test.trade;
         import static com.trubuzz.trubuzz.test.R.string.lotsize_limit;
         import static com.trubuzz.trubuzz.test.R.string.order_by_cash;
         import static com.trubuzz.trubuzz.test.R.string.order_by_shares;
+        import static com.trubuzz.trubuzz.test.R.string.order_invalid_price;
         import static com.trubuzz.trubuzz.test.R.string.order_place_success;
         import static com.trubuzz.trubuzz.test.R.string.order_price_warning;
         import static com.trubuzz.trubuzz.test.R.string.resistance_price;
@@ -91,7 +92,7 @@ public class TradeView {
     public final ActivityElement volumeRadio = new ActivityElement().setText(getString("股数成交" ,order_by_shares));
 
     // 金额 / 股数 输入框
-    public final ActivityElement amountInput = new ActivityElement().setId("amount");
+    public final ActivityElement amountInput = new ActivityElement().setId("CASH");
     // [买/卖][金额/股数] 文字展示
     public final ActivityElement orderAmountType = new ActivityElement().setId("order_amount_type");
 
@@ -141,8 +142,11 @@ public class TradeView {
     /***************
      * toast
      **************/
-    public final ToastElement order_place_success_toast = new ToastElement(getString("下单成功", order_place_success));
-    public final ToastElement trade_pwd_error_toast = new ToastElement(getString("交易密码不正确", trade_password_mismatch));
-    public final ToastElement order_lotsize_limit_toast = new ToastElement(getString("当前商品的最小批量为：" ,lotsize_limit) ,contain);
+    public static class Toast {
+        public final ToastElement order_place_success_toast = new ToastElement(getString("下单成功", order_place_success));
+        public final ToastElement trade_pwd_error_toast = new ToastElement(getString("交易密码不正确", trade_password_mismatch));
+        public final ToastElement order_lotsize_limit_toast = new ToastElement(getString("当前商品的最小批量为：", lotsize_limit), contain);
+        public final ToastElement order_invalid_price_toast = new ToastElement(getString("请输入合法的价格：", order_invalid_price));
+    }
 }
 

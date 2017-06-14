@@ -9,8 +9,8 @@ import static com.trubuzz.trubuzz.utils.God.getString;
  */
 
 public enum OrderType {
-    amount(getString("金额成交" ,order_by_cash)) ,
-    volume(getString("股数成交" ,order_by_shares));
+    CASH(getString("金额成交" ,order_by_cash)) ,
+    SHARES(getString("股数成交" ,order_by_shares));
 
     OrderType(String value) {
         this.value = value;

@@ -11,6 +11,7 @@ import com.trubuzz.trubuzz.constant.enumerate.Position;
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
 import com.trubuzz.trubuzz.constant.enumerate.TimeInForce;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
+import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 import com.trubuzz.trubuzz.test.quote.QuoteAction;
 import com.trubuzz.trubuzz.test.quote.QuoteView;
 
@@ -108,9 +109,9 @@ public class TradeAction implements TradeService {
     private void amount_default_show(Position position ,StockType stockType){
         // 获取当前成交方式
         String ot = getText(tv.orderType);
-        if (OrderType.amount.getValue().equals(ot)) {
+        if (OrderType.CASH.getValue().equals(ot)) {
             given(tv.orderUnit).check(matches(withText(getCurrencyString(stockType))));
-        } else if (OrderType.volume.getValue().equals(ot)) {
+        } else if (OrderType.SHARES.getValue().equals(ot)) {
             given(tv.orderUnit).check(matches(withText(shares)));
         }
         forecastSharesNumber = String.format(forecastSharesNumber ,getPositionString(position) ,"*");
@@ -286,6 +287,11 @@ public class TradeAction implements TradeService {
     }
 
     @Override
+    public void check_invalid_price_or_amount(){
+        given(tv.forecast_amount).check(doesNotExist());
+        given(tv.orderBySharesFee).check(doesNotExist());
+    }
+    @Override
     public String check_forecast_show(OrderType orderType, Position position, Commissioned limitOrMarket, String amount, StockType stockType) {
         String price = this.getPrice(limitOrMarket);
         String shares = "";
@@ -295,7 +301,7 @@ public class TradeAction implements TradeService {
         String sm_s1 = getPositionString(position);
         String sm_s2 = "";
         // 金额成交 : 验证提示预计可购买股数
-        if(orderType == OrderType.amount) {
+        if(orderType == OrderType.CASH) {
             // 计算可购股数
             shares = this.getForecastShares(amount, price);
             // 格式化字符串
@@ -303,7 +309,7 @@ public class TradeAction implements TradeService {
             Log.d(TAG, "check_forecast_show: 预计可购买股数提示: " + text);
         }
         // 股数成交: 验证预估资金
-        else if(orderType == OrderType.volume)   {
+        else if(orderType == OrderType.SHARES)   {
             // 计算预估资金
             shares = amount;
             needAmount = this.getForecastAmount(shares, price);
@@ -329,10 +335,10 @@ public class TradeAction implements TradeService {
         given(tv.orderTypeSwitch).perform(click());
         given(tv.orderTypeSelectDialog).check(matches(isDisplayed()));
         switch (orderType) {
-            case amount:
+            case CASH:
                 given(tv.amountRadio).perform(click());
                 break;
-            case volume:
+            case SHARES:
                 given(tv.volumeRadio).perform(click());
                 break;
         }
@@ -422,8 +428,8 @@ public class TradeAction implements TradeService {
     }
 
     @Override
-    public void check_lotsize_error_msg_toast() {
-        given(tv.order_lotsize_limit_toast).check(matches(isDisplayed()));
+    public void check_toast_msg(ToastElement toastElement) {
+        given(toastElement).check(matches(isDisplayed()));
     }
 
     @Override
@@ -441,16 +447,6 @@ public class TradeAction implements TradeService {
     @Override
     public void confirm_trade_pwd(){
         given(tv.confirmTrade).perform(click());
-    }
-
-    @Override
-    public void check_trade_password_error(){
-        given(tv.trade_pwd_error_toast).check(matches(isDisplayed()));
-    }
-
-    @Override
-    public void check_trade_succeed(){
-        given(tv.order_place_success_toast).check(matches(isDisplayed()));
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.trubuzz.trubuzz.test.trade.tests;
 
-import android.support.test.espresso.core.deps.guava.base.Strings;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
@@ -14,6 +13,7 @@ import com.trubuzz.trubuzz.test.common.CommonAction;
 import com.trubuzz.trubuzz.test.quote.QuoteAction;
 import com.trubuzz.trubuzz.test.trade.TradeAction;
 import com.trubuzz.trubuzz.test.trade.TradeService;
+import com.trubuzz.trubuzz.test.trade.TradeView;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Before;
@@ -27,8 +27,8 @@ import junitparams.Parameters;
 import static android.support.test.espresso.intent.Checks.checkNotNull;
 import static com.trubuzz.trubuzz.constant.enumerate.Commissioned.limit;
 import static com.trubuzz.trubuzz.constant.enumerate.Commissioned.market;
-import static com.trubuzz.trubuzz.constant.enumerate.OrderType.amount;
-import static com.trubuzz.trubuzz.constant.enumerate.OrderType.volume;
+import static com.trubuzz.trubuzz.constant.enumerate.OrderType.CASH;
+import static com.trubuzz.trubuzz.constant.enumerate.OrderType.SHARES;
 import static com.trubuzz.trubuzz.constant.enumerate.Position.BULL;
 import static com.trubuzz.trubuzz.constant.enumerate.StockType.HK;
 import static com.trubuzz.trubuzz.constant.enumerate.StockType.US;
@@ -40,24 +40,36 @@ import static com.trubuzz.trubuzz.constant.enumerate.StockType.US;
 public class TradeReverseTest extends BaseTest {
     TradeService ta = new TradeAction();
     QuoteAction qa = new QuoteAction();
+    TradeView.Toast vt = new TradeView.Toast();
 
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
 
-    private Object[] trade_small_hk_stocks_data(){
+    private Object[] trade_small_hk_stocks_data() {
         return new Object[]{
-                create_trade_small_hk_stocks_data("00939" ,BULL ,limit ,"9.03" ,"1000" ,volume)
+                create_trade_small_hk_stocks_data("00939", BULL, limit, "9.03", "1000", SHARES)
         };
     }
+
     private Object[] not_enough_to_trade_one_data() {
         return new Object[]{
-                create_not_enough_to_trade_one_data("BABA", BULL ,market ,US ,null)
+                create_not_enough_to_trade_one_data("BABA", BULL, market, US, null, "50")
+        };
+    }
+    private Object[] invalid_entrustment_price_trade_data(){
+        return new Object[]{
+                create_invalid_entrustment_price_trade_data("AAPL", BULL, US, "", SHARES, "1")
+        };
+    }
+    private Object[] invalid_amount_trade_data() {
+        return new Object[]{
+                create_invalid_amount_trade_data("AAPL", BULL, limit, US, "191", SHARES, "")
         };
     }
 
     @Before
-    public void wishLogin(){
+    public void wishLogin() {
         //使用开户用户登录 ; 进入行情板块
         Wish.wantBrokerLogin();
         qa.into_quote();
@@ -65,6 +77,7 @@ public class TradeReverseTest extends BaseTest {
 
     /**
      * 交易小于1手的港股 , 股数成交
+     *
      * @param symbol
      * @param position
      * @param limitOrMarket
@@ -73,12 +86,13 @@ public class TradeReverseTest extends BaseTest {
      */
     @Test
     @Parameters(method = "trade_small_hk_stocks_data")
-    public void trade_small_hk_stocks(String symbol , Position position , Commissioned limitOrMarket ,String price ,String amount ,OrderType orderType) {
-        ta.into_ordering_page(symbol ,position);
+    public void trade_small_hk_stocks(String symbol, Position position, Commissioned limitOrMarket,
+                                      String price, String amount, OrderType orderType) {
+        ta.into_ordering_page(symbol, position);
         ta.check_order_default_show();
 
         ta.select_commission_way(limitOrMarket);
-        ta.check_commission_default_show(position ,limitOrMarket , HK );
+        ta.check_commission_default_show(position, limitOrMarket, HK);
         ta.check_time_in_force_default_show(HK);
 
         if (limitOrMarket == limit) {
@@ -91,14 +105,14 @@ public class TradeReverseTest extends BaseTest {
         ta.type_amount(amount);
 
         ta.click_keyboard_submit();
-        CommonAction.check_current_activity(AName.ORDER );
-        ta.check_lotsize_error_msg_toast();
+        CommonAction.check_current_activity(AName.ORDER);
+        ta.check_toast_msg(vt.order_lotsize_limit_toast);
 
     }
 
-    private Object[] create_trade_small_hk_stocks_data(String symbol , Position position ,
-                       Commissioned limitOrMarket ,String price ,String amount ,OrderType orderType) {
-        return new Object[]{symbol ,position ,limitOrMarket ,price ,amount ,orderType};
+    private Object[] create_trade_small_hk_stocks_data(String symbol, Position position,
+                                                       Commissioned limitOrMarket, String price, String amount, OrderType orderType) {
+        return new Object[]{symbol, position, limitOrMarket, price, amount, orderType};
     }
 
     /**
@@ -110,14 +124,14 @@ public class TradeReverseTest extends BaseTest {
      * @param price
      */
     @Test
-    @Parameters(method = "")
-    public void not_enough_to_trade_one(String symbol , Position position , Commissioned limitOrMarket ,
-                                        StockType stockType ,String price) {
-        ta.into_ordering_page(symbol ,position);
+    @Parameters(method = "not_enough_to_trade_one_data")
+    public void not_enough_to_trade_one(String symbol, Position position, Commissioned limitOrMarket,
+                                        StockType stockType, String price, String amount) {
+        ta.into_ordering_page(symbol, position);
         ta.check_order_default_show();
 
         ta.select_commission_way(limitOrMarket);
-        ta.check_commission_default_show(position ,limitOrMarket , stockType );
+        ta.check_commission_default_show(position, limitOrMarket, stockType);
         ta.check_time_in_force_default_show(stockType);
 
         if (limitOrMarket == limit) {
@@ -125,15 +139,94 @@ public class TradeReverseTest extends BaseTest {
             ta.type_price(price);
         }
 
-        ta.change_deal_type(amount);
+        ta.change_deal_type(CASH);
+
+        ta.type_amount(amount);
 
         ta.click_keyboard_submit();
-        CommonAction.check_current_activity(AName.ORDER );
-        ta.check_lotsize_error_msg_toast();
+        CommonAction.check_current_activity(AName.ORDER);
+        ta.check_toast_msg(vt.order_lotsize_limit_toast);
     }
 
     private Object[] create_not_enough_to_trade_one_data(String symbol, Position position, Commissioned limitOrMarket,
-                                                         StockType stockType, String price) {
-        return new Object[]{symbol, position, limitOrMarket, stockType, price};
+                                                         StockType stockType, String price, String amount) {
+        return new Object[]{symbol, position, limitOrMarket, stockType, price, amount};
+    }
+
+    /**
+     * 使用无效的委托价格交易
+     * @param symbol
+     * @param position
+     * @param stockType
+     * @param price  空价格 , 价格为0.00 , 小于最小波动[美股 0.01 , 小于1$ 为 0.0001 ;  港股则异同①]
+     * @param orderType
+     * @param amount
+     */
+    @Test
+    @Parameters(method = "invalid_entrustment_price_trade_data")
+    public void invalid_entrustment_price_trade(String symbol, Position position, StockType stockType,
+                                                String price, OrderType orderType, String amount) {
+        ta.into_ordering_page(symbol, position);
+        ta.check_order_default_show();
+
+        ta.select_commission_way(limit);
+        ta.check_commission_default_show(position, limit, stockType);
+        ta.check_time_in_force_default_show(stockType);
+
+        checkNotNull(price);
+        ta.type_price(price);
+
+        ta.change_deal_type(orderType);
+
+        ta.type_amount(amount);
+        ta.check_invalid_price_or_amount();
+
+        ta.click_keyboard_submit();
+        CommonAction.check_current_activity(AName.ORDER);
+        ta.check_toast_msg(vt.order_invalid_price_toast);
+    }
+
+    private Object[] create_invalid_entrustment_price_trade_data(String symbol, Position position, StockType stockType,
+                                                                 String price, OrderType orderType, String amount) {
+        return new Object[]{symbol, position, stockType, price, orderType, amount};
+    }
+
+    /**
+     * 无效的股数/总金额交易
+     * @param symbol
+     * @param position
+     * @param limitOrMarket
+     * @param stockType
+     * @param price
+     * @param orderType
+     * @param amount  空股数/总金额 , 0股数/总金额
+     */
+    @Test
+    @Parameters(method = "")
+    public void invalid_amount_trade(String symbol ,Position position ,Commissioned limitOrMarket ,StockType stockType ,
+                                     String price , OrderType orderType ,String amount){
+        ta.into_ordering_page(symbol, position);
+        ta.check_order_default_show();
+
+        ta.select_commission_way(limitOrMarket);
+        ta.check_commission_default_show(position, limitOrMarket, stockType);
+        ta.check_time_in_force_default_show(stockType);
+
+        checkNotNull(price);
+        ta.type_price(price);
+
+        ta.change_deal_type(orderType);
+
+        ta.type_amount(amount);
+        ta.check_invalid_price_or_amount();
+
+        ta.click_keyboard_submit();
+        CommonAction.check_current_activity(AName.ORDER);
+        ta.check_toast_msg(vt.order_lotsize_limit_toast);
+    }
+    private Object[] create_invalid_amount_trade_data(String symbol ,Position position ,Commissioned limitOrMarket ,StockType stockType ,
+                                     String price , OrderType orderType ,String amount){
+        return new Object[]{symbol,position ,limitOrMarket ,stockType ,price ,orderType ,amount};
     }
 }
+

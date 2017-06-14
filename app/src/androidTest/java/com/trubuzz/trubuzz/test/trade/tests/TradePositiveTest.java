@@ -15,6 +15,7 @@ import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.quote.QuoteAction;
 import com.trubuzz.trubuzz.test.trade.TradeAction;
 import com.trubuzz.trubuzz.test.trade.TradeService;
+import com.trubuzz.trubuzz.test.trade.TradeView;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Before;
@@ -30,8 +31,8 @@ import junitparams.Parameters;
 import static android.support.test.espresso.intent.Checks.checkNotNull;
 import static com.trubuzz.trubuzz.constant.enumerate.Commissioned.limit;
 import static com.trubuzz.trubuzz.constant.enumerate.Commissioned.market;
-import static com.trubuzz.trubuzz.constant.enumerate.OrderType.amount;
-import static com.trubuzz.trubuzz.constant.enumerate.OrderType.volume;
+import static com.trubuzz.trubuzz.constant.enumerate.OrderType.CASH;
+import static com.trubuzz.trubuzz.constant.enumerate.OrderType.SHARES;
 import static com.trubuzz.trubuzz.constant.enumerate.Position.BEAR;
 import static com.trubuzz.trubuzz.constant.enumerate.Position.BULL;
 import static com.trubuzz.trubuzz.constant.enumerate.StockType.HK;
@@ -47,6 +48,7 @@ public class TradePositiveTest extends BaseTest {
     private final String TAG = "jcd_" + this.getClass().getSimpleName();
     private final TradeService ta = new TradeAction();
     private final QuoteAction qa = new QuoteAction();
+    private final TradeView.Toast vt = new TradeView.Toast();
 
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
@@ -61,13 +63,13 @@ public class TradePositiveTest extends BaseTest {
     private Object[] search_stock_ordering_data(){
         return new Object[]{
                 // 美股 限价买入 金额成交 ,当日有效
-                this.create_search_stock_ordering_data("AMZN" ,limit , BULL ,"2000" ,GFD ,"109" , US ,amount),
+                this.create_search_stock_ordering_data("AMZN" ,limit , BULL ,"2000" ,GFD ,"109" , US , CASH),
                 // 美股 市价卖出 金额成交 ,IOC
-                this.create_search_stock_ordering_data("BORN" ,market ,BEAR ,"2000" ,IOC ,null , US , amount),
+                this.create_search_stock_ordering_data("BORN" ,market ,BEAR ,"2000" ,IOC ,null , US , CASH),
                 // 美股 限价卖出 股数成交 ICO
-                this.create_search_stock_ordering_data("BORN" ,market , BEAR ,"10" ,IOC ,"1.5" , US ,volume),
+                this.create_search_stock_ordering_data("BORN" ,market , BEAR ,"10" ,IOC ,"1.5" , US , SHARES),
                 // 美股 市价买入 股数成交 当日有效
-                this.create_search_stock_ordering_data("BABA" ,market , BULL ,"20" ,GFD ,null , US , volume),
+                this.create_search_stock_ordering_data("BABA" ,market , BULL ,"20" ,GFD ,null , US , SHARES),
         };
     }
 
@@ -116,7 +118,7 @@ public class TradePositiveTest extends BaseTest {
     @Test
     @Parameters(method = "search_stock_ordering_data")
     public void search_stock_ordering(@Var("symbol") String symbol , @Var("limitOrMarket")Commissioned limitOrMarket , @Var("position")Position position ,
-                                      @Var("amount")String amount , @Var("timeInForce")TimeInForce timeInForce , @Var("price")String price,
+                                      @Var("CASH")String amount , @Var("timeInForce")TimeInForce timeInForce , @Var("price")String price,
                                       @Var("stockType") StockType stockType , @Var("cashOrShares") OrderType cashOrShares) {
         ta.into_ordering_page(symbol, position);
         ta.check_order_default_show();
@@ -143,7 +145,7 @@ public class TradePositiveTest extends BaseTest {
         ta.type_trade_password(Config.tradePwd);
 
         ta.confirm_trade_pwd();
-        ta.check_trade_succeed();
+        ta.check_toast_msg(vt.order_place_success_toast);
 
         ta.check_assets_order_list_show(symbol, new Date(), price, shareAmount, position);
 

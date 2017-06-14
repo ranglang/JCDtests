@@ -5,6 +5,7 @@ import com.trubuzz.trubuzz.constant.enumerate.OrderType;
 import com.trubuzz.trubuzz.constant.enumerate.Position;
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
 import com.trubuzz.trubuzz.constant.enumerate.TimeInForce;
+import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 
 import java.util.Date;
 
@@ -26,6 +27,8 @@ public interface TradeService {
      * @param amount
      */
     void type_amount(String amount);
+
+    void check_invalid_price_or_amount();
 
     /**
      * 验证预估手续费 / 预估可买股数 / 预估所需金额等
@@ -71,16 +74,6 @@ public interface TradeService {
      * 确认交易密码后下单
      */
     void confirm_trade_pwd();
-
-    /**
-     * 检查交易密码错误
-     */
-    void check_trade_password_error();
-
-    /**
-     * 检查交易成功
-     */
-    void check_trade_succeed();
 
     /**
      * 进入指定股票的下单页面
@@ -136,7 +129,8 @@ public interface TradeService {
     void click_keyboard_submit();
 
     /**
-     * 检查下单批量错误
+     * 检查出现的toast提示
+     * @param toastElement
      */
-    void check_lotsize_error_msg_toast();
+    void check_toast_msg(ToastElement toastElement);
 }
