@@ -1,6 +1,5 @@
 <resources>
     <string name="empty">Empty</string>
-    <string name="preference">Settings</string>
     <string name="notification">Notification</string>
     <string name="refresh">Refresh</string>
     <string name="unset">No settings</string>

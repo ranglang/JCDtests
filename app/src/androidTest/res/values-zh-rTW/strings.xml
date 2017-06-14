@@ -1,6 +1,5 @@
 <resources>
     <string name="empty">沒有項目</string>
-    <string name="preference">設置</string>
     <string name="notification">通知</string>
     <string name="refresh">刷新</string>
     <string name="unset">未設置</string>
