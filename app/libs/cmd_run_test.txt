@@ -17,7 +17,7 @@
 	注 : 这里的路径除了根目录需要变化,其余皆不变
 	
 6.	最终执行测试
-	adb shell am instrument -w -r   -e debug false -e class com.trubuzz.trubuzz.test.trade.tests.TradePositiveTest com.trubuzz.trubuzz.test/com.trubuzz.trubuzz.feature.AdRunner
-	注: com.trubuzz.trubuzz.test.trade.tests.TradePositiveTest 为需要执行的测试类
+	adb shell am instrument -w -r   -e debug false -e class com.trubuzz.trubuzz.test.trade.tests.TradeTest com.trubuzz.trubuzz.test/com.trubuzz.trubuzz.feature.AdRunner
+	注: com.trubuzz.trubuzz.test.trade.tests.TradeTest 为需要执行的测试类
 	
 7.	坐等结果

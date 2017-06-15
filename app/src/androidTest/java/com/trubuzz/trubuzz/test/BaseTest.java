@@ -30,7 +30,8 @@ import static com.trubuzz.trubuzz.utils.DoIt.sleep;
  */
 
 public class BaseTest {
-    private final String TAG = "jcd_BaseTest";
+    protected final String TAG = "jcd_" + this.getClass().getSimpleName();
+    private final String BTAG = "jcd_BaseTest";
     private List<String> compareImageNames = new ArrayList<>();
 
 
@@ -55,7 +56,7 @@ public class BaseTest {
     public String takeScreenshot() {
         sleep(1000);
         String fPath = DoIt.takeScreenshot(uiDevice, testWatcherAdvance.getTestName());
-        Log.i(TAG, "takeScreenshot: 截图成功 ; 保存路径 : " + fPath);
+        Log.i(BTAG, "takeScreenshot: 截图成功 ; 保存路径 : " + fPath);
         return fPath;
     }
 

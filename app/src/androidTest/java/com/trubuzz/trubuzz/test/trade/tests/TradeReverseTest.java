@@ -38,9 +38,9 @@ import static com.trubuzz.trubuzz.constant.enumerate.StockType.US;
  */
 @RunWith(JUnitParamsRunner.class)
 public class TradeReverseTest extends BaseTest {
-    TradeService ta = new TradeAction();
-    QuoteAction qa = new QuoteAction();
-    TradeView.Toast vt = new TradeView.Toast();
+    private final TradeService ta = new TradeAction();
+    private final QuoteAction qa = new QuoteAction();
+    private final TradeView.Toast vt = new TradeView.Toast();
 
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));

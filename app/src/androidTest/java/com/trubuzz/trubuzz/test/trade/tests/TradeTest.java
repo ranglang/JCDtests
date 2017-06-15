@@ -44,8 +44,7 @@ import static com.trubuzz.trubuzz.constant.enumerate.TimeInForce.IOC;
  * Created by king on 17/5/15.
  */
 @RunWith(JUnitParamsRunner.class)
-public class TradePositiveTest extends BaseTest {
-    private final String TAG = "jcd_" + this.getClass().getSimpleName();
+public class TradeTest extends BaseTest {
     private final TradeService ta = new TradeAction();
     private final QuoteAction qa = new QuoteAction();
     private final TradeView.Toast vt = new TradeView.Toast();

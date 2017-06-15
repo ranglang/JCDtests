@@ -10,6 +10,7 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Config;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.ASettings;
+import com.trubuzz.trubuzz.elements.Global;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.test.login.LoginAction;
@@ -96,6 +97,7 @@ public class Wish {
      * 单纯的登出操作
      */
     public static void logout() {
+        given(Global.assets_radio).perform(click());
         given(ASettings.left_drawer).perform(click(ViewActions.pressBack()));
         given(aSettings.setting).perform(click());
         given(aSettings.logout_button).perform(click());
@@ -107,7 +109,7 @@ public class Wish {
      * @param pwd
      */
     public static void login(String user , String pwd){
-        given(LoginView.account_input).perform(replaceText(user));
+        given(loginView.username_input).perform(replaceText(user));
         given(loginView.pwd_input).perform(replaceText(pwd));
         given(loginView.login_button).perform( click());
     }

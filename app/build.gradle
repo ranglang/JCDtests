@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'trubuzz'
             keyPassword 'trubuzz'
-            storeFile file('E:/data/android/.android/debug.keystore')
+            storeFile file('E:/data/android/.android/keystore.jks')
             storePassword 'trubuzz'
         }
     }

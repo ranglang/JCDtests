@@ -172,9 +172,14 @@ public class God {
     }
 
     public static String getAppName(Activity activity){
-        PackageManager pm = activity.getPackageManager();
-        String s = activity.getApplicationInfo().loadLabel(pm).toString();
-        return s;
+        try {
+            PackageManager pm = activity.getPackageManager();
+            String s = activity.getApplicationInfo().loadLabel(pm).toString();
+            return s;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     /**

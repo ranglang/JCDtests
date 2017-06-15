@@ -1,6 +1,6 @@
 package com.trubuzz.trubuzz.suite;
 
-import com.trubuzz.trubuzz.test.trade.tests.TradePositiveTest;
+import com.trubuzz.trubuzz.test.trade.tests.TradeTest;
 
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        TradePositiveTest.class,
+        TradeTest.class,
 })
 public class TradeSuite extends BaseSuite{
     private static final String suiteDesc = "trade test ";

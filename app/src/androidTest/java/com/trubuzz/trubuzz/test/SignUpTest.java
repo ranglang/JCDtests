@@ -54,6 +54,7 @@ public class SignUpTest extends BaseTest{
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
     private ASignUp.RegEmail regEmail = new ASignUp.RegEmail();
     private ASignUp.RegPhone regPhone = new ASignUp.RegPhone();
+    private LoginView lv = new LoginView();
 
 
     private Object[] emailSignUp(){
@@ -70,7 +71,7 @@ public class SignUpTest extends BaseTest{
 
     @Before
     public void intoSignUp(){
-        given(LoginView.sign_up_link).perform(click());                    //点击立即注册进入注册页面
+        given(lv.sign_up_link).perform(click());                    //点击立即注册进入注册页面
     }
 
     @Test
