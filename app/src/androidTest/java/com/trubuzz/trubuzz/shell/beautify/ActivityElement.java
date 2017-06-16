@@ -184,8 +184,11 @@ public class ActivityElement implements Element<Matcher<View>>{
 
     @Override
     public Matcher<View> way() {
-//        return all(this.element2matcher());
         return all(new ElementHandle().element2matcher(this));
+    }
+
+    private Matcher<View> all(List<Matcher<View>> list){
+        return allOf(God.list2array(Matcher.class ,list));
     }
 
     @Override
@@ -211,132 +214,6 @@ public class ActivityElement implements Element<Matcher<View>>{
         return string += '}';
     }
 
-/************************** 代码已重构 , 以下部分将废弃 **************************/
-    /**
-     * 将封装的element 转换成 matcher list , 摒弃null和空值
-     * @return
-     */
-    private List<Matcher<View>> element2matcher(){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
 
-        if(notEmpty(id)) ms.add(withResourceName(id));
-
-        if(notEmpty(text)) ms.add(withText(text));
-
-        if(notEmpty(hint)) ms.add(withHint (hint));
-
-        if(notEmpty(children))  ms.add(children(elements2matcher(children)));
-//        if(notEmpty(children)) ms.add(children(elements2matcher2(children)));
-
-        if(notEmpty(sibling)) ms.add(sibling(elements2matcher(sibling)));
-
-        if(notEmpty(cousinry)) ms.add(cousin(elements2matcher(cousinry)));
-
-        if(notEmpty(parent)) ms.add(withParent(all(((ActivityElement)parent).element2matcher())));
-
-        if(notEmpty(uncle)) ms.add(withUncle(all(((ActivityElement)uncle).element2matcher())));
-
-        if(index >= 0) ms.add(withIndex(index));
-
-        if(notEmpty(assignableClass)) ms.add(isAssignableFrom(assignableClass));
-
-        if(notEmpty(matchers)) ms.addAll(God.<Matcher<View>>array2list(matchers));
-
-        if(dis)   ms.add(isDisplayed());
-
-        return ms;
-    }
-
-    /**
-     * 多element 的合并
-     * @param elements
-     * @return
-     */
-    private List<List<Matcher<View>>> elements2matcher(Element... elements){
-        List<List<Matcher<View>>> ms = new ArrayList<>();
-        for(Element element : elements){
-            ms.add(((ActivityElement)element).element2matcher());
-        }
-        return ms;
-    }
-    ///---
-    @SafeVarargs
-    private final List<Matcher<View>> elements2matcher2(Element<Matcher<View>>... elements){
-        List<Matcher<View>> ms = new ArrayList<>();
-        for(Element<Matcher<View>> element : elements){
-            ms.add(element.way());
-        }
-        return ms;
-    }
-
-    /**
-     * List<Matcher<View>>中包含了单个child的匹配方式,
-     * 使用all(List<Matcher<View>> list ) 提取出child的Matcher<View> .
-     * 如果有多个children 则使用allOf 多次匹配即可
-     * @param children
-     * @return
-     */
-    private Matcher<View> children(List<List<Matcher<View>>> children){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(List<Matcher<View>> matcher : children){
-            ms.add(withChild(all(matcher)));
-        }
-        return allOf(God.list2array(Matcher.class ,ms));
-    }
-    @SafeVarargs
-    private final Matcher<View> children(Matcher<View>... children){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(Matcher<View> matcher : children){
-            ms.add(withChild(matcher));
-        }
-        return allOf(God.list2array(Matcher.class ,ms));
-    }
-
-    /**
-     * <List<Matcher<View>> 中包含了单个的sibling的匹配方式
-     * @param siblings
-     * @return
-     */
-    private Matcher<View> sibling(List<List<Matcher<View>>> siblings){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(List<Matcher<View>> matcher : siblings){
-            ms.add(hasSiblingNoSelf(all(matcher)));
-        }
-        return allOf(God.list2array(Matcher.class ,ms));
-    }
-    @SafeVarargs
-    private final Matcher<View> sibling(Matcher<View>... siblings){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(Matcher<View> matcher : siblings){
-            ms.add(hasSiblingNoSelf(matcher));
-        }
-        return allOf(God.list2array(Matcher.class ,ms));
-    }
-
-    /**
-     * <List<Matcher<View>> 中包含了单个的cousin的匹配方式
-     * @param cousins
-     * @return
-     */
-    private Matcher<View> cousin(List<List<Matcher<View>>> cousins ){
-        List<Matcher<View>> ms = new ArrayList<Matcher<View>>();
-        for(List<Matcher<View>> matcher : cousins ){
-            ms.add(withCousin(all(matcher)));
-        }
-        return allOf(God.list2array(Matcher.class ,ms));
-    }
-    /**
-     * allOf 的封装实现
-     * @param matcher
-     * @return
-     */
-    @SafeVarargs
-    private final Matcher<View> all(Matcher<View>... matcher){
-        return allOf(matcher);
-    }
-
-    private Matcher<View> all(List<Matcher<View>> list){
-        return allOf(God.list2array(Matcher.class ,list));
-    }
 
 }

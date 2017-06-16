@@ -2,6 +2,7 @@ package com.trubuzz.trubuzz.shell.beautify;
 
 import android.support.test.espresso.web.model.Atom;
 
+import com.alibaba.fastjson.JSON;
 import com.trubuzz.trubuzz.shell.Element;
 
 import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
@@ -97,5 +98,10 @@ public class AtomElement implements Element<Atom> {
         if(notEmpty(frameIdOrName))    return selectFrameByIdOrName(frameIdOrName);
         if(frameIndex != -1)            return selectFrameByIndex(frameIndex);
         return null;
+    }
+
+    @Override
+    public String toString(){
+        return JSON.toJSONString(this);
     }
 }

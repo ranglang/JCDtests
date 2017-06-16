@@ -20,7 +20,6 @@ public final class Env {
 
     public final static Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     public final static UiDevice uiDevice = UiDevice.getInstance(instrumentation);
-    public final static String appName = God.getAppName(God.getCurrentActivity(instrumentation));
 
 
 

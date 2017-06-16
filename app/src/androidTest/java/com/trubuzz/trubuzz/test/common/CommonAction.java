@@ -17,7 +17,7 @@ public class CommonAction {
     private static final String TAG = "jcd_" + CommonAction.class.getSimpleName();
 
     public static void check_current_activity(String activityName ) {
-        String currentAName = God.getCurrentActivity(Env.instrumentation).getLocalClassName();
+        String currentAName = God.getCurrentActivityName(Env.instrumentation);
         Log.i(TAG, String.format("check_current_activity:  current activity name = %s", currentAName ));
 
         Assert.assertThat(currentAName ,thisString(activityName));

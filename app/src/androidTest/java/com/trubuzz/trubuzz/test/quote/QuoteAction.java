@@ -63,6 +63,7 @@ public class QuoteAction  {
     public void waiting_search_result(){
         regIdlingResource(new ViewIdlingResource(getView(qv.stocks_recycler)));
         // 这里只等待 RecyclerView 的出现, 而不确保其中会有内容
+        // app 可改善为:没有搜索出项目则展示"无项目" 或"无结果"这样将保持至少会有一条数据
         given(qv.stocks_recycler).check(matches(isDisplayed()));
         unRegIdlingResource();
     }

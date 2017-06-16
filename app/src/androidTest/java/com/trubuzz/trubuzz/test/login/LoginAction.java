@@ -1,5 +1,14 @@
 package com.trubuzz.trubuzz.test.login;
 
+import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.elements.AAsset;
+import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
+import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
+import com.trubuzz.trubuzz.shell.AdWebInteraction;
+import com.trubuzz.trubuzz.utils.DoIt;
+import com.trubuzz.trubuzz.utils.God;
+
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
@@ -8,8 +17,17 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
+import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
+import static com.trubuzz.trubuzz.constant.Env.instrumentation;
+import static com.trubuzz.trubuzz.elements.Global.assets_radio;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
+import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.shell.Park.webGiven;
+import static com.trubuzz.trubuzz.utils.DoIt.unRegIdlingResource;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Created by king on 17/5/25.
@@ -32,7 +50,8 @@ public class LoginAction implements LoginService{
         given(lv.tutorial_1_content).check(matches(withText(lv.tutorial_3_content_text)));
         given(isRoot()).perform(swipeLeft());
 
-        given(lv.tutorial_1_title).check(matches(withText(lv.tutorial_4_title_text)));
+        given(lv.tutorial_1_title).check(matches(withText(String.format(lv.tutorial_4_title_text,
+                God.getAppName(God.getCurrentActivity(instrumentation))))));
         given(lv.tutorial_start_button).check(matches(isDisplayed()))
                 .perform(click());
     }
@@ -58,11 +77,16 @@ public class LoginAction implements LoginService{
 
     @Override
     public void check_broker() {
-
+        given(assets_radio).perform(click());
+        given(AAsset.net_worth_view).check( matches((isDisplayed())));
     }
 
     @Override
     public void check_not_broker() {
-
+        DoIt.regIdlingResource(new ActivityIdlingResource(AName.MAIN, instrumentation.getContext(), true));
+       AdWebInteraction a =  webGiven()
+                .withElement(lv.ib_broker_title);
+               a .check(webMatches(getText(), equalTo(lv.ib_broker_title_text)));
+        unRegIdlingResource();
     }
 }

@@ -1,9 +1,12 @@
 package com.trubuzz.trubuzz.test.login;
 
 
+import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.AtomElement;
+import com.trubuzz.trubuzz.utils.God;
 
-import static com.trubuzz.trubuzz.constant.Env.appName;
+import static com.trubuzz.trubuzz.constant.Env.instrumentation;
 import static com.trubuzz.trubuzz.test.R.string.forget_password;
 import static com.trubuzz.trubuzz.test.R.string.login;
 import static com.trubuzz.trubuzz.test.R.string.login_account_hint;
@@ -17,6 +20,7 @@ import static com.trubuzz.trubuzz.test.R.string.tutorial_title_1;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_title_2;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_title_3;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_title_4;
+import static com.trubuzz.trubuzz.utils.God.getAppName;
 import static com.trubuzz.trubuzz.utils.God.getString;
 import static com.trubuzz.trubuzz.utils.God.getStringFormat;
 
@@ -40,8 +44,9 @@ public class LoginView {
     public final String tutorial_3_content_text = getString("订阅顶尖基金经理人、卓越对冲基金操盘手实盘投资组合，\n" +
             "不定期交流投资策略理念。" ,tutorial_content_3);
 
-    // 第四页
-    public final String tutorial_4_title_text = getStringFormat("TRUBUZZ为您开启全球投资理财梦想" ,tutorial_title_4 ,appName);
+    // 第四页 .该字符串需要在使用的时候再format , 将其中的 %s替换成实际的 appName
+    // 不可直接使用
+    public final String tutorial_4_title_text = getString("TRUBUZZ为您开启全球投资理财梦想" ,tutorial_title_4 );
 
     // 用户指导父view
     private final ActivityElement tutorial_page = new ActivityElement().setId("pager");
@@ -77,4 +82,12 @@ public class LoginView {
     // 清除密码按钮
     public final ActivityElement clean_pwd_image = new ActivityElement().setSibling(pwd_input , forget_pwd_button);
 
+    /********************* 开户申请 *******************/
+    // 开户申请 WebView
+    public final ActivityElement broker_webView = new ActivityElement().setId("webview")
+            .setAssignableClass(android.webkit.WebView.class);
+
+    // IB开户申请
+    public final String  ib_broker_title_text = "Interactive Brokers";
+    public final AtomElement ib_broker_title = new AtomElement().setCss("span.broker_logo>span.ng-binding");
 }

@@ -73,6 +73,13 @@ public class Park {
     public static AdWebInteraction webGiven(){
         return new AdWebInteraction(onWebView());
     }
+
+    /**
+     * 在有多个webView的情况下使用
+     * 一般来说一个activity中只会有一个webView , so ,使用onWebView()即可匹配
+     * @param viewMatcher
+     * @return
+     */
     public static AdWebInteraction webGiven(Matcher<View> viewMatcher) {
         return new AdWebInteraction(onWebView(viewMatcher));
     }

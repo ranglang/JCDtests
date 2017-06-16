@@ -30,7 +30,7 @@ import static android.support.test.runner.lifecycle.Stage.RESUMED;
  * Created by king on 2016/9/5.
  */
 public class God {
-
+    private static String TAG = "jcd_"+ God.class.getSimpleName();
     public static Context ctx = InstrumentationRegistry.getContext();
     public static Resources res = ctx.getResources();
 
@@ -148,6 +148,16 @@ public class God {
     }
 
     /**
+     * 获得当前activity的name
+     * 格式同 {@link com.trubuzz.trubuzz.constant.AName} 中的值
+     * @param instrumentation
+     * @return
+     */
+    public static String getCurrentActivityName(Instrumentation instrumentation){
+        return getCurrentActivity(instrumentation).getLocalClassName();
+    }
+
+    /**
      * 获得top activity的全类名
      * @param context
      * @return top activity class name
@@ -172,14 +182,15 @@ public class God {
     }
 
     public static String getAppName(Activity activity){
+        String s = "";
         try {
             PackageManager pm = activity.getPackageManager();
-            String s = activity.getApplicationInfo().loadLabel(pm).toString();
-            return s;
+            s = activity.getApplicationInfo().loadLabel(pm).toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "getAppName: ",e );
         }
-        return "";
+        Log.i(TAG, String.format("getAppName: current app name = %s", s));
+        return s;
     }
 
     /**
