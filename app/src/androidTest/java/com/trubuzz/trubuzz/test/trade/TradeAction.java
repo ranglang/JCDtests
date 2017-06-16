@@ -428,11 +428,6 @@ public class TradeAction implements TradeService {
     }
 
     @Override
-    public void check_toast_msg(ToastElement toastElement) {
-        given(toastElement).check(matches(isDisplayed()));
-    }
-
-    @Override
     public void click_submit_button(){
         given(tv.ordering).perform(swipeToVisible(Direction.CENTER_UP ));
         given(tv.ordering).perform(click());

@@ -4,12 +4,16 @@ package com.trubuzz.trubuzz.test.login;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.shell.beautify.AtomElement;
+import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 import com.trubuzz.trubuzz.utils.God;
 
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
 import static com.trubuzz.trubuzz.test.R.string.forget_password;
+import static com.trubuzz.trubuzz.test.R.string.incorrect_account_format;
+import static com.trubuzz.trubuzz.test.R.string.incorrect_password_empty;
 import static com.trubuzz.trubuzz.test.R.string.login;
 import static com.trubuzz.trubuzz.test.R.string.login_account_hint;
+import static com.trubuzz.trubuzz.test.R.string.login_failed;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_description;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_password_hint;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_content_1;
@@ -67,7 +71,8 @@ public class LoginView {
     public final ActivityElement username_input = new ActivityElement().setId("account").setHint(getString("请输入您的邮箱或手机号" , login_account_hint));
 
     // 密码输入框
-    public final ActivityElement pwd_input = new ActivityElement().setId("password").setHint(getString("输入密码",sign_up_password_hint));
+    public final String pwd_input_hint = getString("输入密码",sign_up_password_hint);
+    public final ActivityElement pwd_input = new ActivityElement().setId("password").setHint(pwd_input_hint);
 
     // 忘记密码按钮
     public final ActivityElement forget_pwd_button = new ActivityElement().setText(getString("忘记密码",forget_password));
@@ -90,4 +95,16 @@ public class LoginView {
     // IB开户申请
     public final String  ib_broker_title_text = "Interactive Brokers";
     public final AtomElement ib_broker_title = new AtomElement().setCss("span.broker_logo>span.ng-binding");
+
+    /****************************-- toast --***************************/
+    public static class Toast{
+        public final ToastElement password_empty_toast = new ToastElement(
+                getString("密码不能为空", incorrect_password_empty));
+
+        public final ToastElement account_format_toast = new ToastElement(
+                getString("账号必须是邮箱或是手机号", incorrect_account_format));
+
+        public final ToastElement login_failed_toast = new ToastElement(
+                getString("无效的账号或密码", login_failed));
+    }
 }

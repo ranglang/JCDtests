@@ -128,9 +128,4 @@ public interface TradeService {
      */
     void click_keyboard_submit();
 
-    /**
-     * 检查出现的toast提示
-     * @param toastElement
-     */
-    void check_toast_msg(ToastElement toastElement);
 }

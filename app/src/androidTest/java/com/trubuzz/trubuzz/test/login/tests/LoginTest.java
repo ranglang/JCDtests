@@ -50,7 +50,7 @@ public class LoginTest extends BaseTest{
      * @param username
      * @param password
      */
-//    @Test
+    @Test
     @Parameters(method = "has_broker_login_data")
     public void has_broker_login(String username ,String password){
         la.type_username(username);
@@ -78,5 +78,15 @@ public class LoginTest extends BaseTest{
     }
     private Object[] create_has_not_broker_login_data(String username ,String password){
         return new Object[]{username ,password};
+    }
+
+    /**
+     * 测试清除密码的小功能
+     */
+    @Test
+    public void clean_password_test(){
+        la.type_password("380275024");
+        la.clean_password();
+        la.check_password_input_default_show();
     }
 }

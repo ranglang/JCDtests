@@ -39,6 +39,7 @@ import static com.trubuzz.trubuzz.constant.enumerate.StockType.HK;
 import static com.trubuzz.trubuzz.constant.enumerate.StockType.US;
 import static com.trubuzz.trubuzz.constant.enumerate.TimeInForce.GFD;
 import static com.trubuzz.trubuzz.constant.enumerate.TimeInForce.IOC;
+import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 
 /**
  * Created by king on 17/5/15.
@@ -144,7 +145,7 @@ public class TradeTest extends BaseTest {
         ta.type_trade_password(Config.tradePwd);
 
         ta.confirm_trade_pwd();
-        ta.check_toast_msg(vt.order_place_success_toast);
+        check_toast_msg(vt.order_place_success_toast);
 
         ta.check_assets_order_list_show(symbol, new Date(), price, shareAmount, position);
 

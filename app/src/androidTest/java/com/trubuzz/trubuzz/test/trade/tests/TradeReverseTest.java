@@ -32,6 +32,7 @@ import static com.trubuzz.trubuzz.constant.enumerate.OrderType.SHARES;
 import static com.trubuzz.trubuzz.constant.enumerate.Position.BULL;
 import static com.trubuzz.trubuzz.constant.enumerate.StockType.HK;
 import static com.trubuzz.trubuzz.constant.enumerate.StockType.US;
+import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 
 /**
  * Created by king on 17/6/9.
@@ -106,7 +107,7 @@ public class TradeReverseTest extends BaseTest {
 
         ta.click_keyboard_submit();
         CommonAction.check_current_activity(AName.ORDER);
-        ta.check_toast_msg(vt.order_lotsize_limit_toast);
+        check_toast_msg(vt.order_lotsize_limit_toast);
 
     }
 
@@ -145,7 +146,7 @@ public class TradeReverseTest extends BaseTest {
 
         ta.click_keyboard_submit();
         CommonAction.check_current_activity(AName.ORDER);
-        ta.check_toast_msg(vt.order_lotsize_limit_toast);
+        check_toast_msg(vt.order_lotsize_limit_toast);
     }
 
     private Object[] create_not_enough_to_trade_one_data(String symbol, Position position, Commissioned limitOrMarket,
@@ -183,7 +184,7 @@ public class TradeReverseTest extends BaseTest {
 
         ta.click_keyboard_submit();
         CommonAction.check_current_activity(AName.ORDER);
-        ta.check_toast_msg(vt.order_invalid_price_toast);
+        check_toast_msg(vt.order_invalid_price_toast);
     }
 
     private Object[] create_invalid_entrustment_price_trade_data(String symbol, Position position, StockType stockType,
@@ -222,7 +223,7 @@ public class TradeReverseTest extends BaseTest {
 
         ta.click_keyboard_submit();
         CommonAction.check_current_activity(AName.ORDER);
-        ta.check_toast_msg(vt.order_lotsize_limit_toast);
+        check_toast_msg(vt.order_lotsize_limit_toast);
     }
     private Object[] create_invalid_amount_trade_data(String symbol ,Position position ,Commissioned limitOrMarket ,StockType stockType ,
                                      String price , OrderType orderType ,String amount){

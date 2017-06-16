@@ -36,4 +36,14 @@ public interface LoginService {
      * 检查登录用户未开户
      */
     void check_not_broker();
+
+    /**
+     * 清楚密码 ( 点击清除密码图标 )
+     */
+    void clean_password();
+
+    /**
+     * 检查密码输入框默认展示
+     */
+    void check_password_input_default_show();
 }
