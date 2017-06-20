@@ -114,7 +114,7 @@ public class Wish {
      */
     public static void login(String user , String pwd){
         given(loginView.username_input).perform(replaceText(user));
-        given(loginView.pwd_input).perform(replaceText(pwd));
+        given(loginView.login_pwd_input).perform(replaceText(pwd));
         given(loginView.login_button).perform( click());
     }
 

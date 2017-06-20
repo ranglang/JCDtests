@@ -36,7 +36,8 @@ public class LoginTest extends BaseTest{
 
     private Object[] has_not_broker_login_data(){
         return new Object[]{
-                create_has_not_broker_login_data("11811110001" ,"aA123321")
+                create_has_not_broker_login_data("11811110001" ,"aA123321"),
+                create_has_not_broker_login_data("star003@abc.com" ,"aA123321")
         };
     }
 

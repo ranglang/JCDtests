@@ -53,7 +53,7 @@ public class AForgetPwd {
 
     public final ActivityElement email_input = new ActivityElement().setId("email")
             .setHint(getString("请输入您的邮箱地址",sign_up_email_hint))
-            .setSibling(email_text);
+            .setSiblings(email_text);
 
     public final ActivityElement email_submit_button = new ActivityElement().setId("submit")
             .setText(getString("提交",submit))

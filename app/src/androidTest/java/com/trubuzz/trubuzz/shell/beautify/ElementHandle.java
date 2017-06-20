@@ -53,14 +53,17 @@ public class ElementHandle {
         if(notEmpty(content_desc)) ms.add(withContentDescription(content_desc));
 
         Element[] children = ae.getChildren();
-        if(notEmpty(children)) ms.add(withChild(allOf(new MIterable(elements2matcher(children)))));
+        if(notEmpty(children)) ms.add(allOf(new MIterable(childrenMatch(children))));
+//        if(notEmpty(children)) ms.add(withChild(allOf(new MIterable(elements2matcher(children))))); ///- 原来错误的方案
 
-        Element[] sibling = ae.getSibling();
-        if(notEmpty(sibling))
-            ms.add(hasSiblingNoSelf(allOf(new MIterable(elements2matcher(sibling)))));
+        Element[] siblings = ae.getSiblings();
+        if(notEmpty(siblings))
+            ms.add(allOf(new MIterable(siblingsMatch(siblings))));
+//            ms.add(hasSiblingNoSelf(allOf(new MIterable(elements2matcher(siblings)))));
 
         Element[] cousinry = ae.getCousinry();
-        if(notEmpty(cousinry)) ms.add(withCousin(allOf(new MIterable(elements2matcher(cousinry)))));
+        if(notEmpty(cousinry)) ms.add(allOf(new MIterable(cousinryMatch(cousinry))));
+//        if(notEmpty(cousinry)) ms.add(withCousin(allOf(new MIterable(elements2matcher(cousinry)))));
 
         Element<Matcher<View>> parent = ae.getParent();
         if(notEmpty(parent)) ms.add(withParent(parent.way()));
@@ -94,12 +97,34 @@ public class ElementHandle {
      * @param elements
      * @return
      */
-    private List<Matcher<View>> elements2matcher(Element<Matcher>... elements){
+//    private List<Matcher<View>> elements2matcher(Element<Matcher>... elements){
+//        List<Matcher<View>> ms = new ArrayList<>();
+//        for(Element<Matcher> element : elements){
+//            ms.add(element.way());
+//        }
+//        return ms;
+//    }
+
+    private List<Matcher<View>> childrenMatch(Element<Matcher>... elements){
         List<Matcher<View>> ms = new ArrayList<>();
         for(Element<Matcher> element : elements){
-            ms.add(element.way());
+            ms.add(withChild(element.way()));
         }
         return ms;
+    }
+    private List<Matcher<View>> siblingsMatch(Element<Matcher>... elements){
+            List<Matcher<View>> ms = new ArrayList<>();
+            for(Element<Matcher> element : elements){
+                ms.add(hasSiblingNoSelf(element.way()));
+            }
+            return ms;
+    }
+    private List<Matcher<View>> cousinryMatch(Element<Matcher>... elements){
+            List<Matcher<View>> ms = new ArrayList<>();
+            for(Element<Matcher> element : elements){
+                ms.add(withCousin(element.way()));
+            }
+            return ms;
     }
 
     /**

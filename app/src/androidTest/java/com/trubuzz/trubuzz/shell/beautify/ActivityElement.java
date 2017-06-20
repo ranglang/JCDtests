@@ -7,21 +7,12 @@ import com.trubuzz.trubuzz.utils.God;
 
 import org.hamcrest.Matcher;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withCousin;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withUncle;
 import static com.trubuzz.trubuzz.utils.DoIt.notEmpty;
 import static org.hamcrest.Matchers.allOf;
 
@@ -34,7 +25,7 @@ public class ActivityElement implements Element<Matcher<View>>{
     private String text;
     private String hint;
     private Element<Matcher<View>>[] children;
-    private Element<Matcher<View>>[] sibling;
+    private Element<Matcher<View>>[] siblings;
     private Element<Matcher<View>>[] cousinry;
     private Element<Matcher<View>> parent;
     private Element<Matcher<View>> uncle;
@@ -62,8 +53,8 @@ public class ActivityElement implements Element<Matcher<View>>{
         return children;
     }
 
-    Element<Matcher<View>>[] getSibling() {
-        return sibling;
+    Element<Matcher<View>>[] getSiblings() {
+        return siblings;
     }
 
     Element<Matcher<View>>[] getCousinry() {
@@ -136,8 +127,8 @@ public class ActivityElement implements Element<Matcher<View>>{
         return this;
     }
 
-    public ActivityElement setSibling(Element<Matcher<View>>... sibling) {
-        this.sibling = sibling;
+    public ActivityElement setSiblings(Element<Matcher<View>>... siblings) {
+        this.siblings = siblings;
         return this;
     }
 
@@ -199,7 +190,7 @@ public class ActivityElement implements Element<Matcher<View>>{
         if(hint != null) string += "hint='" + hint + "', ";
         if(content_desc != null) string += "content_desc='" + content_desc + "', ";
         if(children != null && children.length >0) string += "children=" + Arrays.toString(children) + ", ";
-        if(sibling != null && sibling.length >0) string +=  "sibling=" + Arrays.toString(sibling) + ", ";
+        if(siblings != null && siblings.length >0) string +=  "siblings=" + Arrays.toString(siblings) + ", ";
         if(cousinry != null&& cousinry.length >0) string += "cousinry=" + Arrays.toString(cousinry) + ", ";
         if(parent != null) string += "parent=" + parent + ", ";
         if(uncle != null) string += "uncle=" + uncle + ", ";

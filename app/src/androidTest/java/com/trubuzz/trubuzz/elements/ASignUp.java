@@ -56,7 +56,7 @@ public class ASignUp {
 
         public final ActivityElement email_reg_submit = new ActivityElement().setId("submit")
                 .setText(getString("注册" ,sign_up))
-                .setSibling(new ActivityElement().setChildren(email_input));
+                .setSiblings(new ActivityElement().setChildren(email_input));
 
         public final ActivityElement email_terms = new ActivityElement().setId("service")
                 .setText(getString("服务条款",terms_of_service))
@@ -89,7 +89,7 @@ public class ASignUp {
 
         public final ActivityElement phone_reg_submit = new ActivityElement().setId("submit")
                 .setText(getString("注册" ,sign_up))
-                .setSibling(new ActivityElement().setChildren(phone_input));
+                .setSiblings(new ActivityElement().setChildren(phone_input));
 
     }
 }

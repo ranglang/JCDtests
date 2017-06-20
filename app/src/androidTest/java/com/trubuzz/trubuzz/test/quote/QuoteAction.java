@@ -75,7 +75,7 @@ public class QuoteAction  {
     public void into_search_stock_quote(String symbol){
         sleep(1000);
         ActivityElement searchSymbol = qv.search_symbol.setText(symbol);
-        String stockName = getText(qv.search_name.setSibling(searchSymbol));
+        String stockName = getText(qv.search_name.setSiblings(searchSymbol));
         given(searchSymbol).perform(click()); //选择指定记录进入详情
 //        given(qv.stock_name).check(matches(withText(stockName)));
     }

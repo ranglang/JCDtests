@@ -1,21 +1,31 @@
 package com.trubuzz.trubuzz.test.login;
 
 
-import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.shell.beautify.AtomElement;
 import com.trubuzz.trubuzz.shell.beautify.ToastElement;
-import com.trubuzz.trubuzz.utils.God;
 
-import static com.trubuzz.trubuzz.constant.Env.instrumentation;
+import static com.trubuzz.trubuzz.test.R.string.cancel;
+import static com.trubuzz.trubuzz.test.R.string.confirm_resend_mail;
+import static com.trubuzz.trubuzz.test.R.string.confirm_resend_mail_hint;
 import static com.trubuzz.trubuzz.test.R.string.forget_password;
+import static com.trubuzz.trubuzz.test.R.string.forget_password_email;
+import static com.trubuzz.trubuzz.test.R.string.forget_password_phone;
+import static com.trubuzz.trubuzz.test.R.string.get_sms;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_account_format;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_empty;
 import static com.trubuzz.trubuzz.test.R.string.login;
 import static com.trubuzz.trubuzz.test.R.string.login_account_hint;
 import static com.trubuzz.trubuzz.test.R.string.login_failed;
+import static com.trubuzz.trubuzz.test.R.string.ok;
+import static com.trubuzz.trubuzz.test.R.string.reset_password_mail_sent;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_confirm_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_description;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_email_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_password_hint;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_phone_hint;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_sms_hint;
+import static com.trubuzz.trubuzz.test.R.string.submit;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_content_1;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_content_2;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_content_3;
@@ -24,9 +34,7 @@ import static com.trubuzz.trubuzz.test.R.string.tutorial_title_1;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_title_2;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_title_3;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_title_4;
-import static com.trubuzz.trubuzz.utils.God.getAppName;
 import static com.trubuzz.trubuzz.utils.God.getString;
-import static com.trubuzz.trubuzz.utils.God.getStringFormat;
 
 /**
  * Created by king on 2016/8/23.
@@ -71,8 +79,8 @@ public class LoginView {
     public final ActivityElement username_input = new ActivityElement().setId("account").setHint(getString("请输入您的邮箱或手机号" , login_account_hint));
 
     // 密码输入框
-    public final String pwd_input_hint = getString("输入密码",sign_up_password_hint);
-    public final ActivityElement pwd_input = new ActivityElement().setId("password").setHint(pwd_input_hint);
+    public final String login_pwd_input_hint = getString("输入密码",sign_up_password_hint);
+    public final ActivityElement login_pwd_input = new ActivityElement().setId("password").setHint(login_pwd_input_hint);
 
     // 忘记密码按钮
     public final ActivityElement forget_pwd_button = new ActivityElement().setText(getString("忘记密码",forget_password));
@@ -85,7 +93,7 @@ public class LoginView {
     public final ActivityElement login_button = new ActivityElement().setId("submit").setText(getString("登入" ,login));
 
     // 清除密码按钮
-    public final ActivityElement clean_pwd_image = new ActivityElement().setSibling(pwd_input , forget_pwd_button);
+    public final ActivityElement clean_pwd_image = new ActivityElement().setSiblings(login_pwd_input, forget_pwd_button);
 
     /********************* 开户申请 *******************/
     // 开户申请 WebView
@@ -95,6 +103,89 @@ public class LoginView {
     // IB开户申请
     public final String  ib_broker_title_text = "Interactive Brokers";
     public final AtomElement ib_broker_title = new AtomElement().setCss("span.broker_logo>span.ng-binding");
+
+    // 7天未验证邮箱地址
+    public final ActivityElement not_verify_7days_layout = new ActivityElement().setId("parentPanel");
+    // 标题
+    public final ActivityElement not_verify_7days_title = new ActivityElement().setId("alertTitle").setAncestor(not_verify_7days_layout);
+    public final String not_verify_7days_title_text = getString("重新发送认验信", confirm_resend_mail);
+    // 内容
+    public final ActivityElement not_verify_7days_content = new ActivityElement().setId("message").setAncestor(not_verify_7days_layout);
+    public final String not_verify_7days_content_text = getString("您将收到一封验证邮件，请在邮件中激活您的账号，未激活账户七天后自动失效",
+            confirm_resend_mail_hint);
+    // 确定
+    public final ActivityElement confirm_send = new ActivityElement().setId("button1").setText(getString("确定", ok));
+    // 取消
+    public final ActivityElement cancel_send = new ActivityElement().setId("button2").setText(getString("取消", cancel));
+
+    // 首次登录客户经理来信
+    public final ActivityElement intercom_layout = new ActivityElement().setId("note_layout");
+    // 关闭对话
+    public final ActivityElement intercom_close = new ActivityElement().setId( "intercom_toolbar_close").setAncestor(intercom_layout);
+
+
+    /****************************-- forget password --***************************/
+    // 邮箱找回文本
+    private final ActivityElement email_retrieve_text = new ActivityElement().setId("text1")
+            .setText(getString("邮箱找回",forget_password_email));
+    // 邮箱找回 icon
+    private final ActivityElement email_image = new ActivityElement().setId("icon");
+    // 邮箱找回 Tab
+    public final ActivityElement mail_retrieve_tab = new ActivityElement()
+            .setChildren(new ActivityElement().setChildren(email_retrieve_text, email_image)
+                    .setAssignableClass(android.widget.LinearLayout.class));
+//    public final ActivityElement mail_retrieve_tab = new ActivityElement().setChildren(email_retrieve_text, email_image);
+
+    // 邮箱地址输入框
+    public final ActivityElement mail_address_input = new ActivityElement().setId("email");
+
+    // 邮箱地址输入提示
+    public final String mail_input_hint_text = getString("请输入您的邮箱地址", sign_up_email_hint);
+
+    // 邮箱提交按钮
+    public final ActivityElement mail_submit_button = new ActivityElement().setId("submit")
+            .setText(getString("提交",submit));
+//            .setIndex(2);
+
+    // 手机找回文本
+    private final ActivityElement phone_retrieve_text = new ActivityElement().setId("text1")
+            .setText(getString("手机找回",forget_password_phone));
+    // 手机找回icon
+    private final ActivityElement phone_image = new ActivityElement().setId("icon");
+    // 手机找回 Tab
+    public final ActivityElement phone_retrieve_tab = new ActivityElement()
+            .setChildren(new ActivityElement().setChildren(phone_retrieve_text, phone_image)
+                    .setAssignableClass(android.widget.LinearLayout.class));
+
+    // 手机号输入框
+    public final ActivityElement phone_number_input = new ActivityElement().setId("phone");
+
+    // 手机号码输入提示
+    public final String phone_input_hint_text = getString("请输入手机号", sign_up_phone_hint);
+
+    // 获取短信验证码按钮
+    public final ActivityElement get_sms_button = new ActivityElement().setId("btn_sms")
+            .setText(getString("获取验证码" ,get_sms));
+
+    // 短信验证码输入框
+    public final ActivityElement sms_code_input = new ActivityElement().setId("sms")
+            .setHint(getString("请输入短信验证码",sign_up_sms_hint));
+
+    // 新密码输入框
+    public final ActivityElement new_password_input = new ActivityElement().setId("password")
+            .setHint(getString("请输入密码" ,sign_up_password_hint));
+
+    // 新密码确认框
+    public final ActivityElement password_confirm = new ActivityElement().setId("confirm")
+            .setHint(getString("请再次输入密码" ,sign_up_confirm_hint));
+
+    // 手机找回提交
+    public final ActivityElement phone_submit_button = new ActivityElement().setId("submit")
+            .setText(getString("提交",submit));
+//            .setIndex(8);
+
+
+
 
     /****************************-- toast --***************************/
     public static class Toast{
@@ -106,5 +197,8 @@ public class LoginView {
 
         public final ToastElement login_failed_toast = new ToastElement(
                 getString("无效的账号或密码", login_failed));
+
+        public final ToastElement reset_password_mail_sent_toast = new ToastElement(
+                getString("重设密码信件已发送到您的邮箱，请查收并重置密码。", reset_password_mail_sent));
     }
 }

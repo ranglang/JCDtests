@@ -19,10 +19,12 @@ import android.widget.AdapterView;
 
 import com.trubuzz.trubuzz.feature.custom.CustomRecyclerViewActions;
 import com.trubuzz.trubuzz.shell.Element;
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
 import org.hamcrest.Matcher;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -212,5 +214,19 @@ public class Judge {
             throw new RuntimeException("reference cannot be zero.");
         }
         return reference;
+    }
+
+    /**
+     * 判断元素是否存在于布局
+     * @param element
+     * @return
+     */
+    public static boolean isExist(ActivityElement element){
+        try {
+            given(element).check(doesNotExist());
+            return false;
+        } catch (Exception e) {
+            return true;
+        }
     }
 }

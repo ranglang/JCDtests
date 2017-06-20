@@ -95,11 +95,11 @@ public class LoginTest extends BaseTest{
 
     @Test
     public void cleanPwdTest(){
-        given(login.pwd_input)
+        given(login.login_pwd_input)
                 .perform(replaceText("123456"));
         given(login.clean_pwd_image)
                 .perform(click());
-        given(login.pwd_input)
+        given(login.login_pwd_input)
                 .check(matches(withHint(getString("输入密码",input_password))));
     }
 

@@ -39,11 +39,11 @@ public class TradeView {
 
     // 支撑价
     public final ActivityElement supportPrice = new ActivityElement().setId("support_price")
-            .setSibling(new ActivityElement().setText(getString("支撑", support_price)));
+            .setSiblings(new ActivityElement().setText(getString("支撑", support_price)));
 
     // 压力价
     public final ActivityElement resistancePrice = new ActivityElement().setId("resistance_price")
-            .setSibling(new ActivityElement().setText(getString("压力", resistance_price)));
+            .setSiblings(new ActivityElement().setText(getString("压力", resistance_price)));
 
     // 多空图
     public final ActivityElement bullBearBar = new ActivityElement().setId("bar")
@@ -68,7 +68,7 @@ public class TradeView {
     public final ActivityElement marketPrice = new ActivityElement().setId("market_price");
 
     // 市价交易提示
-    public final ActivityElement marketReminder = new ActivityElement().setSibling(marketPrice)
+    public final ActivityElement marketReminder = new ActivityElement().setSiblings(marketPrice)
             .setText(getString("以最优的五档内部时价成交", order_price_warning));
 
     // 价格微减

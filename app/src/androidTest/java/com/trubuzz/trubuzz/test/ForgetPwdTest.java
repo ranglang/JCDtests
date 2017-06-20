@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
+import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -46,8 +47,8 @@ public class ForgetPwdTest extends BaseTest{
     private Object[] email_found_data(){
         return new Object[]{
                 new Object[]{"123@321.com" , user_not_exist_toast },
-                new Object[]{"2343253543432" , incorrect_email_format_toast},
-                new Object[]{"abc@abc.com1" , email_success_expect}
+//                new Object[]{"2343253543432" , incorrect_email_format_toast},
+//                new Object[]{"abc@abc.com1" , email_success_expect}
         };
     }
 
@@ -66,6 +67,7 @@ public class ForgetPwdTest extends BaseTest{
 
     @Before
     public void into_password_found(){
+        given(lv.username_input).perform(clearText());
         given(lv.forget_pwd_button).perform(click());
     }
     @Test
