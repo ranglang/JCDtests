@@ -61,7 +61,7 @@ public class ForgetPasswordTest extends BaseTest {
      * @param accountType
      * @param pwd
      */
-    @Test
+//    @Test
     @Parameters(method = "forget_password_account_follow_data")
     public void forget_password_account_follow(String account , Account accountType ,String pwd){
         la.type_username(account);
@@ -97,8 +97,8 @@ public class ForgetPasswordTest extends BaseTest {
      * @param phone
      * @param password
      */
-//    @Test
-    @Parameters(method = "")
+    @Test
+    @Parameters(method = "forget_password_use_phone_data")
     public void forget_password_use_phone(String phone, String password) {
         la.into_forget_password_page();
         la.select_phone_retrieve();

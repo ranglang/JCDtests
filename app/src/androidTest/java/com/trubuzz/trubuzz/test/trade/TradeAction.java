@@ -3,7 +3,7 @@ package com.trubuzz.trubuzz.test.trade;
 import android.util.Log;
 import android.view.View;
 
-import com.trubuzz.trubuzz.constant.Config;
+import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.enumerate.Commissioned;
 import com.trubuzz.trubuzz.constant.enumerate.Direction;
 import com.trubuzz.trubuzz.constant.enumerate.OrderType;
@@ -11,7 +11,6 @@ import com.trubuzz.trubuzz.constant.enumerate.Position;
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
 import com.trubuzz.trubuzz.constant.enumerate.TimeInForce;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
-import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 import com.trubuzz.trubuzz.test.quote.QuoteAction;
 import com.trubuzz.trubuzz.test.quote.QuoteView;
 
@@ -166,7 +165,7 @@ public class TradeAction implements TradeService {
     }
 
     /**
-     * 计算预估手续费 ( global版本需在{@link Config#condition}中配置 )
+     * 计算预估手续费 ( global版本需在{@link Conf#condition}中配置 )
      * 美股global版本最小手续费不样
      * @param shares
      * @param fPrice
@@ -177,21 +176,21 @@ public class TradeAction implements TradeService {
         BigDecimal fShares = new BigDecimal(shares);
         // 美股手续费预估
         if(stockType == StockType.US) {
-            BigDecimal maxFee = fShares.multiply(new BigDecimal(fPrice)).multiply(Config.usMaxFee);
-            BigDecimal nowFee = fShares.multiply(Config.usPerFee);
+            BigDecimal maxFee = fShares.multiply(new BigDecimal(fPrice)).multiply(Conf.usMaxFee);
+            BigDecimal nowFee = fShares.multiply(Conf.usPerFee);
 
-            if (GLOBAL == Config.condition) {
-                if (Config.usMinFee_G .compareTo(nowFee) == 1) return new DecimalFormat(format).format(Config.usMinFee_G);
+            if (GLOBAL == Conf.condition) {
+                if (Conf.usMinFee_G .compareTo(nowFee) == 1) return new DecimalFormat(format).format(Conf.usMinFee_G);
             }
-            if (Config.usMinFee.compareTo(nowFee) == 1) return new DecimalFormat(format).format(Config.usMinFee);
+            if (Conf.usMinFee.compareTo(nowFee) == 1) return new DecimalFormat(format).format(Conf.usMinFee);
             if (nowFee.compareTo(maxFee) == 1) new DecimalFormat(format).format(maxFee);
             return new DecimalFormat(format).format(nowFee);
         }
         // 港股手续费预估
         if (stockType == StockType.HK) {
-            BigDecimal nowFee = fShares.multiply(new BigDecimal(fPrice).multiply(Config.hkPerFee));
+            BigDecimal nowFee = fShares.multiply(new BigDecimal(fPrice).multiply(Conf.hkPerFee));
 
-            if (Config.hkMinFee.compareTo(nowFee) == 1) return new DecimalFormat(format).format(Config.usMinFee);
+            if (Conf.hkMinFee.compareTo(nowFee) == 1) return new DecimalFormat(format).format(Conf.usMinFee);
             return new DecimalFormat(format).format(nowFee);
         }
         return new DecimalFormat(format).format(0);

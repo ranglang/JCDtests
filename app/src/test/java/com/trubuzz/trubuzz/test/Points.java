@@ -13,7 +13,7 @@ public class Points {
     @DataPoints
     public static int[] data = {1,2,3,};
     @DataPoints
-    public static String[] str = {"a","b","c"};
+    public static String[] str = {"a","b","getToken"};
 
     @Theory
     public void test1(int a,String s){

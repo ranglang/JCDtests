@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
@@ -290,11 +291,33 @@ public class God {
         return new ScreenRectangle(statusBarHeight, m.heightPixels - actionBarHeight, 0, m.widthPixels);
     }
 
+    /**
+     * 获取一个随机整数
+     * @param max
+     * @param min
+     * @return
+     */
     public static int getRandomInt(int max, int min) {
         if(max == 0){
             return 0;
         }
         Random r = new Random();
         return r.nextInt(max - min + 1) + min;
+    }
+
+    /**
+     * 从字符串中获取连续个数的数字
+     * @param str
+     * @param max
+     * @return
+     */
+    public static String getNumberFromString(String str, int max) {
+        String regEx = String.format("\\d{%s}",max);
+        Pattern p = Pattern.compile(regEx);
+        Matcher matcher = p.matcher(str);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "";
     }
 }

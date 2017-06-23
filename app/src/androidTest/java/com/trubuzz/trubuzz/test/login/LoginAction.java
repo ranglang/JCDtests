@@ -1,12 +1,15 @@
 package com.trubuzz.trubuzz.test.login;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.test.common.CommonAction;
+import com.trubuzz.trubuzz.utils.DoHttp;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
+import com.trubuzz.trubuzz.utils.HtmlParser;
 
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.clearText;
@@ -171,6 +174,10 @@ public class LoginAction implements LoginService{
     public void type_sms_code(String smsCode) {
         if (smsCode == null) {
             ////--
+//            DoHttp doHttp = new DoHttp();
+//            doHttp.doGet(Conf.ad_url);
+            HtmlParser hp = new HtmlParser();
+//            hp.doGet(Conf.ad_url);
         }
         given(lv.sms_code_input).perform(replaceText(smsCode));
     }

@@ -51,6 +51,11 @@ dependencies {
     testCompile 'io.selendroid:selendroid:0.17.0'
     testCompile 'io.selendroid:selendroid-client:0.17.0'
     testCompile files('libs/JUnitParams-1.1.1.jar')
+    testCompile 'org.jsoup:jsoup:1.10.3'
+    testCompile 'com.squareup.okhttp3:okhttp:3.8.0'
+    testCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
+    testCompile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '3.8.0'
+
     //    testCompile files('libs/classes-dex2jar.jar')
     androidTestCompile 'com.android.support:support-annotations:23.+'
     androidTestCompile 'com.android.support.test:runner:0.5'
@@ -65,8 +70,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude module: 'recyclerview-v7'
     }
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.+'
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     androidTestCompile 'com.alibaba:fastjson:1.2.20'
+    androidTestCompile 'org.jsoup:jsoup:1.10.3'
+    androidTestCompile 'com.squareup.okhttp3:okhttp:3.8.0'
+
     androidTestCompile files('libs/JUnitParams-1.1.1.jar')
 }
 

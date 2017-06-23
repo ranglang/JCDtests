@@ -46,7 +46,7 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.toPack
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.constant.Config.cacheHeadImage;
+import static com.trubuzz.trubuzz.constant.Conf.cacheHeadImage;
 import static com.trubuzz.trubuzz.constant.Env.uiDevice;
 import static com.trubuzz.trubuzz.constant.ToastInfo.status_success_toast;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasDrawable;

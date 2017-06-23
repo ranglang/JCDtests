@@ -33,7 +33,7 @@ import static android.support.test.espresso.matcher.CursorMatchers.withRowString
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.hasSibling;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.constant.Config.watchlistKey;
+import static com.trubuzz.trubuzz.constant.Conf.watchlistKey;
 import static com.trubuzz.trubuzz.feature.custom.CustomRecyclerViewActions.scrollToRecyclerPosition;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getDescendant;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getRecyclerViewItem;

@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.constant.Config;
+import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.Global;
@@ -134,7 +134,7 @@ public class Wish {
             Log.i(TAG, "wantBrokerLogin: 已经是已开户用户登录");
     }
     public static void wantBrokerLogin(Activity atr ){
-        wantBrokerLogin(atr , Config.hasBrokerUser , Config.hasBrokerPwd);
+        wantBrokerLogin(atr , Conf.hasBrokerUser , Conf.hasBrokerPwd);
     }
     public static void wantBrokerLogin(){
         wantBrokerLogin(null);
@@ -151,7 +151,7 @@ public class Wish {
         }
     }
     public static void wantLogin(Activity atr){
-        wantLogin(atr,Config.hasBrokerUser , Config.hasBrokerPwd);
+        wantLogin(atr,Conf.hasBrokerUser , Conf.hasBrokerPwd);
     }
     public static void wantLogin(){
         wantLogin(null);
@@ -172,7 +172,7 @@ public class Wish {
             Log.i(TAG, "wantNotBrokerLogin: 已经是未开户用户登录");
     }
     public static void wantNotBrokerLogin(Activity atr ){
-        wantNotBrokerLogin(atr ,Config.notBrokerUser , Config.notBrokerPwd);
+        wantNotBrokerLogin(atr ,Conf.notBrokerUser , Conf.notBrokerPwd);
     }
     public static void wantNotBrokerLogin(){
         wantNotBrokerLogin(null);

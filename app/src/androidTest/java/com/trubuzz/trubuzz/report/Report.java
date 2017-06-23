@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.trubuzz.trubuzz.constant.Config;
+import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.DeviceDesc;
 import com.trubuzz.trubuzz.utils.DoIt;
 
@@ -42,7 +42,7 @@ public class Report {
      * 初始化一些描述数据
      */
     private void initDesc(){
-        this.reportName = Config.reportName;
+        this.reportName = Conf.reportName;
         this.deviceDesc = DeviceDesc.getDeviceDesc();
         this.logcatPath = null;
 

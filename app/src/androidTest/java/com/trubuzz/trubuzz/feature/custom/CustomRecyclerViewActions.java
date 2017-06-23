@@ -22,7 +22,7 @@ import java.util.Arrays;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.internal.util.Checks.checkNotNull;
-import static com.trubuzz.trubuzz.constant.Config.VISIBILITY;
+import static com.trubuzz.trubuzz.constant.Conf.VISIBILITY;
 import static com.trubuzz.trubuzz.utils.Judge.isVisible;
 import static org.hamcrest.Matchers.allOf;
 

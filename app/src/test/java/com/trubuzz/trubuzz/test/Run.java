@@ -1,15 +1,13 @@
 package com.trubuzz.trubuzz.test;
 
+import com.trubuzz.trubuzz.utils.DoHttp;
+import com.trubuzz.trubuzz.utils.Kvp;
 import com.trubuzz.trubuzz.utils.Param;
 
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,36 +21,20 @@ import java.util.regex.Pattern;
 //@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Run {
     boolean a;
-
+    HtmlParser htmlParser = new HtmlParser();
 
     @Test
     public void xrun() throws NoSuchMethodException {
-        tt();
+       tt();
     }
 
+    public void tc(){
+    }
+    public void ts(){
+    }
     public void tt(){
-        System.out.println(new BigDecimal("1.3").equals(new BigDecimal("1.20")));  //输出false
-        System.out.println(new BigDecimal("1.1").compareTo(new BigDecimal("1.20"))); //输出true
 
-        System.out.println(new BigDecimal(1.2).equals(new BigDecimal("1.2"))); //输出是?
-        System.out.println(new BigDecimal(1.2).compareTo(new BigDecimal("1.2")) == 0); //输出是?
-
-        System.out.println(new BigDecimal(1.2).equals(new BigDecimal(1.20))); //输出是?
-        System.out.println(new BigDecimal(1.2).compareTo(new BigDecimal(1.20)) == 0);//输出是?
-
-        System.out.println(new BigDecimal(1.20));
-        int i = 0;
-        String m = "124242131";
-        System.out.println(new DecimalFormat(",###.#######").format(new BigDecimal(m)));
-        System.out.println(new BigDecimal("111.0").divide(new BigDecimal("0.67") ,new MathContext(17 , RoundingMode.DOWN)));
-        System.out.println(m);
-        System.out.println(new BigDecimal(m).divide(new BigDecimal("1"), i, BigDecimal.ROUND_DOWN));
-        System.out.println(new BigDecimal(m).divide(new BigDecimal("1"), i, BigDecimal.ROUND_FLOOR));
-        System.out.println(new BigDecimal(m).divide(new BigDecimal("1"), i, BigDecimal.ROUND_UP));
-        System.out.println(new BigDecimal(m).divide(new BigDecimal("1"), i, BigDecimal.ROUND_CEILING));
-        System.out.println(new BigDecimal(m).divide(new BigDecimal("1"), i, BigDecimal.ROUND_HALF_DOWN));
-        System.out.println(new BigDecimal(m).divide(new BigDecimal("1"), i, BigDecimal.ROUND_HALF_UP));
-        System.out.println(new BigDecimal(m).divide(new BigDecimal("1"), i, BigDecimal.ROUND_HALF_EVEN));
+        htmlParser.aee();
     }
     public void tr(){
         String str = "demo@qq.com";

@@ -3,7 +3,7 @@ package com.trubuzz.trubuzz.test.trade.tests;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.constant.Config;
+import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.enumerate.Commissioned;
 import com.trubuzz.trubuzz.constant.enumerate.OrderType;
 import com.trubuzz.trubuzz.constant.enumerate.Position;
@@ -142,7 +142,7 @@ public class TradeTest extends BaseTest {
 //        ta.click_submit_button();
         ta.click_keyboard_submit();
 
-        ta.type_trade_password(Config.tradePwd);
+        ta.type_trade_password(Conf.tradePwd);
 
         ta.confirm_trade_pwd();
         check_toast_msg(vt.order_place_success_toast);

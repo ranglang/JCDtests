@@ -23,7 +23,7 @@ import org.hamcrest.Matcher;
 import java.util.Arrays;
 
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static com.trubuzz.trubuzz.constant.Config.VISIBILITY;
+import static com.trubuzz.trubuzz.constant.Conf.VISIBILITY;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withAny;
 import static com.trubuzz.trubuzz.utils.God.getScreenRectangle;
 import static com.trubuzz.trubuzz.utils.Judge.isVisible;
