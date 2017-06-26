@@ -3,31 +3,27 @@ package com.trubuzz.trubuzz.utils;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.trubuzz.trubuzz.constant.Conf;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static com.trubuzz.trubuzz.constant.Conf.ad_login_url;
-import static com.trubuzz.trubuzz.constant.Conf.ad_sms_log_url;
-import static com.trubuzz.trubuzz.constant.Conf.ad_user_mail;
-import static com.trubuzz.trubuzz.constant.Conf.ad_user_password;
+import static com.trubuzz.trubuzz.utils.Conf.ad_user_mail;
+import static com.trubuzz.trubuzz.utils.Conf.ad_user_password;
 
 /**
  * Created by king on 2017/6/21.
  * 专注后端解析
  */
 
-public class AdminUtil {
-    private final String TAG = "jcd_" + AdminUtil.class.getSimpleName();
-    private final Kvp<String, String> session = FileRw.getLogCookie(Conf.ad_log_cookie_file);
+public class AdminUtilU {
+    private final String TAG = "jcd_" + AdminUtilU.class.getSimpleName();
+//    private final Kvp<String, String> session = FileRw.getLogCookie(Conf.ad_log_cookie_file);
     private final String tbody_select = "table.table.table-striped.table-hover>tbody";
     // 需format %s
     private final String sms_code_td = "tr>td:contains(%s) + td";
@@ -59,9 +55,10 @@ public class AdminUtil {
     public String getCurrentSmsCode(String phoneNumber){
         nowTime = new Date().getTime();
         String sms_select = String.format(sms_code_td, phoneNumber);
-        Element smsCodeTd = getSmsCodeTd(Conf.ad_sms_log_url, session, tbody_select, sms_select, firstPage);
+//        Element smsCodeTd = getSmsCodeTd(Conf.ad_sms_log_url, session, tbody_select, sms_select, firstPage);
 
-        return getSmsCode(smsCodeTd);
+//        return getSmsCode(smsCodeTd);
+        return null;
     }
 
     /**
@@ -69,73 +66,64 @@ public class AdminUtil {
      * @param codeTd
      * @return
      */
-    private String getSmsCode(Element codeTd){
-        String code_text = codeTd.text();
-        return God.getNumberFromString(code_text, this.code_quantity);
-    }
+//    private String getSmsCode(Element codeTd){
+//        String code_text = codeTd.text();
+//        return God.getNumberFromString(code_text, this.code_quantity);
+//    }
 
     /**
      * 获取验证码所在的 td 元素
-     * @param url
-     * @param cookie
-     * @param tbodySelector
-     * @param codeSelector
-     * @param pageNow default must be 1 .
      * @return
      */
-    @Nullable
-    private Element getSmsCodeTd(String url , Kvp<String,String> cookie , String tbodySelector
-            , String codeSelector , int pageNow) {
-        Element tbody = getTbody(url + page_str + pageNow, cookie, tbodySelector);
-        Element firstCode = tbody.select(codeSelector).first();
-        // 第一页出现则直接返回
-        if (firstCode != null) {
-            return firstCode;
-        }
-        if (pageNow >= getMaxPages(tbody)) {
-            return null;
-        }
-        // 将当前时间前推5分钟 , 若最后一行的时间比此还小则表示后面也没有了.
-        if (nowTime - 1000 * 300 > getLastLineDate(tbody, format)) {
-            return null;
-        }
-        // 否则继续向下一页寻找
-        return getSmsCodeTd(url, cookie, tbodySelector, codeSelector ,++pageNow);
-    }
+//    private Element getSmsCodeTd(String url , Kvp<String,String> cookie , String tbodySelector
+//            , String codeSelector , int pageNow) {
+//        Element tbody = getTbody(url + page_str + pageNow, cookie, tbodySelector);
+//        Element firstCode = tbody.select(codeSelector).first();
+//        // 第一页出现则直接返回
+//        if (firstCode != null) {
+//            return firstCode;
+//        }
+//        if (pageNow >= getMaxPages(tbody)) {
+//            return null;
+//        }
+//        // 将当前时间前推5分钟 , 若最后一行的时间比此还小则表示后面也没有了.
+//        if (nowTime - 1000 * 300 > getLastLineDate(tbody, format)) {
+//            return null;
+//        }
+//        // 否则继续向下一页寻找
+//        return getSmsCodeTd(url, cookie, tbodySelector, codeSelector ,++pageNow);
+//    }
 
     /**
      * 获取tbody元素
-     * @param url
-     * @param cookie
-     * @param tbodySelector
      * @return
-     */
+//     */
     @Nullable
-    private Element getTbody(String url , Kvp<String,String> cookie  , String tbodySelector ) {
-        if (retry > retryMax) {
-            Log.e(TAG, String.format("getTbody: 尝试登录%s次失败 , 请检查原因", retry));
-            retry = 0;
-            return null;
-        }
-        Document doc = HtmlParser.doGetDoc(url, cookie);
-        Element tbody = doc.select(tbodySelector).first();
-        if (tbody != null) {
-            return tbody;
-        }
-        // 未获取到 tbody , 查看是否cookie失效
-        Elements login_form = doc.select(login_select);
-        // 如果也没有登录form , 则需检查html文本
-        if (login_form.isEmpty()) {
-            Log.e(TAG, String.format("getPhoneTr: 解析html页面错误 , 找不到目标节点 . html = %s", doc.html()));
-            return null;
-        }else{
-            // 重新登录后获取cookie ,
-            retry ++;
-            String token = get_token(doc);
-            Kvp<String, String> nowCookie = getNowCookie(ad_login_url);
-            return getTbody(url, nowCookie, tbodySelector);
-        }
-    }
+//    private Element getTbody(String url , Kvp<String,String> cookie  , String tbodySelector ) {
+//        if (retry > retryMax) {
+//            Log.e(TAG, String.format("getTbody: 尝试登录%s次失败 , 请检查原因", retry));
+//            retry = 0;
+//            return null;
+//        }
+//        Document doc = HtmlParser.doGetDoc(url, cookie);
+//        Element tbody = doc.select(tbodySelector).first();
+//        if (tbody != null) {
+//            return tbody;
+//        }
+//        // 未获取到 tbody , 查看是否cookie失效
+//        Elements login_form = doc.select(login_select);
+//        // 如果也没有登录form , 则需检查html文本
+//        if (login_form.isEmpty()) {
+//            Log.e(TAG, String.format("getPhoneTr: 解析html页面错误 , 找不到目标节点 . html = %s", doc.html()));
+//            return null;
+//        }else{
+//            // 重新登录后获取cookie ,
+//            retry ++;
+//            String token = get_token(doc);
+//            Kvp<String, String> nowCookie = getNowCookie(ad_login_url);
+//            return getTbody(url, nowCookie, tbodySelector);
+//        }
+//    }
 
     /**
      * 重登陆并获取cookie , 保存cookie
@@ -143,18 +131,18 @@ public class AdminUtil {
      * @return
      */
     public Kvp<String ,String > getNowCookie(String loginUrl){
-        Map<String, Kvp<String, String>> get_res = DoHttp.doGet(loginUrl);
-        String html = get_res.get(DoHttp.html_key).getValue();
-        Kvp<String, String> cookie = get_res.get(DoHttp.cookie_key);
+        Map<String, Kvp<String, String>> get_res = DoHttpU.doGet(loginUrl);
+        String html = get_res.get(DoHttpU.html_key).getValue();
+        Kvp<String, String> cookie = get_res.get(DoHttpU.cookie_key);
         String token = get_token(html);
 
         List<Kvp<String, String>> params = new ArrayList<>();
         params.add(new Kvp<>(token_key, token));
         params.add(new Kvp<>(email_key, ad_user_mail));
         params.add(new Kvp<>(password_key, ad_user_password));
-        Map<String, Kvp<String, String>> post_res = DoHttp.doPost(loginUrl, cookie, params);
-        String isLogin_html = post_res.get(DoHttp.html_key).getValue();
-        Kvp<String, String> newCookie = post_res.get(DoHttp.cookie_key);
+        Map<String, Kvp<String, String>> post_res = DoHttpU.doPost(loginUrl, cookie, params);
+        String isLogin_html = post_res.get(DoHttpU.html_key).getValue();
+        Kvp<String, String> newCookie = post_res.get(DoHttpU.cookie_key);
 
         if (! isLogin(isLogin_html)) {
             Log.e(TAG, String.format("getNowCookie: home页面未发现成功标志 ,可能登录失败 .\n html : %s",isLogin_html ));
@@ -162,7 +150,7 @@ public class AdminUtil {
         // 将cookie更新至properties文件持久化
         ArrayList<Kvp<String, String>> kvps = new ArrayList<>();
         kvps.add(newCookie);
-        FileRw.saveProperties(Conf.ad_log_cookie_file, kvps);
+//        FileRw.saveProperties(Conf.ad_log_cookie_file, kvps);
         return newCookie;
     }
 
@@ -186,12 +174,12 @@ public class AdminUtil {
      * @param format
      * @return
      */
-    private long getLastLineDate(Element tbody ,String format){
-        Element td = tbody.select(datetime_td).last();
-
-        String s = td.text();
-        return DoIt.dateValueOf(s, format).getTime();
-    }
+//    private long getLastLineDate(Element tbody ,String format){
+//        Element td = tbody.select(datetime_td).last();
+//
+//        String s = td.text();
+//        return DoIt.dateValueOf(s, format).getTime();
+//    }
 
     /**
      * 获取最大页数

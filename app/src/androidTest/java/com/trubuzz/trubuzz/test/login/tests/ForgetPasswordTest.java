@@ -1,8 +1,12 @@
 package com.trubuzz.trubuzz.test.login.tests;
 
+import android.content.Context;
 import android.support.test.rule.ActivityTestRule;
+import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.constant.Conf;
+import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -10,12 +14,17 @@ import com.trubuzz.trubuzz.test.common.CommonAction;
 import com.trubuzz.trubuzz.test.login.LoginAction;
 import com.trubuzz.trubuzz.test.login.LoginService;
 import com.trubuzz.trubuzz.test.login.LoginView;
+import com.trubuzz.trubuzz.utils.AdminUtil;
+import com.trubuzz.trubuzz.utils.FileRw;
 import com.trubuzz.trubuzz.utils.God;
+import com.trubuzz.trubuzz.utils.Kvp;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -100,11 +109,16 @@ public class ForgetPasswordTest extends BaseTest {
     @Test
     @Parameters(method = "forget_password_use_phone_data")
     public void forget_password_use_phone(String phone, String password) {
+        AdminUtil au = new AdminUtil();
+        String currentSmsCode = au.getCurrentSmsCode(phone);
+//        Kvp<String, String> currentSmsCode = au.getNowCookie(Conf.ad_login_url);
+        Log.i(TAG, String.format("forget_password_use_phone: %s", currentSmsCode));
+
         la.into_forget_password_page();
         la.select_phone_retrieve();
 
         la.type_phone_number(phone);
-        this.retrieve_password(PHONE ,password);
+//        this.retrieve_password(PHONE ,password);
     }
     private Object[] create_forget_password_use_phone_data(String phone, String password) {
         return new Object[]{phone ,password};

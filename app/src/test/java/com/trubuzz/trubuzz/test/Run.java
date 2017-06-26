@@ -1,7 +1,6 @@
 package com.trubuzz.trubuzz.test;
 
-import com.trubuzz.trubuzz.utils.DoHttp;
-import com.trubuzz.trubuzz.utils.Kvp;
+import com.trubuzz.trubuzz.utils.AdminUtilU;
 import com.trubuzz.trubuzz.utils.Param;
 
 import org.junit.Test;
@@ -22,10 +21,14 @@ import java.util.regex.Pattern;
 public class Run {
     boolean a;
     HtmlParser htmlParser = new HtmlParser();
+    AdminUtilU au = new AdminUtilU();
 
     @Test
     public void xrun() throws NoSuchMethodException {
+
        tt();
+//        String s = "1332423";
+//        System.out.println(s.split(";")[0]);
     }
 
     public void tc(){
@@ -33,8 +36,8 @@ public class Run {
     public void ts(){
     }
     public void tt(){
-
-        htmlParser.aee();
+        String login_url = "https://tb2devadmin.trubuzz.com/login";
+        au.getNowCookie(login_url);
     }
     public void tr(){
         String str = "demo@qq.com";

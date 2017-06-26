@@ -6,7 +6,6 @@ import com.trubuzz.trubuzz.constant.Conf;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -39,8 +38,8 @@ public class HtmlParser {
         return "";
     }
 
-    public void d(){
-        Document doc = this.doGetDoc(Conf.ad_url, Conf.ad_log_cookie);
-        Elements trs = doc.select("table.table.table-striped.table-hover>tbody>tr:contains(11811110001)");
-    }
+//    public void d(){
+//        Document doc = this.doGetDoc(Conf.ad_sms_log_url, Conf.ad_log_cookie);
+//        Elements trs = doc.select("table.table.table-striped.table-hover>tbody>tr:contains(11811110001)");
+//    }
 }

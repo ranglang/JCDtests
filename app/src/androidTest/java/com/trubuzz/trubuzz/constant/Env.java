@@ -13,13 +13,16 @@ import com.trubuzz.trubuzz.utils.God;
  */
 
 public final class Env {
-    public final static String packageName = "com.trubuzz.trubuzz";
-    public final static String testPackageName = "com.trubuzz.trubuzz.test";
-    public final static String filesDir = "/data/data/"+packageName + "/files/";
-    public final static String suiteRegisterKey = "SUITE_REGISTER_KEY";
-
+    public final static String TAG = "jcd_default:";
     public final static Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     public final static UiDevice uiDevice = UiDevice.getInstance(instrumentation);
+
+    public final static String packageName = "com.trubuzz.trubuzz";
+    public final static String testPackageName = "com.trubuzz.trubuzz.test";
+//    public final static String filesDir = "/data/data/"+packageName + "/files/";
+    public final static String filesDir = instrumentation.getTargetContext().getFilesDir().getAbsolutePath()+"/";
+    public final static String suiteRegisterKey = "SUITE_REGISTER_KEY";
+
 
 
 

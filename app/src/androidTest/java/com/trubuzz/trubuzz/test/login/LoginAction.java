@@ -175,9 +175,9 @@ public class LoginAction implements LoginService{
         if (smsCode == null) {
             ////--
 //            DoHttp doHttp = new DoHttp();
-//            doHttp.doGet(Conf.ad_url);
+//            doHttp.doGet(Conf.ad_sms_log_url);
             HtmlParser hp = new HtmlParser();
-//            hp.doGet(Conf.ad_url);
+//            hp.doGet(Conf.ad_sms_log_url);
         }
         given(lv.sms_code_input).perform(replaceText(smsCode));
     }
