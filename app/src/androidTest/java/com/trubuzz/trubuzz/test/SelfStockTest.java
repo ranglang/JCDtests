@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.test.quote.QuoteView;
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
 import com.trubuzz.trubuzz.shell.beautify.RecyclerViewItemElement;
@@ -80,7 +80,7 @@ public class SelfStockTest extends BaseTest{
     @Before
     public void into_quotes() {
         Wish.wantLogin();
-        given(Global.quotes_radio).perform(click());
+        given(GlobalView.quotes_radio).perform(click());
         if(!initialized){
             initialized = init();
         }

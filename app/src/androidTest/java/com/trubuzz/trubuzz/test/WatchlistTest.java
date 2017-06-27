@@ -10,7 +10,7 @@ import android.view.View;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.test.quote.QuoteView;
 import com.trubuzz.trubuzz.elements.AWatchlist;
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.feature.custom.ViewsFinder;
 import com.trubuzz.trubuzz.idlingResource.HasViewIdlingResource;
 import com.trubuzz.trubuzz.idlingResource.ViewMatcherIdlingResource;
@@ -94,7 +94,7 @@ public class WatchlistTest extends BaseTest{
     @Before
     public void b_into_watchlist(){
         Wish.wantLogin();
-        given(Global.quotes_radio).perform(click());
+        given(GlobalView.quotes_radio).perform(click());
         given(QuoteView.edit_watchlist).perform(click());
         DoIt.regIdlingResource(new ViewMatcherIdlingResource(
                 getView(aw.watchlist_recycler), hasMoreChildren(2)));
@@ -120,14 +120,14 @@ public class WatchlistTest extends BaseTest{
     @Test
     public void a_default_show_test(){
         Wish.allDisplayed(
-                Global.back_up,
+                GlobalView.back_up,
                 aw.add_icon,
                 aw.del ,
                 aw.alter
         );
 
         String watchlist = getText(aw.default_item_text);
-        given(Global.back_up).perform(click());
+        given(GlobalView.back_up).perform(click());
 
         given(QuoteView.watchlist_spinner).check(matches(isDisplayed()))
                 .check(matches(withText(watchlist)));
@@ -296,7 +296,7 @@ public class WatchlistTest extends BaseTest{
             }
 
             given(tmpEle).check(matches(isDisplayed()));
-            given(Global.back_up).perform(click());
+            given(GlobalView.back_up).perform(click());
             given(QuoteView.watchlist_spinner).perform(click());
             onData(withRowString(watchlistKey, listName)).check(matches(isDisplayed()));
         }else{
@@ -307,7 +307,7 @@ public class WatchlistTest extends BaseTest{
                 return;
             }
             given(new ActivityElement().setText(listName)).check(doesNotExist());
-            given(Global.back_up).perform(click());
+            given(GlobalView.back_up).perform(click());
             given(QuoteView.watchlist_spinner).perform(click());
 
             //如本来不存在则 try perform一下, 若不抛异常则证明在列表存在了 , 这时当fail

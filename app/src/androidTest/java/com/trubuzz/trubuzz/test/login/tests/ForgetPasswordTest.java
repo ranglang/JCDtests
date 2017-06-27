@@ -45,7 +45,7 @@ public class ForgetPasswordTest extends BaseTest {
 
     private Object[] forget_password_account_follow_data(){
         return new Object[]{
-                create_forget_password_account_follow_data("star003@abc.com" ,MAIL ,null)
+                create_forget_password_account_follow_data("star003@abc.com" ,MAIL )
         };
     }
     private Object[] forget_password_use_mail_data(){
@@ -68,20 +68,20 @@ public class ForgetPasswordTest extends BaseTest {
      * 检查找回密码 账号默认带入 , 并执行找回流程
      * @param account
      * @param accountType
-     * @param pwd
      */
 //    @Test
     @Parameters(method = "forget_password_account_follow_data")
-    public void forget_password_account_follow(String account , Account accountType ,String pwd){
+    public void forget_password_account_follow(String account , Account accountType){
         la.type_username(account);
 
         la.into_forget_password_page();
         la.check_account_follow(accountType ,account);
 
-        this.retrieve_password(accountType ,pwd);
+        // 默认带入将不再执行密码重置操作
+//        this.retrieve_password(accountType ,pwd);
     }
-    private Object[] create_forget_password_account_follow_data(String account , Account accountType ,String pwd){
-        return new Object[]{account ,accountType ,pwd};
+    private Object[] create_forget_password_account_follow_data(String account , Account accountType ){
+        return new Object[]{account ,accountType };
     }
 
     /**
@@ -95,7 +95,9 @@ public class ForgetPasswordTest extends BaseTest {
         la.select_mail_retrieve();
 
         la.type_mail_address(mail);
-        this.retrieve_password(MAIL ,null);
+
+        la.submit_mail_address();
+        CommonAction.check_toast_msg(lt.reset_password_mail_sent_toast);
     }
     private Object[] create_forget_password_use_mail_data(String mail){
         return new Object[]{mail};
@@ -109,41 +111,23 @@ public class ForgetPasswordTest extends BaseTest {
     @Test
     @Parameters(method = "forget_password_use_phone_data")
     public void forget_password_use_phone(String phone, String password) {
-        AdminUtil au = new AdminUtil();
-        String currentSmsCode = au.getCurrentSmsCode(phone);
-//        Kvp<String, String> currentSmsCode = au.getNowCookie(Conf.ad_login_url);
-        Log.i(TAG, String.format("forget_password_use_phone: %s", currentSmsCode));
-
         la.into_forget_password_page();
         la.select_phone_retrieve();
 
         la.type_phone_number(phone);
-//        this.retrieve_password(PHONE ,password);
+
+        la.get_sms_code();
+        CommonAction.check_toast_msg(lt.sign_up_sms_auth_sent_toast);
+
+        la.type_sms_code(phone ,null);
+        la.type_new_password(password);
+        la.type_confirm_password(password);
+        la.submit_phone_retrieve();
+        la.check_retrieve_use_phone_successful();
     }
     private Object[] create_forget_password_use_phone_data(String phone, String password) {
         return new Object[]{phone ,password};
     }
 
 
-    /**
-     * 封装的找回密码公用流程
-     * @param accountType
-     * @param password
-     */
-    private void retrieve_password(Account accountType ,String password) {
-        switch (accountType) {
-            case MAIL:
-                la.submit_mail_address();
-                CommonAction.check_toast_msg(lt.reset_password_mail_sent_toast);
-                break;
-            case PHONE:
-                la.get_sms_code();
-                la.type_sms_code(null);
-                la.type_new_password(password);
-                la.type_confirm_password(password);
-                la.submit_phone_retrieve();
-                la.check_retrieve_use_phone_successful();
-                break;
-        }
-    }
 }

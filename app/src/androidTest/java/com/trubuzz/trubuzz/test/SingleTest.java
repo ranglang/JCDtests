@@ -13,7 +13,7 @@ import android.view.View;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.AWatchlist;
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.feature.custom.CustomViewAction;
 import com.trubuzz.trubuzz.feature.custom.ViewsFinder;
 import com.trubuzz.trubuzz.shell.beautify.RecyclerViewItemElement;
@@ -74,7 +74,7 @@ public class SingleTest extends BaseTest{
     @Test
     public void adaptedTest() {
 //        Wish.wantLogin();
-        given(Global.quotes_radio).perform(clickXY(10 ,12));
+        given(GlobalView.quotes_radio).perform(clickXY(10 ,12));
         given(qv.us_fence).perform(click());
 //        onView(qv.stocks_recycler.way()).perform(RecyclerViewActions.actionOnItem(
 //                new ActivityElement().setChildren(new ActivityElement().setText("中国概念股")).way(), click()));

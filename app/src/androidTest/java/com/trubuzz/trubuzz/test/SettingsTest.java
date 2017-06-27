@@ -8,7 +8,7 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.test.quote.QuoteView;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.AWealth;
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.Uncalibrated;
 import com.trubuzz.trubuzz.shell.Var;
@@ -167,7 +167,7 @@ public class SettingsTest extends BaseTest {
         given(aSet.k_chart_set).check(matches(withText(candle)));
         Espresso.pressBack();
 
-        given(Global.quotes_radio).perform(click());
+        given(GlobalView.quotes_radio).perform(click());
         /*开始在各页面校验*/
         this.k_chart_check("K chart candle");
     }
@@ -187,7 +187,7 @@ public class SettingsTest extends BaseTest {
         Espresso.pressBack();
 
         /*开始在各页面校验*/
-        given(Global.quotes_radio).perform(click());
+        given(GlobalView.quotes_radio).perform(click());
         this.k_chart_check("K chart line");
     }
 
@@ -331,10 +331,10 @@ public class SettingsTest extends BaseTest {
 
     private void page_check(String rising_falling){
         //持仓页面
-        given(Global.assets_radio).check(true, matches(isChecked()));
+        given(GlobalView.assets_radio).check(true, matches(isChecked()));
         this.compareTakeScreenshot(rising_falling +" assets ");
 
-        given(Global.quotes_radio).perform(true, click());    //进入行情
+        given(GlobalView.quotes_radio).perform(true, click());    //进入行情
         this.compareTakeScreenshot(rising_falling +" watchlist ");
 
         //自选列表
@@ -372,7 +372,7 @@ public class SettingsTest extends BaseTest {
         this.compareTakeScreenshot(rising_falling +" quotes global ");
 
         //投资组合
-        given(Global.wealth_radio).perform(true, click());
+        given(GlobalView.wealth_radio).perform(true, click());
         given(aw.portfolio_button).perform(true, click());
         this.compareTakeScreenshot(rising_falling +" portfolio list ");
         given(aw.default_portfolio).perform(true, click());
@@ -409,7 +409,7 @@ public class SettingsTest extends BaseTest {
         Espresso.pressBack();
 
         //投资组合
-        given(Global.wealth_radio).perform(true, click());
+        given(GlobalView.wealth_radio).perform(true, click());
         given(aw.portfolio_button).perform(true, click());
         given(aw.default_portfolio).perform(true, click());
         this.compareTakeScreenshot(k_type +" portfolio details ");

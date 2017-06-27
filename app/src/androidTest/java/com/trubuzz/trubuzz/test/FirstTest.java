@@ -19,7 +19,7 @@ import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.test.login.LoginView;
 import com.trubuzz.trubuzz.test.quote.QuoteView;
 import com.trubuzz.trubuzz.elements.ASettings;
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
@@ -282,7 +282,7 @@ public class FirstTest extends BaseTest{
     public void swipe(){
         sleep(1000);
 //        ViewActions.swipeLeft();
-        given(Global.quotes_radio).perform(click());
+        given(GlobalView.quotes_radio).perform(click());
         given(QuoteView.default_stock).perform(click());
 
 
@@ -291,7 +291,7 @@ public class FirstTest extends BaseTest{
         onView(isRoot()).perform(swipeLeft());
 //        swipeLeft();
 //        pressBack();
-        given(Global.quotes_radio).perform(click());
+        given(GlobalView.quotes_radio).perform(click());
         onView(isRoot()).perform(swipeDown());
 //        onView(isDisplayingAtLeast(85)).perform(swipeLeft());
 

@@ -96,10 +96,10 @@ public interface LoginService {
 
     /**
      * 输入短信验证码
+     * @param phone
      * @param smsCode == null 则实时获取code进行输入 ,
-     *                != null 则直接输入
      */
-    void type_sms_code(String smsCode);
+    void type_sms_code(String phone, String smsCode);
 
     /**
      * 输入新密码

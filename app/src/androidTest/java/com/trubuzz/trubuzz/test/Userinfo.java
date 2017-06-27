@@ -16,7 +16,7 @@ import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ASettings;
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.shell.Uncalibrated;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
@@ -136,7 +136,7 @@ public class Userinfo extends BaseTest{
             given(aSet.nickname_ok).perform(click());
             given(status_success_toast).check(matches(isDisplayed()));
             given(aSet.nickname_text).check(matches(withText(newNickname)));
-            given(Global.back_up).perform(click());
+            given(GlobalView.back_up).perform(click());
             given(ASettings.left_drawer).perform(click());
             given(aSet.nickname).check(matches(withText(newNickname)));
         }else{
@@ -169,7 +169,7 @@ public class Userinfo extends BaseTest{
     private void back_thrust(){
 
 
-        given(Global.back_up).perform(click());
+        given(GlobalView.back_up).perform(click());
         given(ASettings.left_drawer).perform(click());
         given(aSet.personal).perform(click());
     }
@@ -200,7 +200,7 @@ public class Userinfo extends BaseTest{
             this.compareTakeScreenshot("after head portrait change done");
 
             //这是一个回马枪
-            given(Global.back_up).perform(click());
+            given(GlobalView.back_up).perform(click());
             given(ASettings.left_drawer).perform(click());
             sleep(2000);
             this.compareTakeScreenshot("after head portrait change done - drawer");

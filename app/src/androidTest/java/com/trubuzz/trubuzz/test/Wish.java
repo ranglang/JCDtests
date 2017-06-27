@@ -10,7 +10,7 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.ASettings;
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.test.login.LoginAction;
@@ -27,8 +27,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
-import static com.trubuzz.trubuzz.elements.Global.assets_radio;
+import static com.trubuzz.trubuzz.test.common.GlobalView.assets_radio;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.test.common.GlobalView.radio_tray;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static org.hamcrest.CoreMatchers.not;
 
@@ -49,7 +50,7 @@ public class Wish {
      */
     public static boolean isLogin(){
         for(int i=0; i<5 ;i++){
-            if(isVisible(assets_radio)) return true;//如果"资产"button可见则认为已登录
+            if(isVisible(radio_tray)) return true;//如果菜单托盘可见则认为已登录
             sleep(1000);
         }
         return false;
@@ -101,7 +102,7 @@ public class Wish {
      * 单纯的登出操作
      */
     public static void logout() {
-        given(Global.assets_radio).perform(click());
+        given(GlobalView.assets_radio).perform(click());
         given(ASettings.left_drawer).perform(click(ViewActions.pressBack()));
         given(aSettings.setting).perform(click());
         given(aSettings.logout_button).perform(click());

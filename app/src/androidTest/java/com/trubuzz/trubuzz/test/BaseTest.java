@@ -3,7 +3,7 @@ package com.trubuzz.trubuzz.test;
 import android.util.Log;
 import android.view.View;
 
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.feature.ClassWatcherAdvance;
 import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
@@ -75,20 +75,20 @@ public class BaseTest {
 
     /* 一些常用的操作 ( 公共的 )*/
     protected void back_to_main(){
-        while (Wish.isVisible(Global.back_up)) {
-            given(Global.back_up).perform(click());
+        while (Wish.isVisible(GlobalView.back_up)) {
+            given(GlobalView.back_up).perform(click());
         }
     }
 
     protected void back_loop(int times) {
         for (int i=0;i<times;i++) {
-            given(Global.back_up).perform(click());
+            given(GlobalView.back_up).perform(click());
         }
     }
 
     protected void back_till(Matcher<View> matcher) {
         do {
-            given(Global.back_up).perform(click());
+            given(GlobalView.back_up).perform(click());
         } while (Wish.isVisible(matcher));
     }
 }

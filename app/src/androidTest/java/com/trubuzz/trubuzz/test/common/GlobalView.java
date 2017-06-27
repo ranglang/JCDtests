@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.elements;
+package com.trubuzz.trubuzz.test.common;
 
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
@@ -14,9 +14,14 @@ import static com.trubuzz.trubuzz.utils.God.getString;
  * Created by king on 16/11/22.
  */
 
-public class Global {
+public class GlobalView {
+    // 后退图标
     public static final Element back_up = new ActivityElement().setAssignableClass(android.widget.ImageButton.class)
             .setParent(new ActivityElement().setId("action_bar"));
+
+    // 托盘条
+    public static final ActivityElement radio_tray = new ActivityElement().setId("action_menu");
+
     public static final Element assets_radio = new ActivityElement().setId("action_menu_item_1")
             .setText(getString("资产" ,assets));
     public static final Element quotes_radio = new ActivityElement().setId("action_menu_item_2")

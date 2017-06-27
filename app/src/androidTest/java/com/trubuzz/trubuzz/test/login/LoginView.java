@@ -24,6 +24,7 @@ import static com.trubuzz.trubuzz.test.R.string.sign_up_description;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_email_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_password_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_phone_hint;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_sms_auth_sent;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_sms_hint;
 import static com.trubuzz.trubuzz.test.R.string.submit;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_content_1;
@@ -200,5 +201,9 @@ public class LoginView {
 
         public final ToastElement reset_password_mail_sent_toast = new ToastElement(
                 getString("重设密码信件已发送到您的邮箱，请查收并重置密码。", reset_password_mail_sent));
+
+        public final ToastElement sign_up_sms_auth_sent_toast = new ToastElement(
+                getString("短信验证码已发送", sign_up_sms_auth_sent));
+
     }
 }

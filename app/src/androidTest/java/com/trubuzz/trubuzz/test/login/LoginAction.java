@@ -1,16 +1,19 @@
 package com.trubuzz.trubuzz.test.login;
 
+import android.support.test.espresso.Espresso;
+import android.util.Log;
+
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.test.common.CommonAction;
-import com.trubuzz.trubuzz.utils.DoHttp;
+import com.trubuzz.trubuzz.test.common.GlobalView;
+import com.trubuzz.trubuzz.utils.AdminUtil;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
-import com.trubuzz.trubuzz.utils.HtmlParser;
 
+import static com.trubuzz.trubuzz.constant.Env.TAG;
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -25,7 +28,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
-import static com.trubuzz.trubuzz.elements.Global.assets_radio;
+import static com.trubuzz.trubuzz.test.common.GlobalView.assets_radio;
 import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.shell.Park.given;
@@ -41,6 +44,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class LoginAction implements LoginService{
     private LoginView lv = new LoginView();
+    private AdminUtil au = new AdminUtil();
 
     @Override
     public void browse_tutorial(){
@@ -136,6 +140,7 @@ public class LoginAction implements LoginService{
 
     @Override
     public void submit_mail_address() {
+        Espresso.closeSoftKeyboard();
         given(lv.mail_submit_button).perform(click());
     }
 
@@ -171,13 +176,10 @@ public class LoginAction implements LoginService{
     }
 
     @Override
-    public void type_sms_code(String smsCode) {
+    public void type_sms_code(String phone ,String smsCode) {
         if (smsCode == null) {
-            ////--
-//            DoHttp doHttp = new DoHttp();
-//            doHttp.doGet(Conf.ad_sms_log_url);
-            HtmlParser hp = new HtmlParser();
-//            hp.doGet(Conf.ad_sms_log_url);
+            smsCode = au.getCurrentSmsCode(phone);
+            Log.i(TAG, String.format("type_sms_code: current sms code = %s",smsCode ));
         }
         given(lv.sms_code_input).perform(replaceText(smsCode));
     }
@@ -194,13 +196,14 @@ public class LoginAction implements LoginService{
 
     @Override
     public void submit_phone_retrieve() {
+        Espresso.closeSoftKeyboard();
         given(lv.phone_submit_button).perform(click());
     }
 
     @Override
     public void check_retrieve_use_phone_successful() {
         DoIt.regIdlingResource(new ActivityIdlingResource(AName.MAIN, instrumentation.getContext(), true));
-        CommonAction.check_current_activity(AName.MAIN);
+        given(GlobalView.radio_tray).check(matches(isDisplayed()));
         unRegIdlingResource();
     }
 

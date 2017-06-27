@@ -21,6 +21,7 @@ import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -106,7 +107,6 @@ public class DoHttp {
             conn.setDoInput(true);
             conn.setDoOutput(true);
             conn.setChunkedStreamingMode(0);
-//            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
 //            conn.setRequestMethod("POST");// 提交模式
             conn.setConnectTimeout(10000);//连接超时 单位毫秒
             conn.setReadTimeout(2000);//读取超时 单位毫秒
@@ -114,7 +114,6 @@ public class DoHttp {
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
-//            PrintWriter printWriter = new PrintWriter(conn.getOutputStream());
             // 发送请求参数
             String postParams = getPostParams(params);
             if(!postParams.isEmpty()) {
@@ -130,7 +129,7 @@ public class DoHttp {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
             for (HttpCookie hc : cookies) {
-                System.out.println(String.format("set cookie -> %s : %s" ,hc.getName() ,hc.getValue()));
+//                System.out.println(String.format("set cookie -> %s : %s" ,hc.getName() ,hc.getValue()));
                 if (hc.getMaxAge() > 0) {
                     map.put(cookie_key, new Kvp<>(hc.getName() ,hc.getValue()));
                 }
@@ -156,12 +155,14 @@ public class DoHttp {
         if (params == null) {
             return "";
         }
-        for (int i = 0; i < params.size(); i++) {
-            if (i == params.size() - 1) {
-                post += params.get(i).getKey() + "=" + params.get(i).getValue();
-            }else{
-                post += params.get(i).getKey() + "=" + params.get(i).getValue() + "&";
+        boolean first = true;
+        for (Kvp<String, String> p : params) {
+            if (first) {
+                first = false;
+            } else {
+                post += " &";
             }
+            post += p.getKey() + "=" + p.getValue();
         }
         return post;
     }

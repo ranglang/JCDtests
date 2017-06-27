@@ -1,7 +1,7 @@
 package com.trubuzz.trubuzz.test.quote;
 
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.test.trade.TradeView;
@@ -33,7 +33,7 @@ public class QuoteAction  {
      * 进入行情页面
      */
     public void into_quote(){
-        given(Global.quotes_radio).perform(click())
+        given(GlobalView.quotes_radio).perform(click())
                 .check(matches(isChecked()));
     }
 

@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.AWealth;
-import com.trubuzz.trubuzz.elements.Global;
+import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.Uncalibrated;
@@ -133,7 +133,7 @@ public class PortfolioTest extends BaseTest {
         if(wantBroker) wantBrokerLogin();
         else wantNotBrokerLogin();
 
-        given(Global.wealth_radio).perform(click());
+        given(GlobalView.wealth_radio).perform(click());
         given(aw.wealth).perform(click());
         given(aw.recycler).check(matches(isDisplayed()));
     }
