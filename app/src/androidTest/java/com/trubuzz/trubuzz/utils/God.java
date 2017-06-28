@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.utils;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Instrumentation;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -181,6 +182,7 @@ public class God {
 
         return cmpNameTemp.split(Pattern.quote("/"))[1].split(Pattern.quote("}"))[0];
     }
+
 
     public static String getAppName(Activity activity){
         String s = "";

@@ -30,18 +30,20 @@ public class Find {
      * @return
      */
     public static int byId(String resourcesId){
+        return byId(resourcesId, resources);
+    }
+    public static int byId(String resourcesId ,Resources resources){
         String packageName = resourcesId.split(":")[0];
         String sid = resourcesId.split("/")[1];
-        return findId(packageName,sid);
+        return findId(packageName,sid ,resources);
     }
-
     /**
      * 使用默认的包名 和 id名 查找id值
      * @param idName
      * @return
      */
     public static int byShortId(String idName){
-        return findId(defaultPackageName,idName);
+        return findId(defaultPackageName,idName ,resources);
     }
 
     /**
@@ -50,7 +52,7 @@ public class Find {
      * @param idName
      * @return
      */
-    private static int findId(String packageName , String idName){
+    private static int findId(String packageName , String idName ,Resources resources){
         int id = resources.getIdentifier(idName ,"id",packageName);
         Log.d(idName , idName + " = "+id);
         return  id;

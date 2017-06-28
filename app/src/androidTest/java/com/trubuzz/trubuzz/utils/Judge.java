@@ -23,6 +23,8 @@ import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
 import org.hamcrest.Matcher;
 
+import java.util.regex.Pattern;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -228,5 +230,14 @@ public class Judge {
         } catch (Exception e) {
             return true;
         }
+    }
+
+
+    public static boolean isMatched(String str, String regexText) {
+        // 编译正则
+        Pattern pattern = Pattern.compile(regexText);
+        // 创建matcher对象
+        java.util.regex.Matcher m = pattern.matcher(str);
+        return m.matches();
     }
 }

@@ -1,5 +1,7 @@
 package com.trubuzz.trubuzz.test.login;
 
+import android.support.test.rule.ActivityTestRule;
+
 import com.trubuzz.trubuzz.constant.enumerate.Account;
 
 /**
@@ -133,4 +135,18 @@ public interface LoginService {
      * 选择使用手机找回 Tab
      */
     void select_phone_retrieve();
+
+    /**
+     * 检查使用无效邮箱找回时的提示
+     * ( 格式错误 , 空值 , 不存在 )
+     * @param mail
+     */
+    void check_invalid_mail_retrieve(String mail);
+
+    /**
+     * 检查短信验证码发送成功,
+     *      toast提示 , 输入框出现 , 提交按钮出现
+     *      重新获取倒计时功能尚未实现 ---/
+     */
+    void check_get_sms_code_successful();
 }

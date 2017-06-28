@@ -13,7 +13,9 @@ import static com.trubuzz.trubuzz.test.R.string.forget_password_email;
 import static com.trubuzz.trubuzz.test.R.string.forget_password_phone;
 import static com.trubuzz.trubuzz.test.R.string.get_sms;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_account_format;
+import static com.trubuzz.trubuzz.test.R.string.incorrect_email_format;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_empty;
+import static com.trubuzz.trubuzz.test.R.string.incorrect_phone_format;
 import static com.trubuzz.trubuzz.test.R.string.login;
 import static com.trubuzz.trubuzz.test.R.string.login_account_hint;
 import static com.trubuzz.trubuzz.test.R.string.login_failed;
@@ -35,6 +37,7 @@ import static com.trubuzz.trubuzz.test.R.string.tutorial_title_1;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_title_2;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_title_3;
 import static com.trubuzz.trubuzz.test.R.string.tutorial_title_4;
+import static com.trubuzz.trubuzz.test.R.string.user_not_exist;
 import static com.trubuzz.trubuzz.utils.God.getString;
 
 /**
@@ -202,8 +205,16 @@ public class LoginView {
         public final ToastElement reset_password_mail_sent_toast = new ToastElement(
                 getString("重设密码信件已发送到您的邮箱，请查收并重置密码。", reset_password_mail_sent));
 
-        public final ToastElement sign_up_sms_auth_sent_toast = new ToastElement(
+        public final ToastElement incorrect_email_format_toast = new ToastElement(
+                getString("邮箱地址格式不正确", incorrect_email_format));
+
+        public final ToastElement user_not_exist_toast = new ToastElement(
+                getString("该用户不存在", user_not_exist));
+
+        public final ToastElement sms_code_sent_toast = new ToastElement(
                 getString("短信验证码已发送", sign_up_sms_auth_sent));
 
+        public final ToastElement incorrect_phone_format_toast = new ToastElement(
+                getString("手机号格式不正确", incorrect_phone_format));
     }
 }
