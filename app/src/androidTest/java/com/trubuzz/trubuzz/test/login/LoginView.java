@@ -14,12 +14,16 @@ import static com.trubuzz.trubuzz.test.R.string.forget_password_phone;
 import static com.trubuzz.trubuzz.test.R.string.get_sms;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_account_format;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_email_format;
+import static com.trubuzz.trubuzz.test.R.string.incorrect_password_confirm;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_empty;
+import static com.trubuzz.trubuzz.test.R.string.incorrect_password_format;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_phone_format;
+import static com.trubuzz.trubuzz.test.R.string.incorrect_sms_format;
 import static com.trubuzz.trubuzz.test.R.string.login;
 import static com.trubuzz.trubuzz.test.R.string.login_account_hint;
 import static com.trubuzz.trubuzz.test.R.string.login_failed;
 import static com.trubuzz.trubuzz.test.R.string.ok;
+import static com.trubuzz.trubuzz.test.R.string.reset_pass_code_error;
 import static com.trubuzz.trubuzz.test.R.string.reset_password_mail_sent;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_confirm_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_description;
@@ -216,5 +220,17 @@ public class LoginView {
 
         public final ToastElement incorrect_phone_format_toast = new ToastElement(
                 getString("手机号格式不正确", incorrect_phone_format));
+
+        public final ToastElement sms_code_error_toast = new ToastElement(
+                getString("验证码错误", reset_pass_code_error));
+
+        public final ToastElement incorrect_sms_format_toast = new ToastElement(
+                getString("短信验证码格式不正确", incorrect_sms_format));
+
+        public final ToastElement incorrect_password_confirm_toast = new ToastElement(
+                getString("确认密码输入不一致", incorrect_password_confirm));
+
+        public final ToastElement incorrect_password_format_toast = new ToastElement(
+                getString("请输入6–16字符的大小写字母和数字组合", incorrect_password_format));
     }
 }

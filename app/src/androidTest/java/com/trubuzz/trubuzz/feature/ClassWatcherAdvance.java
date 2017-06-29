@@ -21,6 +21,7 @@ import java.util.Map;
 import static com.trubuzz.trubuzz.constant.enumerate.TestResult.FAILED;
 import static com.trubuzz.trubuzz.constant.enumerate.TestResult.SKIPPED;
 import static com.trubuzz.trubuzz.constant.enumerate.TestResult.SUCCEEDED;
+import static com.trubuzz.trubuzz.constant.enumerate.TestResult.UNCALIBRATED;
 
 /**
  * Created by king on 2016/9/20.
@@ -76,7 +77,7 @@ public class ClassWatcherAdvance extends TestName {
     }
     private Map<TestResult,Integer> create_status_count(ClassBean classBean){
         Map<TestResult,Integer> count = new HashMap<TestResult,Integer>();
-        int p=0 , s=0 , f=0;
+        int p=0 , s=0 , f=0 ,u=0;
         for(CaseBean caseBean : classBean.getTestCases()){
             switch (caseBean.getTestResult()){
                 case SUCCEEDED:
@@ -88,11 +89,15 @@ public class ClassWatcherAdvance extends TestName {
                 case FAILED:
                     f++;
                     break;
+                case UNCALIBRATED:
+                    u++;
+                    break;
             }
         }
         count.put(SUCCEEDED ,p);
         count.put(SKIPPED ,s);
         count.put(FAILED ,f);
+        count.put(UNCALIBRATED, u);
         return count;
     }
 }

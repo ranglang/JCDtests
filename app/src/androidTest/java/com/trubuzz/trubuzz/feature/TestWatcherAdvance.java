@@ -121,6 +121,7 @@ public class TestWatcherAdvance extends TestName {
         Registor.unRegAll(BaseTest.class.toString());
 
         this.setUseData(description);
+        this.setUncalibrated(description);
         this.stopTime = new Date().getTime();
         Log.i(TAG, "finished: ...."+ testName + " at "+God.getDateFormat(stopTime));
 
@@ -138,6 +139,16 @@ public class TestWatcherAdvance extends TestName {
         testClass.getTestCases().add(testCase);
     }
 
+    /**
+     * 设置需人工判断结果的 result 类型
+     * 这里可能会擦出原有的 result类型 .
+     * @param desc
+     */
+    private void setUncalibrated(Description desc){
+        if (desc.getAnnotation(Uncalibrated.class) != null) {
+            this.result = TestResult.UNCALIBRATED;
+        }
+    }
     /**
      * 设置 useData
      * @param desc
