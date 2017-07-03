@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.feature.custom;
+package com.trubuzz.trubuzz.feature.custom.handlers;
 
 import android.support.test.espresso.AmbiguousViewMatcherException;
 import android.util.Log;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
-import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.nothing;
+import static com.trubuzz.trubuzz.feature.custom.actions.CustomViewAction.nothing;
 
 /**
  * Created by king on 16/12/6.
@@ -23,7 +23,6 @@ import static com.trubuzz.trubuzz.feature.custom.CustomViewAction.nothing;
 
 public class ViewsFinder {
     private List<View> views = new ArrayList<>();
-    private boolean has_more_views;
     private final String TAG = "jcd_" + this.getClass().getSimpleName();
 
     private Matcher<View> thisMatcher(final Matcher<View> matcher){
@@ -44,21 +43,20 @@ public class ViewsFinder {
         };
     }
 
-    private void hasViews(Matcher<View> matcher){
+    private boolean hasViews(Matcher<View> matcher){
         try {
             onView(thisMatcher(matcher)).perform(nothing());
-            has_more_views = true;
+            return true;
         } catch (AmbiguousViewMatcherException e) {
-            has_more_views = true;
+            return true;
         } catch (Exception ne){
             Log.e(TAG, "hasViews: ", ne);
-            has_more_views = false;
+            return false;
         }
     }
 
     public List<View> getViews(Matcher<View> matcher) {
-        this.hasViews(matcher);
-        if(has_more_views)
+        if(this.hasViews(matcher))
             return views;
         else {
             Log.w(TAG, "getViews: 没有匹配的view" );

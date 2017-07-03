@@ -3,7 +3,7 @@ package com.trubuzz.trubuzz.test.trade;
         import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
         import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 
-        import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasChildrenCount;
+        import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.hasChildrenCount;
         import static com.trubuzz.trubuzz.shell.beautify.ToastElement.MsgType.contain;
         import static com.trubuzz.trubuzz.test.R.string.confirm;
         import static com.trubuzz.trubuzz.test.R.string.lotsize_limit;

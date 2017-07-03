@@ -37,10 +37,10 @@ import static android.support.test.espresso.web.assertion.WebViewAssertions.webM
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_password_confirm_toast;
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_trade_pwd_format_toast;
 import static com.trubuzz.trubuzz.test.quote.QuoteView.default_stock;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.singleSpaceContains;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.thisString;
-import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getText;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.isPassword;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.singleSpaceContains;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.thisString;
+import static com.trubuzz.trubuzz.feature.custom.handlers.ViewInteractionHandler.getText;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.shell.Park.webGiven;
 import static com.trubuzz.trubuzz.test.R.string.chart_candle;

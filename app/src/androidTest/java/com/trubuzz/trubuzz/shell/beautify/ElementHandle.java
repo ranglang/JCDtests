@@ -21,10 +21,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withCousin;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withUncle;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.hasSiblingNoSelf;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withCousin;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withIndex;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withUncle;
 import static com.trubuzz.trubuzz.utils.DoIt.notEmpty;
 import static org.hamcrest.core.AllOf.allOf;
 

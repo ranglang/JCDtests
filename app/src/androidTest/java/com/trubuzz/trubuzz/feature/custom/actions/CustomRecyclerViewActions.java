@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.feature.custom;
+package com.trubuzz.trubuzz.feature.custom.actions;
 
 import android.support.test.espresso.PerformException;
 import android.support.test.espresso.UiController;

@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.feature.custom;
+package com.trubuzz.trubuzz.feature.custom.assertors;
 
 import android.support.test.espresso.web.assertion.WebAssertion;
 import android.support.test.espresso.web.assertion.WebViewAssertions;

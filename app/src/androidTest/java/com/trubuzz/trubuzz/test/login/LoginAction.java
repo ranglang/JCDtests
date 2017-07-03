@@ -1,21 +1,7 @@
 package com.trubuzz.trubuzz.test.login;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Rect;
-import android.net.Uri;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.uiautomator.UiObject;
-import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiSelector;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Env;
@@ -26,14 +12,10 @@ import com.trubuzz.trubuzz.test.common.CommonAction;
 import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.utils.AdminUtil;
 import com.trubuzz.trubuzz.utils.DoIt;
-import com.trubuzz.trubuzz.utils.Find;
 import com.trubuzz.trubuzz.utils.God;
 import com.trubuzz.trubuzz.utils.Judge;
 
-import java.io.IOException;
-
 import static android.support.test.espresso.web.sugar.Web.onWebView;
-import static android.support.test.espresso.web.webdriver.DriverAtoms.webKeys;
 import static com.trubuzz.trubuzz.constant.Env.TAG;
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.clearText;
@@ -49,14 +31,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
-import static com.trubuzz.trubuzz.constant.Env.uiDevice;
-import static com.trubuzz.trubuzz.constant.ToastInfo.user_not_exist_toast;
 import static com.trubuzz.trubuzz.test.common.GlobalView.assets_radio;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.isPassword;
-import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.isPassword;
+import static com.trubuzz.trubuzz.feature.custom.handlers.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.shell.Park.webGiven;
-import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static com.trubuzz.trubuzz.utils.DoIt.unRegIdlingResource;
 import static com.trubuzz.trubuzz.utils.God.getString;
 import static com.trubuzz.trubuzz.utils.Judge.isExist;

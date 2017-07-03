@@ -1,5 +1,8 @@
 package com.trubuzz.trubuzz.test;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
 import com.trubuzz.trubuzz.utils.AdminUtilU;
 import com.trubuzz.trubuzz.utils.Param;
 
@@ -7,10 +10,14 @@ import org.junit.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,12 +32,39 @@ public class Run {
 
     @Test
     public void xrun() throws NoSuchMethodException {
+//        Map map = new HashMap();
+//        map.put("aa", 123);
+//        map.put("bb", 32);
+//
+//        ArrayList<Integer> list = new ArrayList<>();
+//        list.add(1);
+//        list.add(3);
+//        System.out.println(JSON.toJSONString(list));
 
-       tt();
-//        String s = "1332423";
-//        System.out.println(s.split(";")[0]);
+//        String s = "{\"aa\":123,\"bb\":32}";
+        String s = "{aa:'123',bb:'s'}~&";
+//        s = "[1,3]";
+        String p_s = "~&";
+        int i = s.indexOf(p_s);
+        System.out.println(s.substring(0,s.indexOf("}")+1));
+        String c = String.valueOf(s.charAt(i-1));
+        System.out.println(c);
+
+        if ("}".equals(c)) {
+
+            String format = formatString(s, p_s);
+            System.out.println(format);
+        }
     }
 
+    private String formatString(String s ,String p_s) {
+        String[] split = s.split(p_s);
+        System.out.println(split.length);
+        String[] ss = split[1].split(",");
+        String format = String.format(split[0], ss);
+        System.out.println(format);
+        return format;
+    }
     public void tc(){
     }
     public void ts(){

@@ -10,7 +10,7 @@ import com.trubuzz.trubuzz.utils.God;
 
 import org.hamcrest.Matcher;
 
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withView;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withView;
 import static com.trubuzz.trubuzz.utils.DoIt.notEmpty;
 
 /**

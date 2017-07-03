@@ -10,7 +10,7 @@ import org.junit.Assert;
 
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.thisString;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.thisString;
 import static com.trubuzz.trubuzz.shell.Park.given;
 
 /**

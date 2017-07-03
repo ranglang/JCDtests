@@ -5,7 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
 import com.trubuzz.trubuzz.constant.Env;
-import com.trubuzz.trubuzz.feature.custom.CustomMatcher;
+import com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.hamcrest.Matcher;
@@ -21,8 +21,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withResourceName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withCousin;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.hasSiblingNoSelf;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withCousin;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;

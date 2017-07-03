@@ -51,7 +51,7 @@ public class ViewHandle {
             @Override
             public void run() {
                 uiController.loopMainThreadUntilIdle();
-                targetViews = viewTracer.getView();
+                targetViews = viewTracer.getViews();
             }
         });
         return targetViews;

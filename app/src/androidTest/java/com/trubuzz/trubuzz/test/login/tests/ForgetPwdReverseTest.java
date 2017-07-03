@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Env;
+import com.trubuzz.trubuzz.feature.custom.parameters.GatherParameter;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.login.LoginAction;
@@ -26,12 +27,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
+import static com.trubuzz.trubuzz.constant.Conf.p_s;
 import static com.trubuzz.trubuzz.test.common.CommonAction.*;
 
 /**
@@ -42,9 +46,9 @@ public class ForgetPwdReverseTest extends BaseTest {
     private LoginService la = new LoginAction();
     private LoginView.Toast lt = new LoginView.Toast();
     private final String _phone = "11811110001";
-    private final String key_pwd = "password";
-    private final String key_pwd_confirm = "password_confirm";
-    private final String key_format = "isFormat";
+    private static final String key_pwd = "password";
+    private static final String key_pwd_confirm = "password_confirm";
+    private static final String key_format = "isFormat";
 
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
@@ -70,7 +74,7 @@ public class ForgetPwdReverseTest extends BaseTest {
      * 目前只做到发送成功消息提示
      * @param mail
      */
-    @Test
+//    @Test
     @Parameters(method = "retrieve_password_use_invalid_mail_data")
     public void retrieve_password_use_invalid_mail(String mail){
         la.into_forget_password_page();
@@ -90,7 +94,7 @@ public class ForgetPwdReverseTest extends BaseTest {
      * @param phone 手机号
      * @param format 格式是否正确 . true:正确
      */
-    @Test
+//    @Test
     @Parameters(method = "")
     public void invalid_phone_get_sms_code(String phone ,boolean format) {
         la.into_forget_password_page();
@@ -112,7 +116,7 @@ public class ForgetPwdReverseTest extends BaseTest {
      * @param phone
      * @param code 错误的格式 或 错误的数字
      */
-    @Test
+//    @Test
     @Parameters(method = "")
     public void invalid_sms_code_reset_password(String phone ,String code ,String password){
         la.into_forget_password_page();
@@ -134,13 +138,22 @@ public class ForgetPwdReverseTest extends BaseTest {
 
     /**
      * 重置密码时使用无效的密码
-     *      两次不一致 , 格式错误 , 空值
+     * 两次不一致 , 格式错误 , 空值
      * 为避免多次获取验证码 , 提升测试效率 :
-     *      1. 使用固定的手机号
-     *      2. 在填写好验证码后 , 使用 for 控制多次循环验证
-     * @param p
+     * 1. 使用固定的手机号
+     * 2. 在填写好验证码后 , 使用 for 控制多次循环验证
+     * @param p 将使用自定义参数化方式来注入参数
+     *          key_pwd : 新密码
+     *          key_pwd_confirm : 确认新密码
+     *          key_format : 是否是格式化的 ( 正确的格式 : true )
      */
-    public void invalid_new_password_retrieve_with_phone(List<Map<String,Object>> p){
+    @Test
+    @GatherParameter({
+            "{%s:'qQ123456',%s:'Ww123456',%s:true}" + p_s + key_pwd + "," + key_pwd_confirm + "," + key_format,  // 两次密码不一致
+            "{%s:'qq123456',%s:'qq123456',%s:false}" + p_s + key_pwd + "," + key_pwd_confirm + "," + key_format,  // 格式错误
+            "{%s:'',%s:'',%s:false}" + p_s + key_pwd + "," + key_pwd_confirm + "," + key_format // 空值
+    })
+    public void invalid_new_password_retrieve_with_phone(ArrayList<HashMap> p) {
         la.into_forget_password_page();
         la.select_phone_retrieve();
 
@@ -148,8 +161,8 @@ public class ForgetPwdReverseTest extends BaseTest {
         la.get_sms_code();
         check_toast_msg(lt.sms_code_sent_toast);
 
-        la.type_sms_code(_phone ,null);
-        for (Map<String,Object> kvp : p) {
+        la.type_sms_code(_phone, null);
+        for (Map<String, Object> kvp : p) {
             String pwd = (String) kvp.get(key_pwd);
             String pwd_c = (String) kvp.get(key_pwd_confirm);
 
@@ -159,13 +172,12 @@ public class ForgetPwdReverseTest extends BaseTest {
 
             if (!(boolean) kvp.get(key_format)) {
                 check_toast_msg(lt.incorrect_password_format_toast);
-            }else
-            if (!pwd.equals(pwd_c)) {
+            } else if (!pwd.equals(pwd_c)) {
                 check_toast_msg(lt.incorrect_password_confirm_toast);
             } else {
                 Log.e(TAG, String.format("invalid_new_password_retrieve_with_phone: " +
                         "数据设计错误 ,反向用例设计了正向的数据  : \n " +
-                        "password : %s ; password confirm : %s",pwd ,pwd_c ));
+                        "password : %s ; password confirm : %s", pwd, pwd_c));
             }
 
         }

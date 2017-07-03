@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.feature.custom;
+package com.trubuzz.trubuzz.feature.custom.handlers;
 
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.trubuzz.trubuzz.feature.custom.actions.CustomRecyclerViewActions;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.shell.Element;
 

@@ -53,9 +53,9 @@ import static android.support.test.espresso.web.webdriver.DriverAtoms.findElemen
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.AName.WEB_VIEW;
 import static com.trubuzz.trubuzz.constant.Env.uiDevice;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.hasSiblingNoSelf;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withIndex;
-import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.hasSiblingNoSelf;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withIndex;
+import static com.trubuzz.trubuzz.feature.custom.assertors.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.test.R.string.terms_content;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;

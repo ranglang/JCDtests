@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.feature.custom;
+package com.trubuzz.trubuzz.feature.custom.assertors;
 
 import com.trubuzz.trubuzz.shell.Element;
 

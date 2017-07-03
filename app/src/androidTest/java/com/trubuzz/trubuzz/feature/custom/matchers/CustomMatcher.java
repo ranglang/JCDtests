@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.feature.custom;
+package com.trubuzz.trubuzz.feature.custom.matchers;
 
 import android.os.IBinder;
 import android.support.test.espresso.Root;

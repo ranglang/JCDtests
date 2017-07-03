@@ -4,7 +4,7 @@ import android.support.test.espresso.IdlingResource;
 import android.util.Log;
 import android.view.View;
 
-import com.trubuzz.trubuzz.feature.custom.ViewsFinder;
+import com.trubuzz.trubuzz.feature.custom.handlers.ViewsFinder;
 
 import org.hamcrest.Matcher;
 

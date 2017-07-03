@@ -1,34 +1,19 @@
 package com.trubuzz.trubuzz.shell;
 
-import android.support.test.espresso.FailureHandler;
 import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.ViewAssertion;
-import android.support.test.espresso.ViewFinder;
 import android.support.test.espresso.ViewInteraction;
 import android.util.Log;
-import android.view.View;
 
-import com.trubuzz.trubuzz.feature.viewFirm.ViewHandle;
-import com.trubuzz.trubuzz.feature.viewFirm.ViewTracer;
-import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+import com.trubuzz.trubuzz.feature.custom.handlers.ViewsFinder;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.Registor;
 
 import org.hamcrest.Matcher;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executor;
-
-import javax.inject.Provider;
-
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withView;
 import static com.trubuzz.trubuzz.shell.Park.getViewInteraction;
-import static com.trubuzz.trubuzz.utils.MReflect.getDecFields;
 import static com.trubuzz.trubuzz.utils.MReflect.getFieldObject;
 
 /**
@@ -184,7 +169,7 @@ public class AdViewInteraction {
     }
 
     /**
-     * @deprecated use {@link com.trubuzz.trubuzz.feature.custom.ViewsFinder#getViews(Matcher)}
+     * @deprecated use {@link ViewsFinder#getViews(Matcher)}
      * 由于过度强依赖 , 过度反射, 故决定弃用.
      * 匹配到多个View时使用
      * 强依赖于{@link ViewInteraction#viewFinder};{@link ViewInteraction#uiController};{@link ViewInteraction#failureHandler}
@@ -194,47 +179,47 @@ public class AdViewInteraction {
      * ViewInteraction.viewMatcher == ViewFinderImpl.viewMatcher
      * @return
      */
-    public List<AdViewInteraction> getInteractionList(){
-        List<AdViewInteraction> adViewInteractions = null;
-        try {
-            ViewFinder viewFinder = null;
-            UiController uiController = null;
-            FailureHandler failureHandler = null;
-            Matcher<View> baseViewMatcher = null;
-            Executor mainThreadExecutor = null;
-            Field[] fields = getDecFields(viewInteraction);
-            for(Field field : fields){
-                switch (field.getName()){
-                    case "viewFinder" :
-                        viewFinder = (ViewFinder) field.get(viewInteraction);
-                        break;
-                    case "uiController" :
-                        uiController = (UiController) field.get(viewInteraction);
-                        break;
-                    case "failureHandler" :
-                        failureHandler = (FailureHandler) field.get(viewInteraction);
-                        break;
-                    case "viewMatcher" :
-                        baseViewMatcher = (Matcher<View>) field.get(viewInteraction);
-                        break;
-                    case "mainThreadExecutor" :
-                        mainThreadExecutor = (Executor) field.get(viewInteraction);
-                        break;
-                }
-            }
-            Provider<View> rootViewProvider = (Provider<View>) getFieldObject("rootViewProvider", viewFinder);
-            ViewTracer viewTracer = new ViewTracer(baseViewMatcher, rootViewProvider);
-
-            ViewHandle viewHandle = new ViewHandle(uiController, mainThreadExecutor, failureHandler, baseViewMatcher, viewTracer);
-
-            List<View> views = viewHandle.getTargetViews();
-            adViewInteractions = new ArrayList<>();
-            for(View view : views){
-                adViewInteractions.add(new AdViewInteraction(new ActivityElement().setMatchers(withView(view))));
-            }
-        }catch (Exception e ){
-            e.printStackTrace();
-        }
-        return adViewInteractions;
-    }
+//    public List<AdViewInteraction> getInteractionList(){
+//        List<AdViewInteraction> adViewInteractions = null;
+//        try {
+//            ViewFinder viewFinder = null;
+//            UiController uiController = null;
+//            FailureHandler failureHandler = null;
+//            Matcher<View> baseViewMatcher = null;
+//            Executor mainThreadExecutor = null;
+//            Field[] fields = getDecFields(viewInteraction);
+//            for(Field field : fields){
+//                switch (field.getName()){
+//                    case "viewFinder" :
+//                        viewFinder = (ViewFinder) field.get(viewInteraction);
+//                        break;
+//                    case "uiController" :
+//                        uiController = (UiController) field.get(viewInteraction);
+//                        break;
+//                    case "failureHandler" :
+//                        failureHandler = (FailureHandler) field.get(viewInteraction);
+//                        break;
+//                    case "viewMatcher" :
+//                        baseViewMatcher = (Matcher<View>) field.get(viewInteraction);
+//                        break;
+//                    case "mainThreadExecutor" :
+//                        mainThreadExecutor = (Executor) field.get(viewInteraction);
+//                        break;
+//                }
+//            }
+//            Provider<View> rootViewProvider = (Provider<View>) getFieldObject("rootViewProvider", viewFinder);
+//            ViewTracer viewTracer = new ViewTracer(baseViewMatcher, rootViewProvider);
+//
+//            ViewHandle viewHandle = new ViewHandle(uiController, mainThreadExecutor, failureHandler, baseViewMatcher, viewTracer);
+//
+//            List<View> views = viewHandle.getTargetViews();
+//            adViewInteractions = new ArrayList<>();
+//            for(View view : views){
+//                adViewInteractions.add(new AdViewInteraction(new ActivityElement().setMatchers(withView(view))));
+//            }
+//        }catch (Exception e ){
+//            e.printStackTrace();
+//        }
+//        return adViewInteractions;
+//    }
 }

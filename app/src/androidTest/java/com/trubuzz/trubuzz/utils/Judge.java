@@ -17,7 +17,7 @@ import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 
-import com.trubuzz.trubuzz.feature.custom.CustomRecyclerViewActions;
+import com.trubuzz.trubuzz.feature.custom.actions.CustomRecyclerViewActions;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
@@ -31,8 +31,8 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
-import static com.trubuzz.trubuzz.feature.custom.CustomMatcher.withView;
-import static com.trubuzz.trubuzz.feature.custom.ViewInteractionHandler.getView;
+import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withView;
+import static com.trubuzz.trubuzz.feature.custom.handlers.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static org.hamcrest.Matchers.allOf;
 

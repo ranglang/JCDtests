@@ -5,7 +5,7 @@ import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewInteraction;
 import android.view.View;
 
-import com.trubuzz.trubuzz.feature.custom.CustomAssert;
+import com.trubuzz.trubuzz.feature.custom.assertors.CustomAssert;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 
 import org.hamcrest.Matcher;

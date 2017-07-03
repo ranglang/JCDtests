@@ -40,7 +40,7 @@ import static com.trubuzz.trubuzz.elements.AAsset.buying_power_view;
 import static com.trubuzz.trubuzz.elements.AAsset.today_portfolio_view;
 import static com.trubuzz.trubuzz.elements.AAsset.total_amount_view;
 import static com.trubuzz.trubuzz.elements.AAsset.total_portfolio_view;
-import static com.trubuzz.trubuzz.feature.custom.CustomWebAssert.customWebMatches;
+import static com.trubuzz.trubuzz.feature.custom.assertors.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.shell.Park.webGiven;
 import static org.hamcrest.CoreMatchers.containsString;

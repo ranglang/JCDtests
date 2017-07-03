@@ -152,8 +152,8 @@ public class LoginView {
 
     // 邮箱提交按钮
     public final ActivityElement mail_submit_button = new ActivityElement().setId("submit")
-            .setText(getString("提交",submit));
-//            .setIndex(2);
+            .setText(getString("提交", submit))
+            .setSiblings(new ActivityElement().setChildren(mail_address_input));
 
     // 手机找回文本
     private final ActivityElement phone_retrieve_text = new ActivityElement().setId("text1")
@@ -189,9 +189,8 @@ public class LoginView {
 
     // 手机找回提交
     public final ActivityElement phone_submit_button = new ActivityElement().setId("submit")
-            .setText(getString("提交",submit));
-//            .setIndex(8);
-
+            .setText(getString("提交", submit))
+            .setSiblings(new ActivityElement().setChildren(phone_number_input));
 
 
 

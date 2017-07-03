@@ -33,7 +33,7 @@ public class ViewTracer {
         this.rootViewProvider = rootViewProvider;
     }
 
-    public List<View> getView() throws AmbiguousViewMatcherException, NoMatchingViewException {
+    public List<View> getViews() throws AmbiguousViewMatcherException, NoMatchingViewException {
         checkMainThread();
         final Predicate<View> matcherPredicate = new ViewTracer.MatcherPredicateAdapter<View>(
                 checkNotNull(viewMatcher));
