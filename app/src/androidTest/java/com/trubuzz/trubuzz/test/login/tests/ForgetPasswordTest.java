@@ -60,7 +60,7 @@ public class ForgetPasswordTest extends BaseTest {
     }
 
     @Before
-    public void setup(){
+    public void not_login(){
         Wish.wantNotLogin();
     }
 

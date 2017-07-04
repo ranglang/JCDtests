@@ -93,10 +93,6 @@ public class LoginView {
     // 忘记密码按钮
     public final ActivityElement forget_pwd_button = new ActivityElement().setText(getString("忘记密码",forget_password));
 
-    // 快速注册链接
-    public final ActivityElement sign_up_link = new ActivityElement().setId("signup")
-            .setText(getString("请邮箱或手机快速注册登录", sign_up_description));
-
     // 登入按钮
     public final ActivityElement login_button = new ActivityElement().setId("submit").setText(getString("登入" ,login));
 

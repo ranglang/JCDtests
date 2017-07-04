@@ -55,7 +55,7 @@ public class ForgetPwdReverseTest extends BaseTest {
 
     private Object[] retrieve_password_use_invalid_mail_data(){
         return new Object[]{
-                create_retrieve_password_use_invalid_mail_data("star003@abc.com")
+                create_retrieve_password_use_invalid_mail_data("star1003@abc.com")
         };
     }
     private Object[] retrieve_password_use_phone_data(){
@@ -65,7 +65,7 @@ public class ForgetPwdReverseTest extends BaseTest {
     }
 
     @Before
-    public void setup(){
+    public void not_login(){
         Wish.wantNotLogin();
     }
 
@@ -74,7 +74,7 @@ public class ForgetPwdReverseTest extends BaseTest {
      * 目前只做到发送成功消息提示
      * @param mail
      */
-//    @Test
+    @Test
     @Parameters(method = "retrieve_password_use_invalid_mail_data")
     public void retrieve_password_use_invalid_mail(String mail){
         la.into_forget_password_page();
@@ -147,7 +147,7 @@ public class ForgetPwdReverseTest extends BaseTest {
      *          key_pwd_confirm : 确认新密码
      *          key_format : 是否是格式化的 ( 正确的格式 : true )
      */
-    @Test
+//    @Test
     @GatherParameter({
             "{%s:'qQ123456',%s:'Ww123456',%s:true}" + p_s + key_pwd + "," + key_pwd_confirm + "," + key_format,  // 两次密码不一致
             "{%s:'qq123456',%s:'qq123456',%s:false}" + p_s + key_pwd + "," + key_pwd_confirm + "," + key_format,  // 格式错误

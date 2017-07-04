@@ -48,7 +48,7 @@ import static org.hamcrest.core.IsNot.not;
  * Created by king on 2016/9/18.
  */
 @RunWith(JUnitParamsRunner.class)
-public class SignUpTest extends BaseTest{
+public class  SignUpTest extends BaseTest{
 
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
@@ -71,7 +71,7 @@ public class SignUpTest extends BaseTest{
 
     @Before
     public void intoSignUp(){
-        given(lv.sign_up_link).perform(click());                    //点击立即注册进入注册页面
+//        given(lv.sign_up_link).perform(click());                    //点击立即注册进入注册页面
     }
 
     @Test

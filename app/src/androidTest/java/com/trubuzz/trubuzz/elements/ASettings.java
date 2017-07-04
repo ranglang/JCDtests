@@ -33,7 +33,7 @@ public class ASettings {
     public final Element nickname  = new ActivityElement().setId("title").setParent(personal);      //昵称
 
 
-    public final Element notify_switch = new ActivityElement().setId("notify"); //  can checked .
+    public final Element notify_switch = new ActivityElement().setId("notify"); //  can doCheck .
     public final Element rising_falling_set = new ActivityElement().setId("rising_falling_display");
     public final Element k_chart_set = new ActivityElement().setId("chart_type");   //K线图设置
     public final Element change_trade_pwd_view = new ActivityElement().setId("change_trade_password");   //交易密码修改

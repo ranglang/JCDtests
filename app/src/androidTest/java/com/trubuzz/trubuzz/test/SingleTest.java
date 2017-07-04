@@ -13,6 +13,7 @@ import android.view.View;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.AWatchlist;
+import com.trubuzz.trubuzz.feature.custom.actions.SwipeAs;
 import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.feature.custom.actions.CustomViewAction;
 import com.trubuzz.trubuzz.feature.custom.handlers.ViewsFinder;
@@ -92,7 +93,7 @@ public class SingleTest extends BaseTest{
 //        onView(withText("00001")).perform(click());
 //        onView(withText("ABAC")).perform(new CustomViewAction.SwipeToVisible(Swipe.FAST, Press.FINGER));
         onView(isRoot()).perform(
-                new CustomViewAction.SwipeAs(Swipe.FAST ,new float[]{213.0f ,1578.356f}
+                new SwipeAs(Swipe.FAST ,new float[]{213.0f ,1578.356f}
                         ,new float[]{213.0f ,1517.0f} , Press.FINGER.describePrecision())
         );
         sleep(3000);
