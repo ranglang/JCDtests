@@ -101,7 +101,7 @@ public interface LoginService {
      * @param phone
      * @param smsCode == null 则实时获取code进行输入 ,
      */
-    void type_sms_code(String phone, String smsCode);
+    String type_sms_code(String phone, String smsCode);
 
     /**
      * 输入新密码

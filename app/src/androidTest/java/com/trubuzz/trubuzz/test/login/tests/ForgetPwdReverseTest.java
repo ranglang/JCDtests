@@ -157,11 +157,14 @@ public class ForgetPwdReverseTest extends BaseTest {
         la.into_forget_password_page();
         la.select_phone_retrieve();
 
+        this.runTimeData("phone",_phone);
         la.type_phone_number(_phone);
         la.get_sms_code();
         check_toast_msg(lt.sms_code_sent_toast);
 
-        la.type_sms_code(_phone, null);
+        String smsCode = la.type_sms_code(_phone, null);
+        this.runTimeData("smsCode", smsCode);
+
         for (Map<String, Object> kvp : p) {
             String pwd = (String) kvp.get(key_pwd);
             String pwd_c = (String) kvp.get(key_pwd_confirm);
@@ -200,7 +203,9 @@ public class ForgetPwdReverseTest extends BaseTest {
         la.get_sms_code();
         check_toast_msg(lt.sms_code_sent_toast);
 
-        la.type_sms_code(phone ,null);
+        String smsCode = la.type_sms_code(phone, null);
+        this.runTimeData("smsCode" ,smsCode);
+
         la.type_new_password(password);
         la.type_confirm_password(password);
         la.submit_phone_retrieve();

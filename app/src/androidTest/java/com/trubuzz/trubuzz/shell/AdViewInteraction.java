@@ -168,17 +168,17 @@ public class AdViewInteraction {
         return this;
     }
 
-    /**
-     * @deprecated use {@link ViewsFinder#getViews(Matcher)}
-     * 由于过度强依赖 , 过度反射, 故决定弃用.
-     * 匹配到多个View时使用
-     * 强依赖于{@link ViewInteraction#viewFinder};{@link ViewInteraction#uiController};{@link ViewInteraction#failureHandler}
-     *          {@link ViewInteraction#mainThreadExecutor};{@link ViewInteraction#viewMatcher} .
-     *          {@link android.support.test.espresso.base.ViewFinderImpl#viewMatcher};
-     *          {@link android.support.test.espresso.base.ViewFinderImpl#rootViewProvider}
-     * ViewInteraction.viewMatcher == ViewFinderImpl.viewMatcher
-     * @return
-     */
+//    /**
+//     * @deprecated use {@link ViewsFinder#getViews(Matcher)}
+//     * 由于过度强依赖 , 过度反射, 故决定弃用.
+//     * 匹配到多个View时使用
+//     * 强依赖于{@link ViewInteraction#viewFinder};{@link ViewInteraction#uiController};{@link ViewInteraction#failureHandler}
+//     *          {@link ViewInteraction#mainThreadExecutor};{@link ViewInteraction#viewMatcher} .
+//     *          {@link android.support.test.espresso.base.ViewFinderImpl#viewMatcher};
+//     *          {@link android.support.test.espresso.base.ViewFinderImpl#rootViewProvider}
+//     * ViewInteraction.viewMatcher == ViewFinderImpl.viewMatcher
+//     * @return
+//     */
 //    public List<AdViewInteraction> getInteractionList(){
 //        List<AdViewInteraction> adViewInteractions = null;
 //        try {

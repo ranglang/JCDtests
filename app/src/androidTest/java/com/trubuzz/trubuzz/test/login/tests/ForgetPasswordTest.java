@@ -121,7 +121,9 @@ public class ForgetPasswordTest extends BaseTest {
         la.get_sms_code();
         la.check_get_sms_code_successful();
 
-        la.type_sms_code(phone ,null);
+        String smsCode = la.type_sms_code(phone, null);
+        this.runTimeData("smsCode",smsCode);
+
         la.type_new_password(password);
         la.type_confirm_password(password);
         la.submit_phone_retrieve();

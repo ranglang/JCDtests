@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.feature;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.enumerate.TestResult;
+import com.trubuzz.trubuzz.feature.custom.parameters.GatherParameter;
 import com.trubuzz.trubuzz.report.CaseBean;
 import com.trubuzz.trubuzz.report.ClassBean;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
@@ -48,6 +49,7 @@ public class TestWatcherAdvance extends TestName {
     private long startTime;
     private long stopTime;
     private Map<Integer,Object> updateData;
+    private Map<String,Object> runTimeData;
 
    // public TestWatcherAdvance(){}
     public TestWatcherAdvance(ClassBean testClass , BaseTest baseTest){
@@ -150,14 +152,19 @@ public class TestWatcherAdvance extends TestName {
         }
     }
     /**
-     * 设置 useData
+     * 设置 use data
+     *      1. 获取使用成员属性作为的参数
+     *      2. 获取使用参数注解得到的参数
+     *          a. 更新执行过程中改变的值
+     *      3. 获取使用的固定的参数 , 或者是新参数
      * @param desc
      * @return
      */
     private Map setUseData(Description desc){
         Map mData = null;
         Map fData = getFieldData(this.baseTest , FieldVar.class);
-        if(desc.getAnnotation(Parameters.class) != null){
+        if(desc.getAnnotation(Parameters.class) != null ||
+                desc.getAnnotation(GatherParameter.class) != null){
             Object[] objects = JUnitParamsRunner.getParams();
             // 如果在执行过程中改变了数据 , 将执行更新
             // 这里的updateData 的key 代表了params 的index
@@ -180,6 +187,13 @@ public class TestWatcherAdvance extends TestName {
                 this.useData.putAll(fData);
             } else {
                 this.useData = fData;
+            }
+        }
+        if(runTimeData != null && !runTimeData.isEmpty()) {
+            if (this.useData != null) {
+                this.useData.putAll(runTimeData);
+            } else {
+                this.useData = runTimeData;
             }
         }
         return null;
@@ -209,6 +223,14 @@ public class TestWatcherAdvance extends TestName {
         }
         return data;
     }
+
+    /**
+     * 将使用{@link Parameters} and {@link GatherParameter} 获得的参数
+     *      封装成 Map
+     * @param name
+     * @param data
+     * @return
+     */
     private Map putUseData(String[] name , Object[] data){
         if(name==null || data==null){
             Log.e(TAG, "putUseData: 未获取到形参名 或 形参值",new NullPointerException());
@@ -258,6 +280,14 @@ public class TestWatcherAdvance extends TestName {
         }
     }
 
+    public Map<Integer, Object> getUpdateData() {
+        return updateData;
+    }
+
+    public Map<String, Object> getRunTimeData() {
+        return runTimeData;
+    }
+
     public String getTestName() {
         return testName;
     }
@@ -296,5 +326,15 @@ public class TestWatcherAdvance extends TestName {
      */
     public void setUpdateData(Map<Integer, Object> updateData) {
         this.updateData = updateData;
+    }
+
+    /**
+     * 运行时新加入的参数 , 或者是使用的成员变量(当前测试方法所独有的)
+     * @param runTimeData key : 必须保证不和其他参数同名 , 若同名则会覆盖原来参数的值
+     *                          若需覆盖则建议使用{@link #setUpdateData(Map)}
+     *                    value : 当前参数的值
+     */
+    public void setRunTimeData(Map<String, Object> runTimeData) {
+        this.runTimeData = runTimeData;
     }
 }

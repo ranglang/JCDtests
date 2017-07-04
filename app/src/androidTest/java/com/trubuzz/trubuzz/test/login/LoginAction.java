@@ -183,12 +183,13 @@ public class LoginAction implements LoginService{
     }
 
     @Override
-    public void type_sms_code(String phone ,String smsCode) {
+    public String type_sms_code(String phone ,String smsCode) {
         if (smsCode == null) {
             smsCode = au.getCurrentSmsCode(phone);
             Log.i(TAG, String.format("type_sms_code: current sms code = %s",smsCode ));
         }
         given(lv.sms_code_input).perform(replaceText(smsCode));
+        return smsCode;
     }
 
     @Override

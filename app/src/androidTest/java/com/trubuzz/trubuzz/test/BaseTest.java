@@ -16,7 +16,9 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static com.trubuzz.trubuzz.constant.Env.uiDevice;
@@ -90,5 +92,22 @@ public class BaseTest {
         do {
             given(GlobalView.back_up).perform(click());
         } while (Wish.isVisible(matcher));
+    }
+    protected void updateData(Integer index ,Object value){
+        Map<Integer, Object> uData = testWatcherAdvance.getUpdateData();
+        if (uData == null) {
+            uData = new HashMap<>();
+        }
+        uData.put(index, value);
+        testWatcherAdvance.setUpdateData(uData);
+    }
+
+    protected void runTimeData(String key ,Object value) {
+        Map<String, Object> runTimeData = testWatcherAdvance.getRunTimeData();
+        if (runTimeData == null) {
+            runTimeData = new HashMap<>();
+        }
+        runTimeData.put(key, value);
+        testWatcherAdvance.setRunTimeData(runTimeData);
     }
 }

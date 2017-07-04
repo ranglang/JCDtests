@@ -29,3 +29,4 @@
             如: BigDecimal bd = new BigDecimal("1.2345");
 06/09   作废05/27的写法 , 需要断言元素不可见 只需要使用 ViewAssertion doesNotExist() 即可
         示例: given(tv.restOfDay).check(doesNotExist());
+07/04   在使用参数化时 , 不建议都是用方法来参数化 , 能使用注解直接参数化则直接参数化 ;
