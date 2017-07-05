@@ -12,7 +12,6 @@ import static com.trubuzz.trubuzz.test.R.string.email;
 import static com.trubuzz.trubuzz.test.R.string.get_sms;
 import static com.trubuzz.trubuzz.test.R.string.input_captcha;
 import static com.trubuzz.trubuzz.test.R.string.input_password;
-import static com.trubuzz.trubuzz.test.R.string.login_password_hint;
 import static com.trubuzz.trubuzz.test.R.string.ok;
 import static com.trubuzz.trubuzz.test.R.string.pickup;
 import static com.trubuzz.trubuzz.test.R.string.reload_captcha;
@@ -53,10 +52,11 @@ public class SignUpView {
             new ActivityElement().setId("title").setText(getString("请输入验证码",input_captcha)) ,
             new ActivityElement().setId("content")
     );
-
+    // 验证码图像
+    public final ActivityElement captcha_image = new ActivityElement().setId("image")
+            .setAssignableClass(android.widget.ImageView.class);
     // 图像验证输入框
     public final ActivityElement image_captcha_input = new ActivityElement().setId("captcha");
-
     // 图像验证码 -- 更新
     public final ActivityElement image_captcha_change = new ActivityElement().setText(getString("看不清? 换一张" ,reload_captcha));
     // 图像验证码输入确认
@@ -77,10 +77,12 @@ public class SignUpView {
             .setAssignableClass(TextView.class);
 
     // 邮箱注册密码输入
-    public final ActivityElement email_reg_pwd = reg_pwd.setUncle(new ActivityElement().setChildren(email_input));
+    public final ActivityElement email_reg_pwd = new ActivityElement().setSelf(reg_pwd)
+            .setUncle(new ActivityElement().setChildren(email_input));
 
     // 邮箱注册确认密码
-    public final ActivityElement email_reg_pwd_confirm = reg_pwd_confirm.setCousinry(email_input);
+    public final ActivityElement email_reg_pwd_confirm = new ActivityElement().setSelf(reg_pwd_confirm)
+            .setCousinry(email_input);
 
     // 邮箱注册提交按钮
     public final ActivityElement email_reg_submit = new ActivityElement().setId("submit")
@@ -93,7 +95,9 @@ public class SignUpView {
             .setUncle(new ActivityElement().setChildren(email_input));
 
     // 邮箱注册服务条款check box
-    public final ActivityElement email_accept_service_check = accept_service_check.setCousinry(email_input);
+    public final ActivityElement email_accept_service_check = new ActivityElement()
+            .setSelf(accept_service_check)
+            .setCousinry(email_input);
 
 
     /*** 手机注册 ***/
@@ -113,10 +117,12 @@ public class SignUpView {
     public final ActivityElement phone_input = new ActivityElement().setId("phone").setHint(getString("请输入手机号" ,sign_up_phone_hint));
 
     // 手机注册密码
-    public final ActivityElement phone_reg_pwd = reg_pwd.setCousinry(phone_input);
+    public final ActivityElement phone_reg_pwd = new ActivityElement().setSelf(reg_pwd)
+            .setCousinry(phone_input);
 
     // 手机注册确认密码
-    public final ActivityElement phone_reg_pwd_confirm = reg_pwd_confirm.setCousinry(phone_input);
+    public final ActivityElement phone_reg_pwd_confirm = new ActivityElement().setSelf(reg_pwd_confirm)
+            .setCousinry(phone_input);
 
     // 获取短信验证码按钮
     public final ActivityElement get_sms_button = new ActivityElement().setId("btn_sms").setText(getString("获取验证码" ,get_sms));
@@ -125,7 +131,8 @@ public class SignUpView {
     public final ActivityElement sms_captcha_input = new ActivityElement().setId("sms").setText(getString("请输入短信验证码" ,sign_up_sms_hint));
 
     // 手机注册服务条款 check box
-    public final ActivityElement phone_accept_service_check = accept_service_check.setCousinry(phone_input);
+    public final ActivityElement phone_accept_service_check = new ActivityElement().setSelf(accept_service_check)
+            .setCousinry(phone_input);
 
     // 手机注册提交按钮
     public final ActivityElement phone_reg_submit = new ActivityElement().setId("submit")

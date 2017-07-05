@@ -12,3 +12,8 @@
              a. 更新执行过程中改变的值
          3. 获取使用的固定的参数 , 或者是新参数
 6.  不能使用跟 BaseTest 中相同的方法名(作用域,参数均相同) , 因为这样会导致重写父类方法
+7.  view中的公共element在使用的时候需要作为 self 属性
+        如:  public final ActivityElement email_reg_pwd = new ActivityElement().setSelf(reg_pwd)
+                       .setUncle(new ActivityElement().setChildren(email_input));
+        这里的 reg_pwd 就是公共 element , email_reg 和 phone_reg 共同使用, 若直接使用 reg_pwd.setUncle(...)
+            将会改变其值 , 因为这是引用传递.

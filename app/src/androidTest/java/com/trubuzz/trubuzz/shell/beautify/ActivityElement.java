@@ -2,6 +2,7 @@ package com.trubuzz.trubuzz.shell.beautify;
 
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -36,6 +37,7 @@ public class ActivityElement implements Element<Matcher<View>>{
     private Matcher[] matchers;
     private boolean dis = true;
     private String content_desc;
+    private ActivityElement self;
 
     String getId() {
         return id;
@@ -95,6 +97,15 @@ public class ActivityElement implements Element<Matcher<View>>{
 
     String getContent_desc() {
         return content_desc;
+    }
+
+    ActivityElement getSelf() {
+        return self;
+    }
+
+    public ActivityElement setSelf(ActivityElement self) {
+        this.self = self;
+        return this;
     }
 
     public ActivityElement setDescendant(Element<Matcher<View>> descendant) {
@@ -185,26 +196,25 @@ public class ActivityElement implements Element<Matcher<View>>{
     @Override
     public String toString() {
         String string = "{";
-        if(id != null) string += "id='" + id + "', ";
-        if(text != null) string += "text='" + text + "', ";
-        if(hint != null) string += "hint='" + hint + "', ";
-        if(content_desc != null) string += "content_desc='" + content_desc + "', ";
-        if(children != null && children.length >0) string += "children=" + Arrays.toString(children) + ", ";
-        if(siblings != null && siblings.length >0) string +=  "siblings=" + Arrays.toString(siblings) + ", ";
-        if(cousinry != null&& cousinry.length >0) string += "cousinry=" + Arrays.toString(cousinry) + ", ";
-        if(parent != null) string += "parent=" + parent + ", ";
-        if(uncle != null) string += "uncle=" + uncle + ", ";
-        if(ancestor != null) string += "ancestor=" + ancestor + ", ";
-        if(descendant != null) string += "descendant=" + descendant + ", ";
+        if( notEmpty(id)) string += "id='" + id + "', ";
+        if( notEmpty(text)) string += "text='" + text + "', ";
+        if( notEmpty(hint)) string += "hint='" + hint + "', ";
+        if( notEmpty(content_desc)) string += "content_desc='" + content_desc + "', ";
+        if( notEmpty(children)) string += "children=" + Arrays.toString(children) + ", ";
+        if( notEmpty(siblings)) string +=  "siblings=" + Arrays.toString(siblings) + ", ";
+        if( notEmpty(cousinry)) string += "cousinry=" + Arrays.toString(cousinry) + ", ";
+        if( notEmpty(parent)) string += "parent=" + parent + ", ";
+        if( notEmpty(uncle)) string += "uncle=" + uncle + ", ";
+        if( notEmpty(ancestor)) string += "ancestor=" + ancestor + ", ";
+        if( notEmpty(descendant)) string += "descendant=" + descendant + ", ";
         if(index != -1) string += "index=" + index + ", ";
-        if(assignableClass != null) string += "assignableClass=" + assignableClass + ", ";
-//        if(toastMsg != null) string += "toastMsg='" + toastMsg.getMsg() + "', ";
-        if(matchers != null) string += "matchers=" + Arrays.toString(matchers) + ", " ;
+        if( notEmpty(assignableClass)) string += "assignableClass=" + assignableClass + ", ";
+        if( notEmpty(matchers)) string += "matchers=" + Arrays.toString(matchers) + ", " ;
+        if(notEmpty(self))  string += "self=" + self.toString() + ",";
 
-        if(string.endsWith(", ")) string = string.substring(0,string.length()-2);
-        return string += '}';
+        string += "displayed=" + dis + "}";
+        return string;
     }
-
 
 
 }

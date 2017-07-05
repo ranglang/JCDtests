@@ -89,6 +89,9 @@ public class ElementHandle {
         boolean displayed = ae.isDis();
         if(displayed)   ms.add(isDisplayed());
 
+        ActivityElement self = ae.getSelf();
+        if (notEmpty(self)) ms.addAll(element2matcher(self));
+
         return ms;
     }
 

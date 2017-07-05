@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +27,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
+
+import static com.trubuzz.trubuzz.utils.MReflect.getDecFields;
 
 /**
  * Created by king on 2016/9/9.
@@ -363,7 +366,6 @@ public class DoIt {
     public static boolean notEmpty(Map o) {
         return o != null && !o.isEmpty();
     }
-
 
 
 

@@ -44,17 +44,7 @@ public class Run {
 //        String s = "{\"aa\":123,\"bb\":32}";
         String s = "{aa:'123',bb:'s'}~&";
 //        s = "[1,3]";
-        String p_s = "~&";
-        int i = s.indexOf(p_s);
-        System.out.println(s.substring(0,s.indexOf("}")+1));
-        String c = String.valueOf(s.charAt(i-1));
-        System.out.println(c);
 
-        if ("}".equals(c)) {
-
-            String format = formatString(s, p_s);
-            System.out.println(format);
-        }
     }
 
     private String formatString(String s ,String p_s) {

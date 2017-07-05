@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.test.signUp.actions;
 
+import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
 import com.trubuzz.trubuzz.test.signUp.SignUpService;
 import com.trubuzz.trubuzz.test.signUp.views.SignUpView;
@@ -8,6 +9,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasLinks;
+import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
@@ -15,6 +17,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.feature.custom.actions.CustomViewAction.doCheck;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.test.common.CommonAction.check_auto_login_successful;
+import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 
 /**
  * Created by king on 2017/7/3.
@@ -35,12 +39,12 @@ public class SignUpAction implements SignUpService {
         given(sv.pwd_label).check(matches(isDisplayed()));
         given(sv.pwd_confirm_label).check(matches(isDisplayed()));
         given(sv.email_accept_service_check).check(matches(isNotChecked()));
-        given(sv.email_terms).check(matches(hasLinks()));
+        given(sv.email_terms).check(matches(isClickable()));
     }
 
     @Override
     public void verify_phone_sign_up_default_show() {
-
+/////--
     }
 
     @Override
@@ -85,21 +89,26 @@ public class SignUpAction implements SignUpService {
 
     @Override
     public void check_image_verify_code_show() {
-
+        given(sv.image_captcha_frame).check(matches(isDisplayed()));
+        given(sv.captcha_image).check(matches(isDisplayed()));
+        given(sv.image_captcha_change).check(matches(isClickable()));
     }
 
     @Override
     public void type_image_verify_code(String imageCode) {
-
+        if (imageCode == null) {
+            imageCode = Conf.CURRENT_IMAGE_STRATEGY.getImageCode();
+        }
+        given(sv.image_captcha_input).perform(replaceText(imageCode));
     }
 
     @Override
     public void confirm_image_verify_code_input() {
-
+        given(sv.image_captcha_ok_button).perform(click());
     }
 
     @Override
     public void check_sign_up_successful() {
-
+        check_auto_login_successful();
     }
 }

@@ -31,6 +31,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
+import static com.trubuzz.trubuzz.test.common.CommonAction.check_auto_login_successful;
 import static com.trubuzz.trubuzz.test.common.GlobalView.assets_radio;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.feature.custom.handlers.ViewInteractionHandler.getView;
@@ -210,9 +211,7 @@ public class LoginAction implements LoginService{
 
     @Override
     public void check_retrieve_use_phone_successful() {
-        DoIt.regIdlingResource(new ActivityIdlingResource(AName.MAIN, instrumentation.getContext(), true));
-        given(GlobalView.radio_tray).check(matches(isDisplayed()));
-        unRegIdlingResource();
+        check_auto_login_successful();
     }
 
     @Override
