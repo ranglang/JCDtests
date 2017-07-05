@@ -4,7 +4,11 @@ import android.support.test.espresso.IdlingResource;
 import android.util.Log;
 import android.view.View;
 
+import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+
 import org.hamcrest.Matcher;
+
+import static com.trubuzz.trubuzz.utils.Judge.isMatched;
 
 /**
  * Created by king on 16/12/12.
@@ -14,7 +18,9 @@ public class ViewMatcherIdlingResource implements IdlingResource {
     private final String TAG = "jcd_" + this.getClass().getSimpleName();
     private ResourceCallback resourceCallback;
     private boolean isIdle;
-    private final View view;
+
+    private  View view;
+    private  ActivityElement activityElement ;
     private final Matcher<View> matcher;
 
     public ViewMatcherIdlingResource(View view, Matcher<View> matcher) {
@@ -22,16 +28,25 @@ public class ViewMatcherIdlingResource implements IdlingResource {
         this.matcher = matcher;
     }
 
+    public ViewMatcherIdlingResource(ActivityElement activityElement, Matcher<View> matcher) {
+        this.activityElement = activityElement;
+        this.matcher = matcher;
+    }
+
     @Override
     public String getName() {
-        return this.getClass().getName() + " view : "+view.toString();
+        return this.getClass().getName();
     }
 
     @Override
     public boolean isIdleNow() {
         if (isIdle) return true;
 
-        isIdle = matcher.matches(view);
+        if (view != null) {
+            isIdle = matcher.matches(view);
+        } else if (activityElement != null) {
+            isIdle = isMatched(activityElement, matcher);
+        }
         Log.i(TAG, "isIdleNow: " + isIdle);
         if (isIdle) {
             resourceCallback.onTransitionToIdle();

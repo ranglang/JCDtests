@@ -240,4 +240,12 @@ public class Judge {
         java.util.regex.Matcher m = pattern.matcher(str);
         return m.matches();
     }
+    public static boolean isMatched(ActivityElement ae, Matcher<View> matcher) {
+        try {
+            given(ae).check(matches(matcher));
+            return true;
+        } catch (Throwable e) {
+            return false;
+        }
+    }
 }

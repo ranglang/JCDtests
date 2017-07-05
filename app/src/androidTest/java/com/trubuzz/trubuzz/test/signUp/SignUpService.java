@@ -40,16 +40,16 @@ public interface SignUpService {
     void type_email_address(String email);
 
     /**
-     * 输入邮箱注册的密码
+     * 输入密码
      * @param password
      */
-    void type_email_password(String password);
+    void type_password(String password);
 
     /**
-     * 输入邮箱注册确认密码
+     * 输入确认密码
      * @param confirmPassword
      */
-    void type_email_confirm_password(String confirmPassword);
+    void type_confirm_password(String confirmPassword);
 
     /**
      * 同意服务条款
@@ -85,4 +85,33 @@ public interface SignUpService {
      *      需校验自动登录系统
      */
     void check_sign_up_successful();
+
+    /**
+     * 输入国别码
+     * @param country_code
+     */
+    void type_country_code(String country_code);
+
+    /**
+     * 输入手机号
+     * @param phone
+     */
+    void type_phone_number(String phone);
+
+    /**
+     * 点击获取验证码
+     */
+    void do_get_sms_code();
+
+    /**
+     * 输入短信验证码
+     * @param phone
+     * @param sms_code null : 自动化获取验证码
+     */
+    String type_sms_code(String phone, String sms_code);
+
+    /**
+     * 点击手机注册的提交按钮
+     */
+    void submit_phone_sign_up();
 }

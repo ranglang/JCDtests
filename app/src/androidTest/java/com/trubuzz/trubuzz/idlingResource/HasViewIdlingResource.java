@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.trubuzz.trubuzz.feature.custom.handlers.ViewsFinder;
+import com.trubuzz.trubuzz.shell.Element;
 
 import org.hamcrest.Matcher;
 
@@ -24,6 +25,10 @@ public class HasViewIdlingResource implements IdlingResource {
     public HasViewIdlingResource(boolean exist, Matcher<View> matcher) {
         this.exist = exist;
         this.matcher = matcher;
+    }
+    public HasViewIdlingResource(boolean exist, Element<Matcher<View>> element) {
+        this.exist = exist;
+        this.matcher = element.way();
     }
 
     @Override

@@ -55,4 +55,14 @@
 
 8.  (待解决)通过反射获取ViewInteraction对象 , 实现循环遍历
 
-9.  toast 匹配出现问题 , 错误的toast可成功匹配
+9.  (已解决)toast 匹配出现问题 , 错误的toast可成功匹配
+        可能是一个bug , 已不记得解决方案了
+
+10. (待解决)IdlingResource 卡死的问题
+       问题:
+            使用IdlingResource 的时候线程卡死, 测试一直等待下去 , 具体现象(光标不动 , toast不消失 )
+       可能的原因:
+            在等待空闲的时候使用了 check(...) 这个方法 或者是 perform(...) 方法
+            这两个方法中都存在着同步线程的操作 , 或者操作线程的操作
+       解决方案:
+            1. 使用Android原生的view操作的方法去检查view , 需解决Element转View的方法.
