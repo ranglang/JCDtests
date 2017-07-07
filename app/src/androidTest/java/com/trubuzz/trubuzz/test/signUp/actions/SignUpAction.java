@@ -1,14 +1,20 @@
 package com.trubuzz.trubuzz.test.signUp.actions;
 
+
+import android.util.Log;
+
 import com.trubuzz.trubuzz.constant.Conf;
+import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
-import com.trubuzz.trubuzz.idlingResource.ElementExistIR;
-import com.trubuzz.trubuzz.idlingResource.HasViewIdlingResource;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
-import com.trubuzz.trubuzz.idlingResource.ViewMatcherIdlingResource;
 import com.trubuzz.trubuzz.test.signUp.SignUpService;
+import com.trubuzz.trubuzz.test.signUp.tests.SignUpReverseTest;
+import com.trubuzz.trubuzz.test.signUp.views.SignUpToast;
 import com.trubuzz.trubuzz.test.signUp.views.SignUpView;
+import com.trubuzz.trubuzz.utils.AdminUtil;
 import com.trubuzz.trubuzz.utils.DoIt;
+import com.trubuzz.trubuzz.utils.Judge;
+
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -23,6 +29,7 @@ import static com.trubuzz.trubuzz.feature.custom.handlers.ViewInteractionHandler
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_auto_login_successful;
+import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 import static org.hamcrest.core.IsNot.not;
 
 /**
@@ -30,7 +37,13 @@ import static org.hamcrest.core.IsNot.not;
  */
 
 public class SignUpAction implements SignUpService {
-    SignUpView sv = new SignUpView();
+    private SignUpView sv = new SignUpView();
+    private SignUpToast st = new SignUpToast();
+
+    @Override
+    public SignUpToast theToast() {
+        return st;
+    }
 
     @Override
     public void into_sign_up_page() {
@@ -108,11 +121,12 @@ public class SignUpAction implements SignUpService {
     }
 
     @Override
-    public void type_image_verify_code(String imageCode) {
+    public String type_image_verify_code(String imageCode) {
         if (imageCode == null) {
             imageCode = Conf.CURRENT_IMAGE_STRATEGY.getImageCode();
         }
         given(sv.image_captcha_input).perform(replaceText(imageCode));
+        return imageCode;
     }
 
     @Override
@@ -146,7 +160,7 @@ public class SignUpAction implements SignUpService {
     public String type_sms_code(String phone, String sms_code) {
         if (sms_code == null) {
             sms_code = "123456";
-////---            sms_code = new AdminUtil().getCurrentSmsCode(phone);
+            sms_code = new AdminUtil().getCurrentSmsCode(phone);
         }
         DoIt.regIdlingResource(new ViewIdlingResource(getView(sv.sms_captcha_input)));
         given(sv.sms_captcha_input).perform(replaceText(sms_code));
@@ -158,4 +172,33 @@ public class SignUpAction implements SignUpService {
     public void submit_phone_sign_up() {
         given(sv.phone_reg_submit).perform(click());
     }
+
+    @Override
+    public void check_invalid_email_sign_up(String email, SignUpReverseTest signUpReverseTest) {
+        if (Judge.isMatched(email, Env.emailRegex)) {
+            check_toast_msg(st.incorrect_email_format_toast);
+        } else {
+            check_image_verify_code_show();
+            String imageVerifyCode = type_image_verify_code(null);
+            // 讲获取的图像验证码put
+            signUpReverseTest.runTimeData("imageCaptcha" ,imageVerifyCode);
+            confirm_image_verify_code_input();
+            check_toast_msg(st.invalid_email_toast);
+        }
+    }
+
+    @Override
+    public void check_invalid_password_sign_up(String password, String confirmPassword, boolean isFormat) {
+        if (!isFormat) {
+            check_toast_msg(st.incorrect_password_format_toast);
+        } else if (!password.equals(confirmPassword)) {
+            check_toast_msg(st.incorrect_password_confirm_toast);
+        } else {
+            Log.e(Env.TAG, String.format("check_invalid_password_sign_up: " +
+                    "数据设计错误 ,反向用例设计了正向的数据  : \n " +
+                    "password : %s ; password confirm : %s", password, confirmPassword));
+        }
+    }
+
+
 }

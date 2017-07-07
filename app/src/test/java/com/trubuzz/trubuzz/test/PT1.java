@@ -1,6 +1,7 @@
 package com.trubuzz.trubuzz.test;
 
 import com.alibaba.fastjson.JSON;
+import com.trubuzz.trubuzz.bean.ImageS;
 import com.trubuzz.trubuzz.bean.Person;
 
 import org.junit.Ignore;
@@ -27,11 +28,15 @@ public class PT1 {
     public static final String s = "";
     public static final String p_s = "~&";
 
-//    @Test
-    @Parameters({"17, false",
-            "22, true" })
-    public void personIsAdult(int age, boolean valid) throws Exception {
-        assertThat(new Person(age).isAdult(), is(valid));
+    @Test
+    @Parameters({
+//            "17   ,   ''",
+            "22, ~      ~" ,
+            "22, ' or 1=1--" ,
+    })
+    public void personIsAdult(int age, String img) throws Exception {
+        String s = img.replaceAll("~", "");
+        System.out.println(s + " | " + age);
     }
 
 
@@ -55,7 +60,7 @@ public class PT1 {
                     , o.getClass(), map.get(o).getClass()));
         }
     }
-    @Test
+//    @Test
     @CParameters("[12,'11']")
     public void listTest(List list) throws Exception {
         for (Object o : list) {

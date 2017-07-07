@@ -7,6 +7,7 @@ import com.trubuzz.trubuzz.constant.enumerate.Commissioned;
 import com.trubuzz.trubuzz.constant.enumerate.OrderType;
 import com.trubuzz.trubuzz.constant.enumerate.Position;
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
+import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.common.CommonAction;
@@ -47,28 +48,6 @@ public class TradeReverseTest extends BaseTest {
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
 
-    private Object[] trade_small_hk_stocks_data() {
-        return new Object[]{
-                create_trade_small_hk_stocks_data("00939", BULL, limit, "9.03", "1000", SHARES)
-        };
-    }
-
-    private Object[] not_enough_to_trade_one_data() {
-        return new Object[]{
-                create_not_enough_to_trade_one_data("BABA", BULL, market, US, null, "50")
-        };
-    }
-    private Object[] invalid_entrustment_price_trade_data(){
-        return new Object[]{
-                create_invalid_entrustment_price_trade_data("AAPL", BULL, US, "", SHARES, "1")
-        };
-    }
-    private Object[] invalid_amount_trade_data() {
-        return new Object[]{
-                create_invalid_amount_trade_data("AAPL", BULL, limit, US, "191", SHARES, "")
-        };
-    }
-
     @Before
     public void wishLogin() {
         //使用开户用户登录 ; 进入行情板块
@@ -86,9 +65,12 @@ public class TradeReverseTest extends BaseTest {
      * @param amount
      */
     @Test
-    @Parameters(method = "trade_small_hk_stocks_data")
-    public void trade_small_hk_stocks(String symbol, Position position, Commissioned limitOrMarket,
-                                      String price, String amount, OrderType orderType) {
+    @Parameters({
+            "00939, BULL, limit, 9.03, 1000, SHARES",
+    })
+    public void trade_small_hk_stocks(@Var("symbol") String symbol, @Var("position") Position position,
+                                      @Var("limitOrMarket") Commissioned limitOrMarket,@Var("price") String price,
+                                      @Var("amount") String amount, @Var("orderType") OrderType orderType) {
         ta.into_ordering_page(symbol, position);
         ta.check_order_default_show();
 
@@ -111,11 +93,6 @@ public class TradeReverseTest extends BaseTest {
 
     }
 
-    private Object[] create_trade_small_hk_stocks_data(String symbol, Position position,
-                                                       Commissioned limitOrMarket, String price, String amount, OrderType orderType) {
-        return new Object[]{symbol, position, limitOrMarket, price, amount, orderType};
-    }
-
     /**
      * 金额成交不够交易1股
      * @param symbol
@@ -125,9 +102,12 @@ public class TradeReverseTest extends BaseTest {
      * @param price
      */
     @Test
-    @Parameters(method = "not_enough_to_trade_one_data")
-    public void not_enough_to_trade_one(String symbol, Position position, Commissioned limitOrMarket,
-                                        StockType stockType, String price, String amount) {
+    @Parameters({
+            "BABA, BULL, market, US, null, 50",
+    })
+    public void not_enough_to_trade_one(@Var("symbol") String symbol, @Var("position") Position position,
+                                        @Var("limitOrMarket") Commissioned limitOrMarket,@Var("stockType") StockType stockType,
+                                        @Var("price") String price,@Var("amount") String amount) {
         ta.into_ordering_page(symbol, position);
         ta.check_order_default_show();
 
@@ -149,11 +129,6 @@ public class TradeReverseTest extends BaseTest {
         check_toast_msg(vt.order_lotsize_limit_toast);
     }
 
-    private Object[] create_not_enough_to_trade_one_data(String symbol, Position position, Commissioned limitOrMarket,
-                                                         StockType stockType, String price, String amount) {
-        return new Object[]{symbol, position, limitOrMarket, stockType, price, amount};
-    }
-
     /**
      * 使用无效的委托价格交易
      * @param symbol
@@ -164,9 +139,12 @@ public class TradeReverseTest extends BaseTest {
      * @param amount
      */
     @Test
-    @Parameters(method = "invalid_entrustment_price_trade_data")
-    public void invalid_entrustment_price_trade(String symbol, Position position, StockType stockType,
-                                                String price, OrderType orderType, String amount) {
+    @Parameters({
+            "AAPL, BULL, US, , SHARES, 1",
+    })
+    public void invalid_entrustment_price_trade(@Var("symbol") String symbol, @Var("position") Position position,
+                                                @Var("stockType") StockType stockType,@Var("price") String price,
+                                                @Var("orderType") OrderType orderType, @Var("amount") String amount) {
         ta.into_ordering_page(symbol, position);
         ta.check_order_default_show();
 
@@ -187,10 +165,6 @@ public class TradeReverseTest extends BaseTest {
         check_toast_msg(vt.order_invalid_price_toast);
     }
 
-    private Object[] create_invalid_entrustment_price_trade_data(String symbol, Position position, StockType stockType,
-                                                                 String price, OrderType orderType, String amount) {
-        return new Object[]{symbol, position, stockType, price, orderType, amount};
-    }
 
     /**
      * 无效的股数/总金额交易
@@ -203,9 +177,12 @@ public class TradeReverseTest extends BaseTest {
      * @param amount  空股数/总金额 , 0股数/总金额
      */
     @Test
-    @Parameters(method = "")
-    public void invalid_amount_trade(String symbol ,Position position ,Commissioned limitOrMarket ,StockType stockType ,
-                                     String price , OrderType orderType ,String amount){
+    @Parameters({
+            "AAPL, BULL, limit, US, 191, SHARES, ",
+    })
+    public void invalid_amount_trade(@Var("symbol") String symbol ,@Var("position") Position position ,
+                                     @Var("limitOrMarket") Commissioned limitOrMarket ,@Var("stockType") StockType stockType ,
+                                     @Var("price") String price , @Var("orderType") OrderType orderType ,@Var("amount") String amount){
         ta.into_ordering_page(symbol, position);
         ta.check_order_default_show();
 
@@ -224,10 +201,6 @@ public class TradeReverseTest extends BaseTest {
         ta.click_keyboard_submit();
         CommonAction.check_current_activity(AName.ORDER);
         check_toast_msg(vt.order_lotsize_limit_toast);
-    }
-    private Object[] create_invalid_amount_trade_data(String symbol ,Position position ,Commissioned limitOrMarket ,StockType stockType ,
-                                     String price , OrderType orderType ,String amount){
-        return new Object[]{symbol,position ,limitOrMarket ,stockType ,price ,orderType ,amount};
     }
 }
 

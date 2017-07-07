@@ -58,11 +58,21 @@
 9.  (已解决)toast 匹配出现问题 , 错误的toast可成功匹配
         可能是一个bug , 已不记得解决方案了
 
-10. (待解决)IdlingResource 卡死的问题
-       问题:
-            使用IdlingResource 的时候线程卡死, 测试一直等待下去 , 具体现象(光标不动 , toast不消失 )
-       可能的原因:
-            在等待空闲的时候使用了 check(...) 这个方法 或者是 perform(...) 方法
-            这两个方法中都存在着同步线程的操作 , 或者操作线程的操作
-       解决方案:
-            1. 使用Android原生的view操作的方法去检查view , 需解决Element转View的方法.
+10. (已解决)IdlingResource 卡死的问题
+    问题:
+         使用 IdlingResource 的时候线程卡死, 测试一直等待下去 , 具体现象(光标不动 , toast不消失 )
+    可能的原因:
+         在等待空闲的时候使用了 check(...) 这个方法 或者是 perform(...) 方法
+         这两个方法中都存在着同步线程的操作 , 或者操作线程的操作
+    解决方案:
+         1. 使用Android原生的view操作的方法去检查view , 需解决Element转View的方法.
+         2. 依旧使用ViewIdlingResource 解决
+         3. 使用自定义智能等待 Park.waitFor(...)
+    采纳:
+         2 和 3 结合使用 . 由于 IdlingResource 在主线程上无法做更多的操作
+11. 解决不同平台不同数据的问题 , 即必须要有多套数据
+    解决方案:
+         1. 使用文件做参数(csv , json , Excel )
+         2. 使用网络获取参数
+         3. 在设计参数时就设计多套参数(不太好管理)
+

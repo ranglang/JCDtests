@@ -8,6 +8,7 @@ import com.trubuzz.trubuzz.feature.ClassWatcherAdvance;
 import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.utils.DoIt;
+import com.trubuzz.trubuzz.utils.Kvp;
 import com.trubuzz.trubuzz.utils.Registor;
 
 import org.hamcrest.Matcher;
@@ -23,6 +24,7 @@ import java.util.Map;
 import static android.support.test.espresso.action.ViewActions.click;
 import static com.trubuzz.trubuzz.constant.Env.uiDevice;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.utils.DoIt.regIdlingResource;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 
 /**
@@ -42,6 +44,7 @@ public class BaseTest {
     @Rule
     public TestWatcherAdvance testWatcherAdvance = new TestWatcherAdvance(classWatcherAdvance.getTestClass() , this);
 
+    protected BaseTest(){}
 
     @Before
     public void setUp() {
@@ -102,12 +105,38 @@ public class BaseTest {
         testWatcherAdvance.setUpdateData(uData);
     }
 
-    protected void runTimeData(String key ,Object value) {
+    /**
+     * 设置运行时需要的参数
+     * @param key
+     * @param value
+     */
+    public void runTimeData(String key ,Object value) {
+        Map<String, Object> runTimeData = getInstantiateRunTimeData();
+        runTimeData.put(key, value);
+    }
+    public void runTimeData(Object ... values){
+        int len = values.length;
+        if(len < 2 || len % 2 != 0) return;
+
+        Map<String, Object> runTimeData = getInstantiateRunTimeData();
+        for (int i=0; i<len; i+=2) {
+            runTimeData.put((String) values[i], values[i+1]);
+        }
+    }
+    @SafeVarargs
+    public final void runTimeData(Kvp<String, Object>... kvps){
+        Map<String, Object> runTimeData = getInstantiateRunTimeData();
+        for (Kvp<String ,Object> kvp : kvps) {
+            runTimeData.put(kvp.getKey(), kvp.getValue());
+        }
+    }
+    private Map<String, Object> getInstantiateRunTimeData(){
         Map<String, Object> runTimeData = testWatcherAdvance.getRunTimeData();
         if (runTimeData == null) {
             runTimeData = new HashMap<>();
+            // 如果get过来的值为null 则表示没有引用 , so 需要调用 set方法
+            testWatcherAdvance.setRunTimeData(runTimeData);
         }
-        runTimeData.put(key, value);
-        testWatcherAdvance.setRunTimeData(runTimeData);
+        return runTimeData;
     }
 }

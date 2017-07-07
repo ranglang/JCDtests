@@ -22,6 +22,7 @@ import static com.trubuzz.trubuzz.test.R.string.incorrect_sms_format;
 import static com.trubuzz.trubuzz.test.R.string.login;
 import static com.trubuzz.trubuzz.test.R.string.login_account_hint;
 import static com.trubuzz.trubuzz.test.R.string.login_failed;
+import static com.trubuzz.trubuzz.test.R.string.login_password_hint;
 import static com.trubuzz.trubuzz.test.R.string.ok;
 import static com.trubuzz.trubuzz.test.R.string.reset_pass_code_error;
 import static com.trubuzz.trubuzz.test.R.string.reset_password_mail_sent;
@@ -87,7 +88,7 @@ public class LoginView {
     public final ActivityElement username_input = new ActivityElement().setId("account").setHint(getString("请输入您的邮箱或手机号" , login_account_hint));
 
     // 密码输入框
-    public final String login_pwd_input_hint = getString("输入密码",sign_up_password_hint);
+    public final String login_pwd_input_hint = getString("输入密码",login_password_hint);
     public final ActivityElement login_pwd_input = new ActivityElement().setId("password").setHint(login_pwd_input_hint);
 
     // 忘记密码按钮

@@ -32,6 +32,7 @@ import static android.support.test.espresso.web.assertion.WebViewAssertions.webM
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_auto_login_successful;
+import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 import static com.trubuzz.trubuzz.test.common.GlobalView.assets_radio;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.feature.custom.handlers.ViewInteractionHandler.getView;
@@ -240,6 +241,17 @@ public class LoginAction implements LoginService{
         CommonAction.check_toast_msg(lt.sms_code_sent_toast);
         given(lv.sms_code_input).check(matches(isDisplayed()));
         given(lv.phone_submit_button).check(matches(isDisplayed()));
+    }
+
+    @Override
+    public void check_invalid_login(boolean usernameIsFormatted, String password) {
+        if (!usernameIsFormatted) {
+            check_toast_msg(lt.account_format_toast);
+        } else if ("".equals(password)) {
+            check_toast_msg(lt.password_empty_toast);
+        } else {
+            check_toast_msg(lt.login_failed_toast);
+        }
     }
 
 }

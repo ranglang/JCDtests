@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.test.espresso.PerformException;
@@ -13,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -28,13 +30,17 @@ import java.util.regex.Pattern;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.core.deps.guava.base.Preconditions.checkNotNull;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
+import static com.trubuzz.trubuzz.constant.Env.instrumentation;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withView;
 import static com.trubuzz.trubuzz.feature.custom.handlers.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.utils.God.getViewWith;
 import static org.hamcrest.Matchers.allOf;
+import static com.trubuzz.trubuzz.utils.God.getMatchedView;
 
 /**
  * Created by king on 2016/9/5.
@@ -247,5 +253,23 @@ public class Judge {
         } catch (Throwable e) {
             return false;
         }
+    }
+
+    /**
+     * 从 RootView 中遍历寻找匹配的view
+     * @param matcher
+     * @return 若能匹配到则 return true;
+     */
+    public static boolean hasMatched(Matcher<View> matcher) {
+        Activity activity = God.getCurrentActivity(instrumentation);
+        View decorView = activity.getWindow().getDecorView();
+        return getMatchedView(decorView, matcher) != null;
+    }
+    public static boolean hasMatched(View view, Matcher<View> matcher) {
+        return getMatchedView(view,matcher) != null;
+    }
+
+    public static boolean hasView(String shortId) {
+        return getViewWith(shortId) != null ;
     }
 }

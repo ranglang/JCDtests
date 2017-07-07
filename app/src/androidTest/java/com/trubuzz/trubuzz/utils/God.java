@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import java.lang.reflect.Array;
@@ -26,7 +27,9 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.support.test.espresso.core.deps.guava.base.Preconditions.checkNotNull;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
+import static com.trubuzz.trubuzz.constant.Env.instrumentation;
 
 /**
  * Created by king on 2016/9/5.
@@ -291,6 +294,39 @@ public class God {
                 tv.data, view.getContext().getResources().getDisplayMetrics()) : 0;
 
         return new ScreenRectangle(statusBarHeight, m.heightPixels - actionBarHeight, 0, m.widthPixels);
+    }
+
+    /**
+     * 遍历 view 树 , 从ViewGroup 中获取匹配的 view
+     * @param view
+     * @param matcher
+     * @return
+     */
+    public static View getMatchedView(View view , org.hamcrest.Matcher<View> matcher) {
+        checkNotNull(view);
+        if (matcher.matches(view)) {
+            return view;
+        }
+        ViewGroup parent;
+        if (!(view instanceof ViewGroup))   return null;
+
+        parent = (ViewGroup) view;
+        for(int i=0; i<parent.getChildCount(); i++) {
+            View childView = parent.getChildAt(i);
+            if (matcher.matches(childView)) {
+                return childView;
+            }
+            View matchedView = getMatchedView(childView, matcher);
+            if(matchedView != null) return matchedView;
+        }
+        return null;
+    }
+
+
+    public static View getViewWith(String shortId) {
+        Activity activity = God.getCurrentActivity(instrumentation);
+        View view = activity.findViewById(Find.byShortId(shortId));
+        return view;
     }
 
     /**

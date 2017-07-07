@@ -32,19 +32,7 @@ public class Run {
 
     @Test
     public void xrun() throws NoSuchMethodException {
-//        Map map = new HashMap();
-//        map.put("aa", 123);
-//        map.put("bb", 32);
-//
-//        ArrayList<Integer> list = new ArrayList<>();
-//        list.add(1);
-//        list.add(3);
-//        System.out.println(JSON.toJSONString(list));
-
-//        String s = "{\"aa\":123,\"bb\":32}";
-        String s = "{aa:'123',bb:'s'}~&";
-//        s = "[1,3]";
-
+        System.out.println(1%2);
     }
 
     private String formatString(String s ,String p_s) {

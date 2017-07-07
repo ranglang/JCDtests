@@ -1,12 +1,15 @@
 package com.trubuzz.trubuzz.test.signUp;
 
 import com.trubuzz.trubuzz.constant.enumerate.Account;
+import com.trubuzz.trubuzz.test.common.TestsService;
+import com.trubuzz.trubuzz.test.signUp.tests.SignUpReverseTest;
+import com.trubuzz.trubuzz.test.signUp.views.SignUpToast;
 
 /**
  * Created by king on 2017/7/3.
  */
 
-public interface SignUpService {
+public interface SignUpService extends TestsService<SignUpToast> {
 
     /**
      * 进入注册页面
@@ -72,8 +75,9 @@ public interface SignUpService {
      * 输入图像验证码
      * @param imageCode null : 获取正确的验证码并输入
      *                  其他 : 原样输入
+     * @return 返回图像验证码 , 主要用在参数值为null时 , 返回实时验证码
      */
-    void type_image_verify_code(String imageCode);
+    String type_image_verify_code(String imageCode);
 
     /**
      * 确认输入的图像验证码 ( 点击 ok/确定 按钮 )
@@ -114,4 +118,20 @@ public interface SignUpService {
      * 点击手机注册的提交按钮
      */
     void submit_phone_sign_up();
+
+    /**
+     * 验证使用无效的邮箱地址注册
+     *      无效场景: 已注册 , 格式不正确 , 邮箱地址不存在
+     * @param email
+     * @param signUpReverseTest
+     */
+    void check_invalid_email_sign_up(String email, SignUpReverseTest signUpReverseTest);
+
+    /**
+     * 使用无效的密码注册
+     * @param password 密码
+     * @param confirmPassword 确认密码
+     * @param isFormat 是否是正确的格式  true : 正确
+     */
+    void check_invalid_password_sign_up(String password, String confirmPassword, boolean isFormat);
 }

@@ -27,6 +27,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
+import static com.trubuzz.trubuzz.test.common.CommonAction.check_auto_login_successful;
 import static com.trubuzz.trubuzz.test.common.GlobalView.assets_radio;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.test.common.GlobalView.radio_tray;
@@ -117,6 +118,7 @@ public class Wish {
         given(loginView.username_input).perform(replaceText(user));
         given(loginView.login_pwd_input).perform(replaceText(pwd));
         given(loginView.login_button).perform( click());
+        check_auto_login_successful();
     }
 
     /**

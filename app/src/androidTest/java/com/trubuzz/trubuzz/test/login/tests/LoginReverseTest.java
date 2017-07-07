@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.test.login.tests;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -32,24 +33,6 @@ public class LoginReverseTest extends BaseTest {
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
-    private Object[] invalid_input_login_data(){
-        return new Object[]{
-                create_invalid_input_login_data("", "sS123321", lt.account_format_toast)
-        };
-    }
-    private Object[] sql_inject_login_data(){
-        return new Object[]{
-                create_invalid_input_login_data("' or 1=1--", "sS123321", lt.account_format_toast)
-        };
-    }
-    private Object[] not_verify_7days_data(){
-        return new Object[]{
-                create_not_verify_7days_data("star006@abc.com","aA123321",false)
-        };
-    }
-
-    /****/
-
 
     @Before
     public void logout(){
@@ -60,44 +43,52 @@ public class LoginReverseTest extends BaseTest {
      * 可测试所以无效的登录, 变化全看data的设计
      * @param username
      * @param password
-     * @param expect
      */
     @Test
-    @Parameters(method = "invalid_input_login_data")
-    public void invalid_input_login(String username , String password , ToastElement expect){
+    @Parameters({
+            " , , false",           // 全部为空
+            " , sS123321, false",           // 空用户名
+            "star003@abc.com, , true",      //  空密码
+            "star003@abc.com, 111222, true",      // 密码错误
+    })
+    public void invalid_input_login(@Var("username") String username , @Var("password") String password ,
+                                    @Var("usernameIsFormatted") boolean usernameIsFormatted){
         la.type_username(username);
         la.type_password(password);
         la.click_login_button();
-        check_toast_msg(expect);
+        la.check_invalid_login(usernameIsFormatted, password);
         check_current_activity(AName.LOGIN);
-    }
-    private Object[] create_invalid_input_login_data(String username , String password , ToastElement expect){
-        return new Object[]{username, password, expect};
     }
 
     /**
      * sql 注入攻击方式登录测试
-     * 步骤同无效输入登录{@link #invalid_input_login(String, String, ToastElement)} ,故
+     * 步骤同无效输入登录{@link #invalid_input_login(String, String, boolean)} ,故
      *      共享其data创建方法
      * @param username
      * @param password
-     * @param expect
+     * @param usernameIsFormatted
      */
     @Test
-    @Parameters(method = "sql_inject_login_data")
-    public void sql_inject_login(String username , String password , ToastElement expect){
-        this.invalid_input_login(username ,password ,expect);
+    @Parameters({
+            "' or 1=1-- , sS123321, false"
+    })
+    public void sql_inject_login(@Var("username") String username , @Var("password") String password ,
+                                 @Var("usernameIsFormatted") boolean usernameIsFormatted){
+        this.invalid_input_login(username ,password ,usernameIsFormatted);
     }
 
     /**
      * 验证 7 天未登录的邮箱账号
      * @param username
      * @param password
-     * @param sendEmail
+     * @param sendEmail 是否点击重发验证邮件 . true : 发送
      */
     @Test
-    @Parameters(method = "not_verify_7days_data")
-    public void not_verify_7days(String username , String password ,boolean sendEmail){
+    @Parameters({
+            "star006@abc.com, aA123321, false"
+    })
+    public void not_verify_7days(@Var("username") String username , @Var("password") String password ,
+                                 @Var("sendEmail") boolean sendEmail){
         la.type_username(username);
         la.type_password(password);
         la.click_login_button();
@@ -105,9 +96,5 @@ public class LoginReverseTest extends BaseTest {
         la.resend_mail(sendEmail);
         check_current_activity(AName.LOGIN);
     }
-    private Object[] create_not_verify_7days_data(String username , String password ,boolean sendEmail){
-        return new Object[]{username ,password ,sendEmail};
-    }
-
 
 }

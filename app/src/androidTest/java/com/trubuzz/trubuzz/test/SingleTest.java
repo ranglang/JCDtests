@@ -68,7 +68,7 @@ public class SingleTest extends BaseTest{
     String userContactName = "Android Tester";
 
     @Before
-    public void setUp(){
+    public void setup(){
 
     }
 

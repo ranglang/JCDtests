@@ -17,3 +17,8 @@
                        .setUncle(new ActivityElement().setChildren(email_input));
         这里的 reg_pwd 就是公共 element , email_reg 和 phone_reg 共同使用, 若直接使用 reg_pwd.setUncle(...)
             将会改变其值 , 因为这是引用传递.
+8.  @Parameters 使用时需注意 \32(空格) 的使用
+            1.  默认过滤前后空格
+            2.  如需使用空字符串 可如此使用 ",123" .这里就代表了两个参数 , 第一个为"" , 第二个为123
+            3.  如需使用空格 这可麻烦了 , 该注解不支持 , 只能用特殊字符代替, 然后在方法中替换成空格
+                    如 "~~~ ,123" , 然后在方法中将 ~~~ 全替换成 " " 即可.

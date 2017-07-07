@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * Created by king on 16/12/12.
+ * @deprecated getViews(...) 中最终使用了 perform(nothing()) 方法来获取view , 将导致线程死亡
+*          use {@link ViewExistIR}
  */
 
 public class HasViewIdlingResource implements IdlingResource {

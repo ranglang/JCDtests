@@ -10,6 +10,8 @@ import static com.trubuzz.trubuzz.utils.Judge.isExist;
  * Created by king on 2017/7/5.
  * 等待一个ActivityElement 的出现或消失
  *      此处的出现或消失是针对于布局上的 , 而不是简单的 isDisplayed(可见/隐藏)
+ * @deprecated      isExist(..) 中使用了 check(...)来判断 , 将导致线程死亡
+ *      use {@link ViewExistIR}
  */
 
 public class ElementExistIR implements IdlingResource{

@@ -149,4 +149,11 @@ public interface LoginService {
      *      重新获取倒计时功能尚未实现 ---/
      */
     void check_get_sms_code_successful();
+
+    /**
+     * 检查无效登录提示信息
+     * @param usernameIsFormatted  true: 用户名格式正确
+     * @param password
+     */
+    void check_invalid_login(boolean usernameIsFormatted, String password);
 }
