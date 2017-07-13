@@ -3,11 +3,13 @@ package com.trubuzz.trubuzz.shell;
 import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.web.model.Atom;
 import android.view.View;
 
 import com.trubuzz.trubuzz.feature.custom.assertors.CustomAssert;
 import com.trubuzz.trubuzz.idlingResource.WaitStrategy;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.AtomElement;
 
 import org.hamcrest.Matcher;
 
@@ -66,7 +68,17 @@ public class Park {
         return element;
     }
 
-/****************** web view ********************/
+    /****************** web view ********************/
+
+
+    /**
+     *
+     * @param atomElement
+     * @return
+     */
+    public static Atom find(AtomElement atomElement){
+        return atomElement.way();
+    }
 
     /**
      * 封装onWebView

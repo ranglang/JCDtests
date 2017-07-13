@@ -27,7 +27,6 @@ import static com.trubuzz.trubuzz.test.R.string.ok;
 import static com.trubuzz.trubuzz.test.R.string.reset_pass_code_error;
 import static com.trubuzz.trubuzz.test.R.string.reset_password_mail_sent;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_confirm_hint;
-import static com.trubuzz.trubuzz.test.R.string.sign_up_description;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_email_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_password_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_phone_hint;

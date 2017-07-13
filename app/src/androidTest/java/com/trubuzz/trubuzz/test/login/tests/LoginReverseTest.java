@@ -52,17 +52,18 @@ public class LoginReverseTest extends BaseTest {
             "star003@abc.com, 111222, true",      // 密码错误
     })
     public void invalid_input_login(@Var("username") String username , @Var("password") String password ,
-                                    @Var("usernameIsFormatted") boolean usernameIsFormatted){
+                                    @Var("usernameIsFormatted") String usernameIsFormatted){
+        boolean _usernameIsFormatted = Boolean.valueOf(usernameIsFormatted);
         la.type_username(username);
         la.type_password(password);
         la.click_login_button();
-        la.check_invalid_login(usernameIsFormatted, password);
-        check_current_activity(AName.LOGIN);
+        la.check_invalid_login(_usernameIsFormatted, password);
+//        check_current_activity(AName.LOGIN);
     }
 
     /**
      * sql 注入攻击方式登录测试
-     * 步骤同无效输入登录{@link #invalid_input_login(String, String, boolean)} ,故
+     * 步骤同无效输入登录{@link #invalid_input_login(String, String, String)} ,故
      *      共享其data创建方法
      * @param username
      * @param password
@@ -73,7 +74,7 @@ public class LoginReverseTest extends BaseTest {
             "' or 1=1-- , sS123321, false"
     })
     public void sql_inject_login(@Var("username") String username , @Var("password") String password ,
-                                 @Var("usernameIsFormatted") boolean usernameIsFormatted){
+                                 @Var("usernameIsFormatted") String usernameIsFormatted){
         this.invalid_input_login(username ,password ,usernameIsFormatted);
     }
 
@@ -88,13 +89,14 @@ public class LoginReverseTest extends BaseTest {
             "star006@abc.com, aA123321, false"
     })
     public void not_verify_7days(@Var("username") String username , @Var("password") String password ,
-                                 @Var("sendEmail") boolean sendEmail){
+                                 @Var("sendEmail") String sendEmail){
+        boolean  _sendEmail = Boolean.valueOf(sendEmail);
         la.type_username(username);
         la.type_password(password);
         la.click_login_button();
         la.check_resend_mail_alert();
-        la.resend_mail(sendEmail);
-        check_current_activity(AName.LOGIN);
+        la.resend_mail(_sendEmail);
+//        check_current_activity(AName.LOGIN);
     }
 
 }

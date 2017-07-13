@@ -16,10 +16,12 @@ import com.trubuzz.trubuzz.utils.God;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import static com.trubuzz.trubuzz.constant.Conf.p_s;
@@ -28,7 +30,7 @@ import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 /**
  * Created by king on 2017/7/6.
  */
-
+@RunWith(JUnitParamsRunner.class)
 public class SignUpReverseTest extends BaseTest {
     private SignUpService ss = new SignUpAction();
     private final String key_pwd = "password";

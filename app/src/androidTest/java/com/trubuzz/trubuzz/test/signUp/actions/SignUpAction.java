@@ -48,6 +48,7 @@ public class SignUpAction implements SignUpService {
     @Override
     public void into_sign_up_page() {
         given(sv.sign_up_link).perform(click());
+        Log.i(Env.TAG, "into_sign_up_page . ");
     }
 
     @Override
@@ -176,15 +177,19 @@ public class SignUpAction implements SignUpService {
     @Override
     public void check_invalid_email_sign_up(String email, SignUpReverseTest signUpReverseTest) {
         if (Judge.isMatched(email, Env.emailRegex)) {
-            check_toast_msg(st.incorrect_email_format_toast);
-        } else {
             check_image_verify_code_show();
             String imageVerifyCode = type_image_verify_code(null);
             // 讲获取的图像验证码put
             signUpReverseTest.runTimeData("imageCaptcha" ,imageVerifyCode);
             confirm_image_verify_code_input();
             check_toast_msg(st.invalid_email_toast);
+            return;
         }
+        if("".equals(email.trim())){
+            check_toast_msg(st.email_empty_toast);
+            return;
+        }
+        check_toast_msg(st.incorrect_email_format_toast);
     }
 
     @Override

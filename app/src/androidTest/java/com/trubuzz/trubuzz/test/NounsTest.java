@@ -12,6 +12,7 @@ import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,15 +77,10 @@ public class NounsTest extends BaseTest {
         };
     }
 
-//    @BeforeClass
-//    public static void checkLogin(){
-//        Wish.wantBrokerLogin();
-//    }
-    @AfterClass
-    public static void logout(){
-        Wish.logout();
+    @Before
+    public void checkLogin(){
+        Wish.wantBrokerLogin();
     }
-
     @Test
     @Parameters( method = "nounsData")
     public void nouns(@Var("noun") Element noun , @Var("expect") Nouns expect ,

@@ -58,7 +58,7 @@ public class SignUpTest extends BaseTest {
      * @param password
      */
     @Test
-    @Parameters({"star000@gg.com,aA111222"})
+    @Parameters({"star001@gg.com,aA123321"})
     public void sign_up_with_email_flow(@Var("email") String email, @Var("password") String password){
         ss.verify_email_sign_up_default_show();
 
@@ -85,7 +85,7 @@ public class SignUpTest extends BaseTest {
      */
     @Test
     @Parameters({
-            "86,12122226666,aA11112222",
+            "86,11799990001,aA123321",
     })
     public void sign_up_with_phone_flow(@Var("country_code") String country_code ,@Var("phone") String phone ,
                                         @Var("password") String password){

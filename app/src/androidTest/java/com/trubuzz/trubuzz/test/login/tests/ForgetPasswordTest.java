@@ -8,6 +8,7 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
+import com.trubuzz.trubuzz.feature.custom.parameters.GenreParameter;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -56,10 +57,10 @@ public class ForgetPasswordTest extends BaseTest {
      * @param accountType
      */
     @Test
-    @Parameters({
+    @GenreParameter(value = {
             "star003@abc.com ,MAIL",
             "18111110001 ,PHONE"
-    })
+    },type = {String.class ,Account.class})
     public void forget_password_account_follow(@Var("account") String account , @Var("accountType") Account accountType){
         la.type_username(account);
 

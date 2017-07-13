@@ -30,15 +30,20 @@ public class PT1 {
 
     @Test
     @Parameters({
-//            "17   ,   ''",
-            "22, ~      ~" ,
-            "22, ' or 1=1--" ,
+            "22, true" ,
+            "11, false" ,
     })
-    public void personIsAdult(int age, String img) throws Exception {
-        String s = img.replaceAll("~", "");
-        System.out.println(s + " | " + age);
+    public void personIsAdult(int age, boolean img) throws Exception {
+        System.out.println(img + " | " + age);
     }
 
+    @CParameters(em = ImageS.API)
+    public void emTest(List list) throws Exception {
+        for (Object o : list) {
+            System.out.println(String.format("%s  ; ", o));
+            System.out.println(String.format("class: %s ", o.getClass()));
+        }
+    }
 
 //    @Test
     @CParameters({"{n: ,m:''}","{n:20,m:'Jack'}"})

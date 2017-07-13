@@ -1,5 +1,6 @@
-package com.trubuzz.trubuzz.suite;
+package com.trubuzz.trubuzz.suite.subset;
 
+import com.trubuzz.trubuzz.suite.BaseSuite;
 import com.trubuzz.trubuzz.test.trade.tests.TradeTest;
 
 import org.junit.BeforeClass;
@@ -13,7 +14,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         TradeTest.class,
 })
-public class TradeSuite extends BaseSuite{
+public class TradeSuite extends BaseSuite {
     private static final String suiteDesc = "trade test ";
     private static final Class suiteClass = TradeSuite.class;
 

@@ -17,7 +17,7 @@ public enum ImageS {
     API {
         @Override
         public String getImageCode() {
-            return null;
+            return "this api";
         }
     },
     OCR {

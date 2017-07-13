@@ -89,14 +89,15 @@ public class ForgetPwdReverseTest extends BaseTest {
             "11800001111,true",
             "00001111,false",
     })
-    public void invalid_phone_get_sms_code(@Var("phone") String phone ,@Var("isFormatted") boolean isFormatted) {
+    public void invalid_phone_get_sms_code(@Var("phone") String phone ,@Var("isFormatted") String isFormatted) {
+        boolean _isFormatted = Boolean.valueOf(isFormatted);
         la.into_forget_password_page();
         la.select_phone_retrieve();
 
         la.type_phone_number(phone);
         la.get_sms_code();
 
-        if (isFormatted) check_toast_msg(lt.user_not_exist_toast);
+        if (_isFormatted) check_toast_msg(lt.user_not_exist_toast);
         else check_toast_msg(lt.incorrect_phone_format_toast);
     }
 

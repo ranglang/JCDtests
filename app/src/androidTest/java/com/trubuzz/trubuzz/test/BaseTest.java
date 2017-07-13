@@ -12,6 +12,7 @@ import com.trubuzz.trubuzz.utils.Kvp;
 import com.trubuzz.trubuzz.utils.Registor;
 
 import org.hamcrest.Matcher;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
@@ -26,6 +27,7 @@ import static com.trubuzz.trubuzz.constant.Env.uiDevice;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.regIdlingResource;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
+import static com.trubuzz.trubuzz.utils.DoIt.unAllRegIdlingResource;
 
 /**
  * Created by king on 2016/9/23.
@@ -50,6 +52,10 @@ public class BaseTest {
     public void setUp() {
         Registor.reg(BaseTest.class.toString(), this);
         sleep(1000);    //在每个test之间预留1秒的缓冲
+    }
+    @After
+    public void teardown(){
+        unAllRegIdlingResource();
     }
 
     /**

@@ -367,7 +367,17 @@ public class DoIt {
         return o != null && !o.isEmpty();
     }
 
-
+    public static Object[] list2array(List list) {
+        int size = list.size();
+        if (size < 1) {
+            return null;
+        }
+        Object[] es =  new Object[size];
+        for(int i=0; i<size ; i++) {
+            es[i] = list.get(i);
+        }
+        return es;
+    }
 
 /**************************** 由Google API 中摘出来的封装方法 *****************************/
     /**

@@ -31,6 +31,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
+import static com.trubuzz.trubuzz.shell.Park.find;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_auto_login_successful;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 import static com.trubuzz.trubuzz.test.common.GlobalView.assets_radio;
@@ -95,6 +96,7 @@ public class LoginAction implements LoginService{
 
     @Override
     public void check_broker() {
+        check_auto_login_successful();
         given(assets_radio).perform(click());
         given(AAsset.net_worth_view).check( matches((isDisplayed())));
     }
@@ -106,9 +108,13 @@ public class LoginAction implements LoginService{
         if (isExist(lv.intercom_layout)) {
             given(lv.intercom_close).perform(click());
         }
-        webGiven()
-                .withElement(lv.ib_broker_title)
+        onWebView()
+                .withElement(find(lv.ib_broker_title))
                 .check(webMatches(getText(), equalTo(lv.ib_broker_title_text)));
+
+//        webGiven()
+//                .withElement(lv.ib_broker_title)
+//                .check(webMatches(getText(), equalTo(lv.ib_broker_title_text)));
         unRegIdlingResource();
     }
 
@@ -230,9 +236,9 @@ public class LoginAction implements LoginService{
     @Override
     public void check_invalid_mail_retrieve(String mail) {
         if (Judge.isMatched(mail, Env.emailRegex)) {
-            CommonAction.check_toast_msg(lt.incorrect_email_format_toast);
-        } else {
             CommonAction.check_toast_msg(lt.user_not_exist_toast);
+        } else {
+            CommonAction.check_toast_msg(lt.incorrect_email_format_toast);
         }
     }
 

@@ -11,7 +11,7 @@ import com.trubuzz.trubuzz.utils.Judge;
  * 用于等待给定info的activity处于栈顶
  */
 public class ActivityIdlingResource implements IdlingResource {
-    private final String TAG = "jcd_SomeIR";
+    private final String TAG = "jcd_" + this.getClass().getSimpleName();
 
     private ResourceCallback resourceCallback;
     private boolean isIdle;

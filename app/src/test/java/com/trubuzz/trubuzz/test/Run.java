@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
+import com.trubuzz.trubuzz.bean.ImageS;
 import com.trubuzz.trubuzz.utils.AdminUtilU;
 import com.trubuzz.trubuzz.utils.Param;
 
@@ -11,6 +12,7 @@ import org.junit.Test;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,9 +34,28 @@ public class Run {
 
     @Test
     public void xrun() throws NoSuchMethodException {
-        System.out.println(1%2);
+        List<String> list = new ArrayList<>();
+        list.add("123");
+        list.add("124");
+        list.add("122");
+
+        for (Object s : list2array(list)) {
+            System.out.println(s.getClass());
+            System.out.println(s);
+        }
     }
 
+    public static Object[] list2array(List list) {
+        int size = list.size();
+        if (size < 1) {
+            return null;
+        }
+        Object[] es =  new Object[size];
+        for(int i=0; i<size ; i++) {
+            es[i] = list.get(i);
+        }
+        return es;
+    }
     private String formatString(String s ,String p_s) {
         String[] split = s.split(p_s);
         System.out.println(split.length);

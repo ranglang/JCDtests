@@ -5,6 +5,7 @@ import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 import static com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint;
 import static com.trubuzz.trubuzz.test.R.string.error_captcha_code;
 import static com.trubuzz.trubuzz.test.R.string.error_invalid_email;
+import static com.trubuzz.trubuzz.test.R.string.incorrect_email_empty;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_email_format;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_confirm;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_format;
@@ -25,6 +26,9 @@ public class SignUpToast {
 
     public ToastElement incorrect_email_format_toast = new ToastElement(
             getString("邮箱地址格式不正确", incorrect_email_format));
+
+    public ToastElement email_empty_toast = new ToastElement(
+            getString("请输入邮箱地址", incorrect_email_empty));
 
     public final ToastElement incorrect_password_confirm_toast = new ToastElement(
             getString("确认密码输入不一致", incorrect_password_confirm));

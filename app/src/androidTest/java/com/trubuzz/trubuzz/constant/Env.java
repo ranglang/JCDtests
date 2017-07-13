@@ -23,6 +23,7 @@ public final class Env {
     public final static String filesDir = instrumentation.getTargetContext().getFilesDir().getAbsolutePath()+"/";
     public final static String suiteRegisterKey = "SUITE_REGISTER_KEY";
 
+    // email 的正则规则
     public final static String emailRegex = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
 
 

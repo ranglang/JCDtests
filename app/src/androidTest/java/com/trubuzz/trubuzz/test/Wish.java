@@ -63,12 +63,14 @@ public class Wish {
      * @return
      */
     public static boolean isLogin(Activity activity){
-        String topActivityName;
-        if(activity == null) {
-            topActivityName = God.getCurrentActivityName(instrumentation);
-        }else {
-            topActivityName = God.getTopActivityName(activity);
+        String topActivityName = null;
+        try {
+            if(activity == null) topActivityName = God.getCurrentActivityName(instrumentation);
+            else topActivityName = God.getTopActivityName(activity);
+        } catch (Exception e) {
+            Log.e(TAG, "isLogin: get top activity name error .", e);
         }
+
         if (topActivityName == null) {
             // 如果获取不到 topActivityName 则使用判断 " 资产"的方式
             return isLogin();

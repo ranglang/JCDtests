@@ -93,6 +93,8 @@ public class DoHttp {
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         CookieHandler.setDefault(cookieManager);
+        int responseCode = 0;
+        String responseMessage = "";
         try {
             url = new URL(path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -125,6 +127,8 @@ public class DoHttp {
             os.close();
             conn.connect();
             //开始获取数据
+            responseCode = conn.getResponseCode();
+            responseMessage = conn.getResponseMessage();
             BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             List<HttpCookie> cookies = cookieManager.getCookieStore().getCookies();
@@ -145,7 +149,7 @@ public class DoHttp {
             return map;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, String.format("doPost: " ),e );
+            Log.e(TAG, String.format("doPost:%s ; status = %s ", responseMessage ,responseCode),e );
         }
         return null;
     }
