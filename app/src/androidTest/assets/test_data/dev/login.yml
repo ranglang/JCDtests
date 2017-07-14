@@ -1,0 +1,18 @@
+class: LoginReverseTest
+method:
+  - name: sql_inject_login
+    data:
+      - ["' or 1=1-- ", sS123321, false]  # 第一种情况
+      - [123 ,3332, true]
+      - [1233,123, true]
+  - name: sasa
+    data:
+      - []
+
+---
+class: signup
+method:
+    name: email_signup
+    data:
+      - [sss@bc.com ,ddfffs, ffas]
+      - [s1111@bc.com ,ddfffs, ffas]

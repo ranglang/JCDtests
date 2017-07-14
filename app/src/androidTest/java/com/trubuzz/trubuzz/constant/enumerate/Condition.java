@@ -5,5 +5,24 @@ package com.trubuzz.trubuzz.constant.enumerate;
  */
 
 public enum Condition {
-    DEV ,CN , GLOBAL
+    DEV {
+        @Override
+        public String dir() {
+            return "dev";
+        }
+    },
+    CN {
+        @Override
+        public String dir() {
+            return "cn";
+        }
+    },
+    GLOBAL {
+        @Override
+        public String dir() {
+            return "global";
+        }
+    };
+
+    public abstract String dir();
 }

@@ -1,21 +1,27 @@
 package com.trubuzz.trubuzz.test.login.tests;
 
 import android.support.test.rule.ActivityTestRule;
+import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 import com.trubuzz.trubuzz.test.BaseTest;
+import com.trubuzz.trubuzz.test.Userinfo;
 import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.login.LoginAction;
 import com.trubuzz.trubuzz.test.login.LoginService;
 import com.trubuzz.trubuzz.test.login.LoginView;
+import com.trubuzz.trubuzz.utils.FileRw;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -44,7 +50,7 @@ public class LoginReverseTest extends BaseTest {
      * @param username
      * @param password
      */
-    @Test
+//    @Test
     @Parameters({
             " , , false",           // 全部为空
             " , sS123321, false",           // 空用户名
@@ -70,11 +76,15 @@ public class LoginReverseTest extends BaseTest {
      * @param usernameIsFormatted
      */
     @Test
-    @Parameters({
-            "' or 1=1-- , sS123321, false"
-    })
+//    @Parameters({
+//            "' or 1=1-- , sS123321, false"
+//    })
+    @YmlParameter("login.yml")
     public void sql_inject_login(@Var("username") String username , @Var("password") String password ,
                                  @Var("usernameIsFormatted") String usernameIsFormatted){
+        String dir = "test_data/dev/";
+
+
         this.invalid_input_login(username ,password ,usernameIsFormatted);
     }
 
@@ -84,7 +94,7 @@ public class LoginReverseTest extends BaseTest {
      * @param password
      * @param sendEmail 是否点击重发验证邮件 . true : 发送
      */
-    @Test
+//    @Test
     @Parameters({
             "star006@abc.com, aA123321, false"
     })

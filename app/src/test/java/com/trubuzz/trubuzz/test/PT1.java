@@ -27,8 +27,9 @@ public class PT1 {
     private static final HashMap m = (HashMap) createMap("abc", 123);
     public static final String s = "";
     public static final String p_s = "~&";
+    private static Object sfield ;
 
-    @Test
+//    @Test
     @Parameters({
             "22, true" ,
             "11, false" ,
@@ -37,7 +38,8 @@ public class PT1 {
         System.out.println(img + " | " + age);
     }
 
-    @CParameters(em = ImageS.API)
+    @Test
+    @CParameters({"aaa" ,"vbb"})
     public void emTest(List list) throws Exception {
         for (Object o : list) {
             System.out.println(String.format("%s  ; ", o));
@@ -56,7 +58,7 @@ public class PT1 {
             }
         }
     }
-//    @Test
+    @Test
     @CParameters("{n:20,m:'Jack'}")
     public void mapTest(HashMap map) throws Exception {
         for (Object o : map.keySet()) {

@@ -1,13 +1,11 @@
 package com.trubuzz.trubuzz.feature.custom.parameters;
 
-import com.trubuzz.trubuzz.constant.Conf;
+import com.trubuzz.trubuzz.feature.custom.parameters.provider.PickParameterProvider;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import junitparams.custom.CustomParameters;
-
-import static com.trubuzz.trubuzz.constant.Conf.condition_arrange;
 
 /**
  * Created by king on 2017/7/7.

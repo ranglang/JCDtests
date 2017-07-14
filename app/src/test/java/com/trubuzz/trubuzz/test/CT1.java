@@ -4,8 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.gargoylesoftware.htmlunit.javascript.host.Map;
 
+import org.junit.runners.model.FrameworkMethod;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,8 +24,31 @@ public class CT1 implements ParametersProvider<CParameters> {
     private CParameters parametersAnnotation;
     String p_s = "~&";
     @Override
-    public void initialize(CParameters parametersAnnotation) {
+    public void initialize(CParameters parametersAnnotation ,FrameworkMethod frameworkMethod) {
         this.parametersAnnotation = parametersAnnotation;
+        Method method = frameworkMethod.getMethod();
+        Class<?>[] parameterTypes = method.getParameterTypes();
+
+        String name = frameworkMethod.getName();
+        Class<?> type = frameworkMethod.getType();
+        Class<?> returnType = frameworkMethod.getReturnType();
+        Class<? extends FrameworkMethod> aClass = frameworkMethod.getClass();
+        Class<?> declaringClass = frameworkMethod.getDeclaringClass();
+        String simpleName = declaringClass.getSimpleName();
+        try {
+            Field sfield = declaringClass.getDeclaredField("sfield");
+            sfield.setAccessible(true);
+            Object o = sfield.get(null);
+            if (o == null) {
+                sfield.set(null ,123);
+            }
+
+            System.out.println(111);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(123);
     }
 
     @Override

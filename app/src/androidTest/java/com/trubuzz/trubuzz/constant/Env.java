@@ -26,7 +26,8 @@ public final class Env {
     // email 的正则规则
     public final static String emailRegex = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
 
-
+    // 测试数据根目录
+    public final static String test_data_root_dir = "test_data";
     /* 非 final 环境变量 */
     public static EventSource eventSource;
 

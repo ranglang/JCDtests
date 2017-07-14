@@ -1,4 +1,8 @@
-package com.trubuzz.trubuzz.feature.custom.parameters;
+package com.trubuzz.trubuzz.feature.custom.parameters.provider;
+
+import com.trubuzz.trubuzz.feature.custom.parameters.ValuesParameter;
+
+import org.junit.runners.model.FrameworkMethod;
 
 import junitparams.custom.ParametersProvider;
 
@@ -10,7 +14,7 @@ public class ValuesParameterProvider implements ParametersProvider<ValuesParamet
     private ValuesParameter parametersAnnotation;
 
     @Override
-    public void initialize(ValuesParameter parametersAnnotation) {
+    public void initialize(ValuesParameter parametersAnnotation , FrameworkMethod frameworkMethod) {
         this.parametersAnnotation = parametersAnnotation;
     }
 

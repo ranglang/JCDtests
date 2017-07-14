@@ -1,0 +1,7 @@
+class: signup
+method:
+  - name: email_signup
+    data:
+      - [sss@bc.com ,ddfffs, ffas]
+      - [s1111@bc.com]
+      - 1123

@@ -50,7 +50,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'io.selendroid:selendroid:0.17.0'
     testCompile 'io.selendroid:selendroid-client:0.17.0'
-    testCompile files('libs/JUnitParams-1.1.1.jar')
+    testCompile files('libs/JUnitParams-1.1.1.01.jar')
     testCompile 'com.alibaba:fastjson:1.2.20'
 
     testCompile 'org.jsoup:jsoup:1.10.3'
@@ -78,9 +78,11 @@ dependencies {
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     androidTestCompile 'com.alibaba:fastjson:1.2.20'
     androidTestCompile 'org.jsoup:jsoup:1.10.3'
+    androidTestCompile 'com.esotericsoftware.yamlbeans:yamlbeans:1.12'
 
 
-    androidTestCompile files('libs/JUnitParams-1.1.1.jar')
+
+    androidTestCompile files('libs/JUnitParams-1.1.1.01.jar')
 }
 
 task assembleDebug(overwrite: true) {}

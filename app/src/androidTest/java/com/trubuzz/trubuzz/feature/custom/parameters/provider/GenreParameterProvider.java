@@ -1,6 +1,9 @@
-package com.trubuzz.trubuzz.feature.custom.parameters;
+package com.trubuzz.trubuzz.feature.custom.parameters.provider;
 
+import com.trubuzz.trubuzz.feature.custom.parameters.GenreParameter;
 import com.trubuzz.trubuzz.test.signUp.tests.SignUpReverseTest;
+
+import org.junit.runners.model.FrameworkMethod;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ public class GenreParameterProvider implements ParametersProvider<GenreParameter
     GenreParameter parametersAnnotation;
 
     @Override
-    public void initialize(GenreParameter parametersAnnotation) {
+    public void initialize(GenreParameter parametersAnnotation , FrameworkMethod frameworkMethod) {
         this.parametersAnnotation = parametersAnnotation;
     }
 

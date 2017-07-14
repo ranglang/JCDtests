@@ -1,6 +1,9 @@
-package com.trubuzz.trubuzz.feature.custom.parameters;
+package com.trubuzz.trubuzz.feature.custom.parameters.provider;
 
 import com.alibaba.fastjson.JSON;
+import com.trubuzz.trubuzz.feature.custom.parameters.GatherParameter;
+
+import org.junit.runners.model.FrameworkMethod;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +21,7 @@ public class GatherParameterProvider implements ParametersProvider<GatherParamet
     private GatherParameter parametersAnnotation;
 
     @Override
-    public void initialize(GatherParameter parametersAnnotation) {
+    public void initialize(GatherParameter parametersAnnotation, FrameworkMethod frameworkMethod) {
         this.parametersAnnotation = parametersAnnotation;
     }
 

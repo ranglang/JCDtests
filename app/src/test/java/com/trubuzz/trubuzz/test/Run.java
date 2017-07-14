@@ -23,6 +23,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import junitparams.JUnitParamsRunner;
+
 /**
  * Created by king on 2016/10/20.
  */
@@ -38,11 +40,8 @@ public class Run {
         list.add("123");
         list.add("124");
         list.add("122");
-
-        for (Object s : list2array(list)) {
-            System.out.println(s.getClass());
-            System.out.println(s);
-        }
+        Object o = list;
+        System.out.println(o instanceof List);
     }
 
     public static Object[] list2array(List list) {

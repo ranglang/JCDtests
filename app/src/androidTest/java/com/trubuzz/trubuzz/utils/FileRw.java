@@ -2,6 +2,7 @@ package com.trubuzz.trubuzz.utils;
 
 import android.util.Log;
 
+import com.esotericsoftware.yamlbeans.YamlReader;
 import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.Env;
 
@@ -9,10 +10,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import static com.trubuzz.trubuzz.constant.Env.TAG;
+import static com.trubuzz.trubuzz.utils.God.getResources;
 
 /**
  * Created by king on 2017/6/26.
@@ -82,11 +88,48 @@ public class FileRw {
         return value;
     }
 
+    /**
+     * 获取预置的cookie , 先从设备上的配置文件上取 ,
+     *      若没取到则从预置类中取
+     * @param fileName
+     * @return
+     */
     public static Kvp<String, String> getLogCookie(String fileName){
         String cvalue = readProperty(fileName, Conf.ad_log_cookie_key);
         if (cvalue.isEmpty()) {
             return Conf.ad_log_default_cookie;
         }
         return new Kvp<>(Conf.ad_log_cookie_key, cvalue);
+    }
+
+    /**
+     * 读取 Assets 资源中的 yml 文件
+     * @param relativePath
+     * @return Object 对象
+     */
+    public static List readYamlFile(String relativePath) {
+        List list = new ArrayList();
+        InputStream in = null;
+        try {
+            in = getResources().getAssets().open(relativePath);
+            YamlReader reader = new YamlReader(new InputStreamReader(in));
+
+            while (true) {
+                Object contact = reader.read();
+                if (contact == null) break;
+                list.add(contact);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return list;
     }
 }

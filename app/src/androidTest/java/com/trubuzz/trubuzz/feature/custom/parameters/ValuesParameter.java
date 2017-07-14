@@ -1,5 +1,7 @@
 package com.trubuzz.trubuzz.feature.custom.parameters;
 
+import com.trubuzz.trubuzz.feature.custom.parameters.provider.GatherParameterProvider;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 

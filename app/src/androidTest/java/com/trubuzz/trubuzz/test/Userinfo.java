@@ -14,6 +14,7 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.util.Log;
 
+import com.esotericsoftware.yamlbeans.YamlReader;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.test.common.GlobalView;
@@ -21,6 +22,7 @@ import com.trubuzz.trubuzz.shell.Uncalibrated;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.utils.DoIt;
+import com.trubuzz.trubuzz.utils.FileRw;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Before;
@@ -28,8 +30,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Date;
+import java.util.Map;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -287,5 +295,33 @@ public class Userinfo extends BaseTest{
         Uri uri = Uri.parse("file://"+name);
         Log.i(TAG, "head_bitmap_Uri: head image Uri = "+ uri);
         return uri;
+    }
+
+//    @Parameters("login.yml")
+    public static void aa(){
+//        InputStream inputStream = getResources().openRawResource(R.raw.config);
+        String dir = "test_data/dev/";
+//        InputStream in = null;
+//        try {
+//            in = getResources().getAssets().open(dir + "login.yml");
+//            YamlReader reader = new YamlReader(new InputStreamReader(in));
+//            Object object = reader.read();
+//            System.out.println(object);
+//            Map map = (Map)object;
+//
+//
+//            System.out.println(123);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (in != null) {
+//                try {
+//                    in.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+        FileRw.readYamlFile(dir + "login.yml");
     }
 }
