@@ -1,19 +1,16 @@
 package com.trubuzz.trubuzz.test.login.tests;
 
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
 import com.trubuzz.trubuzz.shell.Var;
-import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 import com.trubuzz.trubuzz.test.BaseTest;
-import com.trubuzz.trubuzz.test.Userinfo;
 import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.login.LoginAction;
 import com.trubuzz.trubuzz.test.login.LoginService;
 import com.trubuzz.trubuzz.test.login.LoginView;
-import com.trubuzz.trubuzz.utils.FileRw;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.junit.Before;
@@ -21,13 +18,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-
-import static com.trubuzz.trubuzz.test.common.CommonAction.check_current_activity;
-import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 
 /**
  * Created by king on 2017/6/16.
@@ -36,6 +27,8 @@ import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 public class LoginReverseTest extends BaseTest {
     private final LoginService la = new LoginAction();
     private final LoginView.Toast lt = new LoginView.Toast();
+    @YamlFileName
+    private final static String ymlFileName = "login.yml";
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
@@ -50,13 +43,14 @@ public class LoginReverseTest extends BaseTest {
      * @param username
      * @param password
      */
-//    @Test
-    @Parameters({
-            " , , false",           // 全部为空
-            " , sS123321, false",           // 空用户名
-            "star003@abc.com, , true",      //  空密码
-            "star003@abc.com, 111222, true",      // 密码错误
-    })
+    @Test
+//    @Parameters({
+//            " , , false",           // 全部为空
+//            " , sS123321, false",           // 空用户名
+//            "star003@abc.com, , true",      //  空密码
+//            "star003@abc.com, 111222, true",      // 密码错误
+//    })
+    @YmlParameter
     public void invalid_input_login(@Var("username") String username , @Var("password") String password ,
                                     @Var("usernameIsFormatted") String usernameIsFormatted){
         boolean _usernameIsFormatted = Boolean.valueOf(usernameIsFormatted);
@@ -79,7 +73,7 @@ public class LoginReverseTest extends BaseTest {
 //    @Parameters({
 //            "' or 1=1-- , sS123321, false"
 //    })
-    @YmlParameter("login.yml")
+    @YmlParameter
     public void sql_inject_login(@Var("username") String username , @Var("password") String password ,
                                  @Var("usernameIsFormatted") String usernameIsFormatted){
         String dir = "test_data/dev/";
@@ -95,9 +89,10 @@ public class LoginReverseTest extends BaseTest {
      * @param sendEmail 是否点击重发验证邮件 . true : 发送
      */
 //    @Test
-    @Parameters({
-            "star006@abc.com, aA123321, false"
-    })
+//    @Parameters({
+//            "star006@abc.com, aA123321, false"
+//    })
+    @YmlParameter
     public void not_verify_7days(@Var("username") String username , @Var("password") String password ,
                                  @Var("sendEmail") String sendEmail){
         boolean  _sendEmail = Boolean.valueOf(sendEmail);

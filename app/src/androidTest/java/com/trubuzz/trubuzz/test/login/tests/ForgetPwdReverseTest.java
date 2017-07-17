@@ -13,6 +13,8 @@ import android.util.Log;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.feature.custom.parameters.GatherParameter;
+import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
+import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -53,7 +55,8 @@ public class ForgetPwdReverseTest extends BaseTest {
     private final String key_format = "isFormat";
     private final String invalid_password_padding = p_s + key_pwd + "," + key_pwd_confirm + "," + key_format;
 
-
+    @YamlFileName
+    private final static String ymlFileName = "login.yml";
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
@@ -68,7 +71,8 @@ public class ForgetPwdReverseTest extends BaseTest {
      * @param mail
      */
     @Test
-    @Parameters({"star1003@abc.com"})
+//    @Parameters({"star1003@abc.com"})
+    @YmlParameter("login.yml")
     public void retrieve_password_use_invalid_mail(@Var("mail") String mail){
         la.into_forget_password_page();
         la.select_mail_retrieve();
@@ -84,7 +88,7 @@ public class ForgetPwdReverseTest extends BaseTest {
      * @param phone 手机号
      * @param isFormatted 格式是否正确 . true:正确
      */
-    @Test
+//    @Test
     @Parameters({
             "11800001111,true",
             "00001111,false",
@@ -107,7 +111,7 @@ public class ForgetPwdReverseTest extends BaseTest {
      *      空输入 , 长度无效 , 格式正确但错误( 当前格式: 不少于6位数字 )
      * @param smsCodes 错误的格式 或 错误的数字
      */
-    @Test
+//    @Test
     @GatherParameter(
             "['','123','0000000']"
     )
@@ -143,7 +147,7 @@ public class ForgetPwdReverseTest extends BaseTest {
      *          key_pwd_confirm : 确认新密码
      *          key_format : 是否是格式化的 ( 正确的格式 : true )
      */
-    @Test
+//    @Test
     @GatherParameter({
             "{%s:'qQ123456',%s:'Ww123456',%s:true}" + invalid_password_padding,  // 两次密码不一致
             "{%s:'qq123456',%s:'qq123456',%s:false}" + invalid_password_padding,  // 格式错误

@@ -2,12 +2,13 @@ package com.trubuzz.trubuzz.feature.custom.parameters.provider;
 
 import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.Env;
+import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
+import com.trubuzz.trubuzz.utils.MReflect;
 
 import org.junit.runners.model.FrameworkMethod;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,9 @@ import static com.trubuzz.trubuzz.utils.FileRw.readYamlFile;
 public class YmlParameterProvider implements ParametersProvider<YmlParameter> {
     private YmlParameter ymlParameter;
     private Class<?>[] parameterTypes;
+    private Class<?> testClass;
     private String testMethodName;
     private String testClassName;
-    private Object cache;
     private final String class_key = "class";
     private final String method_key = "method";
 
@@ -38,28 +39,8 @@ public class YmlParameterProvider implements ParametersProvider<YmlParameter> {
         this.testMethodName = frameworkMethod.getName();
 
         Class<?> declaringClass = frameworkMethod.getDeclaringClass();
+        this.testClass = declaringClass;
         this.testClassName = declaringClass.getSimpleName();
-
-        String cacheStore = ymlParameter.cacheStore();
-        String yaml = ymlParameter.value();
-        if (!"".equals(cacheStore)) {
-            try {
-                Field field = declaringClass.getDeclaredField(cacheStore);
-                field.setAccessible(true);
-                Object o = field.get(null);
-                if (o == null) {
-                    this.cache = getYamlObject(yaml);
-                    field.set(null, this.cache);
-                } else {
-                    this.cache = o;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            this.cache = getYamlObject(yaml);
-        }
-
 
     }
 
@@ -85,6 +66,12 @@ public class YmlParameterProvider implements ParametersProvider<YmlParameter> {
         return list2array(res);
     }
 
+    /**
+     * 创建参数
+     * @param datas
+     * @param types
+     * @return
+     */
     public Object[] createParams(List datas ,Class[] types){
         int dataSize = datas.size();
         int typeLen = types.length;
@@ -135,10 +122,11 @@ public class YmlParameterProvider implements ParametersProvider<YmlParameter> {
      * @return
      */
     private List getMethodParams(){
-        if (this.cache == null) {
+        Object yamlObject = this.getYamlObject(ymlParameter.value());
+        if (yamlObject == null) {
             throw new RuntimeException("Empty parameters .");
         }
-        List datas = (List) this.cache;
+        List datas = (List) yamlObject;
         for (Object o : datas) {
             Map map = (Map)o;
             if (testMethodName.equals(map.get("name"))) {
@@ -155,6 +143,9 @@ public class YmlParameterProvider implements ParametersProvider<YmlParameter> {
      *      一般为 ArrayList
      */
     private Object getYamlObject(String ymlFileName){
+        if ("".equals(ymlFileName)) {
+            ymlFileName = (String) MReflect.getFieldObject(this.testClass, null, YamlFileName.class);
+        }
         String dir = Conf.condition.dir();
         String path = Env.test_data_root_dir + File.separator + dir + File.separator + ymlFileName;
         List list = readYamlFile(path);
@@ -167,4 +158,5 @@ public class YmlParameterProvider implements ParametersProvider<YmlParameter> {
         }
         return null;
     }
+
 }

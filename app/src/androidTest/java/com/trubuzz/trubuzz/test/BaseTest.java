@@ -51,7 +51,7 @@ public class BaseTest {
     @Before
     public void setUp() {
         Registor.reg(BaseTest.class.toString(), this);
-        sleep(1000);    //在每个test之间预留1秒的缓冲
+        sleep(4000);    //在每个test之间预留4秒的缓冲
     }
     @After
     public void teardown(){

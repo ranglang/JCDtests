@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.utils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 /**
@@ -35,19 +36,66 @@ public class MReflect {
     }
 
     /**
+     * 获得匹配的属性 , 只匹配第一个被注解的属性
+     * @param fields
+     * @param annotation
+     * @return
+     */
+    public static Field matcherField(Field[] fields , Class<? extends Annotation> annotation){
+        Field.setAccessible(fields , true);
+        for(Field field : fields){
+            // 这里只获取使用了annotation注解过的的属性.
+            if (field.isAnnotationPresent(annotation)) {
+                return field;
+            }
+        }
+        return null;
+    }
+    /**
      * 获取属性的值
      * @param field
      * @param object
      * @return
-     * @throws IllegalAccessException
      */
-    public static Object getFieldObject(Field field , Object object) throws IllegalAccessException {
-        return field.get(object);
+    public static Object getFieldObject(Field field , Object object){
+        field.setAccessible(true);
+        try {
+            return field.get(object);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public static Object getFieldObject(String fieldName , Object object) throws IllegalAccessException {
-        return matcherField(getDecFields(object) , fieldName).get(object);
+        return getFieldObject(matcherField(getDecFields(object) , fieldName),object);
     }
 
+    /**
+     * 获取特定注解的属性的值
+     *      只获取第一个被注解的属性值
+     * @param fields
+     * @param object
+     * @param annotation
+     * @return
+     */
+    public static Object getFieldObject(Field[] fields ,Object object ,Class<? extends Annotation> annotation){
+        Field.setAccessible(fields , true);
+        for(Field field : fields){
+            try {
+                // 这里只获取使用了annotation注解过的的属性.
+                if (field.isAnnotationPresent(annotation)) {
+                    return field.get(object);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    public static Object getFieldObject(Class<?> clz ,Object object ,Class<? extends Annotation> annotation){
+        Field[] declaredFields = clz.getDeclaredFields();
+        return getFieldObject(declaredFields, object, annotation);
+    }
     /**
      * 通过 Class 获取对象
      * @param clz
@@ -61,5 +109,20 @@ public class MReflect {
     }
     public static <T> T getObject(Class<T> clz ,Object ...obj) throws IllegalAccessException, InstantiationException {
         return null;
+    }
+
+    /**
+     * 反射设置 属性的值
+     * @param field
+     * @param o
+     * @param val
+     */
+    public static void setFieldValue(Field field, Object o, Object val) {
+        field.setAccessible(true);
+        try {
+            field.set(o, val);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

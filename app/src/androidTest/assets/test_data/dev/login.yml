@@ -2,17 +2,20 @@ class: LoginReverseTest
 method:
   - name: sql_inject_login
     data:
-      - ["' or 1=1-- ", sS123321, false]  # 第一种情况
-      - [123 ,3332, true]
-      - [1233,123, true]
-  - name: sasa
+      - ["' or 1=1-- ", sS123321, false]  # sql 注入样例
+  - name: invalid_input_login
     data:
-      - []
+      - ["" , "", false]  #全部为空
+      - ["" , sS123321, false]  #空用户名
+      - [star003@abc.com, "", true]  #空密码
+      - [star003@abc.com, 111222, true]  #密码错误
+  - name: not_verify_7days
+    data:
+      - [star006@abc.com, aA123321, false]  # 7 天未登录的邮箱账户
 
 ---
-class: signup
+class: ForgetPwdReverseTest
 method:
-    name: email_signup
-    data:
-      - [sss@bc.com ,ddfffs, ffas]
-      - [s1111@bc.com ,ddfffs, ffas]
+    - name: retrieve_password_use_invalid_mail
+      data:
+        - [star1003@abc.com]
