@@ -8,6 +8,7 @@ import com.trubuzz.trubuzz.constant.enumerate.OrderType;
 import com.trubuzz.trubuzz.constant.enumerate.Position;
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
 import com.trubuzz.trubuzz.constant.enumerate.TimeInForce;
+import com.trubuzz.trubuzz.feature.custom.parameters.GenreParameter;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -54,25 +55,6 @@ public class TradeTest extends BaseTest {
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
 
-    private Object[] verify_order_default_show_data(){
-        return new Object[]{
-                create_verify_order_default_show_data("AAPL",US ,BULL),
-                create_verify_order_default_show_data("00939",HK ,BEAR)
-        };
-    }
-    private Object[] search_stock_ordering_data(){
-        return new Object[]{
-                // 美股 限价买入 金额成交 ,当日有效
-                this.create_search_stock_ordering_data("AMZN" ,limit , BULL ,"2000" ,GFD ,"109" , US , CASH),
-                // 美股 市价卖出 金额成交 ,IOC
-                this.create_search_stock_ordering_data("BORN" ,market ,BEAR ,"2000" ,IOC ,null , US , CASH),
-                // 美股 限价卖出 股数成交 ICO
-                this.create_search_stock_ordering_data("BORN" ,market , BEAR ,"10" ,IOC ,"1.5" , US , SHARES),
-                // 美股 市价买入 股数成交 当日有效
-                this.create_search_stock_ordering_data("BABA" ,market , BULL ,"20" ,GFD ,null , US , SHARES),
-        };
-    }
-
     @Before
     public void wishLogin(){
         //使用开户用户登录 ; 进入行情板块
@@ -87,7 +69,10 @@ public class TradeTest extends BaseTest {
      * @param position 交易方向 [ 买/ 卖]
      */
     @Test
-    @Parameters(method = "verify_order_default_show_data")
+    @GenreParameter({
+            "AAPL,US ,BULL" ,
+            "00939,HK ,BEAR"
+    })
     public void verify_order_default_show(@Var("symbol") String symbol ,@Var("stockType") StockType stockType ,
                                           @Var("position") Position position){
         ta.into_ordering_page(symbol , position);
@@ -99,9 +84,6 @@ public class TradeTest extends BaseTest {
         ta.select_commission_way(market);
         ta.check_commission_default_show(position, market, stockType);
         ta.check_time_in_force_default_show(stockType);
-    }
-    private Object[] create_verify_order_default_show_data(String symbol, StockType stockType, Position position) {
-        return new Object[]{symbol ,stockType ,position};
     }
 
     /**
@@ -117,6 +99,16 @@ public class TradeTest extends BaseTest {
      */
     @Test
     @Parameters(method = "search_stock_ordering_data")
+    @GenreParameter({
+            // 美股 限价买入 金额成交 ,当日有效
+            "AMZN ,limit , BULL ,2000 ,GFD ,10 , US , CASH",
+            // 美股 市价卖出 金额成交 ,IOC
+            "BORN ,market ,BEAR ,2000 ,IOC ,null , US , CASH" ,
+            // 美股 限价卖出 股数成交 ICO
+            "BORN ,market , BEAR ,10 ,IOC ,1.5 , US , SHARES" ,
+            // 美股 市价买入 股数成交 当日有效
+            "BABA ,market , BULL ,20 ,GFD ,null , US , SHARES"
+    })
     public void search_stock_ordering(@Var("symbol") String symbol , @Var("limitOrMarket")Commissioned limitOrMarket , @Var("position")Position position ,
                                       @Var("CASH")String amount , @Var("timeInForce")TimeInForce timeInForce , @Var("price")String price,
                                       @Var("stockType") StockType stockType , @Var("cashOrShares") OrderType cashOrShares) {
@@ -150,15 +142,6 @@ public class TradeTest extends BaseTest {
         ta.check_assets_order_list_show(symbol, new Date(), price, shareAmount, position);
 
     }
-    private Object[] create_search_stock_ordering_data(String symbol , Commissioned limitOrMarket , Position position ,
-                                                       String amount , TimeInForce timeInForce , String price , StockType stockType , OrderType orderType) {
-        return new Object[]{symbol, limitOrMarket, position, amount, timeInForce, price ,stockType , orderType};
-    }
-
-
-
-
-
 
 
 

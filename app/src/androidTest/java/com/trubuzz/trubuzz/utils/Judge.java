@@ -22,6 +22,8 @@ import android.widget.AdapterView;
 import com.trubuzz.trubuzz.feature.custom.actions.CustomRecyclerViewActions;
 import com.trubuzz.trubuzz.shell.Element;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.ToastElement;
+import com.trubuzz.trubuzz.test.common.CommonAction;
 
 import org.hamcrest.Matcher;
 
@@ -273,6 +275,20 @@ public class Judge {
         return getViewWith(shortId) != null ;
     }
 
+    /**
+     * 判断有指定的toast出现
+     * @param toast
+     * @return
+     */
+    public static boolean hasToast(ToastElement toast) {
+        try {
+            CommonAction.check_toast_msg(toast);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     /**
      * 判断元素是否存在于数组

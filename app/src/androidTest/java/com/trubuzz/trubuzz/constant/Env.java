@@ -15,7 +15,7 @@ import com.trubuzz.trubuzz.utils.God;
 
 public final class Env {
     // app 的运行环境[DEV ,CN ,GLOBAL]
-    public static final Condition condition = Condition.DEV;
+    public static final Condition condition = Condition.CN;
     public final static String TAG = "jcd_default:";
     public final static Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     public final static UiDevice uiDevice = UiDevice.getInstance(instrumentation);

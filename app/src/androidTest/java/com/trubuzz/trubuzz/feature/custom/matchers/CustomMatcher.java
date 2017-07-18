@@ -18,7 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.trubuzz.trubuzz.constant.Env;
+import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.utils.God;
+import com.trubuzz.trubuzz.utils.Judge;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -625,6 +627,37 @@ public class CustomMatcher {
                 String text = textView.getText().toString();
 
                 return text.contains(containText);
+            }
+        };
+    }
+
+    public static Matcher<View> withVisible(final int areaPercentage){
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with visible : " + areaPercentage);
+            }
+
+            @Override
+            protected boolean matchesSafely(View view) {
+                return Judge.isVisible(view ,areaPercentage);
+            }
+        };
+    }
+
+    public static Matcher<View> NotMatched(final Matcher<View> matcher) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+
+            }
+
+            @Override
+            protected boolean matchesSafely(View item) {
+                if (matcher.matches(item)) {
+                    return false;
+                }
+                return true;
             }
         };
     }

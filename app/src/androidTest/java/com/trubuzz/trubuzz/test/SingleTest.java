@@ -15,10 +15,9 @@ import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.AWatchlist;
 import com.trubuzz.trubuzz.feature.custom.actions.SwipeAs;
 import com.trubuzz.trubuzz.test.common.GlobalView;
-import com.trubuzz.trubuzz.feature.custom.actions.CustomViewAction;
 import com.trubuzz.trubuzz.feature.custom.handlers.ViewsFinder;
 import com.trubuzz.trubuzz.shell.beautify.RecyclerViewItemElement;
-import com.trubuzz.trubuzz.test.quote.QuoteView;
+import com.trubuzz.trubuzz.test.quote.views.QuoteView;
 import com.trubuzz.trubuzz.utils.God;
 
 import org.hamcrest.Matcher;

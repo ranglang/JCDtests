@@ -17,7 +17,7 @@ import android.util.Log;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.test.login.LoginView;
-import com.trubuzz.trubuzz.test.quote.QuoteView;
+import com.trubuzz.trubuzz.test.quote.views.QuoteView;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;

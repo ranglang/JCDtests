@@ -92,7 +92,7 @@ public class TradeView {
     public final ActivityElement volumeRadio = new ActivityElement().setText(getString("股数成交" ,order_by_shares));
 
     // 金额 / 股数 输入框
-    public final ActivityElement amountInput = new ActivityElement().setId("CASH");
+    public final ActivityElement amountInput = new ActivityElement().setId("amount");
     // [买/卖][金额/股数] 文字展示
     public final ActivityElement orderAmountType = new ActivityElement().setId("order_amount_type");
 

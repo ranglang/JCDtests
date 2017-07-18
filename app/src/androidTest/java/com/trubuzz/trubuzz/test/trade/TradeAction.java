@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.test.trade;
 
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.util.Log;
 import android.view.View;
 
@@ -11,7 +12,8 @@ import com.trubuzz.trubuzz.constant.enumerate.StockType;
 import com.trubuzz.trubuzz.constant.enumerate.TimeInForce;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
 import com.trubuzz.trubuzz.test.quote.QuoteAction;
-import com.trubuzz.trubuzz.test.quote.QuoteView;
+import com.trubuzz.trubuzz.test.quote.views.QuoteView;
+import com.trubuzz.trubuzz.utils.Judge;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -30,13 +32,13 @@ import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.trubuzz.trubuzz.constant.Config.hkMinFee;
 import static com.trubuzz.trubuzz.constant.Config.hkPerFee;
 import static com.trubuzz.trubuzz.constant.Config.usMaxFee;
 import static com.trubuzz.trubuzz.constant.Config.usMinFee;
 import static com.trubuzz.trubuzz.constant.Config.usPerFee;
-import static com.trubuzz.trubuzz.constant.enumerate.Condition.GLOBAL;
 import static com.trubuzz.trubuzz.constant.enumerate.Position.BEAR;
 import static com.trubuzz.trubuzz.constant.enumerate.Position.BULL;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.isPassword;
@@ -60,6 +62,7 @@ import static com.trubuzz.trubuzz.test.R.string.order_market_buy;
 import static com.trubuzz.trubuzz.test.R.string.order_market_sell;
 import static com.trubuzz.trubuzz.test.R.string.sell;
 import static com.trubuzz.trubuzz.utils.DoIt.regIdlingResource;
+import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static com.trubuzz.trubuzz.utils.DoIt.unRegIdlingResource;
 import static com.trubuzz.trubuzz.utils.God.getString;
 import static org.hamcrest.Matchers.not;
@@ -286,14 +289,15 @@ public class TradeAction implements TradeService {
 
     @Override
     public void type_amount(String amount) {
-        given(tv.amountInput).perform(typeText(amount))
-                .check(matches(withText(amount)));
+        given(tv.amountInput).perform(typeText(amount));
     }
 
     @Override
     public void check_invalid_price_or_amount(){
         given(tv.forecast_amount).check(doesNotExist());
-        given(tv.orderBySharesFee).check(doesNotExist());
+//        given(tv.forecast_amount).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+//        given(tv.forecast_amount).check(matches(not(withVisible(90))));
+        given(tv.orderBySharesFee).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
     }
     @Override
     public String check_forecast_show(OrderType orderType, Position position, Commissioned limitOrMarket, String amount, StockType stockType) {
@@ -428,7 +432,12 @@ public class TradeAction implements TradeService {
 
     @Override
     public void click_keyboard_submit() {
-        given(tv.keyboard).perform(clickXY(getSubmitXY()));
+        sleep(1000);
+        if (Judge.isMatched(tv.keyboard, isDisplayed())) {
+            given(tv.keyboard).perform(clickXY(getSubmitXY()));
+        } else {
+            this.click_submit_button();
+        }
     }
 
     @Override

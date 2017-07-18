@@ -16,6 +16,4 @@ import junitparams.custom.CustomParameters;
 public @interface GenreParameter {
 
     String[] value();
-
-    Class<?>[] type() default NullType.class;
 }

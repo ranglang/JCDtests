@@ -7,6 +7,7 @@ import com.trubuzz.trubuzz.constant.enumerate.Commissioned;
 import com.trubuzz.trubuzz.constant.enumerate.OrderType;
 import com.trubuzz.trubuzz.constant.enumerate.Position;
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
+import com.trubuzz.trubuzz.feature.custom.parameters.GenreParameter;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -64,8 +65,8 @@ public class TradeReverseTest extends BaseTest {
      * @param price
      * @param amount
      */
-    @Test
-    @Parameters({
+//    @Test
+    @GenreParameter({
             "00939, BULL, limit, 9.03, 1000, SHARES",
     })
     public void trade_small_hk_stocks(@Var("symbol") String symbol, @Var("position") Position position,
@@ -101,9 +102,9 @@ public class TradeReverseTest extends BaseTest {
      * @param stockType
      * @param price
      */
-    @Test
-    @Parameters({
-            "BABA, BULL, market, US, null, 50",
+//    @Test
+    @GenreParameter({
+            "BABA, BULL, market, US, null, 10",
     })
     public void not_enough_to_trade_one(@Var("symbol") String symbol, @Var("position") Position position,
                                         @Var("limitOrMarket") Commissioned limitOrMarket,@Var("stockType") StockType stockType,
@@ -138,9 +139,11 @@ public class TradeReverseTest extends BaseTest {
      * @param orderType
      * @param amount
      */
-    @Test
-    @Parameters({
+//    @Test
+    @GenreParameter({
             "AAPL, BULL, US, , SHARES, 1",
+            "AAPL, BULL, US,0.00 , SHARES, 1",
+            "AAPL, BULL, US, 0.0001 , SHARES, 1"
     })
     public void invalid_entrustment_price_trade(@Var("symbol") String symbol, @Var("position") Position position,
                                                 @Var("stockType") StockType stockType,@Var("price") String price,
@@ -177,8 +180,11 @@ public class TradeReverseTest extends BaseTest {
      * @param amount  空股数/总金额 , 0股数/总金额
      */
     @Test
-    @Parameters({
+    @GenreParameter({
             "AAPL, BULL, limit, US, 191, SHARES, ",
+            "AAPL, BULL, limit, US, 191, CASH, ",
+            "AAPL, BULL, limit, US, 191, SHARES, 0 ",
+            "AAPL, BULL, limit, US, 191, CASH, 0 "
     })
     public void invalid_amount_trade(@Var("symbol") String symbol ,@Var("position") Position position ,
                                      @Var("limitOrMarket") Commissioned limitOrMarket ,@Var("stockType") StockType stockType ,

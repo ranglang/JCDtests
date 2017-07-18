@@ -1,0 +1,91 @@
+# 用户登录测试
+class: LoginTest    
+method:
+  # 已开户用户登录
+  - name: has_broker_login  
+    data:
+      - [zhao.deng@jucaidao.com, aA123456]  #邮箱用户
+      
+  # 未开户用户登录
+  - name: has_not_broker_login  
+    data:
+      - [11811110001 , aA123321]      #手机用户
+      - [star003@abc.com , aA123321]  #邮箱用户
+
+---
+# 用户注册反向用例
+class: LoginReverseTest   
+method:
+  # 使用 sql 注入方式登录
+  - name: sql_inject_login    
+    data:
+      - ["' or 1=1-- ", sS123321, false]  # sql 注入样例
+
+  # 使用无效的输入登录
+  - name: invalid_input_login   
+    data:
+      - ["" , "", false]  #全部为空
+      - ["" , sS123321, false]  #空用户名
+      - [star003@abc.com, "", true]  #空密码
+      - [star003@abc.com, 111222, true]  #密码错误
+      
+  # 使用 7 天未验证邮箱地址的邮箱用户登录
+  - name: not_verify_7days    
+    data:
+      - [star006@abc.com, aA123321, false]  #7 天未登录的邮箱账户
+
+---
+# 忘记密码用例
+class: ForgetPasswordTest   
+method:
+  # 检查找回密码 账号默认带入 , 并执行找回流程
+  - name: forget_password_account_follow    
+    data:
+      - [star003@abc.com ,MAIL]   #邮箱用户
+      - [18111110001 ,PHONE]      #手机用户
+
+  # 使用邮箱找回密码
+  - name: retrieve_password_use_mail    
+    data:
+      - [star003@abc.com]
+
+  # 使用手机号找回密码
+  - name: retrieve_password_use_phone   
+    data:
+      - [11811110001, aA123321]
+
+---
+# 忘记密码反向用例
+class: ForgetPwdReverseTest   
+method:
+    # 使用无效的 email 地址找回
+    - name: retrieve_password_use_invalid_mail    
+      data:
+        - [star1003@abc.com]  #不存在的正确格式
+        - [star1003abc.com]   #错误格式
+        - [11811110003]       #手机号格式
+        - [""]       #空输入
+
+    # 无效的手机号获取验证码
+    - name: invalid_phone_get_sms_code  
+      data:
+        - [11800001111,true]    #手机号不存在 , 格式正确
+        - [00001111,false]      #格式不正确
+
+    # 使用无效的短信验证码重置密码
+    - name: invalid_sms_code_reset_password   
+      data:
+        -
+          - 11811110001
+          - qQ123321
+          - ["" ,123 ,0000000]    #空输入 , 长度无效 , 格式正确但错误( 当前格式: 不少于6位数字 )
+
+    # 重置密码时使用无效的密码
+    - name: invalid_new_password_retrieve_with_phone    
+      data:
+        -
+          - 11811110001
+          -
+            - {password: qQ123456 ,password_confirm: Ww123456 ,isFormat: true}  #两次密码不一致
+            - {password: qq123456 ,password_confirm: qq123456 ,isFormat: false} #格式错误
+            - {password: "" ,password_confirm: "" ,isFormat: false}   #空值

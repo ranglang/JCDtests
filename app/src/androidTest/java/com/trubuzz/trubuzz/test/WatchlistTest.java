@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.test.quote.QuoteView;
+import com.trubuzz.trubuzz.test.quote.views.QuoteView;
 import com.trubuzz.trubuzz.elements.AWatchlist;
 import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.feature.custom.handlers.ViewsFinder;

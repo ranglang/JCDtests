@@ -44,7 +44,7 @@ public class LoginTest extends BaseTest{
      * @param username
      * @param password
      */
-    @Test
+//    @Test
     @YmlParameter
     public void has_broker_login(@Var("username") String username , @Var("password") String password){
         la.type_username(username);
@@ -69,7 +69,7 @@ public class LoginTest extends BaseTest{
     /**
      * 测试清除密码的小功能
      */
-    @Test
+//    @Test
     public void clean_password_test(){
         la.type_password("380275024");
         la.clean_password();

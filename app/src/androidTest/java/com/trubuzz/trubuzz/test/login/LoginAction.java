@@ -1,6 +1,8 @@
 package com.trubuzz.trubuzz.test.login;
 
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.web.sugar.Web;
+import android.support.test.espresso.web.webdriver.Locator;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
@@ -16,6 +18,7 @@ import com.trubuzz.trubuzz.utils.God;
 import com.trubuzz.trubuzz.utils.Judge;
 
 import static android.support.test.espresso.web.sugar.Web.onWebView;
+import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static com.trubuzz.trubuzz.constant.Env.TAG;
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.clearText;
@@ -108,13 +111,10 @@ public class LoginAction implements LoginService{
         if (isExist(lv.intercom_layout)) {
             given(lv.intercom_close).perform(click());
         }
-        onWebView()
-                .withElement(find(lv.ib_broker_title))
+        // web view 在模拟器上会失败
+        webGiven()
+                .withElement(lv.ib_broker_title)
                 .check(webMatches(getText(), equalTo(lv.ib_broker_title_text)));
-
-//        webGiven()
-//                .withElement(lv.ib_broker_title)
-//                .check(webMatches(getText(), equalTo(lv.ib_broker_title_text)));
         unRegIdlingResource();
     }
 

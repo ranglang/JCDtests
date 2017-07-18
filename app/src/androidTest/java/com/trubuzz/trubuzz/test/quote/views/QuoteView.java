@@ -1,4 +1,4 @@
-package com.trubuzz.trubuzz.test.quote;
+package com.trubuzz.trubuzz.test.quote.views;
 
 import android.widget.ListView;
 

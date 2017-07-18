@@ -18,7 +18,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-//        LoginTest.class,
+        LoginTest.class,
         LoginReverseTest.class,
         ForgetPasswordTest.class,
         ForgetPwdReverseTest.class,

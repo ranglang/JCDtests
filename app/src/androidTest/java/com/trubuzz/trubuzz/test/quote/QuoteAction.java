@@ -1,10 +1,14 @@
 package com.trubuzz.trubuzz.test.quote;
 
 import com.trubuzz.trubuzz.constant.enumerate.StockType;
+import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+import com.trubuzz.trubuzz.test.quote.views.QuoteToast;
+import com.trubuzz.trubuzz.test.quote.views.QuoteView;
 import com.trubuzz.trubuzz.test.trade.TradeView;
+import com.trubuzz.trubuzz.utils.Judge;
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -26,6 +30,7 @@ import static com.trubuzz.trubuzz.utils.DoIt.unRegIdlingResource;
 public class QuoteAction  {
     private String TAG = "jcd_" + QuoteAction.class.getSimpleName();
     private QuoteView qv = new QuoteView();
+    private QuoteToast qt = new QuoteToast();
     private TradeView tv = new TradeView();
 
 
@@ -53,6 +58,9 @@ public class QuoteAction  {
      */
     public void search_stock(String symbol){
         given(qv.search_icon).perform(click());
+        if (Judge.hasToast(qt.searchText)) {
+            given(qv.search_icon).perform(click());
+        }
         given(qv.search_input).perform(replaceText(symbol))
                 .check(matches(withText(symbol)));
     }

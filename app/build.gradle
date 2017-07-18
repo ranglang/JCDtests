@@ -88,7 +88,8 @@ dependencies {
 task assembleDebug(overwrite: true) {}
 
 task copyTask(type: Copy) {
-    from 'libs/jucaidao_debug.apk'
+//    from 'libs/jucaidao_debug.apk'
+    from 'libs/app-cn-348.apk'
     into 'build/outputs/apk/'
     rename {
         'app-debug.apk'

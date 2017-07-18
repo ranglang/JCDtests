@@ -5,7 +5,7 @@ import android.support.test.espresso.web.webdriver.DriverAtoms;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.test.quote.QuoteView;
+import com.trubuzz.trubuzz.test.quote.views.QuoteView;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.AWealth;
 import com.trubuzz.trubuzz.test.common.GlobalView;
@@ -36,7 +36,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_password_confirm_toast;
 import static com.trubuzz.trubuzz.constant.ToastInfo.incorrect_trade_pwd_format_toast;
-import static com.trubuzz.trubuzz.test.quote.QuoteView.default_stock;
+import static com.trubuzz.trubuzz.test.quote.views.QuoteView.default_stock;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.singleSpaceContains;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.thisString;

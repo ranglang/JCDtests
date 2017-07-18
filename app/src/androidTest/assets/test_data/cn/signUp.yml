@@ -1,0 +1,34 @@
+# 用户注册正向用例
+class: SignUpTest       
+method:
+  # 邮箱注册流程
+  - name: sign_up_with_email_flow       
+    data:
+      - [star001@gg.com,aA123321]    #邮箱注册
+  
+  # 手机注册流程
+  - name: sign_up_with_phone_flow   
+    data:
+      - [86,11799990001,aA123321]    #手机注册
+     
+---
+# 用户注册反向用例     
+class: SignUpReverseTest
+method:
+  # 无效的邮箱地址注册
+  - name: invalid_email_address_sign_up
+    data:
+      - star001@abc.com      #已注册
+      - star009abc.com       #格式不正确
+      - abc001@123.com       #邮箱地址不存在
+      - ""                   #空输入
+      
+  # 邮箱注册使用无效的密码
+  - name: invalid_password_sign_up_with_email_sign_up
+    data:
+      -
+        - aabbcc@123.com
+        -
+          - {password: qQ123456 ,password_confirm: Ww123456 ,isFormat: true}  #两次密码不一致
+          - {password: qq123456 ,password_confirm: qq123456 ,isFormat: false} #格式错误
+          - {password: "" ,password_confirm: "" ,isFormat: false}   #空值
