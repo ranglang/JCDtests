@@ -3,7 +3,6 @@ package com.trubuzz.trubuzz.test.signUp.actions;
 
 import android.util.Log;
 
-import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
@@ -24,6 +23,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.trubuzz.trubuzz.constant.Config.CURRENT_IMAGE_STRATEGY;
 import static com.trubuzz.trubuzz.feature.custom.actions.CustomViewAction.doCheck;
 import static com.trubuzz.trubuzz.feature.custom.handlers.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.isPassword;
@@ -124,7 +124,7 @@ public class SignUpAction implements SignUpService {
     @Override
     public String type_image_verify_code(String imageCode) {
         if (imageCode == null) {
-            imageCode = Conf.CURRENT_IMAGE_STRATEGY.getImageCode();
+            imageCode = CURRENT_IMAGE_STRATEGY.getImageCode();
         }
         given(sv.image_captcha_input).perform(replaceText(imageCode));
         return imageCode;

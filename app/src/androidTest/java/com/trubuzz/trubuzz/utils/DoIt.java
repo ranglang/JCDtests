@@ -11,6 +11,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.util.Log;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
 import com.trubuzz.trubuzz.constant.Env;
 
 import java.io.BufferedWriter;
@@ -19,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -377,6 +379,38 @@ public class DoIt {
             es[i] = list.get(i);
         }
         return es;
+    }
+
+    /**
+     * 类型转换
+     * @param clz
+     * @param data
+     * @return
+     */
+    public static Object castObject(Class clz, Object data) {
+        if (clz == Integer.class) {
+            return Integer.valueOf((String)data);
+        }
+        if (clz == String.class) {
+            return data;
+        }
+        if (clz == Float.class) {
+            return Float.valueOf((String)data);
+        }
+        if (clz == Double.class) {
+            return Double.valueOf((String)data);
+        }
+        if (clz == Long.class) {
+            return Long.valueOf((String)data);
+        }
+        if (clz == BigDecimal.class) {
+            return new BigDecimal((String)data);
+        }
+        if (clz.isEnum()) {
+            return Enum.valueOf(clz, (String) data);
+        }
+        System.out.println("jcd_没有合适的类型 : "+ clz);
+        return data;
     }
 
 /**************************** 由Google API 中摘出来的封装方法 *****************************/

@@ -3,8 +3,6 @@ package com.trubuzz.trubuzz.utils;
 import android.util.Log;
 
 
-import com.trubuzz.trubuzz.constant.Conf;
-import com.trubuzz.trubuzz.constant.enumerate.StockType;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -13,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -27,8 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.trubuzz.trubuzz.constant.Conf.ad_domain;
-import static com.trubuzz.trubuzz.constant.Conf.ad_path;
+import static com.trubuzz.trubuzz.constant.Config.ad_domain;
+import static com.trubuzz.trubuzz.constant.Config.ad_path;
 
 
 /**

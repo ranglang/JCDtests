@@ -5,3 +5,17 @@ method:
       - [sss@bc.com ,ddfffs, ffas]
       - [s1111@bc.com]
       - 1123
+      - [aad ,123 ,
+          [a01,a02,a03],
+          [b01,b02,b03]
+        ]
+      - [bbc ,332 ,
+          {age: 18 ,name: lisi},
+          {age: 13 ,name: zhangd}
+        ]
+      -
+        - ccd
+        - cca
+        -
+          - {age: 18 ,name: lisi}
+          - {age: 13 ,name: zhangd}

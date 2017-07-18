@@ -3,7 +3,7 @@ package com.trubuzz.trubuzz.utils;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.trubuzz.trubuzz.constant.Conf;
+import com.trubuzz.trubuzz.constant.Config;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,10 +15,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static com.trubuzz.trubuzz.constant.Conf.ad_login_url;
-import static com.trubuzz.trubuzz.constant.Conf.ad_sms_log_url;
-import static com.trubuzz.trubuzz.constant.Conf.ad_user_mail;
-import static com.trubuzz.trubuzz.constant.Conf.ad_user_password;
+import static com.trubuzz.trubuzz.constant.Config.ad_login_url;
+import static com.trubuzz.trubuzz.constant.Config.ad_sms_log_url;
+import static com.trubuzz.trubuzz.constant.Config.ad_user_mail;
+import static com.trubuzz.trubuzz.constant.Config.ad_user_password;
 
 /**
  * Created by king on 2017/6/21.
@@ -27,7 +27,7 @@ import static com.trubuzz.trubuzz.constant.Conf.ad_user_password;
 
 public class AdminUtil {
     private final String TAG = "jcd_" + AdminUtil.class.getSimpleName();
-    private final Kvp<String, String> session = FileRw.getLogCookie(Conf.ad_log_cookie_file);
+    private final Kvp<String, String> session = FileRw.getLogCookie(Config.ad_log_cookie_file);
     private final String tbody_select = "table.table.table-striped.table-hover>tbody";
     // 需format %s
     private final String sms_code_td = "tr>td:contains(%s) + td";
@@ -59,7 +59,7 @@ public class AdminUtil {
     public String getCurrentSmsCode(String phoneNumber){
         nowTime = new Date().getTime();
         String sms_select = String.format(sms_code_td, phoneNumber);
-        Element smsCodeTd = getSmsCodeTd(Conf.ad_sms_log_url, session, tbody_select, sms_select, firstPage);
+        Element smsCodeTd = getSmsCodeTd(Config.ad_sms_log_url, session, tbody_select, sms_select, firstPage);
 
         return getSmsCode(smsCodeTd);
     }
@@ -162,7 +162,7 @@ public class AdminUtil {
         // 将cookie更新至properties文件持久化
         ArrayList<Kvp<String, String>> kvps = new ArrayList<>();
         kvps.add(newCookie);
-        FileRw.saveProperties(Conf.ad_log_cookie_file, kvps);
+        FileRw.saveProperties(Config.ad_log_cookie_file, kvps);
         return newCookie;
     }
 

@@ -156,4 +156,9 @@ public interface LoginService {
      * @param password
      */
     void check_invalid_login(boolean usernameIsFormatted, String password);
+
+    /**
+     * 检查依然还在登录页面
+     */
+    void check_still_in_login_page();
 }

@@ -1,14 +1,12 @@
 package com.trubuzz.trubuzz.test.login.tests;
 
-import android.content.Context;
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.constant.Conf;
-import com.trubuzz.trubuzz.constant.Env;
+        ;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
-import com.trubuzz.trubuzz.feature.custom.parameters.GenreParameter;
+import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
+import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -16,23 +14,16 @@ import com.trubuzz.trubuzz.test.common.CommonAction;
 import com.trubuzz.trubuzz.test.login.LoginAction;
 import com.trubuzz.trubuzz.test.login.LoginService;
 import com.trubuzz.trubuzz.test.login.LoginView;
-import com.trubuzz.trubuzz.utils.AdminUtil;
-import com.trubuzz.trubuzz.utils.FileRw;
 import com.trubuzz.trubuzz.utils.God;
-import com.trubuzz.trubuzz.utils.Kvp;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
 
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
-import static com.trubuzz.trubuzz.constant.enumerate.Account.MAIL;
-import static com.trubuzz.trubuzz.constant.enumerate.Account.PHONE;
 
 /**
  * Created by king on 2017/6/20.
@@ -42,6 +33,8 @@ public class ForgetPasswordTest extends BaseTest {
     private LoginService la = new LoginAction();
     private LoginView.Toast lt = new LoginView.Toast();
 
+    @YamlFileName
+    private final static String ymlFileName = "login.yml";
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
@@ -57,10 +50,11 @@ public class ForgetPasswordTest extends BaseTest {
      * @param accountType
      */
     @Test
-    @GenreParameter(value = {
-            "star003@abc.com ,MAIL",
-            "18111110001 ,PHONE"
-    },type = {String.class ,Account.class})
+//    @GenreParameter(value = {
+//            "star003@abc.com ,MAIL",
+//            "18111110001 ,PHONE"
+//    },type = {String.class ,Account.class})
+    @YmlParameter
     public void forget_password_account_follow(@Var("account") String account , @Var("accountType") Account accountType){
         la.type_username(account);
 
@@ -77,7 +71,8 @@ public class ForgetPasswordTest extends BaseTest {
      * @param mail
      */
     @Test
-    @Parameters({"star003@abc.com"})
+//    @Parameters({"star003@abc.com"})
+    @YmlParameter
     public void retrieve_password_use_mail(@Var("mail") String mail){
         la.into_forget_password_page();
         la.select_mail_retrieve();
@@ -95,9 +90,10 @@ public class ForgetPasswordTest extends BaseTest {
      * @param password
      */
     @Test
-    @Parameters({
-            "11811110001, aA123321"
-    })
+//    @Parameters({
+//            "11811110001, aA123321"
+//    })
+    @YmlParameter
     public void retrieve_password_use_phone(@Var("phone") String phone, @Var("password") String password) {
         la.into_forget_password_page();
         la.select_phone_retrieve();

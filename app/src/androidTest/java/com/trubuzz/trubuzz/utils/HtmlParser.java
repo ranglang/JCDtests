@@ -2,11 +2,9 @@ package com.trubuzz.trubuzz.utils;
 
 import android.util.Log;
 
-import com.trubuzz.trubuzz.constant.Conf;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 

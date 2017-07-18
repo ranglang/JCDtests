@@ -4,6 +4,7 @@ import android.app.Instrumentation;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
+import com.trubuzz.trubuzz.constant.enumerate.Condition;
 import com.trubuzz.trubuzz.feature.listen.EventSource;
 import com.trubuzz.trubuzz.utils.God;
 
@@ -13,6 +14,8 @@ import com.trubuzz.trubuzz.utils.God;
  */
 
 public final class Env {
+    // app 的运行环境[DEV ,CN ,GLOBAL]
+    public static final Condition condition = Condition.DEV;
     public final static String TAG = "jcd_default:";
     public final static Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     public final static UiDevice uiDevice = UiDevice.getInstance(instrumentation);
@@ -28,9 +31,16 @@ public final class Env {
 
     // 测试数据根目录
     public final static String test_data_root_dir = "test_data";
-    /* 非 final 环境变量 */
-    public static EventSource eventSource;
 
+    // 测试报告名称
+    public static final String reportName = "聚财道 app 2.0 Android 自动化测试报告";
 
+    public static final String cacheHeadImage = "head.png";
+
+    public static final int VISIBILITY = 90;
+    public static final String watchlistKey = "name";
+
+    /*** 参数分割符 ***/
+    public static final String p_s = "~&";
 
 }

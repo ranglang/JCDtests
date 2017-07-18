@@ -32,13 +32,10 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
-import static com.trubuzz.trubuzz.constant.Conf.p_s;
 import static com.trubuzz.trubuzz.test.common.CommonAction.*;
 
 /**
@@ -48,12 +45,9 @@ import static com.trubuzz.trubuzz.test.common.CommonAction.*;
 public class ForgetPwdReverseTest extends BaseTest {
     private LoginService la = new LoginAction();
     private LoginView.Toast lt = new LoginView.Toast();
-    private final String _phone = "11811110001";
-    private final String _password = "qQ123321";
     private final String key_pwd = "password";
     private final String key_pwd_confirm = "password_confirm";
     private final String key_format = "isFormat";
-    private final String invalid_password_padding = p_s + key_pwd + "," + key_pwd_confirm + "," + key_format;
 
     @YamlFileName
     private final static String ymlFileName = "login.yml";
@@ -71,8 +65,7 @@ public class ForgetPwdReverseTest extends BaseTest {
      * @param mail
      */
     @Test
-//    @Parameters({"star1003@abc.com"})
-    @YmlParameter("login.yml")
+    @YmlParameter
     public void retrieve_password_use_invalid_mail(@Var("mail") String mail){
         la.into_forget_password_page();
         la.select_mail_retrieve();
@@ -88,11 +81,8 @@ public class ForgetPwdReverseTest extends BaseTest {
      * @param phone 手机号
      * @param isFormatted 格式是否正确 . true:正确
      */
-//    @Test
-    @Parameters({
-            "11800001111,true",
-            "00001111,false",
-    })
+    @Test
+    @YmlParameter
     public void invalid_phone_get_sms_code(@Var("phone") String phone ,@Var("isFormatted") String isFormatted) {
         boolean _isFormatted = Boolean.valueOf(isFormatted);
         la.into_forget_password_page();
@@ -111,23 +101,21 @@ public class ForgetPwdReverseTest extends BaseTest {
      *      空输入 , 长度无效 , 格式正确但错误( 当前格式: 不少于6位数字 )
      * @param smsCodes 错误的格式 或 错误的数字
      */
-//    @Test
-    @GatherParameter(
-            "['','123','0000000']"
-    )
-    public void invalid_sms_code_reset_password(@Var("smsCodes") ArrayList<String> smsCodes){
-        this.runTimeData("phone",_phone,"password",_password);
+    @Test
+    @YmlParameter
+    public void invalid_sms_code_reset_password(@Var("phone") String phone , @Var("password") String password ,
+                                                @Var("smsCodes") ArrayList<String> smsCodes){
         la.into_forget_password_page();
         la.select_phone_retrieve();
 
-        la.type_phone_number(_phone);
+        la.type_phone_number(phone);
         la.get_sms_code();
         check_toast_msg(lt.sms_code_sent_toast);
 
         for(String smsCode : smsCodes) {
-            la.type_sms_code(_phone, smsCode);
-            la.type_new_password(_password);
-            la.type_confirm_password(_password);
+            la.type_sms_code(phone, smsCode);
+            la.type_new_password(password);
+            la.type_confirm_password(password);
             la.submit_phone_retrieve();
 
             if (Judge.isMatched(smsCode, "^\\d{6,}")) check_toast_msg(lt.sms_code_error_toast);
@@ -143,26 +131,23 @@ public class ForgetPwdReverseTest extends BaseTest {
      * 1. 使用固定的手机号
      * 2. 在填写好验证码后 , 使用 for 控制多次循环验证
      * @param invalidNewPasswords 将使用自定义参数化方式来注入参数
-     *          key_pwd : 新密码
-     *          key_pwd_confirm : 确认新密码
-     *          key_format : 是否是格式化的 ( 正确的格式 : true )
+     *          password : 新密码
+     *          password_confirm : 确认新密码
+     *          isFormat : 是否是格式化的 ( 正确的格式 : true )
      */
-//    @Test
-    @GatherParameter({
-            "{%s:'qQ123456',%s:'Ww123456',%s:true}" + invalid_password_padding,  // 两次密码不一致
-            "{%s:'qq123456',%s:'qq123456',%s:false}" + invalid_password_padding,  // 格式错误
-            "{%s:'',%s:'',%s:false}" + invalid_password_padding // 空值
-    })
-    public void invalid_new_password_retrieve_with_phone(@Var("invalidNewPasswords") ArrayList<HashMap> invalidNewPasswords) {
+    @Test
+    @YmlParameter
+    public void invalid_new_password_retrieve_with_phone(@Var("phone") String phone ,
+                                                         @Var("invalidNewPasswords") ArrayList<HashMap> invalidNewPasswords) {
         la.into_forget_password_page();
         la.select_phone_retrieve();
 
-        this.runTimeData("phone",_phone);
-        la.type_phone_number(_phone);
+        this.runTimeData("phone",phone);
+        la.type_phone_number(phone);
         la.get_sms_code();
         check_toast_msg(lt.sms_code_sent_toast);
 
-        String smsCode = la.type_sms_code(_phone, null);
+        String smsCode = la.type_sms_code(phone, null);
         this.runTimeData("smsCode", smsCode);
 
         for (Map<String, Object> kvp : invalidNewPasswords) {

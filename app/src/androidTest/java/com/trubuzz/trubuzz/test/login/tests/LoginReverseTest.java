@@ -44,12 +44,6 @@ public class LoginReverseTest extends BaseTest {
      * @param password
      */
     @Test
-//    @Parameters({
-//            " , , false",           // 全部为空
-//            " , sS123321, false",           // 空用户名
-//            "star003@abc.com, , true",      //  空密码
-//            "star003@abc.com, 111222, true",      // 密码错误
-//    })
     @YmlParameter
     public void invalid_input_login(@Var("username") String username , @Var("password") String password ,
                                     @Var("usernameIsFormatted") String usernameIsFormatted){
@@ -58,7 +52,7 @@ public class LoginReverseTest extends BaseTest {
         la.type_password(password);
         la.click_login_button();
         la.check_invalid_login(_usernameIsFormatted, password);
-//        check_current_activity(AName.LOGIN);
+        la.check_still_in_login_page();
     }
 
     /**
@@ -70,15 +64,9 @@ public class LoginReverseTest extends BaseTest {
      * @param usernameIsFormatted
      */
     @Test
-//    @Parameters({
-//            "' or 1=1-- , sS123321, false"
-//    })
     @YmlParameter
     public void sql_inject_login(@Var("username") String username , @Var("password") String password ,
                                  @Var("usernameIsFormatted") String usernameIsFormatted){
-        String dir = "test_data/dev/";
-
-
         this.invalid_input_login(username ,password ,usernameIsFormatted);
     }
 
@@ -88,10 +76,7 @@ public class LoginReverseTest extends BaseTest {
      * @param password
      * @param sendEmail 是否点击重发验证邮件 . true : 发送
      */
-//    @Test
-//    @Parameters({
-//            "star006@abc.com, aA123321, false"
-//    })
+    @Test
     @YmlParameter
     public void not_verify_7days(@Var("username") String username , @Var("password") String password ,
                                  @Var("sendEmail") String sendEmail){
@@ -101,7 +86,7 @@ public class LoginReverseTest extends BaseTest {
         la.click_login_button();
         la.check_resend_mail_alert();
         la.resend_mail(_sendEmail);
-//        check_current_activity(AName.LOGIN);
+        la.check_still_in_login_page();
     }
 
 }

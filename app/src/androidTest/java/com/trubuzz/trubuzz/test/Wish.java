@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.test.common.GlobalView;
@@ -26,6 +25,10 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
+import static com.trubuzz.trubuzz.constant.Config.hasBrokerPwd;
+import static com.trubuzz.trubuzz.constant.Config.hasBrokerUser;
+import static com.trubuzz.trubuzz.constant.Config.notBrokerPwd;
+import static com.trubuzz.trubuzz.constant.Config.notBrokerUser;
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_auto_login_successful;
 import static com.trubuzz.trubuzz.test.common.GlobalView.assets_radio;
@@ -139,7 +142,7 @@ public class Wish {
             Log.i(TAG, "wantBrokerLogin: 已经是已开户用户登录");
     }
     public static void wantBrokerLogin(Activity atr ){
-        wantBrokerLogin(atr , Conf.hasBrokerUser , Conf.hasBrokerPwd);
+        wantBrokerLogin(atr , hasBrokerUser , hasBrokerPwd);
     }
     public static void wantBrokerLogin(){
         wantBrokerLogin(null);
@@ -156,7 +159,7 @@ public class Wish {
         }
     }
     public static void wantLogin(Activity atr){
-        wantLogin(atr,Conf.hasBrokerUser , Conf.hasBrokerPwd);
+        wantLogin(atr,hasBrokerUser , hasBrokerPwd);
     }
     public static void wantLogin(){
         wantLogin(null);
@@ -177,7 +180,7 @@ public class Wish {
             Log.i(TAG, "wantNotBrokerLogin: 已经是未开户用户登录");
     }
     public static void wantNotBrokerLogin(Activity atr ){
-        wantNotBrokerLogin(atr ,Conf.notBrokerUser , Conf.notBrokerPwd);
+        wantNotBrokerLogin(atr ,notBrokerUser , notBrokerPwd);
     }
     public static void wantNotBrokerLogin(){
         wantNotBrokerLogin(null);

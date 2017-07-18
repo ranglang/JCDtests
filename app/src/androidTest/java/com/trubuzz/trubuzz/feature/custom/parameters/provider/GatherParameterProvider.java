@@ -11,7 +11,7 @@ import java.util.List;
 
 import junitparams.custom.ParametersProvider;
 
-import static com.trubuzz.trubuzz.constant.Conf.p_s;
+import static com.trubuzz.trubuzz.constant.Env.p_s;
 
 /**
  * Created by king on 2017/7/3.

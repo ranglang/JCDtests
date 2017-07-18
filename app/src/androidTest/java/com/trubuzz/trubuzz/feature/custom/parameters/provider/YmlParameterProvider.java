@@ -1,6 +1,5 @@
 package com.trubuzz.trubuzz.feature.custom.parameters.provider;
 
-import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
@@ -9,13 +8,13 @@ import com.trubuzz.trubuzz.utils.MReflect;
 import org.junit.runners.model.FrameworkMethod;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import junitparams.custom.ParametersProvider;
 
+import static com.trubuzz.trubuzz.utils.DoIt.castObject;
 import static com.trubuzz.trubuzz.utils.DoIt.list2array;
 import static com.trubuzz.trubuzz.utils.FileRw.readYamlFile;
 
@@ -82,38 +81,8 @@ public class YmlParameterProvider implements ParametersProvider<YmlParameter> {
         }
         Object[] o = new Object[typeLen];
         for(int i=0;i<typeLen; i++) {
-            String data = (String) datas.get(i);
-
-            if (types[i] == Integer.class) {
-                o[i] = Integer.valueOf(data);
-                continue;
-            }
-            if (types[i] == String.class) {
-                o[i] = datas.get(i);
-                continue;
-            }
-            if (types[i] == Float.class) {
-                o[i] = Float.valueOf(data);
-                continue;
-            }
-            if (types[i] == Double.class) {
-                o[i] = Double.valueOf(data);
-                continue;
-            }
-            if (types[i] == Long.class) {
-                o[i] = Long.valueOf(data);
-                continue;
-            }
-            if (types[i] == BigDecimal.class) {
-                o[i] = new BigDecimal(data);
-                continue;
-            }
-            if (types[i].isEnum()) {
-                o[i] = Enum.valueOf(types[i], data);
-                continue;
-            }
-            o[i] = data;
-            System.out.println("jcd_没有合适的类型 : "+ types[i]);
+            Object data = datas.get(i);
+            o[i] = castObject(types[i], data);
         }
         return o;
     }
@@ -146,7 +115,7 @@ public class YmlParameterProvider implements ParametersProvider<YmlParameter> {
         if ("".equals(ymlFileName)) {
             ymlFileName = (String) MReflect.getFieldObject(this.testClass, null, YamlFileName.class);
         }
-        String dir = Conf.condition.dir();
+        String dir = Env.condition.dir();
         String path = Env.test_data_root_dir + File.separator + dir + File.separator + ymlFileName;
         List list = readYamlFile(path);
         for (Object obj : list) {

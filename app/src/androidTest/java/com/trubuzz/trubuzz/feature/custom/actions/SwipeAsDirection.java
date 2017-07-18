@@ -10,7 +10,7 @@ import com.trubuzz.trubuzz.constant.enumerate.Direction;
 
 import org.hamcrest.Matcher;
 
-import static com.trubuzz.trubuzz.constant.Conf.VISIBILITY;
+import static com.trubuzz.trubuzz.constant.Env.VISIBILITY;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withAny;
 import static com.trubuzz.trubuzz.utils.God.getScreenRectangle;
 import static com.trubuzz.trubuzz.utils.Judge.isVisible;

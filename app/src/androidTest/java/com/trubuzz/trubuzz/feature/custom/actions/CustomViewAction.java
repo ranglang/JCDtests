@@ -26,10 +26,6 @@ import java.util.Arrays;
 
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static com.trubuzz.trubuzz.constant.Conf.VISIBILITY;
-import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withAny;
-import static com.trubuzz.trubuzz.utils.God.getScreenRectangle;
-import static com.trubuzz.trubuzz.utils.Judge.isVisible;
 import static org.hamcrest.Matchers.allOf;
 
 /**

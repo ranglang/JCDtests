@@ -3,6 +3,8 @@ package com.trubuzz.trubuzz.test.login.tests;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
+import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -26,6 +28,8 @@ import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 @RunWith(JUnitParamsRunner.class)
 public class LoginTest extends BaseTest{
     private final LoginService la = new LoginAction();
+    @YamlFileName
+    private final static String ymlFileName = "login.yml";
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
@@ -41,9 +45,7 @@ public class LoginTest extends BaseTest{
      * @param password
      */
     @Test
-    @Parameters({
-            "zhao.deng@jucaidao.com, aA123456",
-    })
+    @YmlParameter
     public void has_broker_login(@Var("username") String username , @Var("password") String password){
         la.type_username(username);
         la.type_password(password);
@@ -57,10 +59,7 @@ public class LoginTest extends BaseTest{
      * @param password
      */
     @Test
-    @Parameters({
-            "11811110001 , aA123321",
-            "star003@abc.com , aA123321"
-    })
+    @YmlParameter
     public void has_not_broker_login(@Var("username") String username , @Var("password") String password){
         la.type_username(username);
         la.type_password(password);

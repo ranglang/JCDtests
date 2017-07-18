@@ -4,8 +4,8 @@ import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.constant.Conf;
-import com.trubuzz.trubuzz.feature.custom.parameters.GatherParameter;
+import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
+import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -22,9 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
-import static com.trubuzz.trubuzz.constant.Conf.p_s;
+import static com.trubuzz.trubuzz.constant.Config.CURRENT_IMAGE_STRATEGY;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 
 /**
@@ -39,8 +38,9 @@ public class SignUpReverseTest extends BaseTest {
     private final String _phone = "11811110001";
     private final String _email = "aabbcc@123.com";
     private final String _password = "qQ123456";
-    private final String invalid_password_padding = p_s + key_pwd + "," + key_pwd_confirm + "," + key_format;
 
+    @YamlFileName
+    private final static String ymlFileName = "signUp.yml";
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
@@ -56,12 +56,7 @@ public class SignUpReverseTest extends BaseTest {
      * @param email
      */
     @Test
-    @Parameters({
-            "star009@abc.com",      // 已注册
-            "star009abc.com",      // 格式不正确
-            "abc001@123.com",      // 邮箱地址不存在
-            "",                     // 空输入
-    })
+    @YmlParameter
     public void invalid_email_address_sign_up(@Var("email") String email) {
         this.runTimeData("password",_password);
 
@@ -77,20 +72,15 @@ public class SignUpReverseTest extends BaseTest {
     }
 
     /**
-     * 使用无效的密码注册
+     * 邮箱注册使用无效的密码
      *      无效场景: 格式不正确 , 两次输入不一致 , 空输入
      * @param invalidPasswords
      */
     @Test
-    @GatherParameter({
-            "{%s:'qQ123456',%s:'Ww123456',%s:true}" + invalid_password_padding,  // 两次密码不一致
-            "{%s:'qq123456',%s:'qq123456',%s:false}" + invalid_password_padding,  // 格式错误
-            "{%s:'',%s:'',%s:false}" + invalid_password_padding // 空值
-    })
-    public void invalid_password_sign_up_with_email_sign_up(@Var("invalidPasswords") ArrayList<HashMap> invalidPasswords) {
-        this.runTimeData("email",_email);
-
-        ss.type_email_address(_email);
+    @YmlParameter
+    public void invalid_password_sign_up_with_email_sign_up(@Var("email") String email,
+                                                            @Var("invalidPasswords") ArrayList<HashMap> invalidPasswords) {
+        ss.type_email_address(email);
         for(HashMap map : invalidPasswords) {
             String password = (String) map.get(key_pwd);
             String confirmPassword = (String) map.get(key_pwd_confirm);
@@ -132,7 +122,7 @@ public class SignUpReverseTest extends BaseTest {
     @Test
     public void error_image_captcha_with_email_sign_up(){
         String imageCaptcha = "000000";
-        String currentCaptcha = Conf.CURRENT_IMAGE_STRATEGY.getImageCode();
+        String currentCaptcha = CURRENT_IMAGE_STRATEGY.getImageCode();
         this.runTimeData("usedImageCaptcha",imageCaptcha, "currentCaptcha",currentCaptcha);
         this.runTimeData("email",_email,"password",_password);
 

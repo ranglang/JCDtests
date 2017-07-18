@@ -3,7 +3,6 @@ package com.trubuzz.trubuzz.test.trade.tests;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
-import com.trubuzz.trubuzz.constant.Conf;
 import com.trubuzz.trubuzz.constant.enumerate.Commissioned;
 import com.trubuzz.trubuzz.constant.enumerate.OrderType;
 import com.trubuzz.trubuzz.constant.enumerate.Position;
@@ -29,6 +28,7 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
 import static android.support.test.espresso.intent.Checks.checkNotNull;
+import static com.trubuzz.trubuzz.constant.Config.tradePwd;
 import static com.trubuzz.trubuzz.constant.enumerate.Commissioned.limit;
 import static com.trubuzz.trubuzz.constant.enumerate.Commissioned.market;
 import static com.trubuzz.trubuzz.constant.enumerate.OrderType.CASH;
@@ -142,7 +142,7 @@ public class TradeTest extends BaseTest {
 //        ta.click_submit_button();
         ta.click_keyboard_submit();
 
-        ta.type_trade_password(Conf.tradePwd);
+        ta.type_trade_password(tradePwd);
 
         ta.confirm_trade_pwd();
         check_toast_msg(vt.order_place_success_toast);

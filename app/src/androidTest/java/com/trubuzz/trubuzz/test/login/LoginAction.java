@@ -260,4 +260,10 @@ public class LoginAction implements LoginService{
         }
     }
 
+    @Override
+    public void check_still_in_login_page() {
+        // 用户名输入框还可见 即表示还在登录页面
+        given(lv.username_input).check(matches(isDisplayed()));
+    }
+
 }

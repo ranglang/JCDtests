@@ -9,7 +9,7 @@ import static com.trubuzz.trubuzz.constant.Env.TAG;
 
 import org.hamcrest.Matcher;
 
-import static com.trubuzz.trubuzz.constant.Conf.VISIBILITY;
+import static com.trubuzz.trubuzz.constant.Env.VISIBILITY;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.withAny;
 import static com.trubuzz.trubuzz.utils.Judge.isVisible;
 

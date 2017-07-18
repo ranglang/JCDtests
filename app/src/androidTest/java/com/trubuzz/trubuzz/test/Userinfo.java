@@ -16,6 +16,7 @@ import android.util.Log;
 
 import com.esotericsoftware.yamlbeans.YamlReader;
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.constant.Config;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.shell.Uncalibrated;
@@ -24,6 +25,7 @@ import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.FileRw;
 import com.trubuzz.trubuzz.utils.God;
+import com.trubuzz.trubuzz.utils.Kvp;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -54,7 +56,7 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.toPack
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.constant.Conf.cacheHeadImage;
+import static com.trubuzz.trubuzz.constant.Env.cacheHeadImage;
 import static com.trubuzz.trubuzz.constant.Env.uiDevice;
 import static com.trubuzz.trubuzz.constant.ToastInfo.status_success_toast;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.hasDrawable;
@@ -107,7 +109,7 @@ public class Userinfo extends BaseTest{
         };
     }
 
-    @Before
+//    @Before
     public void intoSettings(){
         Wish.wantLogin();
         given(ASettings.left_drawer).perform(click());
@@ -115,7 +117,7 @@ public class Userinfo extends BaseTest{
 
     }
 
-    @Test
+//    @Test
     @Uncalibrated
     public void default_show_test(){
         String nickname = getText(aSet.nickname);
@@ -123,7 +125,7 @@ public class Userinfo extends BaseTest{
         this.compareTakeScreenshot("user info default show");
         given(aSet.nickname_text).check(matches(withText(nickname)));     //默认检查两处昵称一致
     }
-    @Test
+//    @Test
     @Parameters(method = "nickname_change_data")
     public void nickname_change_test(@Var("newNickname") String newNickname , @Var("confirm") boolean confirm){
         given(aSet.personal).perform(click());
@@ -153,7 +155,7 @@ public class Userinfo extends BaseTest{
         }
     }
 
-    @Test
+//    @Test
     public void gender_change_test() throws Exception {
         given(aSet.personal).perform(click());
         String gender = getText(aSet.gender_text);
@@ -181,7 +183,7 @@ public class Userinfo extends BaseTest{
         given(ASettings.left_drawer).perform(click());
         given(aSet.personal).perform(click());
     }
-    @Test
+//    @Test
     @Parameters(method = "head_image_data")
     @Uncalibrated
     public void head_image_test(@Var("done_upload") boolean done_upload) {
@@ -219,7 +221,7 @@ public class Userinfo extends BaseTest{
         }
     }
 
-    @Test
+//    @Test
     @Parameters(method = "birthday_change_data")
     public void birthday_change_test(@Var("date") String date , @Var("confirm_change") boolean confirm_change) throws UiObjectNotFoundException {
         Log.d(TAG, "birthday_change_test: date = " + date);
@@ -298,9 +300,15 @@ public class Userinfo extends BaseTest{
     }
 
 //    @Parameters("login.yml")
-    public static void aa(){
+    @Test
+    public void aa(){
 //        InputStream inputStream = getResources().openRawResource(R.raw.config);
-        String dir = "test_data/dev/";
+//        getResources().openRawResource(R.raw.config_cn);
+        String dir = "test_data/dev/trade.yml";
+        String ad_domain = Config.ad_domain;
+        Kvp<String, String> ad_log_default_cookie = Config.ad_log_default_cookie;
+
+        System.out.println(123);
 //        InputStream in = null;
 //        try {
 //            in = getResources().getAssets().open(dir + "login.yml");
@@ -322,6 +330,6 @@ public class Userinfo extends BaseTest{
 //                }
 //            }
 //        }
-        FileRw.readYamlFile(dir + "login.yml");
+//        FileRw.readYamlFile(dir);
     }
 }

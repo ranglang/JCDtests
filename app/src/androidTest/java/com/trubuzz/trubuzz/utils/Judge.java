@@ -272,4 +272,18 @@ public class Judge {
     public static boolean hasView(String shortId) {
         return getViewWith(shortId) != null ;
     }
+
+
+    /**
+     * 判断元素是否存在于数组
+     * @param objects
+     * @param o
+     * @return
+     */
+    public static boolean in(Object[] objects , Object o) {
+        for (Object o1 : objects) {
+            if(o1.equals(o)) return true;
+        }
+        return false;
+    }
 }

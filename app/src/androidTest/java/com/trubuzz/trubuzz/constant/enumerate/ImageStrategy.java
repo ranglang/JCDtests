@@ -1,6 +1,6 @@
 package com.trubuzz.trubuzz.constant.enumerate;
 
-import com.trubuzz.trubuzz.constant.Conf;
+import com.trubuzz.trubuzz.constant.Config;
 
 /**
  * Created by king on 2017/7/5.
@@ -10,7 +10,7 @@ public enum ImageStrategy {
     FIX {
         @Override
         public String getImageCode() {
-            return Conf.FIXED_CODE;
+            return Config.FIXED_CODE;
         }
     },
     API {

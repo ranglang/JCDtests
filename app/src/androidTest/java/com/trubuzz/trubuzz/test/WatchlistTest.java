@@ -43,7 +43,7 @@ import static android.support.test.espresso.matcher.CursorMatchers.withRowString
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.trubuzz.trubuzz.constant.Conf.watchlistKey;
+import static com.trubuzz.trubuzz.constant.Env.watchlistKey;
 import static com.trubuzz.trubuzz.constant.ToastInfo.watchlist_existing_toast;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.hasChildrenCount;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.hasMoreChildren;
