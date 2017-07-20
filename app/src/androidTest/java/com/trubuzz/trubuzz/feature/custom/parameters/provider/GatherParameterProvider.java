@@ -68,9 +68,8 @@ public class GatherParameterProvider implements ParametersProvider<GatherParamet
             if (values.length < 2) {
                 return s.substring(0, s.indexOf(end) + 1);
             }
-            String[] ss = values[1].split(",");
-            String format = String.format(values[0], ss);
-            return format;
+            Object[] ss = values[1].split(",");
+            return String.format(values[0], ss);
         }
         return s.substring(0, s.indexOf(end) + 1);
     }

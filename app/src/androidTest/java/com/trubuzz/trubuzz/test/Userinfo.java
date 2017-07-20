@@ -304,7 +304,7 @@ public class Userinfo extends BaseTest{
     public void aa(){
 //        InputStream inputStream = getResources().openRawResource(R.raw.config);
 //        getResources().openRawResource(R.raw.config_cn);
-        String dir = "test_data/dev/trade.yml";
+//        String dir = "test_data/dev/trad.yml";
         String ad_domain = Config.ad_domain;
         Kvp<String, String> ad_log_default_cookie = Config.ad_log_default_cookie;
 

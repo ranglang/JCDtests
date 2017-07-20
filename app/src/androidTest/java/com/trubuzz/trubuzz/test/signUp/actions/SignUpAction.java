@@ -196,13 +196,31 @@ public class SignUpAction implements SignUpService {
     public void check_invalid_password_sign_up(String password, String confirmPassword, boolean isFormat) {
         if (!isFormat) {
             check_toast_msg(st.incorrect_password_format_toast);
-        } else if (!password.equals(confirmPassword)) {
+            return;
+        }
+        if (!password.equals(confirmPassword)) {
             check_toast_msg(st.incorrect_password_confirm_toast);
         } else {
             Log.e(Env.TAG, String.format("check_invalid_password_sign_up: " +
                     "数据设计错误 ,反向用例设计了正向的数据  : \n " +
                     "password : %s ; password confirm : %s", password, confirmPassword));
         }
+    }
+
+    @Override
+    public void check_invalid_phone_sign_up(String phone, boolean isFormat) {
+        if ("".equals(phone)) {
+            check_toast_msg(st.sign_up_phone_hint_toast);
+            return;
+        }
+        if (!isFormat) {
+            check_toast_msg(st.incorrect_phone_format_toast);
+            return;
+        }
+        // 反向用例 >> 格式正确则只验证 用户已存在的情况 ( 用户不存在 == 新用户 ,当在正向用例中验证 )
+        this.type_image_verify_code(null);
+        this.confirm_image_verify_code_input();
+        check_toast_msg(st.error_phone_duplicated_toast);
     }
 
 

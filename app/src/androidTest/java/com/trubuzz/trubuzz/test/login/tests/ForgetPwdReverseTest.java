@@ -83,15 +83,15 @@ public class ForgetPwdReverseTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void invalid_phone_get_sms_code(@Var("phone") String phone ,@Var("isFormatted") String isFormatted) {
-        boolean _isFormatted = Boolean.valueOf(isFormatted);
+    public void invalid_phone_get_sms_code(@Var("phone") String phone ,@Var("isFormatted") boolean isFormatted) {
         la.into_forget_password_page();
         la.select_phone_retrieve();
 
         la.type_phone_number(phone);
         la.get_sms_code();
 
-        if (_isFormatted) check_toast_msg(lt.user_not_exist_toast);
+        // 反向用例 >> 格式正确则只检查 用户不存在的情况 ( 用户存在的情况在正向用例中验证 )
+        if (isFormatted) check_toast_msg(lt.user_not_exist_toast);
         else check_toast_msg(lt.incorrect_phone_format_toast);
     }
 

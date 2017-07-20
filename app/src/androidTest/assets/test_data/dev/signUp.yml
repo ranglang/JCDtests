@@ -24,7 +24,7 @@ method:
       - ""                   #空输入
       
   # 邮箱注册使用无效的密码
-  - name: invalid_password_sign_up_with_email_sign_up
+  - name: invalid_password_sign_up_with_email
     data:
       -
         - aabbcc@123.com
@@ -32,3 +32,36 @@ method:
           - {password: qQ123456 ,password_confirm: Ww123456 ,isFormat: true}  #两次密码不一致
           - {password: qq123456 ,password_confirm: qq123456 ,isFormat: false} #格式错误
           - {password: "" ,password_confirm: "" ,isFormat: false}   #空值
+
+  # 无效的手机号注册
+  - name: invalid_phone_sign_up
+    data:
+      - ["" , false]    #空值
+      - [0000 , false]    #格式错误
+      - [999999999999999999999999 , false]    #格式错误
+      - [11811110001 , true]    #用户已存在
+
+  # 使用无效的密码注册
+  - name: invalid_password_sign_up_with_phone
+    data:
+      - [qQ123456 ,Ww123456 ,true]    #两次密码不一致
+      - [qQ123456 ,123 ,true]    #两次密码不一致
+      - [qQ123456 ,"" ,true]    #两次密码不一致
+      - [qq123456 ,qq123456 ,false]    #格式错误
+      - [123 ,qQ123456 ,false]    #格式错误
+      - ["" ,qq123456 ,false]    #格式错误
+      - ["" ,"" ,false]    #空值
+
+  # 邮箱注册使用无效的图像验证码
+  - name: error_image_captcha_sign_up_with_email
+    data:
+      - ""    #空值
+      - 0     #错误值
+      - 000000000   #错误值
+
+  # 手机注册使用无效图像验证码
+  - name: error_image_captcha_sign_up_with_phone
+    data:
+      - ""    #空值
+      - 0     #错误值
+      - 000000000   #错误值

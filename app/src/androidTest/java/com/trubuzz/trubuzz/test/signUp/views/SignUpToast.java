@@ -5,10 +5,13 @@ import com.trubuzz.trubuzz.shell.beautify.ToastElement;
 import static com.trubuzz.trubuzz.test.R.string.accept_terms_of_service_hint;
 import static com.trubuzz.trubuzz.test.R.string.error_captcha_code;
 import static com.trubuzz.trubuzz.test.R.string.error_invalid_email;
+import static com.trubuzz.trubuzz.test.R.string.error_phone_duplicated;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_email_empty;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_email_format;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_confirm;
 import static com.trubuzz.trubuzz.test.R.string.incorrect_password_format;
+import static com.trubuzz.trubuzz.test.R.string.incorrect_phone_format;
+import static com.trubuzz.trubuzz.test.R.string.sign_up_phone_hint;
 import static com.trubuzz.trubuzz.test.R.string.sign_up_sms_auth_sent;
 import static com.trubuzz.trubuzz.utils.God.getString;
 
@@ -41,4 +44,15 @@ public class SignUpToast {
 
     public final ToastElement error_captcha_code_toast = new ToastElement(
             getString("验证码错误", error_captcha_code));
+
+    public final ToastElement sign_up_phone_hint_toast = new ToastElement(
+            getString("请输入手机号", sign_up_phone_hint));
+
+    public final ToastElement incorrect_phone_format_toast = new ToastElement(
+            getString("手机号格式不正确", incorrect_phone_format));
+
+    public final ToastElement error_phone_duplicated_toast = new ToastElement(
+            getString("电话号码已注册", error_phone_duplicated));
+
+
 }

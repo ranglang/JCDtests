@@ -134,4 +134,12 @@ public interface SignUpService extends TestsService<SignUpToast> {
      * @param isFormat 是否是正确的格式  true : 正确
      */
     void check_invalid_password_sign_up(String password, String confirmPassword, boolean isFormat);
+
+
+    /**
+     * 验证无效手机号注册
+     * @param phone
+     * @param isFormat
+     */
+    void check_invalid_phone_sign_up(String phone, boolean isFormat);
 }

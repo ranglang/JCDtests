@@ -24,6 +24,10 @@ import java.util.HashMap;
 import junitparams.JUnitParamsRunner;
 
 import static com.trubuzz.trubuzz.constant.Config.CURRENT_IMAGE_STRATEGY;
+import static com.trubuzz.trubuzz.constant.Config.default_country_code;
+import static com.trubuzz.trubuzz.constant.Env.condition;
+import static com.trubuzz.trubuzz.constant.enumerate.Account.PHONE;
+import static com.trubuzz.trubuzz.constant.enumerate.Condition.CN;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 
 /**
@@ -35,7 +39,7 @@ public class SignUpReverseTest extends BaseTest {
     private final String key_pwd = "password";
     private final String key_pwd_confirm = "password_confirm";
     private final String key_format = "isFormat";
-    private final String _phone = "11811110001";
+    private final String _phone = "11211110001";
     private final String _email = "aabbcc@123.com";
     private final String _password = "qQ123456";
 
@@ -78,8 +82,8 @@ public class SignUpReverseTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void invalid_password_sign_up_with_email_sign_up(@Var("email") String email,
-                                                            @Var("invalidPasswords") ArrayList<HashMap> invalidPasswords) {
+    public void invalid_password_sign_up_with_email(@Var("email") String email,
+                                                    @Var("invalidPasswords") ArrayList<HashMap> invalidPasswords) {
         ss.type_email_address(email);
         for(HashMap map : invalidPasswords) {
             String password = (String) map.get(key_pwd);
@@ -101,7 +105,7 @@ public class SignUpReverseTest extends BaseTest {
      * 邮箱注册不同意服务条款
      */
     @Test
-    public void do_not_accept_the_terms_with_email_sign_up(){
+    public void do_not_accept_the_terms_sign_up_with_email(){
         this.runTimeData("email",_email);
         this.runTimeData("password",_password);
 
@@ -117,11 +121,13 @@ public class SignUpReverseTest extends BaseTest {
     }
 
     /**
-     * 邮箱注册使用错误的图像验证码
+     * 邮箱注册使用无效的图像验证码
+     *      无效场景: 空输入 , 错误的
+     * @param imageCaptcha
      */
     @Test
-    public void error_image_captcha_with_email_sign_up(){
-        String imageCaptcha = "000000";
+    @YmlParameter
+    public void error_image_captcha_sign_up_with_email(@Var("imageCaptcha") String imageCaptcha){
         String currentCaptcha = CURRENT_IMAGE_STRATEGY.getImageCode();
         this.runTimeData("usedImageCaptcha",imageCaptcha, "currentCaptcha",currentCaptcha);
         this.runTimeData("email",_email,"password",_password);
@@ -140,4 +146,109 @@ public class SignUpReverseTest extends BaseTest {
 
         check_toast_msg(ss.theToast().error_captcha_code_toast);
     }
+
+
+    /**
+     * 验证使用无效手机号注册
+     *      无效场景 ; 空值 , 错误的格式 , 已存在
+     * @param phone
+     * @param isFormat
+     */
+    @Test
+    @YmlParameter
+    public void invalid_phone_sign_up(@Var("phone") String phone ,@Var("isFormat") boolean isFormat){
+        this.runTimeData("password",_password);
+
+        ss.select_way_for_sign_up(PHONE);
+        ss.verify_phone_sign_up_default_show();
+
+        if (condition != CN) ss.type_country_code(default_country_code);
+
+        ss.type_phone_number(phone);
+        ss.type_password(_password);
+        ss.type_confirm_password(_password);
+
+        Espresso.closeSoftKeyboard();
+        ss.agree_with_the_terms(true);
+        ss.do_get_sms_code();
+
+        ss.check_invalid_phone_sign_up(phone ,isFormat);
+    }
+
+    /**
+     * 使用无效的密码注册
+     *      无效场景 : 空值 , 格式不正确 , 两次密码不一致
+     * @param password
+     * @param pwd_confirm
+     * @param isFormat password 的格式正确否
+     */
+    @Test
+    @YmlParameter
+    public void invalid_password_sign_up_with_phone(@Var("password") String password ,@Var("pwd_confirm") String pwd_confirm ,
+                                                    @Var("isFormat") boolean isFormat){
+        ss.select_way_for_sign_up(PHONE);
+        ss.verify_phone_sign_up_default_show();
+
+        if (condition != CN) ss.type_country_code(default_country_code);
+
+        ss.type_phone_number(_phone);
+        ss.type_password(_password);
+        ss.type_confirm_password(_password);
+
+        Espresso.closeSoftKeyboard();
+        ss.agree_with_the_terms(true);
+        ss.do_get_sms_code();
+
+        ss.check_invalid_password_sign_up(password ,pwd_confirm ,isFormat);
+    }
+
+    /**
+     * 手机注册不同意服务条款
+     */
+    @Test
+    public void do_not_accept_the_terms_sign_up_with_phone(){
+        ss.select_way_for_sign_up(PHONE);
+        ss.verify_phone_sign_up_default_show();
+
+        if (condition != CN) ss.type_country_code(default_country_code);
+
+        ss.type_phone_number(_phone);
+        ss.type_password(_password);
+        ss.type_confirm_password(_password);
+
+        Espresso.closeSoftKeyboard();
+        ss.agree_with_the_terms(false);
+        ss.do_get_sms_code();
+
+        check_toast_msg(ss.theToast().accept_terms_of_service_toast);
+    }
+
+    /**
+     * 手机注册使用无效图像验证码
+     *      无效场景: 空输入 , 错误的
+     * @param imageCaptcha
+     */
+    @Test
+    @YmlParameter
+    public void error_image_captcha_sign_up_with_phone(@Var("imageCaptcha") String imageCaptcha){
+        ss.select_way_for_sign_up(PHONE);
+        ss.verify_phone_sign_up_default_show();
+
+        if (condition != CN) ss.type_country_code(default_country_code);
+
+        ss.type_phone_number(_phone);
+        ss.type_password(_password);
+        ss.type_confirm_password(_password);
+
+        Espresso.closeSoftKeyboard();
+        ss.agree_with_the_terms(true);
+        ss.do_get_sms_code();
+
+        ss.check_image_verify_code_show();
+        ss.type_image_verify_code(imageCaptcha);
+        ss.confirm_image_verify_code_input();
+
+        check_toast_msg(ss.theToast().error_captcha_code_toast);
+    }
+
 }
