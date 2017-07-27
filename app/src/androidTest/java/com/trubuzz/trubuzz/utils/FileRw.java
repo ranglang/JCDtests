@@ -148,5 +148,26 @@ public class FileRw {
         return null;
     }
 
+    public static void changeYamlValue(InputStream in ,String path ,Object value){
+        try {
+            YamlReader reader = new YamlReader(new InputStreamReader(in));
+            while (true) {
+                Object contact = reader.read();
+                if (contact == null) break;
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e(TAG, "readYamlFile: read error .", e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 }

@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.test;
 import android.util.Log;
 import android.view.View;
 
+import com.trubuzz.trubuzz.constant.UserStore;
 import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.feature.ClassWatcherAdvance;
 import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
@@ -144,5 +145,19 @@ public class BaseTest {
             testWatcherAdvance.setRunTimeData(runTimeData);
         }
         return runTimeData;
+    }
+
+    /**
+     * 获取用户的实时密码
+     * @param userName
+     * @param password
+     * @return
+     */
+    protected String theCurrent(String userName, String password) {
+        if (UserStore.CURRENT_LOGIN_PWD.equals(password)) {
+            password = UserStore.getLoginPassword(userName);
+            this.runTimeData("password",password);
+        }
+        return password;
     }
 }

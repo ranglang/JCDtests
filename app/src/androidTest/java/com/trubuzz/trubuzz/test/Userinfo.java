@@ -299,7 +299,7 @@ public class Userinfo extends BaseTest{
         return uri;
     }
 
-//    @Parameters("login.yml")
+//    @Parameters("doLogin.yml")
     @Test
     public void aa(){
 //        InputStream inputStream = getResources().openRawResource(R.raw.config);
@@ -311,7 +311,7 @@ public class Userinfo extends BaseTest{
         System.out.println(123);
 //        InputStream in = null;
 //        try {
-//            in = getResources().getAssets().open(dir + "login.yml");
+//            in = getResources().getAssets().open(dir + "doLogin.yml");
 //            YamlReader reader = new YamlReader(new InputStreamReader(in));
 //            Object object = reader.read();
 //            System.out.println(object);

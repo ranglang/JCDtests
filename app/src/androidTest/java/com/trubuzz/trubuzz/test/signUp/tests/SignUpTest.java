@@ -4,6 +4,8 @@ import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.constant.enumerate.Account;
+import com.trubuzz.trubuzz.feature.custom.parameters.GenreParameter;
 import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
 import com.trubuzz.trubuzz.shell.Var;
@@ -102,6 +104,17 @@ public class SignUpTest extends BaseTest {
 
         ss.submit_phone_sign_up();
         ss.check_sign_up_successful();
+    }
+
+    /**
+     * 校验服务条款
+     */
+    @Test
+    @GenreParameter({"MAIL" ,"PHONE"})
+    public void browse_terms_content(Account account){
+        ss.select_way_for_sign_up(account);
+        ss.into_terms_page();
+        ss.check_terms_content();
     }
 
     // 国别码挑选测试

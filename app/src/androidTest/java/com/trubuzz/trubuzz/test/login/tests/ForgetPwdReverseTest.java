@@ -50,7 +50,7 @@ public class ForgetPwdReverseTest extends BaseTest {
     private final String key_format = "isFormat";
 
     @YamlFileName
-    private final static String ymlFileName = "login.yml";
+    private final static String ymlFileName = "doLogin.yml";
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 

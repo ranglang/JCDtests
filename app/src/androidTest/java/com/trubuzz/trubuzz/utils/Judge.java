@@ -27,6 +27,7 @@ import com.trubuzz.trubuzz.test.common.CommonAction;
 
 import org.hamcrest.Matcher;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -299,6 +300,20 @@ public class Judge {
     public static boolean in(Object[] objects , Object o) {
         for (Object o1 : objects) {
             if(o1.equals(o)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断list中是否有null值
+     * @param list
+     * @return
+     */
+    public static boolean hasNull(List list) {
+        for (Object o : list) {
+            if (o == null) {
+                return true;
+            }
         }
         return false;
     }

@@ -29,7 +29,7 @@ import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 public class LoginTest extends BaseTest{
     private final LoginService la = new LoginAction();
     @YamlFileName
-    private final static String ymlFileName = "login.yml";
+    private final static String ymlFileName = "doLogin.yml";
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 

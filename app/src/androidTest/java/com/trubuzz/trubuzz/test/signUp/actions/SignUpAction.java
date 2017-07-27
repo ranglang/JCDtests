@@ -1,10 +1,12 @@
 package com.trubuzz.trubuzz.test.signUp.actions;
 
 
+import android.support.test.espresso.web.webdriver.Locator;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
+import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
 import com.trubuzz.trubuzz.test.signUp.SignUpService;
 import com.trubuzz.trubuzz.test.signUp.tests.SignUpReverseTest;
@@ -23,13 +25,23 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.web.sugar.Web.onWebView;
+import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
+import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
+import static com.trubuzz.trubuzz.constant.AName.WEB_VIEW;
 import static com.trubuzz.trubuzz.constant.Config.CURRENT_IMAGE_STRATEGY;
+import static com.trubuzz.trubuzz.constant.Env.instrumentation;
 import static com.trubuzz.trubuzz.feature.custom.actions.CustomViewAction.doCheck;
+import static com.trubuzz.trubuzz.feature.custom.assertors.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.feature.custom.handlers.ViewInteractionHandler.getView;
 import static com.trubuzz.trubuzz.feature.custom.matchers.CustomMatcher.isPassword;
 import static com.trubuzz.trubuzz.shell.Park.given;
+import static com.trubuzz.trubuzz.shell.Park.webGiven;
+import static com.trubuzz.trubuzz.test.R.string.terms_content;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_auto_login_successful;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
+import static com.trubuzz.trubuzz.utils.God.getString;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.IsNot.not;
 
 /**
@@ -223,5 +235,18 @@ public class SignUpAction implements SignUpService {
         check_toast_msg(st.error_phone_duplicated_toast);
     }
 
+    @Override
+    public void into_terms_page() {
+        given(sv.service_terms).perform(click());
+    }
+
+    @Override
+    public void check_terms_content() {
+        DoIt.regIdlingResource(new ActivityIdlingResource(WEB_VIEW,instrumentation.getContext() ,true));
+        webGiven()
+                .withElement(sv.terms_content)
+                .check(customWebMatches(getText() , containsString(getString(terms_content))));
+        DoIt.unRegIdlingResource();
+    }
 
 }

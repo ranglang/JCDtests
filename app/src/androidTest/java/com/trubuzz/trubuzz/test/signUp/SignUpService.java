@@ -142,4 +142,14 @@ public interface SignUpService extends TestsService<SignUpToast> {
      * @param isFormat
      */
     void check_invalid_phone_sign_up(String phone, boolean isFormat);
+
+    /**
+     * 进入服务条款页面
+     */
+    void into_terms_page();
+
+    /**
+     * 检查服务条款内容
+     */
+    void check_terms_content();
 }

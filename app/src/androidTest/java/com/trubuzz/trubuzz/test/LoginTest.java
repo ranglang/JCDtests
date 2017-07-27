@@ -59,7 +59,7 @@ public class LoginTest extends BaseTest{
     public void login(@Var("user") String user , @Var("pwd") String pwd ,
                               @Var("expect") Element expect ){
         Wish.wantNotLogin();
-        Wish.login(user,pwd);
+        Wish.doLogin(user,pwd);
 
         given(expect).check(matches(isDisplayed()));
 
@@ -80,14 +80,14 @@ public class LoginTest extends BaseTest{
 //            DoIt.regIdlingResource(new ActivityIdlingResource(AName.MAIN,getInstrumentation().getContext(),true));
 //
 //            if ("成功登录".equals(expect)){
-//                logout();  //退出登录
+//                doLogout();  //退出登录
 //
 //            }else if ("未开户".equals(expect)) {
 //                onWebView()
 //                        .withElement(ib_broker_title)
 //                        .check(webMatches(getText(), containsString("Interactive Brokers")));
 //
-//                logout();
+//                doLogout();
 //            }
 //            DoIt.unAllRegIdlingResource();
 //        }

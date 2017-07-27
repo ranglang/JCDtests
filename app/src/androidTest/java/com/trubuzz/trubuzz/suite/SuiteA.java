@@ -18,7 +18,7 @@ import org.junit.runners.Suite;
 //        SignUpTest.class
 })
 public class SuiteA extends BaseSuite{
-    private static final String suiteDesc = "login test ";
+    private static final String suiteDesc = "doLogin test ";
     private static final Class suiteClass = SuiteA.class;
 
 

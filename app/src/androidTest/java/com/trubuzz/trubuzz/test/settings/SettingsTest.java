@@ -1,10 +1,12 @@
-package com.trubuzz.trubuzz.test;
+package com.trubuzz.trubuzz.test.settings;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.web.webdriver.DriverAtoms;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.test.BaseTest;
+import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.quote.views.QuoteView;
 import com.trubuzz.trubuzz.elements.ASettings;
 import com.trubuzz.trubuzz.elements.AWealth;

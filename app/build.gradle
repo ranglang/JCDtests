@@ -59,7 +59,7 @@ dependencies {
     testCompile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.4'
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime
     testCompile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5'
-//    testCompile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '3.8.0'
+    testCompile 'com.esotericsoftware.yamlbeans:yamlbeans:1.12'
 
     //    testCompile files('libs/classes-dex2jar.jar')
     androidTestCompile 'com.android.support:support-annotations:23.+'
@@ -79,7 +79,6 @@ dependencies {
     androidTestCompile 'com.alibaba:fastjson:1.2.20'
     androidTestCompile 'org.jsoup:jsoup:1.10.3'
     androidTestCompile 'com.esotericsoftware.yamlbeans:yamlbeans:1.12'
-    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.6.1'
 
 
 

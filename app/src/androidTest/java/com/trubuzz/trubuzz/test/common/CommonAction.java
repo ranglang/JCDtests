@@ -30,7 +30,7 @@ public class CommonAction {
      * @param activityName
      */
     public static void check_current_activity(String activityName ) {
-        String currentAName = God.getCurrentActivityName(Env.instrumentation);
+        String currentAName = God.getTopActivityName(instrumentation.getContext());
         Log.i(TAG, String.format("check_current_activity:  current activity name = %s", currentAName ));
 
         Assert.assertThat(currentAName ,thisString(activityName));

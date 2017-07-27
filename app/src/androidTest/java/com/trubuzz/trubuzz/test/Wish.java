@@ -107,7 +107,7 @@ public class Wish {
     /**
      * 单纯的登出操作
      */
-    public static void logout() {
+    public static void doLogout() {
         given(GlobalView.assets_radio).perform(click());
         given(ASettings.left_drawer).perform(click(ViewActions.pressBack()));
         given(aSettings.setting).perform(click());
@@ -119,7 +119,7 @@ public class Wish {
      * @param user
      * @param pwd
      */
-    public static void login(String user , String pwd){
+    public static void doLogin(String user , String pwd){
         given(loginView.username_input).perform(replaceText(user));
         given(loginView.login_pwd_input).perform(replaceText(pwd));
         given(loginView.login_button).perform( click());
@@ -134,10 +134,10 @@ public class Wish {
      */
     public static void wantBrokerLogin(Activity atr ,String user , String pwd){
         if(! isLogin(atr)){
-            login(user,pwd);
+            doLogin(user,pwd);
         }else if(! hasBroker()){
-            logout();
-            login(user,pwd);
+            doLogout();
+            doLogin(user,pwd);
         }else
             Log.i(TAG, "wantBrokerLogin: 已经是已开户用户登录");
     }
@@ -155,7 +155,7 @@ public class Wish {
      */
     public static void wantLogin(Activity atr ,String user , String pwd){
         if(! isLogin(atr)) {
-            login(user, pwd);
+            doLogin(user, pwd);
         }
     }
     public static void wantLogin(Activity atr){
@@ -172,10 +172,10 @@ public class Wish {
      */
     public static void wantNotBrokerLogin(Activity atr ,String user , String pwd){
         if(! isLogin(atr)){
-            login(user,pwd);
+            doLogin(user,pwd);
         }else if( hasBroker()){
-            logout();
-            login(user,pwd);
+            doLogout();
+            doLogin(user,pwd);
         }else
             Log.i(TAG, "wantNotBrokerLogin: 已经是未开户用户登录");
     }
@@ -192,7 +192,7 @@ public class Wish {
      */
     public static void wantNotLogin(Activity atr){
         if(isLogin(atr)){
-            logout();
+            doLogout();
         }
     }
     public static void wantNotLogin(){

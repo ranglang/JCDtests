@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.test.signUp.views;
 import android.widget.TextView;
 
 import com.trubuzz.trubuzz.shell.beautify.ActivityElement;
+import com.trubuzz.trubuzz.shell.beautify.AtomElement;
 
 import static android.R.string.cancel;
 import static com.trubuzz.trubuzz.test.R.string.accept;
@@ -44,7 +45,7 @@ public class SignUpView {
     public final ActivityElement reg_pwd = new ActivityElement().setId("password").setHint(getString("请输入密码" ,sign_up_password_hint));
     // 确认密码
     public final ActivityElement reg_pwd_confirm = new ActivityElement().setId("confirm").setHint(getString("请再次输入密码" ,sign_up_confirm_hint));
-    // 邮箱注册服务条款链接
+    // 服务条款链接
     public final ActivityElement service_terms = new ActivityElement().setId("service")
             .setText(getString("服务条款",terms_of_service));
 
@@ -128,4 +129,6 @@ public class SignUpView {
             .setText(getString("注册" ,sign_up))
             .setSiblings(new ActivityElement().setChildren(phone_input));
 
+    // 服务条款内容
+    public final AtomElement terms_content = new AtomElement().setCss(".terms");
 }

@@ -1,29 +1,28 @@
 package com.trubuzz.trubuzz.test;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.parser.Feature;
-import com.trubuzz.trubuzz.bean.ImageS;
+import com.esotericsoftware.yamlbeans.YamlReader;
+import com.esotericsoftware.yamlbeans.YamlWriter;
 import com.trubuzz.trubuzz.utils.AdminUtilU;
 import com.trubuzz.trubuzz.utils.Param;
+import com.trubuzz.trubuzz.utils.UserStore;
 
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import junitparams.JUnitParamsRunner;
 
 /**
  * Created by king on 2016/10/20.
@@ -33,17 +32,50 @@ public class Run {
     boolean a;
     HtmlParser htmlParser = new HtmlParser();
     AdminUtilU au = new AdminUtilU();
+    String fn = "E:\\KING\\user_store.yml";
 
     @Test
-    public void xrun() throws NoSuchMethodException {
-        List<String> list = new ArrayList<>();
-        list.add("123");
-        list.add("124");
-        list.add("122");
-        Object o = list;
-        System.out.println(o instanceof List);
-    }
+    public void arun(){
+        UserStore.updateLoginPassword("11899990001" ,"12321");
+        String loginPassword = UserStore.getLoginPassword("11899990001");
+        System.out.println(loginPassword);
 
+    }
+//    @Test
+    public void xrun() throws NoSuchMethodException {
+        InputStream in = null;
+        try {
+            in = new FileInputStream(new File(fn));
+            YamlReader reader = new YamlReader(new InputStreamReader(in));
+            Map contact = (Map) reader.read();
+            if (contact != null) {
+                Map map = (Map) contact.get("cn");
+                for (Object key : map.keySet()) {
+                    if (key.equals("11899990001")) {
+                        map.put(key, "1233");
+                        break;
+                    }
+                }
+            }
+            rwyml(fn, contact);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public void rwyml(String file , Object o) throws IOException {
+        YamlWriter writer = new YamlWriter(new FileWriter(fn));
+        writer.write(o);
+        writer.close();
+    }
     public static Object[] list2array(List list) {
         int size = list.size();
         if (size < 1) {
@@ -56,12 +88,12 @@ public class Run {
         return es;
     }
     private String formatString(String s ,String p_s) {
-        String[] split = s.split(p_s);
-        System.out.println(split.length);
-        String[] ss = split[1].split(",");
-        String format = String.format(split[0], ss);
-        System.out.println(format);
-        return format;
+//        String[] split = s.split(p_s);
+//        System.out.println(split.length);
+//        String[] ss = split[1].split(",");
+//        String format = String.format(split[0], ss);
+//        System.out.println(format);
+        return "";
     }
     public void tc(){
     }

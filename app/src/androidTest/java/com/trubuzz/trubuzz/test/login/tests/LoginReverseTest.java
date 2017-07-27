@@ -28,7 +28,7 @@ public class LoginReverseTest extends BaseTest {
     private final LoginService la = new LoginAction();
     private final LoginView.Toast lt = new LoginView.Toast();
     @YamlFileName
-    private final static String ymlFileName = "login.yml";
+    private final static String ymlFileName = "doLogin.yml";
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
