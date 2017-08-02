@@ -1,0 +1,17 @@
+# 设置 -> 更改登录密码
+class: SettingsLoginPwdTest
+method:
+  # 正向登录密码修改流程
+  - name: login_password_reset_flow
+    data:
+      - [kingstar95d+d01@gmail.com, "$C_LP(kingstar95d+d01@gmail.com)" , "$R_LP(8)"]
+
+  # 更改登录密码反向用例 -- 无效旧密码
+  - name: invalid_old_password_reset
+    data:
+      - []
+
+  # 使用无效的新密码更改
+  - name: invalid_new_password_reset
+    data:
+      - []

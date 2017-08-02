@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -344,6 +345,56 @@ public class God {
     }
 
     /**
+     * 获取一个指定长度的登录密码
+     * @param length 长度不小于3 ,小于3 则默认赋值为6
+     * @return
+     */
+    public static String getRandomLoginPwd(int length) {
+        if(length < 3)  length = 6;
+        char[] res = new char[length];
+        res[0] = (char) getRandomInt(112, 97);
+        res[1] = (char) getRandomInt(90, 65);
+        res[2] = (char) getRandomInt(57, 48);
+        for(int i=3; i<length; i++) {
+            res[i] = getRandomChar();
+        }
+        return new String(res);
+    }
+
+    /**
+     * 获取指定长度的随机交易密码
+     *      长度不小于4
+     * @param length
+     * @return
+     */
+    public static String getRandomTradePwd(int length) {
+        if(length < 4)  length = 4;
+        char[] res = new char[length];
+        for(int i=0; i<length; i++) {
+            res[i] = getRandomChar();
+        }
+        return new String(res);
+    }
+
+    /**
+     * 随机获取一个数字/大写字母或小写字母
+     *      1 : 数字
+     *      2 ; 大写字母
+     *      3 : 小写字母
+     * @return
+     */
+    public static char getRandomChar(){
+        int i = getRandomInt(3, 1);
+        switch (i) {
+            case 1:
+                return (char) getRandomInt(57, 48);
+            case 2:
+                return (char) getRandomInt(90, 65);
+            default:
+                return (char) getRandomInt(112, 97);
+        }
+    }
+    /**
      * 从字符串中获取连续个数的数字
      * @param str
      * @param max
@@ -356,6 +407,39 @@ public class God {
         if (matcher.find()) {
             return matcher.group();
         }
-        return "";
+        return "0";
+    }
+
+    /**
+     * 从字符串中获取连续数字
+     * @param str
+     * @return
+     */
+    public static String getNumberFromString(String str) {
+        Pattern p = Pattern.compile("[0-9]\\d*");
+        Matcher matcher = p.matcher(str);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "0";
+    }
+
+    public static String getIntervalString(String str, char start, char stop) {
+        char[] chars = str.toCharArray();
+        StringBuffer sbf = new StringBuffer();
+        boolean canStart = false;
+        for (char ch : chars) {
+            if (ch == start) {
+                canStart = true;
+                continue;
+            }
+            if (ch == stop) {
+                return new String(sbf);
+            }
+            if (canStart) {
+                sbf.append(ch);
+            }
+        }
+        return new String(sbf);
     }
 }

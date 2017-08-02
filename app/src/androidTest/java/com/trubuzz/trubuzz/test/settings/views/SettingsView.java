@@ -51,7 +51,7 @@ public class SettingsView {
     public final ActivityElement change_login_pwd = new ActivityElement().setId("change_login_password")
             .setChildren(new ActivityElement().setText(getString("修改登入密码", change_login_password)));
     // 修改交易密码
-    public final ActivityElement change_trade_pwd_view = new ActivityElement().setId("change_trade_password")
+    public final ActivityElement change_trade_pwd = new ActivityElement().setId("change_trade_password")
             .setChildren(new ActivityElement().setText(getString("修改交易密码", change_trade_password)));
 
 

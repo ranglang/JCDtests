@@ -1,14 +1,20 @@
 package com.trubuzz.trubuzz.test.settings.actions;
 
+import android.util.Log;
+
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.constant.Env;
+import com.trubuzz.trubuzz.shell.Password;
 import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.test.login.LoginAction;
 import com.trubuzz.trubuzz.test.settings.SettingsService;
 import com.trubuzz.trubuzz.test.settings.views.SettingsToast;
 import com.trubuzz.trubuzz.test.settings.views.SettingsView;
+import com.trubuzz.trubuzz.test.trade.TradeAction;
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -28,6 +34,7 @@ public class SettingsAction implements SettingsService {
     private SettingsView sv = new SettingsView();
     private SettingsToast st = new SettingsToast();
     private LoginAction la = new LoginAction();
+    private TradeAction ta = new TradeAction();
 
     @Override
     public SettingsToast theToast() {
@@ -56,21 +63,24 @@ public class SettingsAction implements SettingsService {
     }
 
     @Override
-    public void type_old_password(String password) {
-        given(sv.old_password_input).perform(replaceText(password))
+    public void type_old_password(Password password) {
+        given(sv.old_password_input).perform(replaceText(password.getPassword()))
                 .check(matches(isPassword()));
+        Log.i(Env.TAG, String.format("type old password successful: password = %s",password ));
     }
 
     @Override
-    public void type_new_password(String newPassword) {
-        given(sv.new_password_input).perform(replaceText(newPassword))
+    public void type_new_password(Password newPassword) {
+        given(sv.new_password_input).perform(typeText(newPassword.getPassword()))
                 .check(matches(isPassword()));
+        Log.i(Env.TAG, String.format("type new password successful: password = %s",newPassword ));
     }
 
     @Override
-    public void type_new_confirm_password(String newPasswordConfirm) {
-        given(sv.confirm_new_password).perform(replaceText(newPasswordConfirm))
+    public void type_new_confirm_password(Password newPasswordConfirm) {
+        given(sv.confirm_new_password).perform(typeText(newPasswordConfirm.getPassword()))
                 .check(matches(isPassword()));
+        Log.i(Env.TAG, String.format("type new confirm password successful: password = %s",newPasswordConfirm ));
     }
 
     @Override
@@ -84,7 +94,7 @@ public class SettingsAction implements SettingsService {
     }
 
     @Override
-    public void check_new_password_login_successful(String userName, String newPassword) {
+    public void check_new_password_login_successful(String userName, Password newPassword) {
         this.click_logout_button();
         doLogin(userName, newPassword);
         check_auto_login_successful();
@@ -100,7 +110,7 @@ public class SettingsAction implements SettingsService {
     }
 
     @Override
-    public void check_invalid_reset_can_not_login(String userName, String newPassword) {
+    public void check_invalid_reset_can_not_login(String userName, Password newPassword) {
         given(GlobalView.back_up).perform(click());
         this.click_logout_button();
         doLogin(userName, newPassword);
@@ -109,16 +119,16 @@ public class SettingsAction implements SettingsService {
     }
 
     @Override
-    public void check_invalid_new_password_reset(String oldPassword, String newPassword, String newPasswordConfirm, boolean isFormat) {
+    public void check_invalid_new_password_reset(Password oldPassword, Password newPassword, Password newPasswordConfirm, boolean isFormat) {
         if (!isFormat) {
             check_toast_msg(st.incorrect_password_format_toast);
             return;
         }
-        if (oldPassword.equals(newPassword)) {
+        if (oldPassword.getPassword().equals(newPassword.getPassword())) {
             check_toast_msg(st.incorrect_password_same_toast);
             return;
         }
-        if (!newPassword.equals(newPasswordConfirm)) {
+        if (!newPassword.getPassword().equals(newPasswordConfirm.getPassword())) {
             check_toast_msg(st.incorrect_password_confirm_toast);
         }
     }
@@ -126,9 +136,19 @@ public class SettingsAction implements SettingsService {
     @Override
     public void check_trade_password_display(boolean hasBroker) {
         if (hasBroker) {
-            given(sv.change_trade_pwd_view).check(matches(isDisplayed()));
+            given(sv.change_trade_pwd).check(matches(isDisplayed()));
         } else {
-            given(sv.change_trade_pwd_view).check(doesNotExist());
+            given(sv.change_trade_pwd).check(doesNotExist());
         }
+    }
+
+    @Override
+    public void into_trade_password_reset_page() {
+        given(sv.change_trade_pwd).perform(click());
+    }
+
+    @Override
+    public void check_new_password_trade_successful(Password newTradePwd) {
+
     }
 }

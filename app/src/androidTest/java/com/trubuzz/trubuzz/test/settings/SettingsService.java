@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.test.settings;
 
+import com.trubuzz.trubuzz.shell.Password;
 import com.trubuzz.trubuzz.test.common.TestsService;
 import com.trubuzz.trubuzz.test.settings.views.SettingsToast;
 
@@ -28,19 +29,19 @@ public interface SettingsService extends TestsService<SettingsToast>{
      * 输入旧密码
      * @param password
      */
-    void type_old_password(String password);
+    void type_old_password(Password password);
 
     /**
      * 输入新密码
      * @param newPassword
      */
-    void type_new_password(String newPassword);
+    void type_new_password(Password newPassword);
 
     /**
      * 再次输入新密码 ( 确认密码 )
      * @param newPasswordConfirm
      */
-    void type_new_confirm_password(String newPasswordConfirm);
+    void type_new_confirm_password(Password newPasswordConfirm);
 
     /**
      * 点击确定(提交)按钮
@@ -57,7 +58,7 @@ public interface SettingsService extends TestsService<SettingsToast>{
      * @param userName
      * @param newPassword
      */
-    void check_new_password_login_successful(String userName, String newPassword);
+    void check_new_password_login_successful(String userName, Password newPassword);
 
     /**
      * 检查无效旧密码的错误提示
@@ -70,15 +71,16 @@ public interface SettingsService extends TestsService<SettingsToast>{
      * @param userName
      * @param newPassword
      */
-    void check_invalid_reset_can_not_login(String userName, String newPassword);
+    void check_invalid_reset_can_not_login(String userName, Password newPassword);
 
     /**
      * 验证使用无效的新密码更改密码
      * @param oldPassword
      * @param newPassword
+     * @param newPasswordConfirm
      * @param isFormat
      */
-    void check_invalid_new_password_reset(String oldPassword, String newPassword, String newPasswordConfirm, boolean isFormat);
+    void check_invalid_new_password_reset(Password oldPassword, Password newPassword, Password newPasswordConfirm, boolean isFormat);
 
     /**
      * 检查交易密码修改栏目是否出现
@@ -86,4 +88,15 @@ public interface SettingsService extends TestsService<SettingsToast>{
      * @param hasBroker
      */
     void check_trade_password_display(boolean hasBroker);
+
+    /**
+     * 进入交易密码修改页面
+     */
+    void into_trade_password_reset_page();
+
+    /**
+     * 检查使用新的交易密码可成功交易
+     * @param newTradePwd
+     */
+    void check_new_password_trade_successful(Password newTradePwd);
 }

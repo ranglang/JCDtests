@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.test.login;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.enumerate.Account;
+import com.trubuzz.trubuzz.shell.Password;
 
 /**
  * Created by king on 17/6/9.
@@ -24,7 +25,7 @@ public interface LoginService {
      * 输入密码
      * @param pwd
      */
-    void type_password(String pwd);
+    void type_password(Password pwd);
 
     /**
      * 点击登录按钮
@@ -155,7 +156,7 @@ public interface LoginService {
      * @param usernameIsFormatted  true: 用户名格式正确
      * @param password
      */
-    void check_invalid_login(boolean usernameIsFormatted, String password);
+    void check_invalid_login(boolean usernameIsFormatted, Password password);
 
     /**
      * 检查依然还在登录页面

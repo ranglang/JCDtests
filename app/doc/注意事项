@@ -26,3 +26,4 @@
         android.support.test.espresso.AppNotIdleException: Looped for 2841 iterations over 60 SECONDS.
             The following Idle Conditions failed .
 10. webView 相关操作在模拟器上操作会失败
+11. 使用"."(点)来分割字符串需要使用转义 . 如: String[] split = s.split("\\."); 否则将无效.

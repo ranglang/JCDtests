@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.enumerate.TestResult;
 import com.trubuzz.trubuzz.feature.custom.parameters.GatherParameter;
+import com.trubuzz.trubuzz.feature.custom.parameters.GenreParameter;
+import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
 import com.trubuzz.trubuzz.report.CaseBean;
 import com.trubuzz.trubuzz.report.ClassBean;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
@@ -48,7 +50,7 @@ public class TestWatcherAdvance extends TestName {
     private String[] stackTraces;
     private long startTime;
     private long stopTime;
-    private Map<Integer,Object> updateData;
+    private Map<String,Object> updateData;
     private Map<String,Object> runTimeData;
 
    // public TestWatcherAdvance(){}
@@ -161,19 +163,19 @@ public class TestWatcherAdvance extends TestName {
      * @return
      */
     private Map setUseData(Description desc){
-        Map mData = null;
+        Map<String ,Object> mData = null;
         Map fData = getFieldData(this.baseTest , FieldVar.class);
         if(desc.getAnnotation(Parameters.class) != null ||
-                desc.getAnnotation(GatherParameter.class) != null){
+                desc.getAnnotation(GatherParameter.class) != null ||
+                desc.getAnnotation(GenreParameter.class) != null ||
+                desc.getAnnotation(YmlParameter.class) != null){
             Object[] objects = JUnitParamsRunner.getParams();
             // 如果在执行过程中改变了数据 , 将执行更新
             // 这里的updateData 的key 代表了params 的index
-            if(notEmpty(updateData)){
-                for(Integer i : this.updateData.keySet()){
-                    objects[i] = updateData.get(i);
-                }
-            }
             mData =  putUseData(getParamsName(JUnitParamsRunner.getCurrentMethod()) ,objects);
+            if(notEmpty(updateData)&&notEmpty(mData)){
+                mData.putAll(updateData);
+            }
         }
         if(mData != null && !mData.isEmpty()){
             if(this.useData != null){
@@ -231,7 +233,7 @@ public class TestWatcherAdvance extends TestName {
      * @param data
      * @return
      */
-    private Map putUseData(String[] name , Object[] data){
+    private Map<String , Object> putUseData(String[] name , Object[] data){
         if(name==null || data==null){
             Log.e(TAG, "putUseData: 未获取到形参名 或 形参值",new NullPointerException());
             return null;
@@ -280,7 +282,7 @@ public class TestWatcherAdvance extends TestName {
         }
     }
 
-    public Map<Integer, Object> getUpdateData() {
+    public Map<String, Object> getUpdateData() {
         return updateData;
     }
 
@@ -324,7 +326,7 @@ public class TestWatcherAdvance extends TestName {
      * 测试时数据更新了 , 需要通知到改Watcher
      * @param updateData key == params的index , value == params的新值
      */
-    public void setUpdateData(Map<Integer, Object> updateData) {
+    public void setUpdateData(Map<String, Object> updateData) {
         this.updateData = updateData;
     }
 

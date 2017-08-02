@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
+import com.trubuzz.trubuzz.shell.Password;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -46,7 +47,7 @@ public class LoginTest extends BaseTest{
      */
 //    @Test
     @YmlParameter
-    public void has_broker_login(@Var("username") String username , @Var("password") String password){
+    public void has_broker_login(@Var("username") String username , @Var("password") Password password){
         la.type_username(username);
         la.type_password(password);
         la.click_login_button();
@@ -60,7 +61,7 @@ public class LoginTest extends BaseTest{
      */
     @Test
     @YmlParameter
-    public void has_not_broker_login(@Var("username") String username , @Var("password") String password){
+    public void has_not_broker_login(@Var("username") String username , @Var("password") Password password){
         la.type_username(username);
         la.type_password(password);
         la.click_login_button();
@@ -71,7 +72,7 @@ public class LoginTest extends BaseTest{
      */
 //    @Test
     public void clean_password_test(){
-        la.type_password("380275024");
+        la.type_password(new Password("380275024"));
         la.clean_password();
         la.check_password_input_default_show();
     }

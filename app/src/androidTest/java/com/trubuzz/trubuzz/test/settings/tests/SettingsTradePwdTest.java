@@ -3,7 +3,9 @@ package com.trubuzz.trubuzz.test.settings.tests;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.constant.UserStore;
 import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
+import com.trubuzz.trubuzz.shell.Password;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.settings.SettingsService;
@@ -14,9 +16,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
 import junitparams.JUnitParamsRunner;
 
 import static com.trubuzz.trubuzz.test.Wish.doLogin;
+import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 
 /**
  * Created by king on 2017/7/26.
@@ -42,17 +47,44 @@ public class SettingsTradePwdTest extends BaseTest {
      * @param password
      * @param hasBroker
      */
-    public void verify_trade_password_display(String userName , String password ,boolean hasBroker){
-        // 取出实时密码
-        password = this.theCurrent(userName, password);
+    public void verify_trade_password_display(String userName , Password password , boolean hasBroker){
+        // 使用实时密码
+        this.theCurrent(userName, password);
+
         doLogin(userName, password);
         ss.spread_left_drawer();
         ss.into_settings_page();
 
         ss.check_trade_password_display(hasBroker);
     }
-    // 未开户用户 没有修改交易密码
 
-    //
+    /**
+     * 正向交易密码修改流程
+     * @param userName
+     * @param loginPassword
+     * @param oldTradePwd
+     * @param newTradePwd
+     */
+    public void trade_password_update_flow(String userName , Password loginPassword ,Password oldTradePwd ,Password newTradePwd){
+        // 使用实时密码
+//        this.theCurrent(userName ,loginPassword ,oldTradePwd);
+//        this.theRandom(newTradePwd);
+
+        doLogin(userName, loginPassword);
+        ss.spread_left_drawer();
+        ss.into_settings_page();
+        ss.into_trade_password_reset_page();
+
+        ss.type_old_password(oldTradePwd);
+        ss.type_new_password(newTradePwd);
+        ss.type_new_confirm_password(newTradePwd);
+        ss.click_submit_button();
+
+        check_toast_msg(ss.theToast().change_trade_password_success_toast);
+        ss.check_new_password_trade_successful(newTradePwd);
+
+        // 更新交易密码
+        UserStore.updateTradePassword(userName ,newTradePwd);
+    }
 
 }

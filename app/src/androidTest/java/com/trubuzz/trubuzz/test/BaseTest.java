@@ -4,11 +4,13 @@ import android.util.Log;
 import android.view.View;
 
 import com.trubuzz.trubuzz.constant.UserStore;
+import com.trubuzz.trubuzz.shell.Password;
 import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.feature.ClassWatcherAdvance;
 import com.trubuzz.trubuzz.feature.TestWatcherAdvance;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.utils.DoIt;
+import com.trubuzz.trubuzz.utils.God;
 import com.trubuzz.trubuzz.utils.Kvp;
 import com.trubuzz.trubuzz.utils.Registor;
 
@@ -25,10 +27,19 @@ import java.util.Map;
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static com.trubuzz.trubuzz.constant.Env.uiDevice;
+import static com.trubuzz.trubuzz.constant.UserStore.CURRENT_LOGIN_PWD;
+import static com.trubuzz.trubuzz.constant.UserStore.CURRENT_TRADE_PWD;
+import static com.trubuzz.trubuzz.constant.UserStore.P_START;
+import static com.trubuzz.trubuzz.constant.UserStore.P_STOP;
+import static com.trubuzz.trubuzz.constant.UserStore.getLoginPassword;
+import static com.trubuzz.trubuzz.constant.UserStore.getTradePassword;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.utils.DoIt.regIdlingResource;
 import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 import static com.trubuzz.trubuzz.utils.DoIt.unAllRegIdlingResource;
+import static com.trubuzz.trubuzz.utils.God.getIntervalString;
+import static com.trubuzz.trubuzz.utils.God.getRandomLoginPwd;
+import static com.trubuzz.trubuzz.utils.God.getRandomTradePwd;
 
 /**
  * Created by king on 2016/9/23.
@@ -41,6 +52,10 @@ public class BaseTest {
     private final String BTAG = "jcd_BaseTest";
     private List<String> compareImageNames = new ArrayList<>();
 
+    protected final String OL_PIN = "origin_login_password";
+    protected final String OT_PIN = "origin_trade_password";
+    protected final String NL_PIN = "new_login_password";
+    protected final String NT_PIN = "new_trade_password";
 
     @ClassRule
     public static ClassWatcherAdvance classWatcherAdvance = new ClassWatcherAdvance();
@@ -103,12 +118,12 @@ public class BaseTest {
             given(GlobalView.back_up).perform(click());
         } while (Wish.isVisible(matcher));
     }
-    protected void updateData(Integer index ,Object value){
-        Map<Integer, Object> uData = testWatcherAdvance.getUpdateData();
+    protected void updateData(String name ,Object value){
+        Map<String, Object> uData = testWatcherAdvance.getUpdateData();
         if (uData == null) {
             uData = new HashMap<>();
         }
-        uData.put(index, value);
+        uData.put(name, value);
         testWatcherAdvance.setUpdateData(uData);
     }
 
@@ -154,10 +169,91 @@ public class BaseTest {
      * @return
      */
     protected String theCurrent(String userName, String password) {
-        if (UserStore.CURRENT_LOGIN_PWD.equals(password)) {
-            password = UserStore.getLoginPassword(userName);
-            this.runTimeData("password",password);
+        switch (password) {
+            case CURRENT_LOGIN_PWD:
+                password = getLoginPassword(userName);
+                this.updateData(OL_PIN,password);
+                break;
+            case CURRENT_TRADE_PWD:
+                password = getTradePassword(userName);
+                this.updateData(OT_PIN,password);
+                break;
         }
         return password;
+    }
+
+    /**
+     * 获取用户的登录密码 和 交易密码
+     *      未开户用户请勿使用该方法 , 只需要单独密码的情况请使用{@link #theCurrent(String, String)}
+     * @param userName
+     * @return
+     */
+    protected List theCurrent(String userName) {
+        List allPassword = UserStore.getAllPassword(userName);
+        this.updateData(OL_PIN,allPassword.get(0));
+        this.updateData(OT_PIN,allPassword.get(1));
+        return allPassword;
+    }
+
+    /**
+     * 实时获取密码  , 并替换
+     *      好处, 不用手动更新数据 , 也避免了参数名称设置的麻烦
+     * @param userName
+     * @param password
+     */
+    protected void theCurrent(String userName , Password password){
+        switch (password.getPassword()) {
+            case CURRENT_LOGIN_PWD:
+                password.setPassword(getLoginPassword(userName));
+                break;
+            case CURRENT_TRADE_PWD:
+                password.setPassword(getTradePassword(userName));
+                break;
+        }
+    }
+    protected void theCurrent(String userName , Password loginPwd , Password tradePwd){
+        List allPassword = UserStore.getAllPassword(userName);
+        loginPwd.setPassword((String) allPassword.get(0));
+        tradePwd.setPassword((String) allPassword.get(1));
+    }
+
+    /**
+     * 获得一个随机密码
+     * @param password
+     * @return
+     */
+    protected String theRandom(String password) {
+        int len = Integer.valueOf(God.getNumberFromString(password));
+
+        if (password.startsWith(UserStore.RANDOM_LOGIN_PWD)) {
+            password = getRandomLoginPwd(len);
+            this.updateData(NL_PIN,password);
+            return password;
+        }
+        if (password.startsWith(UserStore.RANDOM_TRADE_PWD)) {
+            password = getRandomTradePwd(len);
+            this.updateData(NT_PIN,password);
+            return password;
+        }
+        return password;
+    }
+
+    /**
+     * 获取一个随机密码
+     *      使用了封装类型, 这样可直接修改
+     * @param pwd
+     */
+    protected void theRandom(Password pwd){
+        String password = pwd.getPassword();
+        int len = Integer.valueOf(getIntervalString(password ,P_START ,P_STOP));
+
+        if (password.startsWith(UserStore.RANDOM_LOGIN_PWD)) {
+            pwd.setPassword(getRandomLoginPwd(len));
+            return;
+        }
+        if (password.startsWith(UserStore.RANDOM_TRADE_PWD)) {
+            pwd.setPassword(getRandomTradePwd(len));
+            return;
+        }
     }
 }

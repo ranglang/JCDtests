@@ -1,8 +1,6 @@
 package com.trubuzz.trubuzz.test.login;
 
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.web.sugar.Web;
-import android.support.test.espresso.web.webdriver.Locator;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.AName;
@@ -10,15 +8,14 @@ import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
+import com.trubuzz.trubuzz.shell.Password;
 import com.trubuzz.trubuzz.test.common.CommonAction;
-import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.utils.AdminUtil;
 import com.trubuzz.trubuzz.utils.DoIt;
 import com.trubuzz.trubuzz.utils.God;
 import com.trubuzz.trubuzz.utils.Judge;
 
 import static android.support.test.espresso.web.sugar.Web.onWebView;
-import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static com.trubuzz.trubuzz.constant.Env.TAG;
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.clearText;
@@ -34,7 +31,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.assertion.WebViewAssertions.webMatches;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
-import static com.trubuzz.trubuzz.shell.Park.find;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_auto_login_successful;
 import static com.trubuzz.trubuzz.test.common.CommonAction.check_toast_msg;
 import static com.trubuzz.trubuzz.test.common.GlobalView.assets_radio;
@@ -85,9 +81,9 @@ public class LoginAction implements LoginService{
     }
 
     @Override
-    public void type_password(String pwd) {
+    public void type_password(Password pwd) {
         given(lv.login_pwd_input).perform(clearText())
-                .perform(replaceText(pwd))
+                .perform(replaceText(pwd.getPassword()))
                 .check(matches(isPassword()));
     }
 
@@ -250,10 +246,10 @@ public class LoginAction implements LoginService{
     }
 
     @Override
-    public void check_invalid_login(boolean usernameIsFormatted, String password) {
+    public void check_invalid_login(boolean usernameIsFormatted, Password password) {
         if (!usernameIsFormatted) {
             check_toast_msg(lt.account_format_toast);
-        } else if ("".equals(password)) {
+        } else if ("".equals(password.getPassword())) {
             check_toast_msg(lt.password_empty_toast);
         } else {
             check_toast_msg(lt.login_failed_toast);

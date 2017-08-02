@@ -1,20 +1,26 @@
 package com.trubuzz.trubuzz.constant;
 
 import android.support.annotation.Size;
+import android.util.Log;
 
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
 import com.esotericsoftware.yamlbeans.YamlWriter;
+import com.trubuzz.trubuzz.shell.Password;
+import com.trubuzz.trubuzz.utils.FileRw;
 import com.trubuzz.trubuzz.utils.Judge;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static android.R.attr.name;
+import static com.trubuzz.trubuzz.utils.God.getResources;
 import static com.trubuzz.trubuzz.utils.Judge.hasNull;
 
 
@@ -25,8 +31,23 @@ import static com.trubuzz.trubuzz.utils.Judge.hasNull;
 public class UserStore {
     private static String filePath = Env.filesDir + "user_store.yml";
 
-    public static final String CURRENT_LOGIN_PWD = "$currentLoginPassword";
-    public static final String CURRENT_TRADE_PWD = "$currentTradePassword";
+    public static final String CURRENT_LOGIN_PWD = "$C_LP";
+    public static final String CURRENT_TRADE_PWD = "$C_TP";
+    public static final String RANDOM_LOGIN_PWD = "$R_LP";
+    public static final String RANDOM_TRADE_PWD = "$R_TP";
+    public static final char P_START = '(';
+    public static final char P_STOP = ')';
+    public static final String separate = ",";
+
+
+    static {
+        // 如果手机中不存在该文件则将资源文件中的内容写入
+        File file = new File(filePath);
+        if (!file.exists()) {
+            InputStream in = getResources().openRawResource(com.trubuzz.trubuzz.test.R.raw.user_store);
+            FileRw.copyFile(in, filePath);
+        }
+    }
 
 
     /**
@@ -59,12 +80,32 @@ public class UserStore {
         }
         return "";
     }
+
+    /**
+     * 获得所以password
+     *      index:  0 > login password
+     *              1 > trade password
+     * @param key
+     * @return
+     */
+    public static List getAllPassword(String key) {
+        Object passwords = getPassword(key);
+        List allPwd = new ArrayList();
+        if (passwords instanceof String) {
+            allPwd.add(passwords);
+            return allPwd;
+        }
+        if (passwords instanceof List) {
+            return (List) passwords;
+        }
+        return allPwd;
+    }
     /**
      * 从仓库中拿出密码
      * @param key
      * @return [login password ,trade password] 组合
      */
-    public static Object getPassword(String key) {
+    private static Object getPassword(String key) {
         Map data = (Map) getData();
         if (data == null) return "";
         return data.get(key);
@@ -109,17 +150,36 @@ public class UserStore {
         return null;
     }
 
+    /**
+     * 更新登录密码
+     * @param user
+     * @param value
+     */
     public static void updateLoginPassword(String user, String value) {
+        Log.i(Env.TAG, String.format("updateLoginPassword: user : %s ; new_login_password : %s", user, value));
         List list = new ArrayList();
         list.add(value);
         list.add(null);
         updateValue(user ,list);
     }
+
+    public static void updateLoginPassword(String user, Password value) {
+        updateLoginPassword(user, value.getPassword());
+    }
+
+    /**
+     * 更新交易密码
+     * @param user
+     * @param value
+     */
     public static void updateTradePassword(String user, String value) {
         List list = new ArrayList();
         list.add(null);
         list.add(value);
         updateValue(user ,list);
+    }
+    public static void updateTradePassword(String user, Password value) {
+        updateLoginPassword(user ,value.getPassword());
     }
     /**
      * 更新value

@@ -9,6 +9,7 @@ import android.view.View;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.elements.AAsset;
 import com.trubuzz.trubuzz.elements.ASettings;
+import com.trubuzz.trubuzz.shell.Password;
 import com.trubuzz.trubuzz.test.common.GlobalView;
 import com.trubuzz.trubuzz.shell.AdViewInteraction;
 import com.trubuzz.trubuzz.shell.Element;
@@ -124,6 +125,9 @@ public class Wish {
         given(loginView.login_pwd_input).perform(replaceText(pwd));
         given(loginView.login_button).perform( click());
         check_auto_login_successful();
+    }
+    public static void doLogin(String user , Password pwd){
+        doLogin(user ,pwd.getPassword());
     }
 
     /**

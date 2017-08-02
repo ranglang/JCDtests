@@ -8,22 +8,24 @@ import com.trubuzz.trubuzz.constant.enumerate.Condition;
 import com.trubuzz.trubuzz.feature.listen.EventSource;
 import com.trubuzz.trubuzz.utils.God;
 
+import java.io.File;
+
 /**
  * Created by king on 2016/9/26.
  * 定义一些环境常量
  */
 
-public final class Env {
-    // app 的运行环境[DEV ,CN ,GLOBAL]
-    public static final Condition condition = Condition.CN;
+public class Env {
     public final static String TAG = "jcd_default:";
+    // app 的运行环境[DEV ,CN ,GLOBAL]
+    public static final Condition condition = Condition.DEV;
     public final static Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     public final static UiDevice uiDevice = UiDevice.getInstance(instrumentation);
 
     public final static String packageName = "com.trubuzz.trubuzz";
     public final static String testPackageName = "com.trubuzz.trubuzz.test";
 //    public final static String filesDir = "/data/data/"+packageName + "/files/";
-    public final static String filesDir = instrumentation.getTargetContext().getFilesDir().getAbsolutePath()+"/";
+    public final static String filesDir = instrumentation.getTargetContext().getFilesDir().getAbsolutePath()+ File.separator;
     public final static String suiteRegisterKey = "SUITE_REGISTER_KEY";
 
     // email 的正则规则

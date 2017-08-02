@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
+import com.trubuzz.trubuzz.shell.Password;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -45,7 +46,7 @@ public class LoginReverseTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void invalid_input_login(@Var("username") String username , @Var("password") String password ,
+    public void invalid_input_login(@Var("username") String username , @Var("password") Password password ,
                                     @Var("usernameIsFormatted") String usernameIsFormatted){
         boolean _usernameIsFormatted = Boolean.valueOf(usernameIsFormatted);
         la.type_username(username);
@@ -57,7 +58,7 @@ public class LoginReverseTest extends BaseTest {
 
     /**
      * sql 注入攻击方式登录测试
-     * 步骤同无效输入登录{@link #invalid_input_login(String, String, String)} ,故
+     * 步骤同无效输入登录{@link #invalid_input_login(String, Password, String)} ,故
      *      共享其data创建方法
      * @param username
      * @param password
@@ -65,7 +66,7 @@ public class LoginReverseTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void sql_inject_login(@Var("username") String username , @Var("password") String password ,
+    public void sql_inject_login(@Var("username") String username , @Var("password") Password password ,
                                  @Var("usernameIsFormatted") String usernameIsFormatted){
         this.invalid_input_login(username ,password ,usernameIsFormatted);
     }
@@ -78,7 +79,7 @@ public class LoginReverseTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void not_verify_7days(@Var("username") String username , @Var("password") String password ,
+    public void not_verify_7days(@Var("username") String username , @Var("password") Password password ,
                                  @Var("sendEmail") String sendEmail){
         boolean  _sendEmail = Boolean.valueOf(sendEmail);
         la.type_username(username);

@@ -5,18 +5,26 @@ import android.util.Log;
 import com.esotericsoftware.yamlbeans.YamlReader;
 import com.trubuzz.trubuzz.constant.Env;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.lang.reflect.Field;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static android.R.id.input;
 import static com.trubuzz.trubuzz.constant.Config.ad_log_cookie_key;
 import static com.trubuzz.trubuzz.constant.Config.ad_log_default_cookie;
 import static com.trubuzz.trubuzz.constant.Env.TAG;
+import static com.trubuzz.trubuzz.utils.DoIt.makeFileName;
 import static com.trubuzz.trubuzz.utils.God.getResources;
 
 /**
@@ -25,6 +33,56 @@ import static com.trubuzz.trubuzz.utils.God.getResources;
 
 public class FileRw {
 
+    /**
+     * 判断文件是否存在或是否创建成功
+     * @param file
+     * @return not null : 存在 或 创建成功
+     * @throws IOException
+     */
+    public static File getFile(File file) throws IOException {
+        if (!file.exists()){
+            if(!file.createNewFile()){
+                Log.e(TAG, String.format("writeFileData: 创建文件 %s 失败",file.getAbsolutePath() ));
+                return null;
+            }
+        }
+        return file;
+    }
+    public static File getFile(String fileDir) throws IOException {
+        File file = new File(fileDir);
+        return getFile(file);
+    }
+
+    /**
+     * 将字符串写入文件 , 文件不存在则自动创建
+     * @param data
+     * @param fileDir
+     * @return
+     */
+    public static String writeFileData( String data , String fileDir){
+        BufferedWriter writer = null;
+        File file = null;
+        try {
+            file = getFile(fileDir);
+            // 若文件不存在或创建不成功
+            if (file == null)  return "";
+
+            writer = new BufferedWriter(new FileWriter(file ,true));
+            writer.write(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "writeFileDataError: ",e );
+        } finally {
+            if(writer != null){
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return file.getAbsolutePath();
+    }
     /**
      * 将内容写入指定的属性文件 ,
      * 此方法为覆盖性写入 , 不支持更改或更新值
@@ -168,6 +226,34 @@ public class FileRw {
                 }
             }
         }
+    }
+
+    public static boolean copyFile(InputStream in ,String outPath){
+        OutputStream output = null;
+        try {
+            File outFile = getFile(outPath);
+            if (outFile == null)    return false;
+
+            output = new FileOutputStream(outFile);
+
+            byte[] buf = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(buf)) > 0) {
+                output.write(buf, 0, bytesRead);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(in != null)
+                    in.close();
+                if(output != null)
+                    output.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
 
 }

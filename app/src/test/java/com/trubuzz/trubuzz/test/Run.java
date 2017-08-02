@@ -3,6 +3,7 @@ package com.trubuzz.trubuzz.test;
 import com.esotericsoftware.yamlbeans.YamlReader;
 import com.esotericsoftware.yamlbeans.YamlWriter;
 import com.trubuzz.trubuzz.utils.AdminUtilU;
+import com.trubuzz.trubuzz.utils.God;
 import com.trubuzz.trubuzz.utils.Param;
 import com.trubuzz.trubuzz.utils.UserStore;
 
@@ -16,6 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +37,54 @@ public class Run {
     String fn = "E:\\KING\\user_store.yml";
 
     @Test
+    public void brun(){
+        String s = "sdlfj.jljsfd,";
+        String[] split = s.split("\\.");
+
+        System.out.println(Arrays.toString(split));
+    }
+
+    public void updateString(String s) {
+        s = new String(new StringBuilder("aaa"));
+    }
+    /**
+     * 获取一个随机整数
+     * @param max
+     * @param min
+     * @return
+     */
+    public static int getRandomInt(int max, int min) {
+        if(max == 0){
+            return 0;
+        }
+        Random r = new Random();
+        return r.nextInt(max - min + 1) + min;
+    }
+
+    public static String getNumberFromString(String str, int max) {
+        String regEx = String.format("\\d{%s}",max);
+        Pattern p = Pattern.compile(regEx);
+        Matcher matcher = p.matcher(str);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "";
+    }
+    public static String getNumberFromString(String str) {
+        Pattern p = Pattern.compile("[0-9]\\d*");
+        Matcher matcher = p.matcher(str);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "";
+    }
+    public static String getRandomLoginPwd(int length) {
+        char number = (char) getRandomInt(57, 48);
+        char upChar = (char) getRandomInt(90, 65);
+        char lowChar = (char) getRandomInt(112, 97);
+        char[] chars = {number, upChar, lowChar};
+        return Arrays.toString(chars);
+    }
     public void arun(){
         UserStore.updateLoginPassword("11899990001" ,"12321");
         String loginPassword = UserStore.getLoginPassword("11899990001");

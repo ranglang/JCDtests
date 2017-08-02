@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.trubuzz.trubuzz.constant.Env;
+import com.trubuzz.trubuzz.shell.Password;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -166,7 +167,7 @@ public class DoIt {
      * @param pratName
      * @return
      */
-    private static String makeFileName(String pratName){
+    public static String makeFileName(String pratName){
         Date date = new Date();
         String time = God.getDateFormat(date,"yyMMdd", Locale.CHINA);
         pratName = pratName == null ? "" : pratName;
@@ -408,6 +409,9 @@ public class DoIt {
         }
         if (clz.isEnum()) {
             return Enum.valueOf(clz, (String) data);
+        }
+        if (clz == Password.class) {
+            return new Password((String) data);
         }
         System.out.println("jcd_没有合适的类型 : "+ clz);
         return data;
