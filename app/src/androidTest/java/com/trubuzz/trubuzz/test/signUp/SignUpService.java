@@ -1,6 +1,7 @@
 package com.trubuzz.trubuzz.test.signUp;
 
 import com.trubuzz.trubuzz.constant.enumerate.Account;
+import com.trubuzz.trubuzz.shell.UserName;
 import com.trubuzz.trubuzz.test.common.TestsService;
 import com.trubuzz.trubuzz.test.signUp.tests.SignUpReverseTest;
 import com.trubuzz.trubuzz.test.signUp.views.SignUpToast;
@@ -40,7 +41,7 @@ public interface SignUpService extends TestsService<SignUpToast> {
      * 输入邮箱地址
      * @param email
      */
-    void type_email_address(String email);
+    void type_email_address(UserName email);
 
     /**
      * 输入密码
@@ -100,7 +101,7 @@ public interface SignUpService extends TestsService<SignUpToast> {
      * 输入手机号
      * @param phone
      */
-    void type_phone_number(String phone);
+    void type_phone_number(UserName phone);
 
     /**
      * 点击获取验证码

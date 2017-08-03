@@ -52,10 +52,6 @@ public class SettingsLoginPwdTest extends BaseTest {
     @YmlParameter
     public void login_password_reset_flow(@Var("userName") String userName , @Var(OL_PIN) Password password ,
                                           @Var(NL_PIN) Password newPassword){
-        // 取出实时密码
-//        this.theCurrent(userName, password);
-//        this.theRandom(newPassword);
-
         doLogin(userName ,password);
         ss.spread_left_drawer();
         ss.into_settings_page();
@@ -84,6 +80,7 @@ public class SettingsLoginPwdTest extends BaseTest {
                                            @Var(NL_PIN) Password newPassword){
         // 取出实时密码
         String oldPassword = UserStore.getLoginPassword(userName);
+        this.updateData("oldPassword",oldPassword);
 
         doLogin(userName ,oldPassword);
         ss.spread_left_drawer();
@@ -102,15 +99,15 @@ public class SettingsLoginPwdTest extends BaseTest {
      * 使用无效的新密码更改
      *      无效场景 : 空值 , 格式不正确 , 两次密码不一致 , 与旧密码一致
      * @param userName
-     * @param oldPassword
      * @param newPassword
      * @param isFormat
      */
-    public void invalid_new_password_reset(@Var("userName") String userName , @Var(OL_PIN) Password oldPassword ,
-                                           @Var(NL_PIN) Password newPassword ,@Var("newPasswordConfirm") Password newPasswordConfirm ,
+    public void invalid_new_password_reset(@Var("userName") String userName , @Var(NL_PIN) Password newPassword ,
+                                           @Var("newPasswordConfirm") Password newPasswordConfirm ,
                                            @Var("isFormat") boolean isFormat) {
-        // 使用实时密码
-        this.theCurrent(userName, oldPassword);
+        // 取出实时密码
+        Password oldPassword = new Password(UserStore.getLoginPassword(userName));
+        this.updateData("oldPassword",oldPassword);
 
         doLogin(userName ,oldPassword);
         ss.spread_left_drawer();

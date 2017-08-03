@@ -14,6 +14,7 @@ import android.view.View;
 import com.alibaba.fastjson.JSON;
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.shell.Password;
+import com.trubuzz.trubuzz.shell.UserName;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -390,21 +391,28 @@ public class DoIt {
      */
     public static Object castObject(Class clz, Object data) {
         if (clz == Integer.class) {
+            if(data instanceof Integer) return data;
             return Integer.valueOf((String)data);
         }
         if (clz == String.class) {
-            return data;
+            if(data instanceof String )return data;
+            return String.valueOf(data);
         }
         if (clz == Float.class) {
+            data = String.valueOf(data);
             return Float.valueOf((String)data);
         }
         if (clz == Double.class) {
+            data = String.valueOf(data);
             return Double.valueOf((String)data);
         }
         if (clz == Long.class) {
+            data = String.valueOf(data);
             return Long.valueOf((String)data);
         }
         if (clz == BigDecimal.class) {
+            if (data instanceof BigDecimal) return data;
+            data = String.valueOf(data);
             return new BigDecimal((String)data);
         }
         if (clz.isEnum()) {
@@ -412,6 +420,9 @@ public class DoIt {
         }
         if (clz == Password.class) {
             return new Password((String) data);
+        }
+        if (clz == UserName.class) {
+            return new UserName((String) data);
         }
         System.out.println("jcd_没有合适的类型 : "+ clz);
         return data;

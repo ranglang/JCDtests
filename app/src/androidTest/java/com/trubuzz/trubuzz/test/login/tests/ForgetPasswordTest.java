@@ -4,9 +4,11 @@ import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
         ;
+import com.trubuzz.trubuzz.constant.UserStore;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
 import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
+import com.trubuzz.trubuzz.shell.Password;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -87,14 +89,14 @@ public class ForgetPasswordTest extends BaseTest {
     /**
      * 使用手机号找回密码 , 正向用例
      * @param phone
-     * @param password
+     * @param newPassword
      */
     @Test
 //    @Parameters({
 //            "11811110001, aA123321"
 //    })
     @YmlParameter
-    public void retrieve_password_use_phone(@Var("phone") String phone, @Var("password") String password) {
+    public void retrieve_password_use_phone(@Var("phone") String phone, @Var("newPassword") Password newPassword) {
         la.into_forget_password_page();
         la.select_phone_retrieve();
 
@@ -106,10 +108,12 @@ public class ForgetPasswordTest extends BaseTest {
         String smsCode = la.type_sms_code(phone, null);
         this.runTimeData("smsCode",smsCode);
 
-        la.type_new_password(password);
-        la.type_confirm_password(password);
+        la.type_new_password(newPassword);
+        la.type_confirm_password(newPassword);
         la.submit_phone_retrieve();
         la.check_retrieve_use_phone_successful();
+
+        UserStore.updateLoginPassword(phone ,newPassword);
     }
 
 }

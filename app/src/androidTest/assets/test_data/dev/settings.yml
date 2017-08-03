@@ -9,9 +9,34 @@ method:
   # 更改登录密码反向用例 -- 无效旧密码
   - name: invalid_old_password_reset
     data:
-      - []
+      - [kingstar95d+d01@gmail.com,"aA123450" ,"$R_LP(8)"]
+      - [kingstar95d+d01@gmail.com,"11111111" ,"$R_LP(8)"]
+      - [kingstar95d+d01@gmail.com,"" ,"$R_LP(8)"]
 
   # 使用无效的新密码更改
   - name: invalid_new_password_reset
     data:
-      - []
+      - [kingstar95d+d01@gmail.com,"aA123450" ,"aA543210" ,true]    #两次密码不一致
+      - [kingstar95d+d01@gmail.com,"00123450" ,"00123450" ,false]   #格式不正确
+      - [kingstar95d+d01@gmail.com,"$C_LP(kingstar95d+d01@gmail.com)" ,"$C_LP(kingstar95d+d01@gmail.com)" ,true] #与旧密码一致
+      - [kingstar95d+d01@gmail.com,"" ,"" ,false]     #空值
+
+---
+# 设置 -> 更改交易密码
+class: SettingsTradePwdTest
+method:
+  # 验证交易密码修改条目的展示
+  - name: verify_trade_password_display
+    data:
+      - [kingstar95d+d01@gmail.com, "$C_LP(kingstar95d+d01@gmail.com)" ,true]
+      - [kingstar95d+d01n@gmail.com, "$C_LP(kingstar95d+d01n@gmail.com)" ,false]
+
+  # 正向交易密码修改流程
+  - name: trade_password_update_flow
+    data:
+      - [kingstar95d+d01@gmail.com, "$C_LP(kingstar95d+d01@gmail.com)" ,"$C_TP(kingstar95d+d01@gmail.com)" ,"$R_TP(6)"]
+
+  # 使用无效的旧交易密码
+
+
+  # 使用无效的新交易密码

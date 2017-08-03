@@ -6,6 +6,7 @@ import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.constant.UserStore;
 import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.shell.Password;
+import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
 import com.trubuzz.trubuzz.test.settings.SettingsService;
@@ -48,8 +49,6 @@ public class SettingsTradePwdTest extends BaseTest {
      * @param hasBroker
      */
     public void verify_trade_password_display(String userName , Password password , boolean hasBroker){
-        // 使用实时密码
-        this.theCurrent(userName, password);
 
         doLogin(userName, password);
         ss.spread_left_drawer();
@@ -65,10 +64,10 @@ public class SettingsTradePwdTest extends BaseTest {
      * @param oldTradePwd
      * @param newTradePwd
      */
-    public void trade_password_update_flow(String userName , Password loginPassword ,Password oldTradePwd ,Password newTradePwd){
-        // 使用实时密码
-//        this.theCurrent(userName ,loginPassword ,oldTradePwd);
-//        this.theRandom(newTradePwd);
+    public void trade_password_update_flow(@Var("userName") String userName ,
+                                           @Var("loginPassword") Password loginPassword ,
+                                           @Var("oldTradePwd") Password oldTradePwd ,
+                                           @Var("newTradePwd") Password newTradePwd){
 
         doLogin(userName, loginPassword);
         ss.spread_left_drawer();

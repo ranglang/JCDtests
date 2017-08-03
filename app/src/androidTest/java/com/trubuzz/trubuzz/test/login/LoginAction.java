@@ -197,13 +197,15 @@ public class LoginAction implements LoginService{
     }
 
     @Override
-    public void type_new_password(String password) {
-        given(lv.new_password_input).perform(replaceText(password));
+    public void type_new_password(Password password) {
+        given(lv.new_password_input).perform(replaceText(password.getPassword()));
+        Log.i(TAG, String.format("type_new_password: %s",password.toString() ));
     }
 
     @Override
-    public void type_confirm_password(String confirmPwd) {
-        given(lv.password_confirm).perform(replaceText(confirmPwd));
+    public void type_confirm_password(Password confirmPwd) {
+        given(lv.password_confirm).perform(replaceText(confirmPwd.getPassword()));
+        Log.i(TAG, String.format("type_confirm_password: %s", confirmPwd.toString()));
     }
 
     @Override

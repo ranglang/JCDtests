@@ -108,13 +108,13 @@ public interface LoginService {
      * 输入新密码
      * @param password
      */
-    void type_new_password(String password);
+    void type_new_password(Password password);
 
     /**
      * 输入确认密码
      * @param confirmPwd
      */
-    void type_confirm_password(String confirmPwd);
+    void type_confirm_password(Password confirmPwd);
 
     /**
      * 点击 提交按钮 ( 手机找回页面 )

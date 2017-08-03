@@ -80,13 +80,12 @@ public class LoginReverseTest extends BaseTest {
     @Test
     @YmlParameter
     public void not_verify_7days(@Var("username") String username , @Var("password") Password password ,
-                                 @Var("sendEmail") String sendEmail){
-        boolean  _sendEmail = Boolean.valueOf(sendEmail);
+                                 @Var("sendEmail") boolean sendEmail){
         la.type_username(username);
         la.type_password(password);
         la.click_login_button();
         la.check_resend_mail_alert();
-        la.resend_mail(_sendEmail);
+        la.resend_mail(sendEmail);
         la.check_still_in_login_page();
     }
 

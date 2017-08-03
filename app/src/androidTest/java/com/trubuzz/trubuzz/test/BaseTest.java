@@ -162,98 +162,98 @@ public class BaseTest {
         return runTimeData;
     }
 
-    /**
-     * 获取用户的实时密码
-     * @param userName
-     * @param password
-     * @return
-     */
-    protected String theCurrent(String userName, String password) {
-        switch (password) {
-            case CURRENT_LOGIN_PWD:
-                password = getLoginPassword(userName);
-                this.updateData(OL_PIN,password);
-                break;
-            case CURRENT_TRADE_PWD:
-                password = getTradePassword(userName);
-                this.updateData(OT_PIN,password);
-                break;
-        }
-        return password;
-    }
+//    /**
+//     * 获取用户的实时密码
+//     * @param userName
+//     * @param password
+//     * @return
+//     */
+//    protected String theCurrent(String userName, String password) {
+//        switch (password) {
+//            case CURRENT_LOGIN_PWD:
+//                password = getLoginPassword(userName);
+//                this.updateData(OL_PIN,password);
+//                break;
+//            case CURRENT_TRADE_PWD:
+//                password = getTradePassword(userName);
+//                this.updateData(OT_PIN,password);
+//                break;
+//        }
+//        return password;
+//    }
+//
+//    /**
+//     * 获取用户的登录密码 和 交易密码
+//     *      未开户用户请勿使用该方法 , 只需要单独密码的情况请使用{@link #theCurrent(String, String)}
+//     * @param userName
+//     * @return
+//     */
+//    protected List theCurrent(String userName) {
+//        List allPassword = UserStore.getAllPassword(userName);
+//        this.updateData(OL_PIN,allPassword.get(0));
+//        this.updateData(OT_PIN,allPassword.get(1));
+//        return allPassword;
+//    }
+//
+//    /**
+//     * 实时获取密码  , 并替换
+//     *      好处, 不用手动更新数据 , 也避免了参数名称设置的麻烦
+//     * @param userName
+//     * @param password
+//     */
+//    protected void theCurrent(String userName , Password password){
+//        switch (password.getPassword()) {
+//            case CURRENT_LOGIN_PWD:
+//                password.setPassword(getLoginPassword(userName));
+//                break;
+//            case CURRENT_TRADE_PWD:
+//                password.setPassword(getTradePassword(userName));
+//                break;
+//        }
+//    }
+//    protected void theCurrent(String userName , Password loginPwd , Password tradePwd){
+//        List allPassword = UserStore.getAllPassword(userName);
+//        loginPwd.setPassword((String) allPassword.get(0));
+//        tradePwd.setPassword((String) allPassword.get(1));
+//    }
+//
+//    /**
+//     * 获得一个随机密码
+//     * @param password
+//     * @return
+//     */
+//    protected String theRandom(String password) {
+//        int len = Integer.valueOf(God.getNumberFromString(password));
+//
+//        if (password.startsWith(UserStore.RANDOM_LOGIN_PWD)) {
+//            password = getRandomLoginPwd(len);
+//            this.updateData(NL_PIN,password);
+//            return password;
+//        }
+//        if (password.startsWith(UserStore.RANDOM_TRADE_PWD)) {
+//            password = getRandomTradePwd(len);
+//            this.updateData(NT_PIN,password);
+//            return password;
+//        }
+//        return password;
+//    }
 
-    /**
-     * 获取用户的登录密码 和 交易密码
-     *      未开户用户请勿使用该方法 , 只需要单独密码的情况请使用{@link #theCurrent(String, String)}
-     * @param userName
-     * @return
-     */
-    protected List theCurrent(String userName) {
-        List allPassword = UserStore.getAllPassword(userName);
-        this.updateData(OL_PIN,allPassword.get(0));
-        this.updateData(OT_PIN,allPassword.get(1));
-        return allPassword;
-    }
-
-    /**
-     * 实时获取密码  , 并替换
-     *      好处, 不用手动更新数据 , 也避免了参数名称设置的麻烦
-     * @param userName
-     * @param password
-     */
-    protected void theCurrent(String userName , Password password){
-        switch (password.getPassword()) {
-            case CURRENT_LOGIN_PWD:
-                password.setPassword(getLoginPassword(userName));
-                break;
-            case CURRENT_TRADE_PWD:
-                password.setPassword(getTradePassword(userName));
-                break;
-        }
-    }
-    protected void theCurrent(String userName , Password loginPwd , Password tradePwd){
-        List allPassword = UserStore.getAllPassword(userName);
-        loginPwd.setPassword((String) allPassword.get(0));
-        tradePwd.setPassword((String) allPassword.get(1));
-    }
-
-    /**
-     * 获得一个随机密码
-     * @param password
-     * @return
-     */
-    protected String theRandom(String password) {
-        int len = Integer.valueOf(God.getNumberFromString(password));
-
-        if (password.startsWith(UserStore.RANDOM_LOGIN_PWD)) {
-            password = getRandomLoginPwd(len);
-            this.updateData(NL_PIN,password);
-            return password;
-        }
-        if (password.startsWith(UserStore.RANDOM_TRADE_PWD)) {
-            password = getRandomTradePwd(len);
-            this.updateData(NT_PIN,password);
-            return password;
-        }
-        return password;
-    }
-
-    /**
-     * 获取一个随机密码
-     *      使用了封装类型, 这样可直接修改
-     * @param pwd
-     */
-    protected void theRandom(Password pwd){
-        String password = pwd.getPassword();
-        int len = Integer.valueOf(getIntervalString(password ,P_START ,P_STOP));
-
-        if (password.startsWith(UserStore.RANDOM_LOGIN_PWD)) {
-            pwd.setPassword(getRandomLoginPwd(len));
-            return;
-        }
-        if (password.startsWith(UserStore.RANDOM_TRADE_PWD)) {
-            pwd.setPassword(getRandomTradePwd(len));
-            return;
-        }
-    }
+//    /**
+//     * 获取一个随机密码
+//     *      使用了封装类型, 这样可直接修改
+//     * @param pwd
+//     */
+//    protected void theRandom(Password pwd){
+//        String password = pwd.getPassword();
+//        int len = Integer.valueOf(getIntervalString(password ,P_START ,P_STOP));
+//
+//        if (password.startsWith(UserStore.RANDOM_LOGIN_PWD)) {
+//            pwd.setPassword(getRandomLoginPwd(len));
+//            return;
+//        }
+//        if (password.startsWith(UserStore.RANDOM_TRADE_PWD)) {
+//            pwd.setPassword(getRandomTradePwd(len));
+//            return;
+//        }
+//    }
 }

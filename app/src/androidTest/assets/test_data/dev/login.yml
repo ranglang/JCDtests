@@ -4,16 +4,16 @@ method:
   # 已开户用户登录
   - name: has_broker_login  
     data:
-      - [zhao.deng@jucaidao.com, aA123456]  #邮箱用户
+      - [kingstar95d+d01@gmail.com, "$C_LP(kingstar95d+d01@gmail.com)"]  #邮箱用户
       
   # 未开户用户登录
   - name: has_not_broker_login  
     data:
-      - [11811110001 , aA123321]      #手机用户
-      - [star003@abc.com , aA123321]  #邮箱用户
+      - [11811110001 , "$C_LP(11811110001)"]      #手机用户
+      - [star003@abc.com , "$C_LP(star003@abc.com)"]  #邮箱用户
 
 ---
-# 用户注册反向用例
+# 用户登录反向用例
 class: LoginReverseTest   
 method:
   # 使用 sql 注入方式登录
@@ -32,7 +32,7 @@ method:
   # 使用 7 天未验证邮箱地址的邮箱用户登录
   - name: not_verify_7days    
     data:
-      - [star006@abc.com, aA123321, false]  #7 天未登录的邮箱账户
+      - [star006@abc.com, "$C_LP(star006@abc.com)", false]  #7 天未登录的邮箱账户
 
 ---
 # 忘记密码用例
@@ -52,7 +52,7 @@ method:
   # 使用手机号找回密码
   - name: retrieve_password_use_phone   
     data:
-      - [11811110001, aA123321]
+      - [11811110001, "$R_LP(8)"]
 
 ---
 # 忘记密码反向用例

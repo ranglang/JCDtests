@@ -4,10 +4,12 @@ import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
+import com.trubuzz.trubuzz.constant.UserStore;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
 import com.trubuzz.trubuzz.feature.custom.parameters.GenreParameter;
 import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
+import com.trubuzz.trubuzz.shell.UserName;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -52,7 +54,7 @@ public class SignUpTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void sign_up_with_email_flow(@Var("email") String email, @Var("password") String password){
+    public void sign_up_with_email_flow(@Var("email") UserName email, @Var("password") String password){
         ss.verify_email_sign_up_default_show();
 
         ss.type_email_address(email);
@@ -68,6 +70,8 @@ public class SignUpTest extends BaseTest {
         ss.confirm_image_verify_code_input();
 
         ss.check_sign_up_successful();
+
+        UserStore.addUser(email ,password);
     }
 
     /**
@@ -78,7 +82,7 @@ public class SignUpTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void sign_up_with_phone_flow(@Var("country_code") String country_code ,@Var("phone") String phone ,
+    public void sign_up_with_phone_flow(@Var("country_code") String country_code ,@Var("phone") UserName phone ,
                                         @Var("password") String password){
         ss.select_way_for_sign_up(PHONE);
         ss.verify_phone_sign_up_default_show();
@@ -98,12 +102,14 @@ public class SignUpTest extends BaseTest {
         ss.confirm_image_verify_code_input();
 
         CommonAction.check_toast_msg(ss.theToast().sign_up_sms_auth_sent_toast);
-        String sms_code = ss.type_sms_code(phone ,null);
+        String sms_code = ss.type_sms_code(phone.getUserName() ,null);
         this.runTimeData("sms_code",sms_code);
         Espresso.closeSoftKeyboard();
 
         ss.submit_phone_sign_up();
         ss.check_sign_up_successful();
+
+        UserStore.addUser(phone ,password);
     }
 
     /**

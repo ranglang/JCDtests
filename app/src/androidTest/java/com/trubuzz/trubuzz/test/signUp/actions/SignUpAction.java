@@ -1,13 +1,13 @@
 package com.trubuzz.trubuzz.test.signUp.actions;
 
 
-import android.support.test.espresso.web.webdriver.Locator;
 import android.util.Log;
 
 import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.constant.enumerate.Account;
 import com.trubuzz.trubuzz.idlingResource.ActivityIdlingResource;
 import com.trubuzz.trubuzz.idlingResource.ViewIdlingResource;
+import com.trubuzz.trubuzz.shell.UserName;
 import com.trubuzz.trubuzz.test.signUp.SignUpService;
 import com.trubuzz.trubuzz.test.signUp.tests.SignUpReverseTest;
 import com.trubuzz.trubuzz.test.signUp.views.SignUpToast;
@@ -26,7 +26,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.web.sugar.Web.onWebView;
-import static android.support.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static android.support.test.espresso.web.webdriver.DriverAtoms.getText;
 import static com.trubuzz.trubuzz.constant.AName.WEB_VIEW;
 import static com.trubuzz.trubuzz.constant.Config.CURRENT_IMAGE_STRATEGY;
@@ -99,9 +98,9 @@ public class SignUpAction implements SignUpService {
     }
 
     @Override
-    public void type_email_address(String email) {
-        given(sv.email_input).perform(replaceText(email))
-                .check(matches(withText(email)));
+    public void type_email_address(UserName email) {
+        given(sv.email_input).perform(replaceText(email.getUserName()))
+                .check(matches(withText(email.getUserName())));
     }
 
     @Override
@@ -159,9 +158,9 @@ public class SignUpAction implements SignUpService {
     }
 
     @Override
-    public void type_phone_number(String phone) {
-        given(sv.phone_input).perform(replaceText(phone))
-                .check(matches(withText(phone)));
+    public void type_phone_number(UserName phone) {
+        given(sv.phone_input).perform(replaceText(phone.getUserName()))
+                .check(matches(withText(phone.getUserName())));
     }
 
     @Override

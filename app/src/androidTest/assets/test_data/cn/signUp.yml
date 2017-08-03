@@ -4,12 +4,12 @@ method:
   # 邮箱注册流程
   - name: sign_up_with_email_flow       
     data:
-      - [star001@gg.com,aA123321]    #邮箱注册
+      - ["$N_EU",aA123321]    #邮箱注册
   
   # 手机注册流程
   - name: sign_up_with_phone_flow   
     data:
-      - [86,11799990001,aA123321]    #手机注册
+      - [86,"$N_PU",aA123321]    #手机注册
      
 ---
 # 用户注册反向用例     

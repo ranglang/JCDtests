@@ -354,11 +354,13 @@ public class God {
         char[] res = new char[length];
         res[0] = (char) getRandomInt(112, 97);
         res[1] = (char) getRandomInt(90, 65);
-        res[2] = (char) getRandomInt(57, 48);
+        res[2] = (char) getRandomInt(57, 49);
         for(int i=3; i<length; i++) {
             res[i] = getRandomChar();
         }
-        return new String(res);
+        String pwd = new String(res);
+        Log.i(TAG, String.format("getRandomLoginPwd: %s", pwd));
+        return pwd;
     }
 
     /**
@@ -373,7 +375,9 @@ public class God {
         for(int i=0; i<length; i++) {
             res[i] = getRandomChar();
         }
-        return new String(res);
+        String pwd = new String(res);
+        Log.i(TAG, String.format("getRandomTradePwd: %s", pwd));
+        return pwd;
     }
 
     /**
@@ -387,7 +391,7 @@ public class God {
         int i = getRandomInt(3, 1);
         switch (i) {
             case 1:
-                return (char) getRandomInt(57, 48);
+                return (char) getRandomInt(57, 49);
             case 2:
                 return (char) getRandomInt(90, 65);
             default:
