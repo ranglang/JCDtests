@@ -1,0 +1,49 @@
+#-------------------------------------------------左侧面板------------------------------------------------
+#我的总资产
+my_total_assets:
+    android:
+        id: com.trubuzz.trubuzz:id/navi_assets
+    ios:
+        id:
+#货币兑换
+currency_exchange:
+    android:
+        id: com.trubuzz.trubuzz:id/navi_exchange
+    ios:
+        id:
+#隐私模式开关
+privacy_mode_switch:
+    android:
+        id: com.trubuzz.trubuzz:id/private_switch
+    ios:
+        id:
+#线上客服
+interconnect_left:
+    android:
+        id: com.trubuzz.trubuzz:id/navi_customer_service
+    ios:
+        id:
+#设置
+settings:
+    android:
+        id: com.trubuzz.trubuzz:id/navi_preference
+    ios:
+        id:
+#个人中心
+personal:
+    android:
+        id: com.trubuzz.trubuzz:id/navi_profile
+    ios:
+        id:
+#昵称
+nickname:
+    android:
+        id: com.trubuzz.trubuzz:id/title
+    ios:
+        id:
+#头像
+avatar:
+    android:
+        id: com.trubuzz.trubuzz:id/icon
+    ios:
+        id:
