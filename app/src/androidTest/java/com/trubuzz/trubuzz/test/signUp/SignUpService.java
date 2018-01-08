@@ -126,7 +126,7 @@ public interface SignUpService extends TestsService<SignUpToast> {
      * @param email
      * @param signUpReverseTest
      */
-    void check_invalid_email_sign_up(String email, SignUpReverseTest signUpReverseTest);
+    void check_invalid_email_sign_up(UserName email, SignUpReverseTest signUpReverseTest);
 
     /**
      * 使用无效的密码注册
@@ -142,7 +142,7 @@ public interface SignUpService extends TestsService<SignUpToast> {
      * @param phone
      * @param isFormat
      */
-    void check_invalid_phone_sign_up(String phone, boolean isFormat);
+    void check_invalid_phone_sign_up(UserName phone, boolean isFormat);
 
     /**
      * 进入服务条款页面

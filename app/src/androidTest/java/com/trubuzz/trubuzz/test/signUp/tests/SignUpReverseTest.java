@@ -6,6 +6,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.trubuzz.trubuzz.constant.AName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
+import com.trubuzz.trubuzz.shell.UserName;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -39,8 +40,8 @@ public class SignUpReverseTest extends BaseTest {
     private final String key_pwd = "password";
     private final String key_pwd_confirm = "password_confirm";
     private final String key_format = "isFormat";
-    private final String _phone = "11211110001";
-    private final String _email = "aabbcc@123.com";
+    private final UserName _phone = new UserName("11211110001");
+    private final UserName _email = new UserName("aabbcc@123.com");
     private final String _password = "qQ123456";
 
     @YamlFileName
@@ -61,7 +62,7 @@ public class SignUpReverseTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void invalid_email_address_sign_up(@Var("email") String email) {
+    public void invalid_email_address_sign_up(@Var("email") UserName email) {
         this.runTimeData("password",_password);
 
         ss.type_email_address(email);
@@ -82,7 +83,7 @@ public class SignUpReverseTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void invalid_password_sign_up_with_email(@Var("email") String email,
+    public void invalid_password_sign_up_with_email(@Var("email") UserName email,
                                                     @Var("invalidPasswords") ArrayList<HashMap> invalidPasswords) {
         ss.type_email_address(email);
         for(HashMap map : invalidPasswords) {
@@ -156,7 +157,7 @@ public class SignUpReverseTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void invalid_phone_sign_up(@Var("phone") String phone ,@Var("isFormat") boolean isFormat){
+    public void invalid_phone_sign_up(@Var("phone") UserName phone ,@Var("isFormat") boolean isFormat){
         this.runTimeData("password",_password);
 
         ss.select_way_for_sign_up(PHONE);

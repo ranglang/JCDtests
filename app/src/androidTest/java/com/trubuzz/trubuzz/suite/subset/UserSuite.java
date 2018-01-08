@@ -19,11 +19,11 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         LoginTest.class,
-        LoginReverseTest.class,
-        ForgetPasswordTest.class,
-        ForgetPwdReverseTest.class,
-//        SignUpTest.class,
-        SignUpReverseTest.class
+//        LoginReverseTest.class,
+//        ForgetPasswordTest.class,
+//        ForgetPwdReverseTest.class,
+////        SignUpTest.class,
+//        SignUpReverseTest.class
 })
 public class UserSuite extends BaseSuite {
     private static final String suiteDesc = "user identity authentication test . ";

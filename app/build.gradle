@@ -9,12 +9,12 @@ android {
             storePassword 'trubuzz'
         }
     }
-    compileSdkVersion 23
+    compileSdkVersion 25
     buildToolsVersion '24.0.3'
     defaultConfig {
         applicationId "com.trubuzz.trubuzz"
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
 //        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -44,9 +44,9 @@ android {
 
 dependencies {
     //    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.+'
-    compile 'com.android.support:recyclerview-v7:23.+'
-    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:multidex:1.0.1'
     testCompile 'junit:junit:4.12'
     testCompile 'io.selendroid:selendroid:0.17.0'
     testCompile 'io.selendroid:selendroid-client:0.17.0'
@@ -62,7 +62,7 @@ dependencies {
     testCompile 'com.esotericsoftware.yamlbeans:yamlbeans:1.12'
 
     //    testCompile files('libs/classes-dex2jar.jar')
-    androidTestCompile 'com.android.support:support-annotations:23.+'
+    androidTestCompile 'com.android.support:support-annotations:25.3.1'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
@@ -90,6 +90,7 @@ task assembleDebug ( overwrite: true) {}
 task copyTask(type: Copy) {
     from 'libs/jucaidao_debug.apk'
 //    from 'libs/app-cn-348.apk'
+//    from 'libs/jcd-dev-debug-389.apk'
     into 'build/outputs/apk/'
     rename {
         'app-debug.apk'

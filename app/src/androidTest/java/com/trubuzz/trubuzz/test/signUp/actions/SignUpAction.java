@@ -186,8 +186,9 @@ public class SignUpAction implements SignUpService {
     }
 
     @Override
-    public void check_invalid_email_sign_up(String email, SignUpReverseTest signUpReverseTest) {
-        if (Judge.isMatched(email, Env.emailRegex)) {
+    public void check_invalid_email_sign_up(UserName email, SignUpReverseTest signUpReverseTest) {
+        String _email = email.getUserName();
+        if (Judge.isMatched(_email, Env.emailRegex)) {
             check_image_verify_code_show();
             String imageVerifyCode = type_image_verify_code(null);
             // 讲获取的图像验证码put
@@ -196,7 +197,7 @@ public class SignUpAction implements SignUpService {
             check_toast_msg(st.invalid_email_toast);
             return;
         }
-        if("".equals(email.trim())){
+        if("".equals(_email.trim())){
             check_toast_msg(st.email_empty_toast);
             return;
         }
@@ -219,8 +220,8 @@ public class SignUpAction implements SignUpService {
     }
 
     @Override
-    public void check_invalid_phone_sign_up(String phone, boolean isFormat) {
-        if ("".equals(phone)) {
+    public void check_invalid_phone_sign_up(UserName phone, boolean isFormat) {
+        if ("".equals(phone.getUserName())) {
             check_toast_msg(st.sign_up_phone_hint_toast);
             return;
         }

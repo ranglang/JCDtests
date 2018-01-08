@@ -15,7 +15,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         UserSuite.class,
 //        TradeSuite.class
-        AssetSuite.class
+//        AssetSuite.class
 })
 public class EngineSuite {
 }

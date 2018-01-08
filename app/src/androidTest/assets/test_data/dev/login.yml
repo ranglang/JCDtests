@@ -9,8 +9,8 @@ method:
   # 未开户用户登录
   - name: has_not_broker_login  
     data:
-      - [11811110001 , "$C_LP(11811110001)"]      #手机用户
-      - [star003@abc.com , "$C_LP(star003@abc.com)"]  #邮箱用户
+      #- [11811110001 , "$C_LP(11811110001)"]      #手机用户
+      - [kingstar95d+d01n@gmail.com , "$C_LP(kingstar95d+d01n@gmail.com)"]  #邮箱用户
 
 ---
 # 用户登录反向用例

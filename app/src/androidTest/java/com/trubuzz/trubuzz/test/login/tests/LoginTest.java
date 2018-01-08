@@ -1,5 +1,6 @@
 package com.trubuzz.trubuzz.test.login.tests;
 
+import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 
 import com.trubuzz.trubuzz.constant.AName;
@@ -18,6 +19,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.jar.Attributes;
+
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -30,7 +33,7 @@ import static com.trubuzz.trubuzz.utils.DoIt.sleep;
 public class LoginTest extends BaseTest{
     private final LoginService la = new LoginAction();
     @YamlFileName
-    private final static String ymlFileName = "doLogin.yml";
+    private final static String ymlFileName = "login.yml";
     @Rule
     public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
 
@@ -45,12 +48,13 @@ public class LoginTest extends BaseTest{
      * @param username
      * @param password
      */
-//    @Test
+    @Test
     @YmlParameter
     public void has_broker_login(@Var("username") String username , @Var("password") Password password){
         la.type_username(username);
         la.type_password(password);
         la.click_login_button();
+
         la.check_broker();
     }
 
@@ -65,12 +69,14 @@ public class LoginTest extends BaseTest{
         la.type_username(username);
         la.type_password(password);
         la.click_login_button();
+//        Intent intent = new Intent(matr.getActivity() ,God.getFixedClass(AName.MAIN));
+//        matr.getActivity().startActivity(intent);
         la.check_not_broker();
     }
     /**
      * 测试清除密码的小功能
      */
-//    @Test
+    @Test
     public void clean_password_test(){
         la.type_password(new Password("380275024"));
         la.clean_password();

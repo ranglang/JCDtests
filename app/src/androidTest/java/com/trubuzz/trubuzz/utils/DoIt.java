@@ -60,6 +60,7 @@ public class DoIt {
      * 注销一个idlingResources实例,并出栈
      */
     public static void unRegIdlingResource() {
+        if (o_idlingResource.empty()) return;
         Espresso.unregisterIdlingResources((IdlingResource) o_idlingResource.pop());
         if (o_idlingResource.empty()) o_idlingResource = null;
     }

@@ -14,6 +14,7 @@ import static com.trubuzz.trubuzz.utils.God.getRandomTradePwd;
 
 /**
  * Created by king on 2017/8/1.
+ * 对密码的封装 , 可以取出文件中上次的密码 , 也可以获取随机密码
  */
 
 public class Password {

@@ -15,6 +15,7 @@ import com.trubuzz.trubuzz.constant.Env;
 import com.trubuzz.trubuzz.feature.custom.parameters.GatherParameter;
 import com.trubuzz.trubuzz.feature.custom.parameters.YamlFileName;
 import com.trubuzz.trubuzz.feature.custom.parameters.YmlParameter;
+import com.trubuzz.trubuzz.shell.Password;
 import com.trubuzz.trubuzz.shell.Var;
 import com.trubuzz.trubuzz.test.BaseTest;
 import com.trubuzz.trubuzz.test.Wish;
@@ -103,7 +104,7 @@ public class ForgetPwdReverseTest extends BaseTest {
      */
     @Test
     @YmlParameter
-    public void invalid_sms_code_reset_password(@Var("phone") String phone , @Var("password") String password ,
+    public void invalid_sms_code_reset_password(@Var("phone") String phone , @Var("password") Password password ,
                                                 @Var("smsCodes") ArrayList<String> smsCodes){
         la.into_forget_password_page();
         la.select_phone_retrieve();
@@ -154,8 +155,8 @@ public class ForgetPwdReverseTest extends BaseTest {
             String pwd = (String) kvp.get(key_pwd);
             String pwd_c = (String) kvp.get(key_pwd_confirm);
 
-            la.type_new_password(pwd);
-            la.type_confirm_password(pwd_c);
+//            la.type_new_password(pwd);
+//            la.type_confirm_password(pwd_c);
             la.submit_phone_retrieve();
 
             if (!(boolean) kvp.get(key_format)) {
