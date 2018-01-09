@@ -1,0 +1,79 @@
+#10738 验证未开户账户不可换汇
+#展开左侧面板
+- click:
+    left_drawer
+#点击货币兑换
+- click:
+    currency_exchange
+#输入金额
+- send_key:
+    amount_input: 100
+
+#点击换汇
+- click:
+    exchange_button
+
+#检查提醒标题
+- get_element_value_and_check:
+    - bind_trading_account_remind_title
+    - string: 请先绑定一个交易账号
+#点击取消
+- click:
+    cancel_button
+#点击切换按钮
+- click:
+    swap_currency
+#输入金额
+- send_key:
+    amount_input: 100
+
+#点击换汇
+- click:
+    exchange_button
+
+#检查提醒标题
+- get_element_value_and_check:
+    - bind_trading_account_remind_title
+    - string: 请先绑定一个交易账号
+#点击开户
+- click:
+    confirm_button
+#进入开户页面
+- get_element_value_and_check:
+    - i_want_to_open_an_account_button
+    - string: 我要开户
+#展开左侧面板
+- click:
+    left_drawer
+
+#点击货币兑换
+- click:
+    currency_exchange
+#点击兑换历史
+- click:
+    exchange_history
+#检查提醒标题
+- get_element_value_and_check:
+    - bind_trading_account_remind_title
+    - string: 请先绑定一个交易账号
+#点击取消
+- click:
+    cancel_button
+#点击兑换历史
+- click:
+    exchange_history
+#检查提醒标题
+- get_element_value_and_check:
+    - bind_trading_account_remind_title
+    - string: 请先绑定一个交易账号
+#点击开户
+- click:
+    confirm_button
+#点击马上开户
+- click:
+    i_want_to_open_an_account_button
+#检查开户第一页标题
+- get_element_value_and_check:
+    - entries_1
+    - string: 1/6 资料填写
+

@@ -1,0 +1,38 @@
+#7578 切换汇率
+
+#展开左侧面板
+- click:
+    left_drawer
+
+#点击货币兑换
+- click:
+    currency_exchange
+    
+#点击切换按钮
+- click:
+    swap_currency
+     
+#检查兑换货币变为"美元"     
+- get_element_value_and_check:
+    - original_currency
+    - string: 美元
+     
+#检查目标货币变为"港币"     
+- get_element_value_and_check:
+    - target_currency
+    - string: 港币
+
+#检查汇率方向变更     
+- get_element_value_and_check:
+    - exchange_rate_now
+    - string: 1 美元 = 7.8173 港币
+     
+#检查预计兑换币别
+- get_element_value_and_check:
+    - forecast_target_currency
+    - string: 港币
+     
+#检查欲兑换货币余额币别     
+#- get_element_value_and_check:
+#    - balance_of_account
+#    - string: 您的帐户余额629065.91 美元

@@ -1,0 +1,19 @@
+#7677 帐户余额不足检验
+#展开左侧面板
+- click:
+    left_drawer
+
+#点击货币兑换
+- click:
+    currency_exchange
+#输入金额
+- send_key:
+    amount_input: 99999999999
+
+#点击换汇
+- click:
+    exchange_button
+
+#检查余额不足提示
+- get_elements_value_and_should_not_empty:
+    balance_is_insufficient_toast

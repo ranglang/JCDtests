@@ -1,0 +1,18 @@
+#7787 在非交易的时间点兑换货币
+
+#展开左侧面板
+- click:
+    left_drawer
+#点击货币兑换
+- click:
+    currency_exchange
+#输入金额
+- send_key:
+    amount_input: 100
+
+#点击换汇
+- click:
+    exchange_button
+#检查在非交易的时间点兑换货币提醒
+#- get_elements_value_and_should_not_empty:
+#    non_transaction_time_toast

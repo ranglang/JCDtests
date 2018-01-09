@@ -1,0 +1,104 @@
+#7582 正常换汇
+
+#点击总净值
+- click:
+    total_net_worth
+#上滑
+- swipe_up:
+    HK_account
+#点击港币账户
+- click:
+    HK_account
+#获取港币账户现金值   
+- get_element_value_and_save: 
+    cash_value
+#返回上一层
+- click:
+    back
+#返回上一层
+- click:
+    back
+#展开左侧面板
+- click:
+    left_drawer
+
+#点击货币兑换
+- click:
+    currency_exchange
+    
+#输入金额
+- send_key: 
+    amount_input: 55
+
+#点击换汇
+- click:
+    exchange_button
+    
+#检查换汇提醒
+- check:
+    exchange_remind
+#点击确定
+- click:
+    confirm_button
+#输入交易密码
+- send_key:
+    trade_password_input: 123456
+        
+#点击确定
+- click:
+    confirm_button
+#检查toast
+#- get_element_value_and_check:
+#    toast:下单成功
+
+#点击总净值
+- click:
+    total_net_worth
+#上滑
+- swipe_up:
+    HK_account
+#点击港币账户
+- click:
+    HK_account
+#检查港币账户现金减少
+#- get_element_value_and_check:
+#    - cash_value
+#    - string: "小于保存值"
+
+#返回上一层
+- click:
+    back
+
+#返回上一层
+- click:
+    back
+
+#展开左侧面板
+- click:
+    left_drawer
+
+#点击货币兑换
+- click:
+    currency_exchange
+
+#点击兑换历史
+- click:
+    exchange_history
+    
+#查看换汇时间
+#- get_element_value_and_check:
+#    first_item_date: "等于当日时间"
+        
+#查看换汇方向
+- get_element_value_and_check:
+    first_item_direction: 港元⇀美元
+ 
+#查看换汇金额
+- get_element_value_and_check:
+    first_item_amount: 7
+        
+#查看换汇手续费
+- get_element_value_and_check:
+    first_item_charge: 2.00 USD
+        
+        
