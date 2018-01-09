@@ -1,0 +1,381 @@
+#-----------------------------------public-----------------------------------------
+back:
+    android:
+        xpath: 	//android.widget.ImageButton[@content-desc="转到上一层级"]
+    ios:
+        id:
+#----------------------------------------------------登录页------------------------------------------------
+#用户名
+account:
+    android:
+        id: com.trubuzz.trubuzz:id/account
+    ios:
+        id:
+#密码
+password:
+    android:
+        id: com.trubuzz.trubuzz:id/password
+    ios:
+        id:
+#清除密码
+clean_password:
+    android:
+        xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.ImageButton
+    ios:
+      id:
+#忘记密码
+forget_password:
+    android:
+      xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.Button
+    ios:
+      id:
+#登录按钮
+login_button:
+    android:
+        id: com.trubuzz.trubuzz:id/submit
+    ios:
+        id:
+#注册链接
+signup_link:
+    android:
+        id: com.trubuzz.trubuzz:id/signup
+    ios:
+        id:
+#-------------------------------------------------左侧面板------------------------------------------------
+#我的总资产
+my_total_assets:
+    android:
+        id: com.trubuzz.trubuzz:id/navi_assets
+    ios:
+        id:
+#货币兑换
+currency_exchange:
+    android:
+        id: com.trubuzz.trubuzz:id/navi_exchange
+    ios:
+        id:
+#隐私模式开关
+privacy_mode_switch:
+    android:
+        id: com.trubuzz.trubuzz:id/private_switch
+    ios:
+        id:
+#线上客服
+interconnect_left:
+    android:
+        id: com.trubuzz.trubuzz:id/navi_customer_service
+    ios:
+        id:
+#设置
+settings:
+    android:
+        id: com.trubuzz.trubuzz:id/navi_preference
+    ios:
+        id:
+#个人中心
+personal:
+    android:
+        id: com.trubuzz.trubuzz:id/navi_profile
+    ios:
+        id:
+#昵称
+nickname:
+    android:
+        id: com.trubuzz.trubuzz:id/title
+    ios:
+        id:
+#头像
+avatar:
+    android:
+        id: com.trubuzz.trubuzz:id/icon
+    ios:
+        id:
+
+#---------------------------------------------货币兑换页面----------------------------------------------
+#换汇历史
+exchange_history:
+    android:
+        id: com.trubuzz.trubuzz:id/exchange_history
+    ios:
+        id:
+#进入输入框
+amount_input:
+    android:
+        id: com.trubuzz.trubuzz:id/et_amount
+    ios:
+        id:
+#转换换汇方向
+swap_currency:
+    android:
+        id: com.trubuzz.trubuzz:id/swap_currency
+    ios:
+        id:
+#兑换按钮
+exchange_button:
+    android:
+        id: com.trubuzz.trubuzz:id/submit
+    ios:
+        id:
+#原始货币
+original_currency:
+    android:
+        id: com.trubuzz.trubuzz:id/tv_original_currency_title
+    ios:
+        id:
+#目标货币
+target_currency:
+    android:
+        id: com.trubuzz.trubuzz:id/tv_obj_currency_title
+    ios:
+        id:
+#预估目标货币
+forecast_target_currency:
+    android:
+        id: com.trubuzz.trubuzz:id/tv_obj_currency_price_title
+    ios:
+        id:
+#汇率
+exchange_rate_now:
+    android:
+        id: com.trubuzz.trubuzz:id/tv_exchange_rate_now
+    ios:
+        id:
+#预估目标货币
+forecast_target_currency:
+    android:
+        id: com.trubuzz.trubuzz:id/tv_obj_currency_price_title
+    ios:
+        id:
+#当前账户余额
+balance_of_account:
+    android:
+        id: com.trubuzz.trubuzz:id/tv_rest_currency_value
+    ios:
+        id:
+
+#换汇提醒
+exchange_remind:
+    android:
+        id: android:id/parentPanel
+    ios:
+        id:
+#确定按钮
+confirm_button:
+    android:
+        id: android:id/button1
+    ios:
+        id:
+#取消按钮
+cancel_button:
+    android:
+        id: android:id/button2
+    ios:
+        id:
+#绑定交易账户提醒标题
+bind_trading_account_remind_title:
+    android:
+        id: 	com.trubuzz.trubuzz:id/alertTitle
+    ios:
+        id:
+#账户余额不足toast
+balance_is_insufficient_toast:
+    android:
+        xpath: .//*[contains(@text,'您的账户余额')]
+    ios:
+        id:
+#非换汇时间交易toast
+non_transaction_time_toast:
+    android:
+        xpath: .//*[contains(@text,'未在外汇商品交易时段内交易')]
+    ios:
+        id:
+
+#---------------------------------------换汇历史--------------------------------
+#第一条记录的时间
+first_item_date:
+    android:
+        xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[1]
+    ios:
+        id:
+#第一条记录的换汇方向
+first_item_direction:
+    android:
+        xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[2]
+    ios:
+        id:
+#第一条记录的金额
+first_item_amount:
+    android:
+        xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[3]
+    ios:
+        id:
+#第一条记录的手续费
+first_item_charge:
+    android:
+        xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[4]
+    ios:
+        id:
+#------------------------------------交易页面--------------------------------------
+#左侧面板
+left_drawer:
+    android:
+        id:	com.trubuzz.trubuzz:id/action_drawer
+    ios:
+        id:
+#总净值
+total_net_worth:
+    android:
+        xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.widget.LinearLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]
+    ios:
+        id:
+#总资产数额
+total_net_worth_value:
+    android:
+        xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.widget.LinearLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.TextView[2]
+    ios:
+        id:
+
+#交易托盘菜单
+trade_radio:
+    android:
+        id: com.trubuzz.trubuzz:id/action_menu_item_1
+    ios:
+        id:
+
+#行情托盘菜单
+quotations_radio:
+    android:
+        id: com.trubuzz.trubuzz:id/action_menu_item_2
+    ios:
+        id:
+
+#财富管理菜单
+wealth_radio:
+    android:
+        id: com.trubuzz.trubuzz:id/action_menu_item_3
+    ios:
+        id:
+#新闻托盘菜单
+news_radio:
+    android:
+        id: com.trubuzz.trubuzz:id/action_menu_item_4
+    ios:
+        id:
+#圈子托盘菜单
+circle_radio:
+    android:
+        id: com.trubuzz.trubuzz:id/action_menu_item_5
+    ios:
+        id:
+#在线客服
+interconnect:
+    android:
+        id: com.trubuzz.trubuzz:id/custom_manager
+    ios:
+        id:
+#我要开户按钮
+i_want_to_open_an_account_button:
+    android:
+        xpath: 	//android.view.View[@content-desc="我要开户"]
+    ios:
+        id:
+#1/6 资料填写
+entries_1:
+    android:
+        xpath: 		//android.view.View[@content-desc="1/6 资料填写"]
+    ios:
+        id:
+#-----------------------------------自主交易---------------------------
+#总净值数据
+total_net_assets_value:
+  android:
+    xpath: //android.widget.TextSwitcher[@resource-id="com.trubuzz.trubuzz:id/nav"]/android.widget.TextView
+  ios:
+    id:
+#券商名
+brokerage_name:
+  android:
+      id: com.trubuzz.trubuzz:id/name
+  ios:
+      id:
+ #总收益值
+total_revenue:
+  android:
+      xpath: //android.widget.TextSwitcher[@resource-id="com.trubuzz.trubuzz:id/revenue"]/android.widget.TextView
+  ios:
+      id:
+#港币账户
+HK_account:
+  android:
+      xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[3]/android.support.v7.widget.RecyclerView/android.widget.RelativeLayout[2]
+  ios:
+      id:
+
+#--------------------------------------------------港币账户详情--------------------------------------
+#现金值
+cash_value:
+  android:
+      xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.support.v7.widget.RecyclerView/android.widget.RelativeLayout[3]/android.widget.TextSwitcher/android.widget.TextView
+  ios:
+      id:
+#货币兑换
+currency_exchange:
+  android:
+      id: 	com.trubuzz.trubuzz:id/exchange
+  ios:
+      id:
+#------------------------------------------------交易密码输入页面----------------------------------------
+#交易密码输入框
+trade_password_input:
+  android:
+      id: com.trubuzz.trubuzz:id/password
+  ios:
+      id:
+#确定按钮
+confirm_button:
+  android:
+      id: com.trubuzz.trubuzz:id/submit
+  ios:
+      id:
+#xxx
+xxxxx:
+  android:
+      id:
+  ios:
+      id:
+#xxx
+xxxxx:
+  android:
+      id:
+  ios:
+      id:
+#xxx
+xxxxx:
+  android:
+      id:
+  ios:
+      id:
+#xxx
+xxxxx:
+  android:
+      id:
+  ios:
+      id:
+#xxx
+xxxxx:
+  android:
+      id:
+  ios:
+      id:
+#xxx
+xxxxx:
+  android:
+      id:
+  ios:
+      id:
+#xxx
+xxxxx:
+  android:
+      id:
+  ios:
+      id:
