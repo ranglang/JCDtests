@@ -41,6 +41,67 @@ signup_link:
         id: com.trubuzz.trubuzz:id/signup
     ios:
         id:
+#账号必须是邮箱或是手机号toast
+incorrect_account_format_toast:
+    android:
+        xpath: .//*[contains(@text,'账号必须是邮箱或是手机号')]
+    ios:
+        id:
+#密码不能为空 toast
+password_empty_toast:
+    android:
+        xpath: .//*[contains(@text,'密码不能为空')]
+    ios:
+        id:
+#无效的账号或密码 toast
+invalid_username_password_toast:
+    android:
+        xpath: .//*[contains(@text,'无效的账号或密码')]
+    ios:
+        id:
+#-------------------------------------------------找回密码---------------------------------------------
+#邮箱找回
+email_retrieve_tab:
+    android:
+        xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[1]
+    ios:
+        id:
+#手机找回
+phone_retrieve_tab:
+    android:
+        xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[2]
+    ios:
+        id:
+#邮箱输入框
+email_input:
+    android:
+        id: 	com.trubuzz.trubuzz:id/email
+    ios:
+        id:
+#提交
+submit:
+    android:
+        id:	com.trubuzz.trubuzz:id/submit
+    ios:
+        id:
+#重置邮件已发送toast
+reset_password_mail_sent_toast:
+    android:
+        xpath: .//*[contains(@text,'重设密码信件已发送到您的邮箱，请查收并重置密码。')]
+    ios:
+        id:
+#邮箱地址格式不正确 toast
+incorrect_email_format_toast:
+    android:
+        xpath: .//*[contains(@text,'邮箱地址格式不正确')]
+    ios:
+        id:
+#该用户不存在 toast
+user_not_exist_toast:
+     android:
+         xpath: .//*[contains(@text,'该用户不存在')]
+     ios:
+         id:
 #-------------------------------------------------左侧面板------------------------------------------------
 #我的总资产
 my_total_assets:
