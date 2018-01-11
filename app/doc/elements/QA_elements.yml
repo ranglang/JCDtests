@@ -1,7 +1,7 @@
 #-----------------------------------public-----------------------------------------
 back:
     android:
-        xpath: 	//android.widget.ImageButton[@content-desc="转到上一层级"]
+        xpath: //android.widget.ImageButton[@content-desc="转到上一层级"]
     ios:
         id:
 #----------------------------------------------------登录页------------------------------------------------
@@ -63,7 +63,7 @@ invalid_username_password_toast:
 #邮箱找回
 email_retrieve_tab:
     android:
-        xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[1]
+        xpath:  /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[1]
     ios:
         id:
 #手机找回
@@ -75,43 +75,43 @@ phone_retrieve_tab:
 #邮箱输入框
 email_input:
     android:
-        id: 	com.trubuzz.trubuzz:id/email
+        id: com.trubuzz.trubuzz:id/email
     ios:
         id:
 #提交
 submit:
     android:
-        id:	com.trubuzz.trubuzz:id/submit
+        id: com.trubuzz.trubuzz:id/submit
     ios:
         id:
 #手机号输入框
 phone_input:
     android:
-        id: 	com.trubuzz.trubuzz:id/phone
+        id: com.trubuzz.trubuzz:id/phone
     ios:
         id:
 #获取验证码按钮
 get_sms_button:
     android:
-        id: 	com.trubuzz.trubuzz:id/btn_sms
+        id: com.trubuzz.trubuzz:id/btn_sms
     ios:
         id:
 #短信验证码输入
 sms_input:
     android:
-        id:	com.trubuzz.trubuzz:id/sms
+        id: com.trubuzz.trubuzz:id/sms
     ios:
         id:
 #新密码
 new_password:
     android:
-        id: 	com.trubuzz.trubuzz:id/password
+        id: com.trubuzz.trubuzz:id/password
     ios:
         id:
 #确认密码
 confirm_password:
     android:
-        id:	com.trubuzz.trubuzz:id/confirm
+        id: com.trubuzz.trubuzz:id/confirm
     ios:
         id:
 
@@ -302,7 +302,7 @@ cancel_button:
 #绑定交易账户提醒标题
 bind_trading_account_remind_title:
     android:
-        id: 	com.trubuzz.trubuzz:id/alertTitle
+        id: com.trubuzz.trubuzz:id/alertTitle
     ios:
         id:
 #账户余额不足toast
@@ -328,32 +328,32 @@ first_item_date:
 #第一条记录的换汇方向
 first_item_direction:
     android:
-        xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[2]
+        xpath:  /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[2]
     ios:
         id:
 #第一条记录的金额
 first_item_amount:
     android:
-        xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[3]
+        xpath:  /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[3]
     ios:
         id:
 #第一条记录的手续费
 first_item_charge:
     android:
-        xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[4]
+        xpath:  /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[4]
     ios:
         id:
 #------------------------------------交易页面--------------------------------------
 #左侧面板
 left_drawer:
     android:
-        id:	com.trubuzz.trubuzz:id/action_drawer
+        id: com.trubuzz.trubuzz:id/action_drawer
     ios:
         id:
 #总净值
 total_net_worth:
     android:
-        xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.widget.LinearLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]
+        xpath:  /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.widget.LinearLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]
     ios:
         id:
 #总资产数额
@@ -404,13 +404,13 @@ interconnect:
 #我要开户按钮
 i_want_to_open_an_account_button:
     android:
-        xpath: 	//android.view.View[@content-desc="我要开户"]
+        xpath:  //android.view.View[@content-desc="我要开户"]
     ios:
         id:
 #1/6 资料填写
 entries_1:
     android:
-        xpath: 		//android.view.View[@content-desc="1/6 资料填写"]
+        xpath:  //android.view.View[@content-desc="1/6 资料填写"]
     ios:
         id:
 #-----------------------------------自主交易---------------------------
@@ -449,7 +449,7 @@ cash_value:
 #货币兑换
 currency_exchange:
   android:
-      id: 	com.trubuzz.trubuzz:id/exchange
+      id: com.trubuzz.trubuzz:id/exchange
   ios:
       id:
 #------------------------------------------------交易密码输入页面----------------------------------------
@@ -463,47 +463,5 @@ trade_password_input:
 confirm_button:
   android:
       id: com.trubuzz.trubuzz:id/submit
-  ios:
-      id:
-#xxx
-xxxxx:
-  android:
-      id:
-  ios:
-      id:
-#xxx
-xxxxx:
-  android:
-      id:
-  ios:
-      id:
-#xxx
-xxxxx:
-  android:
-      id:
-  ios:
-      id:
-#xxx
-xxxxx:
-  android:
-      id:
-  ios:
-      id:
-#xxx
-xxxxx:
-  android:
-      id:
-  ios:
-      id:
-#xxx
-xxxxx:
-  android:
-      id:
-  ios:
-      id:
-#xxx
-xxxxx:
-  android:
-      id:
   ios:
       id:
