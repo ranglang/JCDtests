@@ -8,10 +8,10 @@
     currency_exchange
 #检查汇率不为空
 - get_elements_value_and_should_not_empty:
-    exchange_rate_now
+    - exchange_rate_now
 #点击切换按钮
 - click:
     swap_currency
 #检查汇率不为空
 - get_elements_value_and_should_not_empty:
-    exchange_rate_now
+    - exchange_rate_now

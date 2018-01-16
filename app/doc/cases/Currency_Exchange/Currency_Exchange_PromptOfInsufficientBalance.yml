@@ -16,4 +16,4 @@
 
 #检查余额不足提示
 - get_elements_value_and_should_not_empty:
-    balance_is_insufficient_toast
+    - balance_is_insufficient_toast

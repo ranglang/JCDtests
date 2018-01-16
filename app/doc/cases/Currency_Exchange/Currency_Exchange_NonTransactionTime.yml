@@ -15,4 +15,4 @@
     exchange_button
 #检查在非交易的时间点兑换货币提醒
 #- get_elements_value_and_should_not_empty:
-#    non_transaction_time_toast
+#    - non_transaction_time_toast

@@ -11,39 +11,39 @@
     login_button
 #检查提示toast
 - get_elements_value_and_should_not_empty:
-    incorrect_account_format_toast
+    - incorrect_account_format_toast
 
 #输入有效用户名
-- sendkeys:
+- send_key:
     account: quotation@trubuzz.com
 #输入无效密码
-- sendkeys:
+- send_key:
     password: 123456
 #点击登录
 - click:
     login_button
 #检查提示toast
 - get_elements_value_and_should_not_empty:
-    password_empty_toast
+    - password_empty_toast
 
 #输入无效用户名
-- sendkeys:
+- send_key:
     account: quotation123@trubuzz.com
 #输入有效密码
-- sendkeys:
+- send_key:
     password: 0102sA
 #点击登录
 - click:
     login_button
 #检查提示toast
 - get_elements_value_and_should_not_empty:
-    invalid_username_password_toast
+    - invalid_username_password_toast
 
 #输入有效用户名
-- sendkeys:
+- send_key:
     account: quotation@trubuzz.com
 #输入有效密码
-- sendkeys:
+- send_key:
     password: 0102sA
 #点击密码清除按钮
 - click:

@@ -10,14 +10,14 @@
      - account
      - string: 输入密码
 #输入有效用户名
-- sendkeys:
+- send_key:
     account: quotation@trubuzz.com
 #输入有效密码
-- sendkeys:
+- send_key:
     password: 0102sA
 #点击登录
 - click:
     login_button
 #验证登录成功
 - get_elements_value_and_should_not_empty:
-    trade_radio
+    - trade_radio
