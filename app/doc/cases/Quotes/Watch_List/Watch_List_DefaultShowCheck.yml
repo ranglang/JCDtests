@@ -1,0 +1,12 @@
+#8020 验证自选默认展示
+
+#点击行情radio
+- click:
+  quotations_radio
+#检查 自选 默认选中
+- check_is_selected:
+  watch_list_tab
+#检查默认展示 "默认名单"
+- get_element_value_and_check:
+  - default_list
+  - string: 默认名单

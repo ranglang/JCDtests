@@ -1,0 +1,31 @@
+#12772 可按公司名称精确搜索合约
+
+#点击行情radio
+- click:
+  quotations_radio
+#点击搜索图标
+- click:
+  search_ioc
+#输入精确的公司名称(如"阿里巴巴")
+- send_key:
+  search_input : 阿里巴巴
+#搜索出公司名为"阿里巴巴"的合约
+- get_element_value_and_check:
+   - first_search_item_symbol
+   - string: BABA
+- get_element_value_and_check:
+   - first_search_item_name
+   - string: 阿里巴巴
+- get_element_value_and_check:
+   - first_search_item_class
+   - string: US
+#点击 搜索到的合约
+- click:
+  first_search_item
+#进入该合约详情页面 ; 详情页面与symbol匹配
+- get_element_value_and_check:
+   - quote_details_symbol
+   - string: BABA
+- get_element_value_and_check:
+   - quote_details_name
+   - string: 阿里巴巴

@@ -1,0 +1,31 @@
+#12770 以按symbol精确搜索合约
+
+#点击行情radio
+- click:
+  quotations_radio
+#点击搜索图标
+- click:
+  search_ioc
+#输入精确的symbol ( 如: AAPL)
+- send_key:
+  search_input : AAPL
+#搜索出对应的合约 (如: AAPL搜索出 苹果 )
+- get_element_value_and_check:
+   - first_search_item_symbol
+   - string: AAPL
+- get_element_value_and_check:
+   - first_search_item_name
+   - string: 苹果
+- get_element_value_and_check:
+   - first_search_item_class
+   - string: US
+#点击 搜索到的合约
+- click:
+  first_search_item
+#进入该合约详情页面 ; 详情页面与symbol匹配
+- get_element_value_and_check:
+   - quote_details_symbol
+   - string: AAPL
+- get_element_value_and_check:
+   - quote_details_name
+   - string: 苹果

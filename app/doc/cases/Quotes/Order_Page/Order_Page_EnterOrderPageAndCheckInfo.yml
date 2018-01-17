@@ -1,0 +1,72 @@
+#7695 Enter Order page and check info
+
+#点击行情radio
+- click:
+  quotations_radio
+#点击搜索图标
+- click:
+  search_ioc
+#输入精确的symbol
+- send_key:
+  search_input : SOHU
+#点击 搜索到的合约
+- click:
+  first_search_item
+
+#1. Enter the stock information page
+- get_element_value_and_check:
+   - quote_details_symbol
+   - string: SOHU
+- get_element_value_and_check:
+   - quote_details_name
+   - string: 搜狐
+#2. There are "Buy", "Sell" and "Alerts" button at footer
+- get_element_value_and_check:
+   - buy_button
+   - string: 买
+- get_element_value_and_check:
+   - sell_button
+   - string: 卖
+- get_element_value_and_check:
+   - alerts_button
+   - string: 价格预警
+#Tap "Buy" which is at left side corner
+- click:
+  buy_button
+#1. Enter Order page
+- get_element_value_and_check:
+   - delegate_title
+   - string: 买入委托
+- get_element_value_and_check:
+   - name
+   - string: 搜狐
+#2. Show the stock latest price at top
+- get_elements_value_and_should_not_empty:
+   - price_now
+#3. The Price textbox should show the latest price
+- get_elements_value_and_should_not_empty:
+   - limit_price_input
+#4. (CN) List the latest 5 Bid-Ask Spread
+#​    (Global) List the latest 1 Bid-Ask Spread at right side
+- get_elements_value_and_should_not_empty:
+  - sell_price_5
+  - sell_amount_5
+  - sell_price_4
+  - sell_amount_4
+  - sell_price_3
+  - sell_amount_3
+  - sell_price_2
+  - sell_amount_2
+  - sell_price_1
+  - sell_amount_1
+  - open_price
+  - buy_price_5
+  - buy_amount_5
+  - buy_price_4
+  - buy_amount_4
+  - buy_price_3
+  - buy_amount_3
+  - buy_price_2
+  - buy_amount_2
+  - buy_price_1
+  - buy_amount_1

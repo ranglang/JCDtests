@@ -1,0 +1,24 @@
+#12771 可按symbol模糊搜索合约
+
+#点击行情radio
+- click:
+  quotations_radio
+#点击搜索图标
+- click:
+  search_ioc
+#输入模糊的symbol ( 如: AAP)
+- send_key:
+  search_input : AAP
+#搜索出所有symbol包含 "AAPL"的合约
+- get_elements_value_and_should_not_empty:
+  - search_item_AAPL
+#选择合约 , 点击进入行情
+- click:
+  search_item_AAPL
+#进入该合约详情页面 ; 详情页面与symbol匹配
+- get_element_value_and_check:
+   - quote_details_symbol
+   - string: AAPL
+- get_element_value_and_check:
+   - quote_details_name
+   - string: 苹果
