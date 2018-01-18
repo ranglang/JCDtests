@@ -89,9 +89,14 @@
 #- get_element_value_and_check:
 #    first_item_date: "等于当日时间"
         
-#查看换汇方向
-- get_element_value_and_check:
-    first_item_direction: 港元⇀美元
+# ( android olny )查看换汇方向
+#- get_element_value_and_check:
+#    android_first_item_direction: 港元⇀美元
+# ( ios olny )查看换汇方向
+#- get_element_value_and_check:
+#    ios_first_item_direction_from: 港元
+#- get_element_value_and_check:
+#    ios_first_item_direction_to: 美元
  
 #查看换汇金额
 - get_element_value_and_check:

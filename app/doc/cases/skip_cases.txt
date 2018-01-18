@@ -1,0 +1,2 @@
+#7694 Switch trade type
+#7691 Check the custom virtual keyboard

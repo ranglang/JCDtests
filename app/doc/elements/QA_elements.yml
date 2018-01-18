@@ -3,44 +3,44 @@ back:
     android:
         xpath: //android.widget.ImageButton[@content-desc="转到上一层级"]
     ios:
-        id:
+        id: backButton
 #----------------------------------------------------登录页------------------------------------------------
 #用户名
 account:
     android:
         id: com.trubuzz.trubuzz:id/account
     ios:
-        id:
+        id: accountTextField
 #密码
 password:
     android:
         id: com.trubuzz.trubuzz:id/password
     ios:
-        id:
+        id: passwordTextField
 #清除密码
 clean_password:
     android:
         xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.ImageButton
     ios:
-      id:
+      xpath: //XCUIElementTypeButton[@name="清除文本"]
 #忘记密码
 forget_password:
     android:
       xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.Button
     ios:
-      id:
+      id: foregetPwdButton
 #登录按钮
 login_button:
     android:
         id: com.trubuzz.trubuzz:id/submit
     ios:
-        id:
+        id: loginButton
 #注册链接
 signup_link:
     android:
         id: com.trubuzz.trubuzz:id/signup
     ios:
-        id:
+        id: regButton
 #账号必须是邮箱或是手机号toast
 incorrect_account_format_toast:
     android:
@@ -63,57 +63,64 @@ invalid_username_password_toast:
 #邮箱找回
 email_retrieve_tab:
     android:
-        xpath:  /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[1]
+        xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[1]
     ios:
-        id:
+        id: eMailRegButton
 #手机找回
 phone_retrieve_tab:
     android:
         xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[2]
     ios:
-        id:
+        id: phoneRegButton
 #邮箱输入框
 email_input:
     android:
         id: com.trubuzz.trubuzz:id/email
     ios:
-        id:
-#提交
-submit:
+        xpath: //XCUIElementTypeTextField[@name="accountTF"]/XCUIElementTypeTextField
+#邮箱重置提交
+email_submit:
     android:
         id: com.trubuzz.trubuzz:id/submit
     ios:
-        id:
+        id: sendButton
+#手机重置提交
+phone_submit:
+    android:
+        id: com.trubuzz.trubuzz:id/submit
+    ios:
+        id: resetPwdButton
+        
 #手机号输入框
 phone_input:
     android:
         id: com.trubuzz.trubuzz:id/phone
     ios:
-        id:
+        xpath: //XCUIElementTypeTextField[@name="phoneTF"]/XCUIElementTypeTextField
 #获取验证码按钮
 get_sms_button:
     android:
         id: com.trubuzz.trubuzz:id/btn_sms
     ios:
-        id:
+        id: resendButton
 #短信验证码输入
 sms_input:
     android:
         id: com.trubuzz.trubuzz:id/sms
     ios:
-        id:
+        xpath: //XCUIElementTypeTextField[@name="inputSmsCodeTF"]/XCUIElementTypeTextField
 #新密码
 new_password:
     android:
         id: com.trubuzz.trubuzz:id/password
     ios:
-        id:
+        xpath: //XCUIElementTypeSecureTextField[@name="inputPwdTF"]/XCUIElementTypeSecureTextField
 #确认密码
 confirm_password:
     android:
         id: com.trubuzz.trubuzz:id/confirm
     ios:
-        id:
+        xpath: //XCUIElementTypeSecureTextField[@name="confirmPwdTF"]/XCUIElementTypeSecureTextField
 
 #重置邮件已发送toast
 reset_password_mail_sent_toast:
@@ -175,49 +182,49 @@ my_total_assets:
     android:
         id: com.trubuzz.trubuzz:id/navi_assets
     ios:
-        id:
+        xpath: (//XCUIElementTypeCell[@name="MenuViewCell"])[1]
 #货币兑换
 currency_exchange:
     android:
         id: com.trubuzz.trubuzz:id/navi_exchange
     ios:
-        id:
+        xpath: (//XCUIElementTypeCell[@name="MenuViewCell"])[2]
 #隐私模式开关
 privacy_mode_switch:
     android:
         id: com.trubuzz.trubuzz:id/private_switch
     ios:
-        id:
+        xpath: //XCUIElementTypeButton[@name="actionButton"]
 #线上客服
 interconnect_left:
     android:
         id: com.trubuzz.trubuzz:id/navi_customer_service
     ios:
-        id:
+        xpath: (//XCUIElementTypeCell[@name="MenuViewCell"])[4]
 #设置
 settings:
     android:
         id: com.trubuzz.trubuzz:id/navi_preference
     ios:
-        id:
+        id: (//XCUIElementTypeCell[@name="MenuViewCell"])[5]
 #个人中心
 personal:
     android:
         id: com.trubuzz.trubuzz:id/navi_profile
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeTable/XCUIElementTypeImage
 #昵称
 nickname:
     android:
         id: com.trubuzz.trubuzz:id/title
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeTable/XCUIElementTypeStaticText
 #头像
 avatar:
     android:
         id: com.trubuzz.trubuzz:id/icon
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeTable/XCUIElementTypeImage
 
 #---------------------------------------------货币兑换页面----------------------------------------------
 #换汇历史
@@ -225,86 +232,80 @@ exchange_history:
     android:
         id: com.trubuzz.trubuzz:id/exchange_history
     ios:
-        id:
-#进入输入框
+        xpath: //XCUIElementTypeButton[@name="兑换历史"]
+#金额输入框
 amount_input:
     android:
         id: com.trubuzz.trubuzz:id/et_amount
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField/XCUIElementTypeTextField
 #转换换汇方向
 swap_currency:
     android:
         id: com.trubuzz.trubuzz:id/swap_currency
     ios:
-        id:
+        id: Button
 #兑换按钮
 exchange_button:
     android:
         id: com.trubuzz.trubuzz:id/submit
     ios:
-        id:
+        xpath: //XCUIElementTypeButton[@name="兑换"]
 #原始货币
 original_currency:
     android:
         id: com.trubuzz.trubuzz:id/tv_original_currency_title
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]
 #目标货币
 target_currency:
     android:
         id: com.trubuzz.trubuzz:id/tv_obj_currency_title
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeStaticText[1]
 #预估目标货币
 forecast_target_currency:
     android:
         id: com.trubuzz.trubuzz:id/tv_obj_currency_price_title
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeStaticText[4]
 #汇率
 exchange_rate_now:
     android:
         id: com.trubuzz.trubuzz:id/tv_exchange_rate_now
     ios:
-        id:
-#预估目标货币
-forecast_target_currency:
-    android:
-        id: com.trubuzz.trubuzz:id/tv_obj_currency_price_title
-    ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeStaticText[2]
 #当前账户余额
 balance_of_account:
     android:
         id: com.trubuzz.trubuzz:id/tv_rest_currency_value
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeStaticText[5]
 
 #换汇提醒
 exchange_remind:
     android:
         id: android:id/parentPanel
     ios:
-        id:
+        xpath: //XCUIElementTypeAlert[@name="换汇提醒"]
 #确定按钮
 confirm_button:
     android:
         id: android:id/button1
     ios:
-        id:
+        xpath: //XCUIElementTypeButton[@name="确定"]
 #取消按钮
 cancel_button:
     android:
         id: android:id/button2
     ios:
-        id:
+        xpath: //XCUIElementTypeButton[@name="取消"]
 #绑定交易账户提醒标题
 bind_trading_account_remind_title:
     android:
         id: com.trubuzz.trubuzz:id/alertTitle
     ios:
-        id:
+        xpath: //XCUIElementTypeStaticText[@name="请先绑定一个交易账号"]
 #账户余额不足toast
 balance_is_insufficient_toast:
     android:
@@ -324,102 +325,115 @@ first_item_date:
     android:
         xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[1]
     ios:
-        id:
-#第一条记录的换汇方向
-first_item_direction:
+        xpath: (//XCUIElementTypeStaticText[@name="timeLable"])[1]
+#(android olny)第一条记录的换汇方向
+android_first_item_direction:
     android:
-        xpath:  /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[2]
+        xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[2]
     ios:
         id:
+#(ios olny)第一条记录的换汇方向 from
+ios_first_item_direction_from:
+  android:
+    xpath: 
+  ios:
+    xpath: (//XCUIElementTypeStaticText[@name="directionLeftLabel"])[1]
+#(ios olny)第一条记录的换汇方向 to
+ios_first_item_direction_to:
+  android:
+    xpath: 
+  ios:
+    xpath: (//XCUIElementTypeStaticText[@name="directionRightLabel"])[1]
+        
 #第一条记录的金额
 first_item_amount:
     android:
-        xpath:  /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[3]
+        xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[3]
     ios:
-        id:
+        xpath: (//XCUIElementTypeStaticText[@name="amountLabel"])[1]
 #第一条记录的手续费
 first_item_charge:
     android:
-        xpath:  /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[4]
+        xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.View/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.View/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.TextView[4]
     ios:
-        id:
+        xpath: (//XCUIElementTypeStaticText[@name="handlingChargeLabel"])[1]
 #------------------------------------交易页面--------------------------------------
 #左侧面板
 left_drawer:
     android:
         id: com.trubuzz.trubuzz:id/action_drawer
     ios:
-        id:
+        id: MenuButton
 #总净值
 total_net_worth:
     android:
         xpath:  /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.widget.LinearLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]
     ios:
-        id:
+        xpath: //XCUIElementTypeOther[@name="净值产"]/XCUIElementTypeButton
 #总资产数额
 total_net_worth_value:
     android:
         xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.widget.LinearLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.TextView[2]
     ios:
-        id:
+        xpath: //XCUIElementTypeStaticText[@name="net"]
 
 #交易托盘菜单
 trade_radio:
     android:
         id: com.trubuzz.trubuzz:id/action_menu_item_1
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[1]
 
 #行情托盘菜单
 quotations_radio:
     android:
         id: com.trubuzz.trubuzz:id/action_menu_item_2
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[2]
 
 #财富管理菜单
 wealth_radio:
     android:
         id: com.trubuzz.trubuzz:id/action_menu_item_3
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[3]
 #新闻托盘菜单
 news_radio:
     android:
         id: com.trubuzz.trubuzz:id/action_menu_item_4
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[4]
 #圈子托盘菜单
 circle_radio:
     android:
         id: com.trubuzz.trubuzz:id/action_menu_item_5
     ios:
-        id:
+        xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTabBar/XCUIElementTypeButton[5]
 #在线客服
 interconnect:
     android:
         id: com.trubuzz.trubuzz:id/custom_manager
     ios:
-        id:
+        xpath: //XCUIElementTypeButton[@name="chatButton"]
 #我要开户按钮
 i_want_to_open_an_account_button:
     android:
-        xpath:  //android.view.View[@content-desc="我要开户"]
+        xpath: //android.view.View[@content-desc="我要开户"]
     ios:
-        id:
+        xpath: //XCUIElementTypeStaticText[@name="我要开户"]
 #1/6 资料填写
 entries_1:
     android:
-        xpath:  //android.view.View[@content-desc="1/6 资料填写"]
+        xpath: //android.view.View[@content-desc="1/6 资料填写"]
     ios:
-        id:
+        xpath: //XCUIElementTypeStaticText[@name="1/6 资料填写"]
 #-----------------------------------自主交易---------------------------
 #总净值数据
 total_net_assets_value:
   android:
     xpath: //android.widget.TextSwitcher[@resource-id="com.trubuzz.trubuzz:id/nav"]/android.widget.TextView
   ios:
-    id:
+    xpath: //XCUIElementTypeOther[@name="总净值 (USD)"]/XCUIElementTypeStaticText[2]
 #券商名
 brokerage_name:
   android:
@@ -465,3 +479,261 @@ confirm_button:
       id: com.trubuzz.trubuzz:id/submit
   ios:
       id:
+
+#------------------------------------行情板块--------------------------------
+#自选 tab
+watch_list_tab:
+  android:
+      xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[1]
+  ios:
+      id: defineLabel
+#美股 tab
+us_tab:
+  android:
+    xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[2]
+  ios:
+    id: USLabel 
+#中国概念股 - 全部
+china_concept_stock_all:
+  android:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[4]/android.widget.TextView[2]
+  ios:
+    xpath: (//XCUIElementTypeButton[@name="showAllButton"])[1]
+
+#默认名单
+default_list:
+  android:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager[2]/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.widget.Spinner/android.widget.LinearLayout/android.widget.TextView
+  ios:
+    id: stockListLabeL
+#搜索图标
+search_ioc:
+  android:
+    id: com.trubuzz.trubuzz:id/search
+  ios:
+    id: searchButton
+#搜索输入框
+search_input:
+  android:
+    id: com.trubuzz.trubuzz:id/search_src_text
+  ios:
+    xpath:(//XCUIElementTypeSearchField[@name="搜索"])[2]
+#第一条搜索结果 symbol
+first_search_item_symbol:
+  android:
+    xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.TextView[2]
+  ios:
+    xpath: (//XCUIElementTypeStaticText[@name="stockSymbolLable"])[1]
+#第一条搜索结果 name
+first_search_item_name:
+  android:
+    xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.TextView[1]
+  ios:
+    xpath: (//XCUIElementTypeStaticText[@name="stockSymbolLable"])[1]
+#第一条搜索结果 股别
+first_search_item_class:
+  android:
+    xpath: 	/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.FrameLayout/android.widget.TextView
+  ios:
+    xpath: (//XCUIElementTypeCell[@name="StockSearchResultTableViewCell"])[1]/XCUIElementTypeStaticText[1]
+#第一条搜索结果
+first_search_item:
+  android: 	
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]
+  ios:
+    xpath: (//XCUIElementTypeCell[@name="StockSearchResultTableViewCell"])[1]
+# AAPL 搜索结果
+search_item_AAPL:
+  android:
+    xpath: .//*[contains(@text,'AAPL')]
+  ios:
+    xpath: //*[contains(@value,'AAPL')]
+# 阿里巴巴 搜索结果
+search_item_alibaba:
+  android:
+    xpath: .//*[contains(@text,'BABA')]/preceding-sibling::*[contains(@text,'阿里巴巴')]
+  ios:
+    xpath: //*[contains(@value,'BABA')]/preceding-sibling::*[contains(@value,'阿里巴巴')]
+
+#--------------------------------------------------股票详情-------------------------------------
+#title (当前股票的symbol)
+quote_details_symbol:
+  android:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.TextView
+  ios:
+    xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeStaticText
+#股票名称
+quote_details_name:
+  android:
+    id: com.trubuzz.trubuzz:id/name
+  ios:
+    id: symbolLabel
+#买
+buy_button:
+  android:
+    id: com.trubuzz.trubuzz:id/button1
+  ios:
+    id: buyButton
+#卖
+sell_button:
+  android:
+    id: com.trubuzz.trubuzz:id/button2
+  ios:
+    id: sellButton
+#价格预警
+alerts_button:
+  android:
+    id: com.trubuzz.trubuzz:id/button4
+  ios:
+    id: priceAlertButton
+#--------------------------------------下单页面-----------------------------------
+#委托标题
+delegate_title:
+  android:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.TextView
+  ios:
+    xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeStaticText
+#股票名称
+name:
+  android:
+    id: com.trubuzz.trubuzz:id/name
+  ios:
+    id: symbolLabel
+#最新价格
+price_now:
+  android:
+    id: com.trubuzz.trubuzz:id/price
+  ios:
+    id: priceLabel
+#限价输入框
+limit_price_input:
+  android:
+    id: com.trubuzz.trubuzz:id/limit_price
+  ios:
+    id: priceTextField
+#卖5价格
+sell_price_5:
+  android:
+    id: com.trubuzz.trubuzz:id/sell_price_5
+  ios:
+    id: Ask5
+#卖5量
+sell_amount_5:
+  android:
+    id: com.trubuzz.trubuzz:id/sell_amount_5
+  ios:
+    id: AskSize5
+#卖4价格
+sell_price_4:
+  android:
+    id: com.trubuzz.trubuzz:id/sell_price_4
+  ios:
+    id: Ask4
+#卖4量
+sell_amount_4:
+  android:
+    id: com.trubuzz.trubuzz:id/sell_amount_4
+  ios:
+    id: AskSize4
+#卖3价格
+sell_price_3:
+  android:
+    id: com.trubuzz.trubuzz:id/sell_price_3
+  ios:
+    id: Ask3
+#卖3量
+sell_amount_3:
+  android:
+    id: com.trubuzz.trubuzz:id/sell_amount_3
+  ios:
+    id: AskSize3
+#卖2价格
+sell_price_2:
+  android:
+    id: com.trubuzz.trubuzz:id/sell_price_2
+  ios:
+    id: Ask2
+#卖2量
+sell_amount_2:
+  android:
+    id: com.trubuzz.trubuzz:id/sell_amount_2
+  ios:
+    id: AskSize2
+#卖1价格
+sell_price_1:
+  android:
+    id: com.trubuzz.trubuzz:id/sell_price_1
+  ios:
+    id: Ask1
+#卖1量
+sell_amount_1:
+  android:
+    id: com.trubuzz.trubuzz:id/sell_amount_1
+  ios:
+    id: AskSize1
+#开盘价
+open_price:
+  android:
+    id: com.trubuzz.trubuzz:id/open_price
+  ios:
+    xpath: //XCUIElementTypeApplication[@name="聚财道"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther[5]/XCUIElementTypeOther[3]/XCUIElementTypeOther[6]/XCUIElementTypeStaticText[2]
+#买5价格
+buy_price_5:
+  android:
+    id: com.trubuzz.trubuzz:id/buy_price_5
+  ios:
+    id: Bid5
+#买5量
+buy_amount_5:
+  android:
+    id: com.trubuzz.trubuzz:id/buy_amount_5
+  ios:
+    id: BidSize5
+#买4价格
+buy_price_4:
+  android:
+    id: com.trubuzz.trubuzz:id/buy_price_4
+  ios:
+    id: Bid4
+#买4量
+buy_amount_4:
+  android:
+    id: com.trubuzz.trubuzz:id/buy_amount_4
+  ios:
+    id: BidSize4
+#买3价格
+buy_price_3:
+  android:
+    id: com.trubuzz.trubuzz:id/buy_price_3
+  ios:
+    id: Bid3
+#买3量
+buy_amount_3:
+  android:
+    id: com.trubuzz.trubuzz:id/buy_amount_3
+  ios:
+    id: BidSize3
+#买2价格
+buy_price_2:
+  android:
+    id: com.trubuzz.trubuzz:id/buy_price_2
+  ios:
+    id: Bid2
+#买2量
+buy_amount_2:
+  android:
+    id: com.trubuzz.trubuzz:id/buy_amount_2
+  ios:
+    id: BidSize2
+#买1价格
+buy_price_1:
+  android:
+    id: com.trubuzz.trubuzz:id/buy_price_1
+  ios:
+    id: Bid1
+#买1量
+buy_amount_1:
+  android:
+    id: com.trubuzz.trubuzz:id/buy_amount_1
+  ios:
+    id: BidSize1
