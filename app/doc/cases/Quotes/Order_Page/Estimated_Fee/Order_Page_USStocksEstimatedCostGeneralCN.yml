@@ -1,0 +1,43 @@
+#13562 ( CN )美股通常预估费用验证
+
+#点击行情radio
+- click:
+  quotations_radio
+#点击搜索图标
+- click:
+  search_ioc
+#输入精确的symbol
+- send_key:
+  search_input : SOHU
+#点击 搜索到的合约
+- click:
+  first_search_item
+
+
+#输入委托价格为 "699000"
+- send_key:
+  limit_price_input: 699000
+#选择股数成交方式
+- click:
+  deal_way_switch_button
+- click:
+  volume_radio
+#输入数量为 501
+- send_key:
+  amount_input: 501
+#查看预估手续费 展示为 : 5.01 usd
+- get_element_value_and_check:
+  - shares_fee
+  - string: 预估手续费:5.01USD
+#切换成交方式为金额成交
+- click:
+  deal_way_switch_button
+- click:
+  amount_radio
+#输入金额为 489 500 000
+- send_key:
+  amount_input: 350200000
+#查看预估手续费 展示为: 5.01 usd
+- get_element_value_and_check:
+  - shares_fee
+  - string: 预估手续费:5.01USD
