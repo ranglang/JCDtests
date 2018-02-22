@@ -10,7 +10,7 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion '24.0.3'
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.trubuzz.trubuzz"
         minSdkVersion 19
@@ -21,6 +21,12 @@ android {
         testInstrumentationRunner "com.trubuzz.trubuzz.feature.AdRunner"
 //        multiDexEnabled true
     }
+//    flavorDimensions  "color"
+//    productFlavors{
+//        blue {
+//            dimension "color"
+//        }
+//    }
     buildTypes {
         release {
             minifyEnabled false
@@ -84,17 +90,24 @@ dependencies {
 
     androidTestCompile files('libs/JUnitParams-1.1.1.01.jar')
 }
+//
+assemble {
+    doLast {
+        copy{
+            from 'libs/jcd-dev-388.apk'
+            into 'build/outputs/apk/debug/'
+            rename {
+                'app-debug.apk'
+            }
+        }
+    }
+}
 
-task assembleDebug ( overwrite: true) {}
-
+//
 task copyTask(type: Copy) {
-    from 'libs/jucaidao_debug.apk'
-//    from 'libs/app-cn-348.apk'
-//    from 'libs/jcd-dev-debug-389.apk'
-    into 'build/outputs/apk/'
+    from 'libs/jcd-dev-388.apk'
+    into 'build/outputs/apk/debug/'
     rename {
         'app-debug.apk'
     }
 }
-
-assembleDebug.dependsOn copyTask

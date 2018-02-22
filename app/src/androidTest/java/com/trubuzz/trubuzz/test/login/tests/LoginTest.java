@@ -35,7 +35,7 @@ public class LoginTest extends BaseTest{
     @YamlFileName
     private final static String ymlFileName = "login.yml";
     @Rule
-    public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
+    public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.SplashActivity));
 
 
     @Before
@@ -48,7 +48,7 @@ public class LoginTest extends BaseTest{
      * @param username
      * @param password
      */
-    @Test
+//    @Test
     @YmlParameter
     public void has_broker_login(@Var("username") String username , @Var("password") Password password){
         la.type_username(username);
@@ -63,7 +63,7 @@ public class LoginTest extends BaseTest{
      * @param username
      * @param password
      */
-    @Test
+//    @Test
     @YmlParameter
     public void has_not_broker_login(@Var("username") String username , @Var("password") Password password){
         la.type_username(username);
