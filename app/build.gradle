@@ -9,12 +9,12 @@ android {
             storePassword 'trubuzz'
         }
     }
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.trubuzz.trubuzz"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 //        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -50,30 +50,30 @@ android {
 
 dependencies {
     //    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:appcompat-v7:27.1.0'
+    compile 'com.android.support:recyclerview-v7:27.1.0'
+    compile 'com.android.support:multidex:1.0.3'
     testCompile 'junit:junit:4.12'
     testCompile 'io.selendroid:selendroid:0.17.0'
     testCompile 'io.selendroid:selendroid-client:0.17.0'
     testCompile files('libs/JUnitParams-1.1.1.01.jar')
-    testCompile 'com.alibaba:fastjson:1.2.20'
+    testCompile 'com.alibaba:fastjson:1.2.31'
 
     testCompile 'org.jsoup:jsoup:1.10.3'
 //    testCompile 'com.squareup.okhttp3:okhttp:3.8.0'
-    testCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
-    testCompile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.4'
+    testCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+    testCompile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.6'
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime
-    testCompile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5'
+    testCompile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.3'
     testCompile 'com.esotericsoftware.yamlbeans:yamlbeans:1.12'
 
     //    testCompile files('libs/classes-dex2jar.jar')
-    androidTestCompile 'com.android.support:support-annotations:25.3.1'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
-    androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.2'
+    androidTestCompile 'com.android.support:support-annotations:27.1.0'
+    androidTestCompile 'com.android.support.test:runner:1.0.1'
+    androidTestCompile 'com.android.support.test:rules:1.0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:3.0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-web:3.0.1'
     androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2') {
         // Necessary to avoid version conflicts
         // 经过实践,不如此将无法启动Junit4进行测试 ( 一直找不到测试方法 )
@@ -81,33 +81,25 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude module: 'recyclerview-v7'
     }
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
-    androidTestCompile 'com.alibaba:fastjson:1.2.20'
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
+    androidTestCompile 'com.alibaba:fastjson:1.2.31'
     androidTestCompile 'org.jsoup:jsoup:1.10.3'
     androidTestCompile 'com.esotericsoftware.yamlbeans:yamlbeans:1.12'
+    androidTestCompile 'com.github.andrzejchm.RESTMock:android:0.3.1'
 
 
 
     androidTestCompile files('libs/JUnitParams-1.1.1.01.jar')
 }
-//
-assemble {
-    doLast {
-        copy{
-            from 'libs/jcd-dev-388.apk'
-            into 'build/outputs/apk/debug/'
-            rename {
-                'app-debug.apk'
-            }
-        }
-    }
-}
 
-//
 task copyTask(type: Copy) {
     from 'libs/jcd-dev-388.apk'
     into 'build/outputs/apk/debug/'
     rename {
         'app-debug.apk'
     }
+}
+
+gradle.buildFinished {
+    copyTask.execute()
 }

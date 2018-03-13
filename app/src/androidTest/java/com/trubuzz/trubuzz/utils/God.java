@@ -28,7 +28,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static android.support.test.espresso.core.deps.guava.base.Preconditions.checkNotNull;
+import static android.support.test.internal.util.Checks.checkNotNull;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static com.trubuzz.trubuzz.constant.Env.instrumentation;
 

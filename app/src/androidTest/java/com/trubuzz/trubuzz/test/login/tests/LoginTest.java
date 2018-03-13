@@ -48,7 +48,7 @@ public class LoginTest extends BaseTest{
      * @param username
      * @param password
      */
-//    @Test
+    @Test
     @YmlParameter
     public void has_broker_login(@Var("username") String username , @Var("password") Password password){
         la.type_username(username);

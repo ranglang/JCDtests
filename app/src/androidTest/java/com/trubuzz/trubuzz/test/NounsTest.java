@@ -17,6 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import io.appflate.restmock.RESTMockServer;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 
@@ -44,6 +45,7 @@ import static com.trubuzz.trubuzz.elements.AAsset.total_portfolio_view;
 import static com.trubuzz.trubuzz.feature.custom.assertors.CustomWebAssert.customWebMatches;
 import static com.trubuzz.trubuzz.shell.Park.given;
 import static com.trubuzz.trubuzz.shell.Park.webGiven;
+import static io.appflate.restmock.utils.RequestMatchers.pathContains;
 import static org.hamcrest.CoreMatchers.containsString;
 
 /**
@@ -56,36 +58,40 @@ public class NounsTest extends BaseTest {
     private AAsset.Details details = new AAsset.Details();
     private Element explanation_noun_path = AAsset.ENouns.explanation_noun;
     @Rule
-    public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.MAIN));
+    public ActivityTestRule<?> matr = new ActivityTestRule(God.getFixedClass(AName.SplashActivity) ,true,false);
 
     private Object[] nounsData(){
         return new Object[]{
-            new Object[]{details.buying_power_d_view, buying_power_n ,true },		                //购买力
-            new Object[]{details.net_liquidation_view, net_liquidation_n ,true },		            //净清算值
-            new Object[]{details.accrued_cash_view, accrued_cash_n ,true },		                //净累计利息
-            new Object[]{details.equity_with_loan_value_view, equity_with_loan_value_n ,true },	//有贷款价值的资产
-            new Object[]{details.gross_position_value_view, gross_position_value_n , true},		//股票+期权
-            new Object[]{details.init_margin_req_view, init_margin_req_n , true},		            //初始准备金
-            new Object[]{details.maint_margin_req_view, maint_margin_req_n , true},		        //维持准备金
-            new Object[]{details.available_funds_d_view, available_funds_n , true },		        //可用资金
-            new Object[]{details.excess_liquidity_view, excess_liquidity_n , true},		        //剩余流动性
-            new Object[]{total_amount_view, total_amount_n , false },		                        //持仓总额
-            new Object[]{available_funds_view, available_funds_n , false },		                //可用资金
-            new Object[]{total_portfolio_view, total_pnl_n , false },		                        //总收益
-            new Object[]{today_portfolio_view, today_portfolio_n , false },		                //当日收益
-            new Object[]{buying_power_view, buying_power_n , false },		                        //购买力
+            new Object[]{details.buying_power_d_view, buying_power_n ,false },		                //购买力
+//            new Object[]{details.net_liquidation_view, net_liquidation_n ,true },		            //净清算值
+//            new Object[]{details.accrued_cash_view, accrued_cash_n ,true },		                //净累计利息
+//            new Object[]{details.equity_with_loan_value_view, equity_with_loan_value_n ,true },	//有贷款价值的资产
+//            new Object[]{details.gross_position_value_view, gross_position_value_n , true},		//股票+期权
+//            new Object[]{details.init_margin_req_view, init_margin_req_n , true},		            //初始准备金
+//            new Object[]{details.maint_margin_req_view, maint_margin_req_n , true},		        //维持准备金
+//            new Object[]{details.available_funds_d_view, available_funds_n , true },		        //可用资金
+//            new Object[]{details.excess_liquidity_view, excess_liquidity_n , true},		        //剩余流动性
+//            new Object[]{total_amount_view, total_amount_n , false },		                        //持仓总额
+//            new Object[]{available_funds_view, available_funds_n , false },		                //可用资金
+//            new Object[]{total_portfolio_view, total_pnl_n , false },		                        //总收益
+//            new Object[]{today_portfolio_view, today_portfolio_n , false },		                //当日收益
+//            new Object[]{buying_power_view, buying_power_n , false },		                        //购买力
         };
     }
 
     @Before
     public void checkLogin(){
-        Wish.wantBrokerLogin();
+//        Wish.wantBrokerLogin();
+        RESTMockServer.reset();
     }
     @Test
     @Parameters( method = "nounsData")
     public void nouns(@Var("noun") Element noun , @Var("expect") Nouns expect ,
                       @Var("isInDetails") boolean isInDetails ){
-        Wish.wantBrokerLogin();
+        RESTMockServer.whenGET(pathContains("mobile/words/buying_power"))
+                .thenReturnString("hello world .");
+        matr.launchActivity(null);
+//        Wish.wantBrokerLogin();
         DoIt.regIdlingResource(new ActivityIdlingResource(MAIN ,matr.getActivity() , true));
         if(isInDetails){                                    //如果在詳情裏, 則先点击"净资产"进入详情
             given(AAsset.net_worth_view).perform(click());

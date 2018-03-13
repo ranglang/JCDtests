@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.FutureTask;
 
-import static android.support.test.espresso.web.deps.guava.base.Preconditions.checkNotNull;
+import static android.support.test.internal.util.Checks.checkNotNull;
 
 /**
  * Created by king on 16/11/24.

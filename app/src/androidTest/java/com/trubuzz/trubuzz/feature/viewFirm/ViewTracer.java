@@ -3,8 +3,8 @@ package com.trubuzz.trubuzz.feature.viewFirm;
 import android.os.Looper;
 import android.support.test.espresso.AmbiguousViewMatcherException;
 import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.core.deps.guava.base.Predicate;
-import android.support.test.espresso.core.deps.guava.collect.Iterables;
+import android.support.test.espresso.core.internal.deps.guava.base.Predicate;
+import android.support.test.espresso.core.internal.deps.guava.collect.Iterables;
 import android.view.View;
 
 import org.hamcrest.Matcher;
@@ -15,9 +15,9 @@ import java.util.List;
 
 import javax.inject.Provider;
 
+import static android.support.test.espresso.core.internal.deps.guava.base.Preconditions.checkState;
 import static android.support.test.espresso.util.TreeIterables.breadthFirstViewTraversal;
-import static android.support.test.espresso.web.deps.guava.base.Preconditions.checkNotNull;
-import static android.support.test.espresso.web.deps.guava.base.Preconditions.checkState;
+import static android.support.test.internal.util.Checks.checkNotNull;
 
 /**
  * Created by king on 16/11/23.

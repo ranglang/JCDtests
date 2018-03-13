@@ -10,11 +10,13 @@ import com.trubuzz.trubuzz.utils.God;
 
 import java.util.Date;
 
+import io.appflate.restmock.android.RESTMockTestRunner;
+
 /**
  * Created by king on 2016/9/26.
  */
 
-public class AdRunner extends AndroidJUnitRunner {
+public class AdRunner extends RESTMockTestRunner {
     private final String TAG = "jcd_AdRunner";
     private Report report ;
     private long startTime;

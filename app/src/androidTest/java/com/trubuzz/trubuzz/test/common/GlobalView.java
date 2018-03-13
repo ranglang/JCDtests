@@ -22,8 +22,7 @@ public class GlobalView {
     // 托盘条
     public static final ActivityElement radio_tray = new ActivityElement().setId("action_menu");
 
-    public static final Element assets_radio = new ActivityElement().setId("action_menu_item_1")
-            .setText(getString("交易" ,assets));
+    public static final Element assets_radio = new ActivityElement().setId("action_menu_item_1");
     public static final Element quotes_radio = new ActivityElement().setId("action_menu_item_2")
             .setText(getString("行情" ,price));
     public static final Element wealth_radio = new ActivityElement().setId("action_menu_item_3")
