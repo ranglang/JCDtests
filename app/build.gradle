@@ -1,4 +1,20 @@
+//buildscript {
+//    repositories {
+//        jcenter()
+//        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+//    }
+//
+//    dependencies {
+//        classpath "com.jaredsburrows:gradle-spoon-plugin:1.4.0"
+////        classpath 'org.jacoco:org.jacoco.core:0.7.5.201505241946'
+//    }
+//}
+//repositories {
+//    maven { url "https://oss.sonatype.org/content/repositories/snapshots" } // For Spoon snapshot, until 2.0.0 is released
+//}
 apply plugin: 'com.android.application'
+apply plugin: "com.jaredsburrows.spoon"
+//apply plugin: 'jacoco'
 
 android {
     signingConfigs {
@@ -21,12 +37,6 @@ android {
         testInstrumentationRunner "com.trubuzz.trubuzz.feature.AdRunner"
 //        multiDexEnabled true
     }
-//    flavorDimensions  "color"
-//    productFlavors{
-//        blue {
-//            dimension "color"
-//        }
-//    }
     buildTypes {
         release {
             minifyEnabled false
@@ -37,10 +47,14 @@ android {
         }
     }
     packagingOptions {
+        exclude 'LICENSE.txt'
         exclude 'META-INF/license.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
         exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+    }
+    lintOptions {
+        abortOnError false
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -88,9 +102,11 @@ dependencies {
     androidTestCompile 'com.github.andrzejchm.RESTMock:android:0.3.1'
 
 
-
+    androidTestCompile "com.squareup.spoon:spoon-client:2.0.0-SNAPSHOT"
     androidTestCompile files('libs/JUnitParams-1.1.1.01.jar')
 }
+
+
 
 task copyTask(type: Copy) {
     from 'libs/jcd-dev-388.apk'
@@ -99,7 +115,30 @@ task copyTask(type: Copy) {
         'app-debug.apk'
     }
 }
+//android.applicationVariants.all { variant ->
+//    variant.outputs.all {
+//        def date = new Date()
+//        def formattedDate = date.format('yyyyMMdd')
+//        outputFileName = "Trubuzz_${variant.name}_${variant.versionName}_${formattedDate}.apk"
+//    }
+//}
 
 gradle.buildFinished {
     copyTask.execute()
+}
+defaultTasks 'spoonDebugAndroidTest'
+task spoonDebugAndroidTest{
+    doLast{
+        from 'libs/jcd-dev-388.apk'
+        into 'build/outputs/apk/debug/'
+        rename {
+            'app-debug.apk'
+        }
+    }
+}
+spoon {
+    debug = true
+    adbTimeout = 30
+    className = "com.trubuzz.trubuzz.test.NounsTest"
+    devices = ["emulator-5554"]
 }
